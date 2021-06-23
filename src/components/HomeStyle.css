@@ -1,0 +1,11 @@
+.half-box {
+	width: 50%;
+	display: flex;  
+}
+
+.preview-box {
+	background: #E8E4E4;
+	width: 50em;
+	height: 22em;
+	border-radius: 1em;
+}

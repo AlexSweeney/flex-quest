@@ -1,0 +1,40 @@
+.header { 
+	display: flex;
+	background: #272727;
+	justify-content: flex-start;
+	align-items: baseline;
+	padding: 1em;
+}
+
+.header h1 {
+	font-family: Bungee, Verdana, sans-serif;
+	color: #E8E4E4;
+	font-size: 2em;
+}
+
+.header h1:hover {
+	cursor: default;
+}
+
+.header-options {
+	display: flex;
+  justify-content: space-between;
+  width: 13em;
+  margin-left: 6em;
+}
+
+.header-options li {
+	font-family: BaiJamjuree-Medium, Verdana, sans-serif;
+	color: #E8E4E4;
+	font-size: 1.2em;
+	transition:.5s;
+}
+
+.header-options li:hover {
+	color: #2196f3;
+	cursor: pointer;
+}
+
+.header-options a:active {
+	color: #3f51b5;
+}
