@@ -23,6 +23,10 @@
   margin-left: 6em;
 }
 
+.header-options a {
+	text-decoration: none;
+}
+
 .header-options li {
 	font-family: BaiJamjuree-Medium, Verdana, sans-serif;
 	color: #E8E4E4;

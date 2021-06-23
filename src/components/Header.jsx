@@ -1,3 +1,5 @@
+import React from 'react';
+import {Link} from 'react-router-dom';
 import './Header.css';
 
 export default function Header() {
@@ -6,8 +8,12 @@ export default function Header() {
 		  <h1>Flex Quest</h1>
 		  <nav>
 		  	<ul class="header-options">
-		  		<li>Learn</li>
-		  		<li>Play</li>
+		  		<Link to="/learn">
+		  			<li>Learn</li>
+		  		</Link>
+		  		<Link to="/play">
+		  			<li>Play</li>
+		  		</Link>
 		  	</ul>
 		  </nav>
 		</header>

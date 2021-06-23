@@ -10,16 +10,16 @@ import './App.css';
 
 function App() {
   return (
-    <div class="background">
-    	<Header/>
+    <div className="background">
+    	<Router>
+    		<Header/>
 
-    	<section class="main-body">
-    		<Router>
-    		<Switch>
-    			<Route path="/" expact component={Home}/>
-    		</Switch>
-    		</Router>
-    	</section>
+	    	<section className="main-body">	    		
+	    		<Switch>
+	    			<Route path="/" expact component={Home}/>
+	    		</Switch>
+	    	</section>
+	    </Router>
     </div>
   );
 }
