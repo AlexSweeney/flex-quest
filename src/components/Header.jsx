@@ -5,7 +5,9 @@ import './Header.css';
 export default function Header() {
 	return (
 		<header class="header">
-		  <h1>Flex Quest</h1>
+			<Link to="/">
+		  	<h1>Flex Quest</h1>
+		  </Link>
 		  <nav>
 		  	<ul class="header-options">
 		  		<Link to="/learn">

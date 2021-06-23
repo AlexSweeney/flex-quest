@@ -13,9 +13,10 @@ function App() {
     <div className="app-container">
     	<Router>
     		<Header/>
-    		   		
+
     		<Switch>
-    			<Route path="/" expact component={Home}/>
+    			<Route path="/" exact component={Home}/>
+    			<Route path="/learn" component={Learn}/>
     		</Switch>
 	    </Router>
     </div>

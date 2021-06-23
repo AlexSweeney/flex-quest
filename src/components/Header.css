@@ -10,10 +10,17 @@
 	font-family: Bungee, Verdana, sans-serif;
 	color: #E8E4E4;
 	font-size: 2em;
+	text-decoration: none;
+	transition:.5s;
 }
 
 .header h1:hover {
-	cursor: default;
+	color: #2196f3;
+	cursor: pointer;
+}
+
+.header h1:active {
+	color: #3f51b5;
 }
 
 .header-options {
@@ -23,22 +30,22 @@
   margin-left: 6em;
 }
 
-.header-options a {
+.header a {
 	text-decoration: none;
 }
 
-.header-options li {
+.header li {
 	font-family: BaiJamjuree-Medium, Verdana, sans-serif;
 	color: #E8E4E4;
 	font-size: 1.2em;
 	transition:.5s;
 }
 
-.header-options li:hover {
+.header li:hover {
 	color: #2196f3;
 	cursor: pointer;
 }
 
-.header-options a:active {
+.header li:active {
 	color: #3f51b5;
 }
