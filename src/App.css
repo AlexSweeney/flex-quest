@@ -1,4 +1,6 @@
-.background {  
-	background: #272727;
+.app-container {   
+	display: flex;
+	flex-direction: column;
 	height: 100vh;
 }
+

@@ -1,24 +1,22 @@
 import React from 'react';
 import Header from './components/Header.jsx';
 import Home from './components/Home.jsx';
+import Learn from './components/Learn.jsx';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import './styles/reset.css';
-import './styles/fonts.css';
-import './styles/main-body.css';
+import './styles/fonts.css'; 
 
 import './App.css';
 
 function App() {
   return (
-    <div className="background">
+    <div className="app-container">
     	<Router>
     		<Header/>
-
-	    	<section className="main-body">	    		
-	    		<Switch>
-	    			<Route path="/" expact component={Home}/>
-	    		</Switch>
-	    	</section>
+    		   		
+    		<Switch>
+    			<Route path="/" expact component={Home}/>
+    		</Switch>
 	    </Router>
     </div>
   );

@@ -1,3 +1,33 @@
+.home-container {
+	background: #272727;
+	display: flex;
+	justify-content: space-between;
+	padding: 6em;
+	flex-grow: 1;
+}
+
+.home-container h2:hover {
+	cursor: default;
+}
+
+.home-container p:hover {
+	cursor: default;
+}
+
+.home-container h2 {
+	font-family:  BaiJamjuree-Medium, Verdana, sans-serif;
+	color: #E8E4E4;
+	font-size: 3em; 
+	padding-bottom: 0.2em;
+}
+
+.home-container p {
+	font-family: Roboto-Light, Verdana, sans-serif;
+	color: #E8E4E4;
+	font-size: 1.5em;
+	padding-top: 0.8em;
+}
+
 .half-box {
 	width: 50%;
 	display: flex;  
