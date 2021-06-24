@@ -1,4 +1,4 @@
-.toggle {
+.toggle-background {
 	height: 22px;
 	width: 22px;
 	border-radius: 100%;
@@ -13,6 +13,7 @@
 	width: 12px;
   height: 4px;
 	background: #272727;
+	transition: 1s;
 }
 
 .vert-line {
