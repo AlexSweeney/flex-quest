@@ -8,8 +8,7 @@ export default function Learn() {
 	return (
 		<section className="learn-container">
 			<Box
-				showBurger="true"
-				title="Level 1: display: flex"
+				showBurger="true" 
 			/>
 			<Box/>
 			<Box/>

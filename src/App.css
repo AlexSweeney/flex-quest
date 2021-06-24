@@ -3,20 +3,3 @@
 	flex-direction: column;
 	height: 100vh;
 }
-
-.app-body {
-
-}
-
-.app-body-enter {
-  background: pink;
-}
-.my-node-enter-active {
-  background: pink;
-}
-.my-node-exit {
-   background: pink;
-}
-.my-node-exit-active {
-   background: pink;
-}
