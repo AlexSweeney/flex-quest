@@ -1,7 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
+import Box from './parts/Box.jsx';
+import './LearnStyle.css';
+
+// make boxes expand / decrease => move to component
 
 export default function Learn() {
+	
+
 	return (
-		<h3>Learn</h3>
+		<section className="learn-container">
+			<Box/>
+			<Box/>
+			<Box/>
+			<Box/> 
+		</section>
 	)
 }
