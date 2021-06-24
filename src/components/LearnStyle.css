@@ -1,5 +1,5 @@
 .learn-container {
-	background: pink;
+	background: #C4C4C4;
 	flex-grow: 1;
 	display: flex;
 	justify-content: space-between;

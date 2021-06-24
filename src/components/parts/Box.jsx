@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
+import Burger from './Burger.jsx';
 
-export default function Box() {
+export default function Box({showBurger, title}) {
 	const openStyle = {	
 		'min-width': '250px',
 		height: '400px',
-		background: 'white',
-		border: '2px solid black',
+		background: '#E8E4E4',
 		'flex-grow': '1',
 		'margin-right': '40px',
 	};
@@ -14,12 +14,34 @@ export default function Box() {
 		background: 'white',
 		border: '2px solid black',
 		height: '400px',
+		'margin-right': '20px',
 	};	
 
 	const toggleStyle = {
-		width: '50px',
-		height: '50px',
+		width: '40px',
+		height: '40px',
 		background: 'blue',
+	};
+
+	const boxHeaderStyle = {
+		height: '44px',
+		background: '#272727',
+		display: 'flex',
+		'justify-content': 'space-between',
+		'align-items': 'center',
+	};
+
+	const titleStyle = {
+		color: '#E8E4E4',
+		'font-size': '1.2em',
+		'font-family': 'BaiJamjuree-Medium, Verdana, sans-serif',
+	};
+
+	const burgerContainerStyle = { 
+		width: '2.25em',
+    height: '70%',
+    padding: '1',
+    'margin-left': '0.5em',
 	};
 
 	const [isExpanded, setIsExpanded] = useState(false);
@@ -36,7 +58,11 @@ export default function Box() {
 
 	return (
 		<div style={boxStyle} onClick={handleToggleOpenClick}>
-			<div style={toggleStyle}></div> 
+			<div style={boxHeaderStyle}>
+				<div style={burgerContainerStyle}>{showBurger && <Burger/>}</div>
+				<div style={titleStyle}>{title}</div>
+				<div style={toggleStyle}>3</div> 
+			</div>
 		</div>
 	)
 }
