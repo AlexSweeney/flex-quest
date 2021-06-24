@@ -10,11 +10,12 @@ export default function Box({showBurger, title}) {
 		setIsExpanded(oldVal => !oldVal);
 	}
 
-	return (
-		<div className={isExpanded ? "box expanded-box" : "box closed-box"}>
+	return ( 
+	 	<div className={isExpanded ? "box expanded-box" : "box closed-box"} onClick={handleOpenCloseToggleClick}> 
 			<div className="box-header">
-				{isExpanded && showBurger && <Burger/>}
-				<div className="title">{isExpanded && title}</div>
+				{showBurger && <Burger open={isExpanded}/>}
+				
+			{/*	<div className={isExpanded ? "title" : "title opaque"}></div>*/}
 				<OpenCloseToggle isOpen={isExpanded} handleClick={handleOpenCloseToggleClick}/>
 			</div>
 		</div>
