@@ -1,0 +1,21 @@
+.toggle {
+	height: 22px;
+	width: 22px;
+	border-radius: 100%;
+	background: #E8E4E4; 
+	position: relative;
+}
+
+.line {
+	position: absolute;
+	left: 5px;
+	top: 9px;
+	width: 12px;
+  height: 4px;
+	background: #272727;
+}
+
+.vert-line {
+	transform: rotate(90deg);
+}
+

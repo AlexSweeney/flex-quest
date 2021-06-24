@@ -1,0 +1,31 @@
+.box {
+	background: #E8E4E4;
+	height: 400px;
+}
+
+.box-header {
+	height: 44px;
+	background: #272727;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 7px;
+  box-sizing: border-box;
+}
+
+.expanded-box {
+	min-width: 250px;
+	flex-grow: 1;
+	margin-right: 40px;
+}
+
+.closed-box { 
+	height: 400px;
+	margin-right: 20px;
+}
+
+.title {
+	color: #E8E4E4;
+	font-size: 1.2em;
+	font-family: BaiJamjuree-Medium, Verdana, sans-serif;
+}
