@@ -1,0 +1,13 @@
+.burger-container {
+	height: 100%;
+	width: 2em;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around; 
+}
+
+.burger-bar {
+	height: 20%;
+	width: 100%;
+	background: #E8E4E4;
+}

@@ -29,6 +29,8 @@ export default function Box({showBurger, title}) {
 		display: 'flex',
 		'justify-content': 'space-between',
 		'align-items': 'center',
+		padding: '7px',
+    'box-sizing': 'border-box',
 	};
 
 	const titleStyle = {
@@ -37,14 +39,8 @@ export default function Box({showBurger, title}) {
 		'font-family': 'BaiJamjuree-Medium, Verdana, sans-serif',
 	};
 
-	const burgerContainerStyle = { 
-		width: '2.25em',
-    height: '70%',
-    padding: '1',
-    'margin-left': '0.5em',
-	};
 
-	const [isExpanded, setIsExpanded] = useState(false);
+	const [isExpanded, setIsExpanded] = useState(true);
 	const [boxStyle, setBoxStyle] = useState(openStyle);
 
 	function handleToggleOpenClick() { 
@@ -59,8 +55,8 @@ export default function Box({showBurger, title}) {
 	return (
 		<div style={boxStyle} onClick={handleToggleOpenClick}>
 			<div style={boxHeaderStyle}>
-				<div style={burgerContainerStyle}>{showBurger && <Burger/>}</div>
-				<div style={titleStyle}>{title}</div>
+				{isExpanded && showBurger && <Burger/>}
+				<div style={titleStyle}>{isExpanded && title}</div>
 				<div style={toggleStyle}>3</div> 
 			</div>
 		</div>
