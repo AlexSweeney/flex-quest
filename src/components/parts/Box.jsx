@@ -18,9 +18,11 @@ export default function Box({showBurger}) {
 	return ( 
 	 	<div className={isExpanded ? "box expanded-box" : "box closed-box"}
 	 			onClick={handleOpenCloseToggleClick}>
-	 		<div className="box-header">
-	 			<Burger open={showBurger && isExpanded} handleClick={handleOpenCloseToggleClick}/>
-	 			
+	 		<div className="box-header"> 
+	 			<div className="burger-container">
+	 				<Burger/>
+	 			</div>
+
 	 			<h2 className="title">Level 1: display: flex;</h2>
 	 				
 	 			<div className="toggle-container">

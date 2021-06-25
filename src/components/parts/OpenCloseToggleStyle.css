@@ -13,7 +13,7 @@
 	width: 12px;
   height: 4px;
 	background: #272727;
-	transition: 1s;
+	transition: transform 1s 750ms;
 }
 
 .vert-line {

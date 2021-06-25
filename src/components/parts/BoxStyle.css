@@ -1,15 +1,9 @@
-/*
- transitions
- - use ms not s, js only accepts ms
-
-*/
-
 .box {
 	background: #E8E4E4;
 	height: 400px;
-	transition: all 1s;
-	white-space: nowrap;
-	overflow: hidden; 
+	transition-duration: 750ms;
+	transition-property: width, flex-grow, margin-right;
+	transition-timing-function: ease-in-out;
 }
  
 .expanded-box {
@@ -18,10 +12,9 @@
 	margin-right: 40px; 
 }
 
-.closed-box { 
-	height: 400px;
+.closed-box {  
 	margin-right: 20px;
-	width: 30px;
+	width: 35px;
 }
 
 .box-header {
@@ -34,13 +27,17 @@
   box-sizing: border-box;  
 }
 
+.burger-container {
+	width: 20px;
+	height: 20px; 
+}
+
 .title {
 	color: #E8E4E4;
 	font-size: 1.2em; 
 	font-family: BaiJamjuree-Medium, Verdana, sans-serif;   
 	white-space: nowrap;
-	overflow: hidden;
-	/*transition: width 1s;*/
+	overflow: hidden; 
 } 
 
 .toggle-container {
