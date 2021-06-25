@@ -1,7 +1,27 @@
+/*
+ transitions
+ - use ms not s, js only accepts ms
+
+*/
+
 .box {
 	background: #E8E4E4;
 	height: 400px;
-	transition: 1s;
+	transition: all 1s;
+	white-space: nowrap;
+	overflow: hidden; 
+}
+ 
+.expanded-box {
+	width: 290px;
+	flex-grow: 1;
+	margin-right: 40px; 
+}
+
+.closed-box { 
+	height: 400px;
+	margin-right: 20px;
+	width: 30px;
 }
 
 .box-header {
@@ -14,20 +34,19 @@
   box-sizing: border-box;  
 }
 
-.expanded-box {
-	min-width: 250px;
-	flex-grow: 1;
-	margin-right: 40px; 
-}
-
-.closed-box { 
-	height: 400px;
-	margin-right: 20px;
-	min-width: 10px;
-}
-
 .title {
 	color: #E8E4E4;
 	font-size: 1.2em; 
-	font-family: BaiJamjuree-Medium, Verdana, sans-serif;  
-}
+	font-family: BaiJamjuree-Medium, Verdana, sans-serif;   
+	white-space: nowrap;
+	overflow: hidden;
+	/*transition: width 1s;*/
+} 
+
+.toggle-container {
+	width: 30px;
+	height: 30px; 
+	display: flex;
+	justify-content: center;
+	align-items: center;
+} 

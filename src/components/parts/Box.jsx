@@ -16,17 +16,32 @@ export default function Box({showBurger}) {
 	}
 
 	return ( 
-	 	<div className={isExpanded ? "box expanded-box" : "box closed-box"} > 
-			<div className="box-header">
-				{showBurger && <Burger open={isExpanded} handleClick={handleOpenCloseToggleClick}/>}
-				{/*{isExpanded ? 
-					<h2 className="title">Level 1: display: flex;</h2> 
-				: <h2 className="title"></h2>}*/}
-				
-				<OpenCloseToggle isOpen={isExpanded} handleClick={handleOpenCloseToggleClick}/>
-			</div>
-		</div>
+	 	<div className={isExpanded ? "box expanded-box" : "box closed-box"}
+	 			onClick={handleOpenCloseToggleClick}>
+	 		<div className="box-header">
+	 			<Burger open={showBurger && isExpanded} handleClick={handleOpenCloseToggleClick}/>
+	 			
+	 			<h2 className="title">Level 1: display: flex;</h2>
+	 				
+	 			<div className="toggle-container">
+	 				<OpenCloseToggle isOpen={isExpanded}/>
+	 			</div>
+	 		</div>
+	 	</div> 
 	)
 }
 
-{/*<h2 className={isExpanded ? "title" : "title opaque"}>Level 1: display: flex;</h2> */}
+{/*
+<div className={isExpanded ? "box expanded-box" : "box closed-box"} > 
+			<div className="box-header">
+				{/*<Burger open={showBurger && isExpanded} handleClick={handleOpenCloseToggleClick}/>
+				
+		
+				<h2 className={isExpanded ? "title title-showing" : "title title-gone"}>Level 1: display: flex;</h2>
+			
+		
+				<OpenCloseToggle isOpen={isExpanded} handleClick={handleOpenCloseToggleClick}/>
+			</div>
+		</div>
+
+*/}
