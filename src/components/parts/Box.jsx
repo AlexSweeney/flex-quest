@@ -5,6 +5,7 @@ import './BoxStyle.css';
 
 export default function Box({showBurger}) {
 	const titles = [
+		'Level 1: display: flex;',
 		'Level 2: display: flex;',
 		'Level 3: display: flex;',
 		'Level 4: display: flex;',
@@ -19,8 +20,8 @@ export default function Box({showBurger}) {
 		'Level 13: display: flex;',  
 	];
 
+	const [selectedTitle, setSelectedTitle] = useState(titles[0]);
 	const [isExpanded, setIsExpanded] = useState(true); 
-	// const [thisTitle, setThisTitle] = useState(titles[0]);
 	const [burgerIsOpen, setBurgerIsOpen] = useState(false);
 
 	function handleOpenCloseToggleClick() {  
@@ -31,6 +32,10 @@ export default function Box({showBurger}) {
 		setBurgerIsOpen(oldVal => !oldVal);
 	}
 
+	function handleBurgerTitleClick(title) {
+		setSelectedTitle(title);
+	}
+
 	return ( 
 	 	<div className={(isExpanded ? "box expanded-box" : "box closed-box")}>
 	 		<div className="box-header"> 
@@ -38,7 +43,7 @@ export default function Box({showBurger}) {
 	 				<Burger isOpen={burgerIsOpen} handleClick={handleBurgerClick}/>
 	 			</div>
 
-	 			<h2 className="title">Level 1: display: flex;</h2>
+	 			<h2 className="title">{selectedTitle}</h2>
 	 				
 	 			<div className="toggle-container">
 	 				<OpenCloseToggle isOpen={isExpanded} handleClick={handleOpenCloseToggleClick}/>
@@ -46,7 +51,7 @@ export default function Box({showBurger}) {
 	 		</div>
 	 		<div className="box-body"> 
 	 			<div className={burgerIsOpen ? "burger-body full-height" : "burger-body no-height"}>
-	 				{titles.map(title => <h3 className="burger-title">{title}</h3>)}
+	 				{titles.map(title => <h3 className="burger-title" onClick={() => handleBurgerTitleClick(title)}>{title}</h3>)}
 	 			</div>
 	 		</div>
 	 	</div> 

@@ -1,5 +1,6 @@
 // animate router
 // animate open and close play
+// click min window = close burger
 // add level selector on burger click 
 // animate changes  
 // play -> if all deselected = change spacing so all move to left
@@ -19,16 +20,10 @@ function App() {
     <div className="app-container">
     	<Router>
     		<Header/>
-
-          <CSSTransition
-          
-            className="app-body"
-          >
         		<Switch>
         			<Route path="/" exact component={Home}/>
         			<Route path="/learn" component={Learn}/>
         		</Switch>
-          </CSSTransition>
 	    </Router>
     </div>
   );
