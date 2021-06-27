@@ -4,9 +4,20 @@ import OpenCloseToggle from './OpenCloseToggle.jsx';
 import './BoxStyle.css';
 
 export default function Box({showBurger}) {
-	/*const titles = [
-		"Level 1: display: flex;"
-	];*/
+	const titles = [
+		'Level 2: display: flex;',
+		'Level 3: display: flex;',
+		'Level 4: display: flex;',
+		'Level 5: display: flex;',
+		'Level 6: display: flex;',
+		'Level 7: display: flex;',
+		'Level 8: display: flex;',
+		'Level 9: display: flex;',
+		'Level 10: display: flex;',
+		'Level 11: display: flex;',
+		'Level 12: display: flex;',
+		'Level 13: display: flex;',  
+	];
 
 	const [isExpanded, setIsExpanded] = useState(true); 
 	// const [thisTitle, setThisTitle] = useState(titles[0]);
@@ -33,9 +44,10 @@ export default function Box({showBurger}) {
 	 				<OpenCloseToggle isOpen={isExpanded} handleClick={handleOpenCloseToggleClick}/>
 	 			</div>
 	 		</div>
-	 		<div className="box-body">
-	 			{/*<div className={burgerIsOpen ? "text-body-closed" : "text-body"}></div>*/}
-	 			<div className={burgerIsOpen ? "burger-body full-height" : "burger-body no-height"}></div>
+	 		<div className="box-body"> 
+	 			<div className={burgerIsOpen ? "burger-body full-height" : "burger-body no-height"}>
+	 				{titles.map(title => <h3 className="burger-title">{title}</h3>)}
+	 			</div>
 	 		</div>
 	 	</div> 
 	)
