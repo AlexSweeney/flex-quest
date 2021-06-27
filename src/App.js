@@ -5,6 +5,8 @@
 // animate changes  
 // play -> if all deselected = change spacing so all move to left
 
+// Introduction - why is flex box useful => static vs flexible
+
 // Learn
 
 // Read
@@ -12,6 +14,10 @@
 // Write
 
 // Use
+
+// Support
+
+// settings
 
 import React from 'react';
 import Header from './components/Header.jsx';

@@ -26,10 +26,6 @@
 	width: 35px;
 }
 
-.options-box {
-	background: red;
-}
-
 .box-header {
 	height: 44px;
 	background: #272727;
@@ -74,13 +70,23 @@
 	height: 400px;
 	width: 100%;
 	background: #E8E4E4; 
+	position: relative;
 }
+
+.text-body {
+	position: absolute;
+	padding: 0.5em 1em;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+} 
 
 .burger-body {
 	width: 100%; 
 	background: #272727;  
+	position: absolute;
 	overflow: hidden;
-	transition: height 500ms ease-in-out;
+	transition: height 500ms ease-in-out; 
 }
 
 .burger-title {
@@ -100,3 +106,4 @@
 	background: #4e4e4e;
 	cursor: pointer;
 }
+
