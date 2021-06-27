@@ -1,7 +1,15 @@
+.full-height {
+	height: 100%;
+}
+
+.no-height {
+	height: 0;
+}
+
 .box {
-	background: #E8E4E4;
+	/*background: #E8E4E4;*/
 	display: flex;
-	height: 400px;
+	flex-direction: column;
 	transition-duration: 750ms;
 	transition-property: width, flex-grow, margin-right;
 	transition-timing-function: ease-in-out;
@@ -54,10 +62,15 @@
 	align-items: center;
 } 
 
-.box-body {
-	flex-grow: 1;
+.box-body { 
+	height: 400px;
+	width: 100%;
+	background: #E8E4E4;
+	/*background: #E8E4E4;*/
 }
 
 .burger-body {
-	background: pink; 
+	width: 100%; 
+	background: #272727;  
+	transition: height 500ms ease-in-out;
 }

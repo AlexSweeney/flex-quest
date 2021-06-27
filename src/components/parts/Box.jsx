@@ -33,14 +33,17 @@ export default function Box({showBurger}) {
 	 				<OpenCloseToggle isOpen={isExpanded} handleClick={handleOpenCloseToggleClick}/>
 	 			</div>
 	 		</div>
-	 		<div className={burgerIsOpen ? "box-body burger-body" : "box-body"}>
-
+	 		<div className="box-body">
+	 			{/*<div className={burgerIsOpen ? "text-body-closed" : "text-body"}></div>*/}
+	 			<div className={burgerIsOpen ? "burger-body full-height" : "burger-body no-height"}></div>
 	 		</div>
 	 	</div> 
 	)
 }
 
 {/*
+	<div className={burgerIsOpen && "burger-body"}></div>
+	 		<div className="box-body"></div>
 <div className={isExpanded ? "box expanded-box" : "box closed-box"} > 
 			<div className="box-header">
 				{/*<Burger open={showBurger && isExpanded} handleClick={handleOpenCloseToggleClick}/>
