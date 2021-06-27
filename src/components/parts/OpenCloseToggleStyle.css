@@ -6,6 +6,10 @@
 	position: relative;
 }
 
+.toggle-background:hover {
+	cursor: pointer;
+}
+
 .line {
 	position: absolute;
 	left: 5px;
@@ -14,6 +18,14 @@
   height: 4px;
 	background: #272727;
 	transition: transform 1s 750ms;
+}
+
+.line-over {
+	background: #2196f3;
+}
+
+.line-down {
+	background: #3f51b5;
 }
 
 .vert-line {

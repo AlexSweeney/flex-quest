@@ -5,6 +5,14 @@
 // animate changes  
 // play -> if all deselected = change spacing so all move to left
 
+// Learn
+
+// Read
+
+// Write
+
+// Use
+
 import React from 'react';
 import Header from './components/Header.jsx';
 import Home from './components/Home.jsx';
