@@ -7,6 +7,10 @@
 	transition: transform 500ms ease-in-out;
 }
 
+.burger:hover {
+	cursor: pointer;
+}
+
 .burger-open {
 	transform: rotate(90deg);
 }
@@ -15,4 +19,13 @@
 	height: 20%;
 	width: 100%;
 	background: #E8E4E4;
+	transition: background 500ms;
+}
+
+.burger-bar-hover {
+	background: #2196f3;
+}
+
+.burger-bar-down {
+	background: #3f51b5;
 }
