@@ -5,19 +5,19 @@ import './BoxStyle.css';
 
 export default function Box({showBurger}) {
 	const titles = [
-		'Level 1: display: flex;',
-		'Level 2: display: flex;',
-		'Level 3: display: flex;',
-		'Level 4: display: flex;',
-		'Level 5: display: flex;',
-		'Level 6: display: flex;',
-		'Level 7: display: flex;',
-		'Level 8: display: flex;',
-		'Level 9: display: flex;',
-		'Level 10: display: flex;',
-		'Level 11: display: flex;',
-		'Level 12: display: flex;',
-		'Level 13: display: flex;',  
+		'Level 1',
+		'Level 2',
+		'Level 3',
+		'Level 4',
+		'Level 5',
+		'Level 6',
+		'Level 7',
+		'Level 8',
+		'Level 9',
+		'Level 10',
+		'Level 11',
+		'Level 12',
+		'Level 13',  
 	];
 
 	const text = [
@@ -82,8 +82,8 @@ export default function Box({showBurger}) {
 	 			</div>
 	 		</div>
 	 		<div className="box-body"> 
-	 			<div className="text-body">
-	 			{/*text[titles.indexOf(selectedTitle)]*/} 
+	 			<div className={isExpanded ? "text-body show" : "text-body no-show"}>
+	 			{/*text[titles.indexOf(selectedTitle)] */}
 	 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum diam ex, ac gravida ex tristique vel. Morbi commodo turpis ut sem bibendum tempus. Aenean fermentum consequat tellus, ac pharetra est iaculis sed. Donec sed malesuada libero. Sed volutpat nulla non nibh tincidunt, sit amet hendrerit purus vehicula. Fusce pellentesque ante in lobortis vehicula. Pellentesque risus justo, gravida quis augue a, maximus tempus leo. Sed non accumsan metus. Integer interdum vehicula magna, id scelerisque dolor.</p>
 	 			</div> 
 	 			<div className={burgerIsOpen ? "burger-body full-height" : "burger-body no-height"}>

@@ -6,6 +6,14 @@
 	height: 0; 
 }
 
+.no-show {
+	opacity: 0;
+}
+
+.show {
+	opacity: 1;
+}
+
 .box {
 	/*background: #E8E4E4;*/
 	display: flex;
@@ -71,14 +79,16 @@
 	width: 100%;
 	background: #E8E4E4; 
 	position: relative;
+	overflow: hidden;
 }
 
 .text-body {
 	position: absolute;
 	padding: 0.5em 1em;
-	width: 100%;
+	width: 275px;
 	height: 100%;
 	box-sizing: border-box;
+	transition: opacity 500ms ease-in-out;
 } 
 
 .burger-body {
