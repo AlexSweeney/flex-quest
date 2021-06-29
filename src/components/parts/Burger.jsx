@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './BurgerStyle.css';
 
-export default function Burger({isOpen, handleClick}) {
+export default function Burger({isOpen, menuOptions, handleClick}) {
 	const [isHover, setIsHover] = useState(false);
 	const [isDown, setIsDown] = useState(false);
 
@@ -31,6 +31,8 @@ export default function Burger({isOpen, handleClick}) {
 		setIsDown(false);
 	}
 
+	if(!menuOptions) return <></>
+
 	return (
 		<div className={burgerClass}  
 			onMouseOver={handleMouseOver}
@@ -40,6 +42,6 @@ export default function Burger({isOpen, handleClick}) {
 			<div className={burgerBarClass}></div>
 			<div className={burgerBarClass}></div>
 			<div className={burgerBarClass}></div>
-		</div>		
+		</div>	
 	)
 }

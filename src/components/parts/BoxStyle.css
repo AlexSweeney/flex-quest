@@ -15,7 +15,6 @@
 }
 
 .box {
-	/*background: #E8E4E4;*/
 	display: flex;
 	flex-direction: column;
 	transition-duration: 750ms;
@@ -45,7 +44,7 @@
   width: 100%; 
 }
 
-.burger-container {
+.burger {
 	width: 20px;
 	height: 20px; 
 }

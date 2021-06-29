@@ -45,10 +45,10 @@ export default function Box({title, bodyText, menuOptions, textOptions}) {
 	return ( 
 	 	<div className={(isExpanded ? "box expanded-box" : "box closed-box")}>
 			<div className="box-header"> 
-	 			<div className={menuOptions && "burger-container"}>
+	 			{/*<div className={menuOptions && "burger-container"}>
 	 				<Burger isOpen={burgerIsOpen} handleClick={handleBurgerClick}/>
-	 			</div>
-
+	 			</div>*/}
+	 			<Burger isOpen={burgerIsOpen} menuOptions={menuOptions} handleClick={handleBurgerClick}/>
 	 			<h2 className="title">{selectedTitle}</h2>
 	 				
 	 			<div className="toggle-container">
