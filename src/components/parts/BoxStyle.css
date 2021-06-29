@@ -91,6 +91,10 @@
 	transition: opacity 500ms ease-in-out;
 } 
 
+.text-body:hover {
+	cursor: default;
+}
+
 .burger-body {
 	width: 100%; 
 	background: #272727;  
