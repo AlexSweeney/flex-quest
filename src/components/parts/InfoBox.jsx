@@ -1,10 +1,8 @@
 import React, {useState} from 'react';
-import Burger from './Burger.jsx';
-import OpenCloseToggle from './OpenCloseToggle.jsx';
-import LearnText from '../data/LearnText.jsx';
-import './BoxStyle.css';
+import Box from './Box.jsx';
+import {learnData} from '../data/learnData.jsx';
 
-export default function Box({showBurger}) {
+export default function InfoBox({showBurger}) {
 	const titles = [
 		'Level 1: display: flex',
 		'Level 2: flex-direction',
@@ -21,62 +19,7 @@ export default function Box({showBurger}) {
 		'Level 13: align-self',  
 	]; 
 
-	const [levelNum, setLevelNum] = useState(0);
-	const selectedTitle = titles[levelNum]; 
-	const [isExpanded, setIsExpanded] = useState(true); 
-	const [burgerIsOpen, setBurgerIsOpen] = useState(false);
-	const [burgerWasOpen, setBurgerWasOpen] = useState(false);
-
-	function handleOpenCloseToggleClick() {  
-		if(isExpanded) {
-			closeBox();
-		} else if(!isExpanded) {
-			openBox();
-		}
-	}
-
-	function closeBox() {
-		setBurgerIsOpen(false);
-		setIsExpanded(false);
-	}
-
-	function openBox() {
-		if(burgerWasOpen) setBurgerIsOpen(true);
-		setIsExpanded(true);
-	}
-
-	function handleBurgerClick() {
-		setBurgerIsOpen(oldVal => !oldVal);
-		setBurgerWasOpen(oldVal => !oldVal);
-	}
-
-	function handleBurgerTitleClick(title) {
-		setLevelNum(titles.indexOf(title));
-		handleBurgerClick();
-	}
-
-	return ( 
-	 	<div className={(isExpanded ? "box expanded-box" : "box closed-box")}>
-	 		<div className="box-header"> 
-	 			<div className="burger-container">
-	 				<Burger isOpen={burgerIsOpen} handleClick={handleBurgerClick}/>
-	 			</div>
-
-	 			<h2 className="title">{selectedTitle}</h2>
-	 				
-	 			<div className="toggle-container">
-	 				<OpenCloseToggle isOpen={isExpanded} handleClick={handleOpenCloseToggleClick}/>
-	 			</div>
-	 		</div>
-	 		<div className="box-body"> 
-	 			<div className={isExpanded ? "text-body show" : "text-body no-show"}>
-	 				<LearnText levelNum={levelNum}/>
-	 			</div> 
-	 			<div className={burgerIsOpen ? "burger-body full-height" : "burger-body no-height"}>
-	 				{titles.map(title => <h3 className="burger-title" onClick={() => handleBurgerTitleClick(title)}>{title}</h3>)}
-	 			</div>
-
-	 		</div>
-	 	</div> 
+	return (
+		<Box menuOptions={titles} textOptions={learnData}/>
 	)
 }

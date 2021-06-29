@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 import Burger from './Burger.jsx';
+import BurgerDropDown from './BurgerDropDown.jsx';
 import OpenCloseToggle from './OpenCloseToggle.jsx'; 
 import './BoxStyle.css';
 
-export default function Box({title, menuOptions, bodyText}) { 
+export default function Box({title, bodyText, menuOptions, textOptions}) { 
 	const [menuOptionNum, setMenuOptionNum] = useState(0);
-	const selectedTitle = title;
+	const selectedTitle = title || (menuOptions && menuOptions[0]) || '';
+	const selectedText = bodyText || (textOptions && textOptions[0]) || '';
 
 	const [burgerIsOpen, setBurgerIsOpen] = useState(false);
 	const [burgerWasOpen, setBurgerWasOpen] = useState(false);
@@ -42,7 +44,6 @@ export default function Box({title, menuOptions, bodyText}) {
  
 	return ( 
 	 	<div className={(isExpanded ? "box expanded-box" : "box closed-box")}>
-
 			<div className="box-header"> 
 	 			<div className={menuOptions && "burger-container"}>
 	 				<Burger isOpen={burgerIsOpen} handleClick={handleBurgerClick}/>
@@ -57,13 +58,10 @@ export default function Box({title, menuOptions, bodyText}) {
 
 	 		<div className="box-body"> 
 	 			<div className={isExpanded ? "text-body show" : "text-body no-show"}>
-	 				{bodyText}
+	 				{selectedText}
 	 			</div> 
-	 			<div className={menuOptions && burgerIsOpen ? "burger-body full-height" : "burger-body no-height"}>
-	 				{menuOptions && menuOptions.map(option => <h3 className="burger-title" onClick={() => handleBurgerTitleClick(option)}>{option}</h3>)}
-	 			</div>
-	 		</div>
-
+	 			<BurgerDropDown isOpen={burgerIsOpen} options={menuOptions} handleOptionClick={handleBurgerTitleClick}/>
+	 		</div> 
 	 	</div>
 	)
 }
