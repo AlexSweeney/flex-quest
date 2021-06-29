@@ -7,18 +7,18 @@ import './BoxStyle.css';
 export default function Box({showBurger}) {
 	const titles = [
 		'Level 1: display: flex',
-		'Level 2',
-		'Level 3',
-		'Level 4',
-		'Level 5',
-		'Level 6',
-		'Level 7',
-		'Level 8',
-		'Level 9',
-		'Level 10',
-		'Level 11',
-		'Level 12',
-		'Level 13',  
+		'Level 2: flex-direction',
+		'Level 3: justify-content',
+		'Level 4: flex-wrap',
+		'Level 5: flex-flow',
+		'Level 6: align-items',
+		'Level 7: align-content',
+		'Level 8: order',
+		'Level 9: flex-grow',
+		'Level 10: flex-shrink',
+		'Level 11: flex-basis',
+		'Level 12: flex',
+		'Level 13: align-self',  
 	]; 
 
 	const [levelNum, setLevelNum] = useState(0);
