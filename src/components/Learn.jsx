@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import InfoBox from './parts/InfoBox.jsx';
 import Box from './parts/Box.jsx';
 import './LearnStyle.css';
 
@@ -7,9 +8,7 @@ import './LearnStyle.css';
 export default function Learn() {
 	return (
 		<section className="learn-container">
-			<Box
-				showBurger="true" 
-			/>
+			<InfoBox/>
 			<Box/>
 			<Box/>
 			<Box/> 

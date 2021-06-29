@@ -1,16 +1,31 @@
 import React, {useState} from 'react';
 import Burger from './Burger.jsx';
-import OpenCloseToggle from './OpenCloseToggle.jsx'; 
+import OpenCloseToggle from './OpenCloseToggle.jsx';
+import LearnText from '../data/LearnText.jsx';
 import './BoxStyle.css';
 
-export default function Box({title, menuOptions, bodyText}) { 
-	const [menuOptionNum, setMenuOptionNum] = useState(0);
-	const selectedTitle = title;
+export default function Box({showBurger}) {
+	const titles = [
+		'Level 1: display: flex',
+		'Level 2: flex-direction',
+		'Level 3: justify-content',
+		'Level 4: flex-wrap',
+		'Level 5: flex-flow',
+		'Level 6: align-items',
+		'Level 7: align-content',
+		'Level 8: order',
+		'Level 9: flex-grow',
+		'Level 10: flex-shrink',
+		'Level 11: flex-basis',
+		'Level 12: flex',
+		'Level 13: align-self',  
+	]; 
 
+	const [levelNum, setLevelNum] = useState(0);
+	const selectedTitle = titles[levelNum]; 
+	const [isExpanded, setIsExpanded] = useState(true); 
 	const [burgerIsOpen, setBurgerIsOpen] = useState(false);
 	const [burgerWasOpen, setBurgerWasOpen] = useState(false);
-
-	const [isExpanded, setIsExpanded] = useState(true); 
 
 	function handleOpenCloseToggleClick() {  
 		if(isExpanded) {
@@ -35,16 +50,15 @@ export default function Box({title, menuOptions, bodyText}) {
 		setBurgerWasOpen(oldVal => !oldVal);
 	}
 
-	function handleBurgerTitleClick(option) {
-		setMenuOptionNum(menuOptions.indexOf(option));
+	function handleBurgerTitleClick(title) {
+		setLevelNum(titles.indexOf(title));
 		handleBurgerClick();
-	} 
- 
+	}
+
 	return ( 
 	 	<div className={(isExpanded ? "box expanded-box" : "box closed-box")}>
-
-			<div className="box-header"> 
-	 			<div className={menuOptions && "burger-container"}>
+	 		<div className="box-header"> 
+	 			<div className="burger-container">
 	 				<Burger isOpen={burgerIsOpen} handleClick={handleBurgerClick}/>
 	 			</div>
 
@@ -54,16 +68,15 @@ export default function Box({title, menuOptions, bodyText}) {
 	 				<OpenCloseToggle isOpen={isExpanded} handleClick={handleOpenCloseToggleClick}/>
 	 			</div>
 	 		</div>
-
 	 		<div className="box-body"> 
 	 			<div className={isExpanded ? "text-body show" : "text-body no-show"}>
-	 				{bodyText}
+	 				<LearnText levelNum={levelNum}/>
 	 			</div> 
-	 			<div className={menuOptions && burgerIsOpen ? "burger-body full-height" : "burger-body no-height"}>
-	 				{menuOptions && menuOptions.map(option => <h3 className="burger-title" onClick={() => handleBurgerTitleClick(option)}>{option}</h3>)}
+	 			<div className={burgerIsOpen ? "burger-body full-height" : "burger-body no-height"}>
+	 				{titles.map(title => <h3 className="burger-title" onClick={() => handleBurgerTitleClick(title)}>{title}</h3>)}
 	 			</div>
-	 		</div>
 
-	 	</div>
+	 		</div>
+	 	</div> 
 	)
 }
