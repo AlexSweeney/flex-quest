@@ -44,24 +44,18 @@ export default function Box({title, bodyText, menuOptions, textOptions}) {
  
 	return ( 
 	 	<div className={(isExpanded ? "box expanded-box" : "box closed-box")}>
-			<div className="box-header"> 
-	 			{/*<div className={menuOptions && "burger-container"}>
-	 				<Burger isOpen={burgerIsOpen} handleClick={handleBurgerClick}/>
-	 			</div>*/}
-	 			<Burger isOpen={burgerIsOpen} menuOptions={menuOptions} handleClick={handleBurgerClick}/>
-	 			<h2 className="title">{selectedTitle}</h2>
-	 				
-	 			<div className="toggle-container">
-	 				<OpenCloseToggle isOpen={isExpanded} handleClick={handleOpenCloseToggleClick}/>
-	 			</div>
+			<div className="box-header" onClick={handleOpenCloseToggleClick}> 
+	 			<Burger isOpen={burgerIsOpen} isHidden={!isExpanded} menuOptions={menuOptions} handleClick={handleBurgerClick}/>
+	 			{/*<h2 className="title">{selectedTitle}</h2>
+	 			<OpenCloseToggle isOpen={isExpanded} handleClick={handleOpenCloseToggleClick}/>*/}
 	 		</div>
 
-	 		<div className="box-body"> 
+	 		{/*<div className="box-body"> 
 	 			<div className={isExpanded ? "text-body show" : "text-body no-show"}>
 	 				{selectedText}
 	 			</div> 
 	 			<BurgerDropDown isOpen={burgerIsOpen} options={menuOptions} handleOptionClick={handleBurgerTitleClick}/>
-	 		</div> 
+	 		</div> */}
 	 	</div>
 	)
 }

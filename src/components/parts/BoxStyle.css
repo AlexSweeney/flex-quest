@@ -30,7 +30,7 @@
 
 .closed-box {  
 	margin-right: 20px;
-	width: 35px;
+	width: 0;
 }
 
 .box-header {
@@ -65,13 +65,10 @@
 	cursor: default;
 }
 
-.toggle-container {
-	width: 30px;
-	height: 30px; 
-	display: flex;
-	justify-content: center;
-	align-items: center;
-} 
+.open-close-toggle {
+	height: 22px;
+	width: 22px;
+}
 
 .box-body { 
 	height: 400px;

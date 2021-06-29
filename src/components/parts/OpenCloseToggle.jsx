@@ -39,13 +39,13 @@ export default function OpenCloseToggle({isOpen, handleClick}) {
 	}
 
 	return (
-		<div className="toggle-background" 	
+		<div className="open-close-toggle" 	
 			onMouseOver={handleOver}
 			onMouseOut={handleOut}
 			onMouseDown={handleDown}
 			onMouseUp={handleUp}>
-			<div className={horizClass}></div>
-			<div className={vertClass}></div>
-		</div>
+			{/*<div className={horizClass}></div>
+			<div className={vertClass}></div>*/}
+		</div> 
 	)
 }
