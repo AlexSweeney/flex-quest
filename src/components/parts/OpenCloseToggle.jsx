@@ -44,8 +44,8 @@ export default function OpenCloseToggle({isOpen, handleClick}) {
 			onMouseOut={handleOut}
 			onMouseDown={handleDown}
 			onMouseUp={handleUp}>
-			{/*<div className={horizClass}></div>
-			<div className={vertClass}></div>*/}
+			<div className={horizClass}></div>
+			<div className={vertClass}></div>
 		</div> 
 	)
 }

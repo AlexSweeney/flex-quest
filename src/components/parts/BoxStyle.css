@@ -1,19 +1,4 @@
-.full-height {
-	height: 100%; 
-}
-
-.no-height {
-	height: 0; 
-}
-
-.no-show {
-	opacity: 0;
-}
-
-.show {
-	opacity: 1;
-}
-
+/* ------------ Box  ------------ */
 .box {
 	display: flex;
 	flex-direction: column;
@@ -23,25 +8,27 @@
 }
  
 .expanded-box {
-	width: 290px;
+	/*width: 290px;*/
 	flex-grow: 1;
 	margin-right: 40px; 
 }
 
 .closed-box {  
+	flex-grow: 0;
 	margin-right: 20px;
-	width: 0;
+	/*width: 0;*/
 }
 
+/* ------------ Header  ------------ */
 .box-header {
 	height: 44px;
-	background: #272727;
+	width: 100%; 
 	display: flex;
-	justify-content: space-between;
-	align-items: center;
+	flex-direction: column;
+	justify-content: center;
 	padding: 7px;
   box-sizing: border-box; 
-  width: 100%; 
+ 	background: #272727;
 }
 
 .burger {
@@ -68,8 +55,10 @@
 .open-close-toggle {
 	height: 22px;
 	width: 22px;
+	align-self: flex-end;
 }
 
+/* ------------ Body  ------------ */
 .box-body { 
 	height: 400px;
 	width: 100%;
@@ -117,3 +106,19 @@
 	cursor: pointer;
 }
 
+/* ------------ Util  ------------ */
+.full-height {
+	height: 100%; 
+}
+
+.no-height {
+	height: 0; 
+}
+
+.no-show {
+	opacity: 0;
+}
+
+.show {
+	opacity: 1;
+}
