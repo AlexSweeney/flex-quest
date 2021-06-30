@@ -10,8 +10,9 @@ export default function Burger({isOpen, isHidden, menuOptions, handleClick}) {
  		let thisClass = 'burger-bar';
  		if(isHover) thisClass += ' burger-bar-hover';
  		if(isDown) thisClass += ' burger-bar-down';
- 		if(isHidden) thisClass += ' no-width';
- 		return thisClass;
+ 		/*if(isHidden) thisClass += ' no-width';
+*/ 		
+		return thisClass;
  	})();
 
 	function handleMouseOver() {

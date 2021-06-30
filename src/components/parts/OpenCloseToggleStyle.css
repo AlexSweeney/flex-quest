@@ -6,7 +6,7 @@
 	position: relative;
 }
 
-.toggle-background:hover {
+.open-close-toggle:hover {
 	cursor: pointer;
 }
 
