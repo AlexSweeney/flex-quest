@@ -34,7 +34,7 @@ export default function OpenCloseHeader() {
 
 	function setTitleSize(open) {
 		const boxSize = document.querySelector('#box-header').getBoundingClientRect().width + 'px';
-		const width = open ? boxSize : '100%';
+		const width = open ? boxSize : '';
 		document.querySelector('#title').style.width = width;
 		console.log('boxSize', boxSize);
 	}
@@ -47,15 +47,17 @@ export default function OpenCloseHeader() {
 	return (
 		<div className="box">
 			<div className={isExpanded ? "box-header box-header-expanded" : "box-header box-header-minimized"} id="box-header"> 
-				<div className="burger-container">
+
+				<div className={ isExpanded ? "burger-container burger-container-opening" : "burger-container"}>
 					<Burger isOpen={burgerIsOpen} isExpanding={isExpanded} menuOptions={menuOptions} handleClick={handleBurgerClick}/>
 				</div>
 				<div className={ isExpanded ? "title title-opening" : "title title-closing"} id="title">{title}</div>
-				{/*<div className="open-close-toggle-container" onClick={handleOpenCloseToggleClick}></div>*/}
 
+				{/*<div className="open-close-toggle-container" onClick={handleOpenCloseToggleClick}></div>*/}
 				<div className="open-close-toggle-container">
 					<OpenCloseToggle isOpen={!isExpanded} handleClick={handleOpenCloseToggleClick}/>
-		 		</div>
+		 		</div> 
+
 		 	</div>
 	 	</div>
 	);

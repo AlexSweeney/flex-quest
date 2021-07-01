@@ -11,7 +11,7 @@
 .box-header {
 	height: 44px;
 	width: 100%; 
-	padding: 0 7px;
+	/*padding: 0 7px;*/
 	display: flex;
 	justify-content: space-between;
 	align-items: center; 
@@ -33,13 +33,27 @@
 }
 
 .burger-container { 
-	width: 22px;
-	height: 22px; 
+	width: 29px; 
+	height: 22px;  
+	max-width: 29px;
+	padding-left: 7px;
+	transition: width 2s;
+	z-index: 2;
+  background: #272727; 
+	/*width: 30px;
+	padding-left: 7px;*/ 
+}
+
+.burger-container-opening {
+	/*flex-grow: 1;
+  flex-shrink: 0;*/
+  position: absolute;
+  /*flex-basis: 29px;*/
 }
 
 .burger { 
-	width: 100%;
-	height: 100%; 
+/*	width: 100%;
+	height: 100%; */
 	/*width: 20px;
 	height: 20px; 
 	z-index: 1000;*/
@@ -51,31 +65,33 @@
 }*/
 
 .title {
-	flex-grow: 1;
+	flex-grow: 1; 
 	min-width: 0;
-	color: white;
-	background: green;
+	color: white; 
 	display: flex;
 	justify-content: center; 
 	white-space: nowrap;
 }
 
 .title-opening {
-	/*position: absolute;
-	width: 100%;*/
+	margin-left: 0;
+  overflow: hidden;
 }
 
 .title-closing {
 	position: absolute;
-	width: 1196.44px;
+	/*width: 1196.44px;*/
 }
 
 .open-close-toggle-container {
 	height: 100%; 
-	width: 22px;
-	min-width: 22px; 
+	width: 29px;
+	min-width: 29px;
 	display: flex;
   align-items: center;
+  padding-right: 7px; 
+  background: #272727; 
+  z-index: 3;
 }
 
 .open-close-toggle {
