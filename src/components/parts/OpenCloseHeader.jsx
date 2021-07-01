@@ -38,12 +38,18 @@ export default function OpenCloseHeader() {
 	return (
 		<div className="box">
 			<div className={isExpanded ? "box-header box-header-expanded" : "box-header box-header-minimized"}> 
-				{/*<div className="burger"></div>*/}
-				<Burger isOpen={burgerIsOpen} isHidden={!isExpanded} menuOptions={menuOptions} handleClick={handleBurgerClick}/>
-				<div className={ isExpanded ? "title" : "title title-closing"}>{title}</div>
+				<div className="burger-container">
+					<Burger isOpen={burgerIsOpen} isExpanding={isExpanded} menuOptions={menuOptions} handleClick={handleBurgerClick}/>
+				</div>
+				{/*<div className={ isExpanded ? "title title-opening" : "title title-closing"}>{title}</div>*/}
 				{/*<div className="open-close-toggle-container" onClick={handleOpenCloseToggleClick}></div>*/}
-				<OpenCloseToggle isOpen={!isExpanded} handleClick={handleOpenCloseToggleClick}/>
+
+				<div className="open-close-toggle-container">
+					<OpenCloseToggle isOpen={!isExpanded} handleClick={handleOpenCloseToggleClick}/>
+		 		</div>
 		 	</div>
 	 	</div>
 	);
 }
+
+//  onClick={handleOpenCloseToggleClick}

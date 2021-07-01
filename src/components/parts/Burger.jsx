@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './BurgerStyle.css';
 
-export default function Burger({isOpen, isHidden, menuOptions, handleClick}) {
+export default function Burger({isOpen, isExpanding, menuOptions, handleClick}) {
 	const [isHover, setIsHover] = useState(false);
 	const [isDown, setIsDown] = useState(false);
 
@@ -10,8 +10,7 @@ export default function Burger({isOpen, isHidden, menuOptions, handleClick}) {
  		let thisClass = 'burger-bar';
  		if(isHover) thisClass += ' burger-bar-hover';
  		if(isDown) thisClass += ' burger-bar-down';
- 		/*if(isHidden) thisClass += ' no-width';
-*/ 		
+ 		if(isExpanding) thisClass += ' burger-opening';
 		return thisClass;
  	})();
 
