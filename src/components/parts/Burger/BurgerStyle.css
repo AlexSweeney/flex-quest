@@ -8,10 +8,6 @@
 	transition: transform 500ms ease-in-out; 
 }
 
-.burger:children {
-	background: pink;
-}
-
 .burger:hover {
 	cursor: pointer;
 }
@@ -38,12 +34,4 @@
 
 .burger-bar-down {
 	background: #3f51b5;
-}
-
-.full-height {
-	height: 100%;
-}
-
-.no-height {
-	height: 0;
-}
+} 
