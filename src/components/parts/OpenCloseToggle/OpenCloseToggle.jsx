@@ -38,6 +38,25 @@ export default function OpenCloseToggle({isOpen, handleClick}) {
 		setIsDown(false);
 	}
 
+	// const [lineClass, setLineClass] = useState('');
+
+	// function handleOver() {
+	// 	setLineClass('line-over');
+	// }
+
+	// function handleOut() {
+	// 	setLineClass('');
+	// }
+
+	// function handleDown() {
+	// 	setLineClass('line-down');
+	// 	// handleClick();
+	// }
+
+	// function handleUp() {
+	// 	setLineClass('');
+	// }
+
 	return (
 		<div className="open-close-toggle" 	
 			onMouseOver={handleOver}
@@ -46,6 +65,8 @@ export default function OpenCloseToggle({isOpen, handleClick}) {
 			onMouseUp={handleUp}>
 			<div className={horizClass}></div>
 			<div className={vertClass}></div>
+			{/*<div className={lineClass + ' line'}></div>
+			<div className={lineClass + ' vert-line'}></div>*/}
 		</div> 
 	)
 }

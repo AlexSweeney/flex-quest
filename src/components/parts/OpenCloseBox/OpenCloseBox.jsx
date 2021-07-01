@@ -32,12 +32,7 @@ export default function OpenCloseBox({menuOptions = null}) {
 			setBurgerWasOpen(false);
 		}
 		setIsExpanded(true); 
-	}
-  
-	/*function handleBurgerClick() {
-		setBurgerIsOpen(oldVal => !oldVal);
-		setBurgerWasOpen(oldVal => !oldVal);
-	}*/
+	} 
 
 	return ( 
 		<div className={isExpanded ? "box box-expanded" : "box box-minimized"}> 
