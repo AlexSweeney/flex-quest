@@ -4,6 +4,7 @@
 import React, {useState} from 'react';
 import OpenCloseToggle from './OpenCloseToggle.jsx'; 
 import Burger from './Burger.jsx';
+import BurgerDropDown from './BurgerDropDown.jsx';
 import './OpenCloseBox.css';
 
 export default function OpenCloseBox() {
@@ -60,6 +61,9 @@ export default function OpenCloseBox() {
 				<div className="open-close-toggle-container">
 					<OpenCloseToggle isOpen={!isExpanded} handleClick={handleOpenCloseToggleClick}/>
 	 			</div>
+			</div>
+			<div className="box-body">
+				<BurgerDropDown isOpen={burgerIsOpen} options={menuOptions} handleOptionClick={console.log('option click')}/>
 			</div>
 	 	</div> 
 	);
