@@ -1,3 +1,5 @@
+import './BurgerStyle.css';
+
 export default function BurgerDropDown({isOpen, options, handleOptionClick}) { 
 	return (
 		<div className={isOpen ? "burger-body full-height" : "burger-body no-height"}>

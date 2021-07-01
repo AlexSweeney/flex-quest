@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import OpenCloseBox from './OpenCloseBox.jsx';
 import Burger from './Burger.jsx';
-import BurgerDropDown from './BurgerDropDown.jsx';
+import BurgerDropDown from './Burger/BurgerDropDown.jsx';
 import OpenCloseToggle from './OpenCloseToggle.jsx'; 
 import './BoxStyle.css';
 

@@ -3,8 +3,8 @@
 
 import React, {useState} from 'react';
 import OpenCloseToggle from './OpenCloseToggle.jsx'; 
-import Burger from './Burger.jsx';
-import BurgerDropDown from './BurgerDropDown.jsx';
+import Burger from './Burger/Burger.jsx';
+import BurgerDropDown from './Burger/BurgerDropDown.jsx';
 import './InfoBox_2.css';
 
 export default function InfoBox_2() {

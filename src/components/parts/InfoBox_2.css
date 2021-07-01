@@ -133,11 +133,3 @@
 	background: #4e4e4e;
 	cursor: pointer;
 }
-
-.no-height {
-	height: 0;
-}
-
-.full-height {
-	height: 100%;
-}

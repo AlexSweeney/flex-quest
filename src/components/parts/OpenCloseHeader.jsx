@@ -3,7 +3,7 @@
 
 import React, {useState} from 'react';
 import OpenCloseToggle from './OpenCloseToggle.jsx'; 
-import Burger from './Burger.jsx';
+import Burger from './Burger/Burger.jsx';
 import './OpenCloseHeader.css';
 
 export default function OpenCloseBox() {
