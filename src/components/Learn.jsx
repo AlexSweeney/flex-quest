@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import InfoBox from './parts/InfoBox.jsx';
-import Box from './parts/Box.jsx';
+import InfoBox_2 from './parts/InfoBox_2.jsx';
+import OpenCloseBox from './parts/OpenCloseBox.jsx';
 import './LearnStyle.css';
 
 // make boxes expand / decrease => move to component
@@ -8,10 +8,10 @@ import './LearnStyle.css';
 export default function Learn() {
 	return (
 		<section className="learn-container">
-			<InfoBox/>
-			<Box/>
-			<Box/>
-			<Box/> 
+			<InfoBox_2 />
+			<OpenCloseBox title="index.html"/>
+			<OpenCloseBox title="style.css"/>
+			<OpenCloseBox/> 
 		</section>
 	)
 }

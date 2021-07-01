@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import Box from './Box.jsx';
+import OpenCloseBox from './OpenCloseBox.jsx';
 import {learnData} from '../data/learnData.jsx';
 
 export default function InfoBox({showBurger}) {
@@ -20,6 +20,6 @@ export default function InfoBox({showBurger}) {
 	]; 
 
 	return (
-		<Box menuOptions={titles} textOptions={learnData}/>
+		<OpenCloseBox menuOptions={titles}/>
 	)
 }

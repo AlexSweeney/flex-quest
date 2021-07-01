@@ -5,9 +5,25 @@ import React, {useState} from 'react';
 import OpenCloseToggle from './OpenCloseToggle.jsx'; 
 import Burger from './Burger.jsx';
 import BurgerDropDown from './BurgerDropDown.jsx';
-import './OpenCloseBox.css';
+import './InfoBox_2.css';
 
-export default function OpenCloseBox({title, menuOptions}) {
+export default function InfoBox_2() {
+	const menuOptions = [
+		'Level 1: display: flex',
+		'Level 2: flex-direction',
+		'Level 3: justify-content',
+		'Level 4: flex-wrap',
+		'Level 5: flex-flow',
+		'Level 6: align-items',
+		'Level 7: align-content',
+		'Level 8: order',
+		'Level 9: flex-grow',
+		'Level 10: flex-shrink',
+		'Level 11: flex-basis',
+		'Level 12: flex',
+		'Level 13: align-self',  
+	]; 
+
 	const idNum = Date.now();
 	const boxId = `box_${idNum}`;
 	const titleId = `title_${idNum}`;
@@ -17,7 +33,7 @@ export default function OpenCloseBox({title, menuOptions}) {
 
 	const [isExpanded, setIsExpanded] = useState(true); 
 
-	const [selectedTitle, setSelectedTitle] = useState(menuOptions && menuOptions[0] || title || '');  
+	const [selectedTitle, setSelectedTitle] = useState(menuOptions[0]);  
 
 	function handleOpenCloseToggleClick() {  
 		if(isExpanded) closeBox();
@@ -60,7 +76,7 @@ export default function OpenCloseBox({title, menuOptions}) {
 					<OpenCloseToggle isOpen={!isExpanded} handleClick={handleOpenCloseToggleClick}/>
 	 			</div>
 			</div>
-			<div className="box-body">
+			<div className="box-body"> 
 				<BurgerDropDown isOpen={burgerIsOpen} options={menuOptions} handleOptionClick={() => {console.log('hello')}}/>
 			</div>
 	 	</div> 
