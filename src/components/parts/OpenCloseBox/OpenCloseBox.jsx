@@ -7,9 +7,7 @@ import Burger from '../Burger/Burger.jsx';
 import BurgerDropDown from '../Burger/BurgerDropDown.jsx';
 import './OpenCloseBox.css';
 
-export default function OpenCloseBox({menuOptions = null}) { 
-	menuOptions = null; 
-
+export default function OpenCloseBox({menuOptions = null}) {   
 	const [burgerIsOpen, setBurgerIsOpen] = useState(false);
 	const [burgerWasOpen, setBurgerWasOpen] = useState(false);
 
@@ -23,26 +21,30 @@ export default function OpenCloseBox({menuOptions = null}) {
 	}
 
 	function closeBox() {
+		if(burgerIsOpen) setBurgerWasOpen(true);
 		setBurgerIsOpen(false);
 		setIsExpanded(false); 
 	}
 
 	function openBox() {
-		if(burgerWasOpen) setBurgerIsOpen(true);
+		if(burgerWasOpen) {
+			setBurgerIsOpen(true);
+			setBurgerWasOpen(false);
+		}
 		setIsExpanded(true); 
 	}
   
-	function handleBurgerClick() {
+	/*function handleBurgerClick() {
 		setBurgerIsOpen(oldVal => !oldVal);
 		setBurgerWasOpen(oldVal => !oldVal);
-	}
+	}*/
 
 	return ( 
 		<div className={isExpanded ? "box box-expanded" : "box box-minimized"}> 
 			<div className="box-header">
 				{menuOptions && 
 					<div className={ isExpanded ? "burger-container burger-container-opening" : "burger-container"}>
-						<Burger isOpen={burgerIsOpen} isExpanding={isExpanded} menuOptions={menuOptions} handleClick={handleBurgerClick}/>
+						<Burger isOpen={burgerIsOpen} setIsOpen={setBurgerIsOpen} menuOptions={menuOptions}/>
 					</div> 
 				}
 				

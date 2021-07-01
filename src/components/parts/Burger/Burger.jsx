@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './BurgerStyle.css';
 
-export default function Burger({isOpen, isExpanding, menuOptions, handleClick}) {
+export default function Burger({isOpen, setIsOpen, menuOptions}) {
 	const [isHover, setIsHover] = useState(false);
 	const [isDown, setIsDown] = useState(false);
 
@@ -9,8 +9,7 @@ export default function Burger({isOpen, isExpanding, menuOptions, handleClick}) 
  	const burgerBarClass = (() => {
  		let thisClass = 'burger-bar';
  		if(isHover) thisClass += ' burger-bar-hover';
- 		if(isDown) thisClass += ' burger-bar-down';
- 		if(isExpanding) thisClass += ' burger-opening';
+ 		if(isDown) thisClass += ' burger-bar-down'; 
 		return thisClass;
  	})();
 
@@ -18,21 +17,19 @@ export default function Burger({isOpen, isExpanding, menuOptions, handleClick}) 
 		setIsHover(true);
 	}
 
-	function handleMouseOut() {
+	function handleMouseOut() { 
 		setIsHover(false);
 		setIsDown(false);
 	}
 
 	function handleMouseDown() {
 		setIsDown(true);
-		handleClick();
+		setIsOpen(oldVal => !oldVal); 
 	}
 
-	function handleMouseUp() {
+	function handleMouseUp() { 
 		setIsDown(false);
-	}
-
-	if(!menuOptions) return <></>
+	} 
 
 	return (
 		<div className={burgerClass}  
