@@ -40,6 +40,7 @@
 	transition: width 2s;
 	z-index: 2;
   background: #272727; 
+  position: absolute;
 	/*width: 30px;
 	padding-left: 7px;*/ 
 }
@@ -47,7 +48,7 @@
 .burger-container-opening {
 	/*flex-grow: 1;
   flex-shrink: 0;*/
-  position: absolute;
+  /* position: absolute;
   /*flex-basis: 29px;*/
 }
 
@@ -70,18 +71,20 @@
 	color: white; 
 	display: flex;
 	justify-content: center; 
-	white-space: nowrap;
+	white-space: nowrap; 
+	position: absolute;
 }
 
 .title-opening {
-	margin-left: 0;
-  overflow: hidden;
+	width: 100%;
+	/*margin-left: 0;
+  overflow: hidden;*/
 }
-
+/*
 .title-closing {
 	position: absolute;
-	/*width: 1196.44px;*/
-}
+	/*width: 1196.44px;
+}*/
 
 .open-close-toggle-container {
 	height: 100%; 
@@ -92,6 +95,8 @@
   padding-right: 7px; 
   background: #272727; 
   z-index: 3;
+  position: absolute;
+  right: 0;
 }
 
 .open-close-toggle {
