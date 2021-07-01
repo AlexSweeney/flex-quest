@@ -9,9 +9,9 @@ export default function Learn() {
 	return (
 		<section className="learn-container">
 			<InfoBox/>
-			{/*<Box/>
+			<Box/>
 			<Box/>
 			<Box/> 
-*/}		</section>
+		</section>
 	)
 }

@@ -1,8 +1,11 @@
 /* ------------ Box  ------------ */
 .box {
-	display: flex;
-	flex-direction: column;
-	width: 100vw;
+	/*display: flex;
+	flex-direction: column;*/
+	/*width: 100%;*/
+	/*flex-grow: 1;*/
+	margin-right: 20px;
+	/*width: 100vw;*/
 	/*transition-duration: 750ms;*/
 	/*transition-duration: 3s;
 	transition-property: width, flex-grow, margin-right;
@@ -22,7 +25,7 @@
 }*/
 
 /* ------------ Header  ------------ */
-.box-header {
+./*box-header {
 	height: 44px;
 	width: 100%; 
 	display: flex;
@@ -79,8 +82,8 @@
 	
 	white-space: nowrap;
 	overflow: hidden; 
-	cursor: default;*/
-} 
+	cursor: default; 
+} */
  
 
 /* ------------ Body  ------------ */

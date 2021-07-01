@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import OpenCloseHeader from './OpenCloseHeader.jsx';
+import OpenCloseBox from './OpenCloseBox.jsx';
 import Burger from './Burger.jsx';
 import BurgerDropDown from './BurgerDropDown.jsx';
 import OpenCloseToggle from './OpenCloseToggle.jsx'; 
-/*import './BoxStyle.css';*/
+import './BoxStyle.css';
 
 export default function Box({title, bodyText, menuOptions, textOptions}) { 
 	const [menuOptionNum, setMenuOptionNum] = useState(0);
@@ -44,8 +44,13 @@ export default function Box({title, bodyText, menuOptions, textOptions}) {
 	} 
  
 	return ( 
-		<div className="box">
-			<OpenCloseHeader />
+		<OpenCloseBox /> 
+	)
+}
+
+{/*<div className="box">*/}
+			
+	
 	 {/*<div className={(isExpanded ? "box expanded-box" : "box closed-box")}>*/}
 			{/*<div className="box-header"> 
 				{/* 
@@ -75,6 +80,4 @@ export default function Box({title, bodyText, menuOptions, textOptions}) {
 	 			</div> 
 	 			<BurgerDropDown isOpen={burgerIsOpen} options={menuOptions} handleOptionClick={handleBurgerTitleClick}/>
 	 		</div> */}
-	 	</div>
-	)
-}
+	 /*	</div>*/

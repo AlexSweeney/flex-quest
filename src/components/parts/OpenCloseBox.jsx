@@ -4,9 +4,13 @@
 import React, {useState} from 'react';
 import OpenCloseToggle from './OpenCloseToggle.jsx'; 
 import Burger from './Burger.jsx';
-import './OpenCloseHeader.css';
+import './OpenCloseBox.css';
 
 export default function OpenCloseBox() {
+	const idNum = Date.now();
+	const boxId = `box_${idNum}`;
+	const titleId = `title_${idNum}`;
+
 	const [burgerIsOpen, setBurgerIsOpen] = useState(false);
 	const [burgerWasOpen, setBurgerWasOpen] = useState(false);
 
@@ -23,19 +27,20 @@ export default function OpenCloseBox() {
 	function closeBox() {
 		setBurgerIsOpen(false);
 		setIsExpanded(false);
-		// setTitleSize(true);
+		setTitleSize(true);
 	}
 
 	function openBox() {
 		if(burgerWasOpen) setBurgerIsOpen(true);
 		setIsExpanded(true);
-		// setTitleSize(false);
+		setTitleSize(false);
 	}
 
 	function setTitleSize(open) {
-		/*const boxSize = document.querySelector('#box-header').getBoundingClientRect().width + 'px';
+		const boxSize = document.querySelector(`#${boxId}`).getBoundingClientRect().width + 'px';
 		const width = open ? boxSize : '';
-		document.querySelector('#title').style.width = width; */
+		document.querySelector(`#${titleId}`).style.width = width; 
+		console.log('boxSize', boxSize);
 	}
 
 	function handleBurgerClick() {
@@ -44,15 +49,18 @@ export default function OpenCloseBox() {
 	}
 
 	return ( 
-		<div className={isExpanded ? "box-header box-header-expanded" : "box-header box-header-minimized"} id="box-header" onClick={handleOpenCloseToggleClick}> 
-			{/*<div className={ isExpanded ? "burger-container burger-container-opening" : "burger-container"}>
-				<Burger isOpen={burgerIsOpen} isExpanding={isExpanded} menuOptions={menuOptions} handleClick={handleBurgerClick}/>
-			</div>
-			<div className={ isExpanded ? "title title-opening" : "title title-closing"} id="title">{title}</div>
+		<div className={isExpanded ? "box box-expanded" : "box box-minimized"} id={boxId}> 
+			<div className="box-header">
+				<div className={ isExpanded ? "burger-container burger-container-opening" : "burger-container"}>
+					<Burger isOpen={burgerIsOpen} isExpanding={isExpanded} menuOptions={menuOptions} handleClick={handleBurgerClick}/>
+				</div>
 
-			<div className="open-close-toggle-container">
-				<OpenCloseToggle isOpen={!isExpanded} handleClick={handleOpenCloseToggleClick}/>
-	 		</div> */}
+				<div className={ isExpanded ? "title title-opening" : "title title-closing"} id={titleId}>{title}</div>
+
+				<div className="open-close-toggle-container">
+					<OpenCloseToggle isOpen={!isExpanded} handleClick={handleOpenCloseToggleClick}/>
+	 			</div>
+			</div>
 	 	</div> 
 	);
 } 
