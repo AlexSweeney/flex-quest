@@ -2,7 +2,7 @@
 // when open show burger first
 
 import React, {useState} from 'react';
-import OpenCloseToggle from './OpenCloseToggle.jsx'; 
+import OpenCloseToggle from './OpenCloseToggle/OpenCloseToggle.jsx'; 
 import Burger from './Burger/Burger.jsx';
 import BurgerDropDown from './Burger/BurgerDropDown.jsx';
 import './InfoBox_2.css';
@@ -53,9 +53,9 @@ export default function InfoBox_2() {
 	}
 
 	function setTitleSize(open) {
-		const boxSize = document.querySelector(`#${boxId}`).getBoundingClientRect().width + 'px';
+		/*const boxSize = document.querySelector(`#${boxId}`).getBoundingClientRect().width + 'px';
 		const width = open ? boxSize : '';
-		document.querySelector(`#${titleId}`).style.width = width;  
+		document.querySelector(`#${titleId}`).style.width = width;  */
 	}
 
 	function handleBurgerClick() {
@@ -70,7 +70,8 @@ export default function InfoBox_2() {
 					<Burger isOpen={burgerIsOpen} isExpanding={isExpanded} menuOptions={menuOptions} handleClick={handleBurgerClick}/>
 				</div>
 				
-				<div className={ isExpanded ? "title title-opening" : "title title-closing"} id={titleId}>{selectedTitle}</div>
+			{/*	<div className={ isExpanded ? "title title-opening" : "title title-closing"} id={titleId}>{selectedTitle}</div>*/}
+				<div className="title" id={titleId}>{selectedTitle}</div>
 
 				<div className="open-close-toggle-container">
 					<OpenCloseToggle isOpen={!isExpanded} handleClick={handleOpenCloseToggleClick}/>
@@ -82,3 +83,4 @@ export default function InfoBox_2() {
 	 	</div> 
 	);
 } 
+

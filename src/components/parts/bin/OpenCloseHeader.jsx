@@ -1,4 +1,4 @@
-// auto find width for title when close
+/*// auto find width for title when close
 // when open show burger first
 
 import React, {useState} from 'react';
@@ -33,9 +33,9 @@ export default function OpenCloseBox() {
 	}
 
 	function setTitleSize(open) {
-		/*const boxSize = document.querySelector('#box-header').getBoundingClientRect().width + 'px';
+		const boxSize = document.querySelector('#box-header').getBoundingClientRect().width + 'px';
 		const width = open ? boxSize : '';
-		document.querySelector('#title').style.width = width; */
+		document.querySelector('#title').style.width = width; 
 	}
 
 	function handleBurgerClick() {
@@ -55,4 +55,4 @@ export default function OpenCloseBox() {
 	 		</div> */}
 	 	</div> 
 	);
-} 
+} */

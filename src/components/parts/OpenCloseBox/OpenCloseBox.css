@@ -1,3 +1,4 @@
+/* ======================== Box ======================== */ 
 * {
 	box-sizing: border-box;
 }
@@ -7,7 +8,7 @@
 	display: flex;
 	flex-direction: column;
 
-	transition: 6s width ease-in-out; 
+	transition: 1s width ease-in-out; 
 	margin-right: 30px;
 }
 
@@ -25,9 +26,10 @@
 	min-width: 36px;
 }
 
+/* ======================== Header ======================== */
 .box-header {
 	height: 40px;
-	width: 100%;
+	width: 100%; 
 	position: relative;
 	overflow: hidden;
 	display: flex;
@@ -63,11 +65,7 @@
 	font-size: 1.2em; 
 	font-family: BaiJamjuree-Medium, Verdana, sans-serif; 
 	width: 100%;
-}
-
-.title-opening {
-	width: 100%;
-}
+} 
 
 .open-close-toggle-container {
 	height: 100%; 
@@ -79,7 +77,14 @@
   background: #272727; 
   z-index: 3;
   position: absolute;
-  right: 0;
+  right: 0; 
+}
+
+.open-close-toggle-container-big {
+	width: 36px;
+  min-width: 36px;
+  justify-content: center;
+  padding: 0;
 }
 
 .open-close-toggle { 
@@ -88,6 +93,7 @@
 	z-index: 1000; 
 }
 
+/* ======================== Body ======================== */ 
 .box-body {
 	display: flex; 
   width: 100%;

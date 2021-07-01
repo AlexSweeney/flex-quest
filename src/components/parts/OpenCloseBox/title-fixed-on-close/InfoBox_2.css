@@ -62,7 +62,8 @@
 	color: #E8E4E4;
 	font-size: 1.2em; 
 	font-family: BaiJamjuree-Medium, Verdana, sans-serif; 
-	width: 100%;
+	width: 29px;
+	min-width: 29px;
 }
 
 .title-opening {
