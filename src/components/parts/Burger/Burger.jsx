@@ -2,33 +2,24 @@ import React, {useState} from 'react';
 import './BurgerStyle.css';
 
 export default function Burger({isOpen, setIsOpen, menuOptions}) {
-	const [isHover, setIsHover] = useState(false);
-	const [isDown, setIsDown] = useState(false);
-
 	const burgerClass = isOpen ? 'burger burger-open' : 'burger'; 
- 	const burgerBarClass = (() => {
- 		let thisClass = 'burger-bar';
- 		if(isHover) thisClass += ' burger-bar-hover';
- 		if(isDown) thisClass += ' burger-bar-down'; 
-		return thisClass;
- 	})();
+	const [burgerBarClass, setBurgerBarClass] = useState('burger-bar'); 
 
-	function handleMouseOver() {
-		setIsHover(true);
+	function handleMouseOver() { 
+		setBurgerBarClass('burger-bar burger-bar-hover');
 	}
 
 	function handleMouseOut() { 
-		setIsHover(false);
-		setIsDown(false);
+		setBurgerBarClass('burger-bar');
 	}
 
 	function handleMouseDown() {
-		setIsDown(true);
-		setIsOpen(oldVal => !oldVal); 
+		setBurgerBarClass('burger-bar burger-bar-down'); 
+		setIsOpen(oldVal => !oldVal);
 	}
 
 	function handleMouseUp() { 
-		setIsDown(false);
+		setBurgerBarClass('burger-bar');
 	} 
 
 	return (
