@@ -5,7 +5,6 @@ import BurgerDropDown from '../Burger/BurgerDropDown.jsx';
 import './OpenCloseBox.css';
 
 export default function OpenCloseBox({title = null, text = null, menuOptions = null, menuText = null, children = null}) {
-	console.log(children);   
 	const [burgerIsOpen, setBurgerIsOpen] = useState(false);
 	const [burgerWasOpen, setBurgerWasOpen] = useState(false);
 
