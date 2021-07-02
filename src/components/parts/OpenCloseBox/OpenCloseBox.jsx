@@ -4,14 +4,15 @@ import Burger from '../Burger/Burger.jsx';
 import BurgerDropDown from '../Burger/BurgerDropDown.jsx';
 import './OpenCloseBox.css';
 
-export default function OpenCloseBox({title = null, text = null, menuOptions = null, menuText = null}) {   
+export default function OpenCloseBox({title = null, text = null, menuOptions = null, menuText = null, children = null}) {
+	console.log(children);   
 	const [burgerIsOpen, setBurgerIsOpen] = useState(false);
 	const [burgerWasOpen, setBurgerWasOpen] = useState(false);
 
 	const [isExpanded, setIsExpanded] = useState(true); 
 
 	const [selectedTitle, setSelectedTitle] = useState(title || menuOptions[0]);  
-	const [selectedText, setSelectedText] = useState(text || menuText[0]);
+	const [selectedText, setSelectedText] = useState(text || children || menuText[0]);
 
 	function handleOpenCloseToggleClick() {  
 		if(isExpanded) closeBox();
