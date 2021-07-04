@@ -2,6 +2,7 @@ export const style1 = <>
 <pre>
 <code>
 .item_1 {'{'}<br/>
+{'  '}display: flex;<br/>
 {'  '}justify-content: center;<br/>
 {'  '}border: 2px solid black;<br/>
 {'  '}background: black;<br/>
@@ -9,7 +10,7 @@ export const style1 = <>
 {'}'}<br/>
 <br/>
 .item_2 {'{'}<br/>
-{'  '}display: <input type="text"/><br/>
+{'  '}display: flex;
 {'  '}justify-content: center;<br/>
 {'  '}border: 2px solid black;<br/>
 {'  '}background: white;<br/>
