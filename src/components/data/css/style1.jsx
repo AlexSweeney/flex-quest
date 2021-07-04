@@ -1,4 +1,3 @@
-// export const style1 = '.item_1 {\ndisplay: flex;';/*
 export const style1 = <> 
 <pre>
 <code>
