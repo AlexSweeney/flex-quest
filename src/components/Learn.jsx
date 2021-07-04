@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import InfoBox from './InfoBox.jsx';
 import HtmlBox from './HtmlBox.jsx';
+import CssBox from './CssBox.jsx';
 import OpenCloseBox from './parts/OpenCloseBox/OpenCloseBox.jsx';
 import './LearnStyle.css';
 
@@ -12,6 +13,7 @@ export default function Learn() {
 		<section className="learn-container">
 			<InfoBox/>
 			<HtmlBox/>
+			<CssBox/>
 			{/*
 			<OpenCloseBox title="index.html" text="example-text"/>*/}
 			{/*<OpenCloseBox title="index.html"/>
