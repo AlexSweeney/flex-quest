@@ -11,23 +11,25 @@ import './LearnStyle.css';
 
 export default function Learn() {
 	const title = 'index.html';
-	const inital = '<p>hello</p>';
-// 	const inital = `
-// <div class="item_1">Item 1 text</div>
-// <div class="item_2">Item 2 text</div>`;
-	const [value, setValue] = useState(inital);
+	const inital = `
+<div class="item_1">Item 1 text</div>
+<div class="item_2">Item 2 text</div>`;
+	const cssInitial = `
+.item_1 {
+  border: 2px solid black;
+  background: green;
+}
+`;
 
-	function onChange(e) {
-		setValue(e.target.value);
-	}
+	const [htmlString, setHtmlString] = useState(inital);
+	const [cssString, setCssString] = useState(cssInitial); 
 
 	return (
 		<section className="learn-container">
 			<InfoBox/>
-			<CodeBox title={title} value={value} onChange={onChange}/>
-			<DisplayBox htmlString={value}/>
-
-			value{value}
+			<CodeBox title="index.html" value={htmlString} setValue={setHtmlString}/>
+			<CodeBox title="style.css" value={cssString} setValue={setCssString}></CodeBox>
+			<DisplayBox htmlString={htmlString} cssString={cssString}/> 
 			{/*<HtmlBox/>
 			<CssBox/>
 			<DisplayBox/>*/}
