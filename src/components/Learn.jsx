@@ -11,11 +11,9 @@ import './LearnStyle.css';
 
 export default function Learn() {
 	const title = 'index.html';
-	const inital = `
-<div class="item_1">Item 1 text</div>
+	const inital = `<div class="item_1">Item 1 text</div>
 <div class="item_2">Item 2 text</div>`;
-	const cssInitial = `
-.item_1 {
+	const cssInitial = `.item_1 {
   border: 2px solid black;
   background: green;
 }

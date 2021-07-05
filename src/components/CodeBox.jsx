@@ -1,6 +1,6 @@
 import React, {useState} from 'react'; 
 import OpenCloseBox from './parts/OpenCloseBox/OpenCloseBox.jsx'; 
-import './HtmlBox.css';
+import './CodeBox.css';
 
 export default function CodeBox({title, value, setValue}) {    
 	function handleChange(e) {

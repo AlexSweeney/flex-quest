@@ -4,6 +4,7 @@
   background: transparent;
   border: none;
   resize: none;
+  padding: 0;
 }
 
 textarea:focus, input:focus{
