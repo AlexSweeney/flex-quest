@@ -4,15 +4,11 @@ import Burger from '../Burger/Burger.jsx';
 import BurgerDropDown from '../Burger/BurgerDropDown.jsx';
 import './OpenCloseBox.css';
 
-export default function /*OpenCloseBox({title = null, text = null, menuOptions = null, menuText = null, children = null, levelNum, setLevelNum}) {*/
-	OpenCloseBox({title = null, text = null, menuOptions = null, handleMenuOptionClick, children = null}) {
+export default function OpenCloseBox({title = null, text = null, menuOptions = null, handleMenuOptionClick, handleRefresh = null, children = null}) {
 	const [burgerIsOpen, setBurgerIsOpen] = useState(false);
 	const [burgerWasOpen, setBurgerWasOpen] = useState(false);
 
 	const [isExpanded, setIsExpanded] = useState(true); 
-
-	// const [selectedTitle, setSelectedTitle] = useState(title || menuOptions && menuOptions[levelNum] || '');  
-	// const [selectedText, setSelectedText] = useState(text || menuText && menuText[levelNum]);
 
 	function handleOpenCloseToggleClick() {  
 		if(isExpanded) closeBox();
@@ -41,11 +37,11 @@ export default function /*OpenCloseBox({title = null, text = null, menuOptions =
 	return ( 
 		<div className={isExpanded ? "box box-expanded" : "box box-minimized"}> 
 			<div className="box-header">
-				{menuOptions && 
+				{menuOptions &&
 					<div className={ isExpanded ? "burger-container burger-container-opening" : "burger-container"}>
 						<Burger isOpen={burgerIsOpen} setIsOpen={setBurgerIsOpen} menuOptions={menuOptions}/>
-					</div> 
-				}
+					</div>}
+				{handleRefresh && <div className="refresh-button" onClick={(handleRefresh)}></div>}
 				
 		 		<div className="title">{title}</div>
 

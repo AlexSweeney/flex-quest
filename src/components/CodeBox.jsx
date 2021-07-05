@@ -2,9 +2,9 @@ import React, {useState, useEffect} from 'react';
 import OpenCloseBox from './parts/OpenCloseBox/OpenCloseBox.jsx'; 
 import './CodeBox.css';
 
-export default function CodeBox({title, value, handleChange}) {     
+export default function CodeBox({title, value, handleChange, handleRefresh}) {     
 	return ( 
-		<OpenCloseBox title={title}>    
+		<OpenCloseBox title={title} handleRefresh={handleRefresh}>    
 			<textarea className="text-area" value={value} onChange={handleChange}>   
 			</textarea>
 		</OpenCloseBox>

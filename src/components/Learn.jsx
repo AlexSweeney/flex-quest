@@ -73,6 +73,7 @@ export default function Learn() {
 		'text 13',
 	];
 
+	const [levelNum, setLevelNum] = useState(0);
 	const [infoTitle, setInfoTitle] = useState(menuOptions[0]);
 	const [infoText, setInfoText] = useState(menuText[0]);
 	const [htmlString, setHtmlString] = useState(htmlStrings[0]);
@@ -83,6 +84,7 @@ export default function Learn() {
 	}
 
 	function changeLevel(levelNum) { 
+		setLevelNum(levelNum);
 		setInfoTitle(menuOptions[levelNum]);
 		setInfoText(menuText[levelNum]);
 		setHtmlString(htmlStrings[levelNum]);
@@ -93,8 +95,16 @@ export default function Learn() {
 		setHtmlString(e.target.value);
 	}
 
+	function handleHtmlRefresh() {
+		setHtmlString(htmlStrings[levelNum]);
+	}
+
 	function handleCssChange(e) {
 		setCssString(e.target.value);
+	}
+
+	function handleCssRefresh() {
+		setCssString(cssStrings[levelNum]);
 	}
 
 	return (
@@ -104,8 +114,8 @@ export default function Learn() {
 				text={infoText} 
 				menuOptions={menuOptions} 
 				handleMenuOptionClick={handleMenuOptionClick}/>
-			<CodeBox title="index.html" value={htmlString} handleChange={handleHtmlChange}/> 
-			<CodeBox title="style.css" value={cssString} handleChange={handleCssChange}/>
+			<CodeBox title="index.html" value={htmlString} handleChange={handleHtmlChange} handleRefresh={handleHtmlRefresh}/> 
+			<CodeBox title="style.css" value={cssString} handleChange={handleCssChange} handleRefresh={handleCssRefresh}/>
 			<DisplayBox title="display" htmlString={htmlString} cssString={cssString}/> 
 		</section>
 	)
