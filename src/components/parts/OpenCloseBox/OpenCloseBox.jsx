@@ -10,7 +10,7 @@ export default function OpenCloseBox({title = null, text = null, menuOptions = n
 
 	const [isExpanded, setIsExpanded] = useState(true); 
 
-	const [selectedTitle, setSelectedTitle] = useState(title || menuOptions[0]);  
+	const [selectedTitle, setSelectedTitle] = useState(title || menuOptions && menuOptions[0] || '');  
 	const [selectedText, setSelectedText] = useState(text || children || menuText[0]);
 
 	function handleOpenCloseToggleClick() {  
