@@ -4,14 +4,15 @@ import Burger from '../Burger/Burger.jsx';
 import BurgerDropDown from '../Burger/BurgerDropDown.jsx';
 import './OpenCloseBox.css';
 
-export default function OpenCloseBox({title = null, text = null, menuOptions = null, menuText = null, children = null}) {
+export default function /*OpenCloseBox({title = null, text = null, menuOptions = null, menuText = null, children = null, levelNum, setLevelNum}) {*/
+	OpenCloseBox({title = null, text = null, menuOptions = null, handleMenuOptionClick, children = null}) {
 	const [burgerIsOpen, setBurgerIsOpen] = useState(false);
 	const [burgerWasOpen, setBurgerWasOpen] = useState(false);
 
 	const [isExpanded, setIsExpanded] = useState(true); 
 
-	const [selectedTitle, setSelectedTitle] = useState(title || menuOptions && menuOptions[0] || '');  
-	const [selectedText, setSelectedText] = useState(text || menuText && menuText[0]);
+	// const [selectedTitle, setSelectedTitle] = useState(title || menuOptions && menuOptions[levelNum] || '');  
+	// const [selectedText, setSelectedText] = useState(text || menuText && menuText[levelNum]);
 
 	function handleOpenCloseToggleClick() {  
 		if(isExpanded) closeBox();
@@ -23,7 +24,7 @@ export default function OpenCloseBox({title = null, text = null, menuOptions = n
 		setBurgerIsOpen(false);
 		setIsExpanded(false); 
 	}
-
+ 
 	function openBox() {
 		if(burgerWasOpen) {
 			setBurgerIsOpen(true);
@@ -32,10 +33,9 @@ export default function OpenCloseBox({title = null, text = null, menuOptions = n
 		setIsExpanded(true); 
 	} 
 
-	function handleBurgerTitleClick(option) {
-		setSelectedTitle(option);
+	function handleClickMenu(option) {
+		handleMenuOptionClick(option);
 		setBurgerIsOpen(false);
-		if(menuText) setSelectedText(menuText[menuOptions.indexOf(option)]);
 	}
 
 	return ( 
@@ -47,16 +47,16 @@ export default function OpenCloseBox({title = null, text = null, menuOptions = n
 					</div> 
 				}
 				
-		 		<div className="title">{selectedTitle}</div>
+		 		<div className="title">{title}</div>
 
 				<div className={ menuOptions ? "open-close-toggle-container" : "open-close-toggle-container open-close-toggle-container-big" }>
 					<OpenCloseToggle isOpen={!isExpanded} handleClick={handleOpenCloseToggleClick}/>
 	 			</div>
 			</div>
 			<div className="box-body"> 
-				{menuOptions && <BurgerDropDown isOpen={burgerIsOpen} options={menuOptions} handleOptionClick={handleBurgerTitleClick}/>}
+				{menuOptions && <BurgerDropDown isOpen={burgerIsOpen} options={menuOptions} handleOptionClick={handleClickMenu}/>}
 				{children && children}
-				{selectedText && <p className={ isExpanded ? "text-body" : "text-body no-show"}>{selectedText}</p>}
+				{text && <p className={ isExpanded ? "text-body" : "text-body no-show"}>{text}</p>}
 			</div>
 	 	</div> 
 	);

@@ -1,6 +1,6 @@
 import OpenCloseBox from './parts/OpenCloseBox/OpenCloseBox.jsx';
 
-export default function InfoBox() {
+export default function InfoBox({levelNum, setLevelNum}) {
 	const menuOptions = [
 		'Level 1: display: flex',
 		'Level 2: flex-direction',
@@ -33,7 +33,14 @@ export default function InfoBox() {
 		'text 13',
 	];
 
+	const title = menuOptions[levelNum];
+	const text = menuText[levelNum];
+
+	function handleMenuOptionClick(option) {
+		setLevelNum(menuOptions.indexOf(option));
+	}
+
 	return (
-		<OpenCloseBox menuOptions={menuOptions} menuText={menuText}/>
+		<OpenCloseBox title={title} text={text} menuOptions={menuOptions} handleMenuOptionClick={handleMenuOptionClick}/>
 	)
 }
