@@ -11,7 +11,7 @@ export default function OpenCloseBox({title = null, text = null, menuOptions = n
 	const [isExpanded, setIsExpanded] = useState(true); 
 
 	const [selectedTitle, setSelectedTitle] = useState(title || menuOptions && menuOptions[0] || '');  
-	const [selectedText, setSelectedText] = useState(text || children || menuText[0]);
+	const [selectedText, setSelectedText] = useState(text || menuText && menuText[0]);
 
 	function handleOpenCloseToggleClick() {  
 		if(isExpanded) closeBox();
@@ -55,7 +55,8 @@ export default function OpenCloseBox({title = null, text = null, menuOptions = n
 			</div>
 			<div className="box-body"> 
 				{menuOptions && <BurgerDropDown isOpen={burgerIsOpen} options={menuOptions} handleOptionClick={handleBurgerTitleClick}/>}
-				<p className={ isExpanded ? "text-body" : "text-body no-show"}>{selectedText}</p>
+				{children && children}
+				{selectedText && <p className={ isExpanded ? "text-body" : "text-body no-show"}>{selectedText}</p>}
 			</div>
 	 	</div> 
 	);

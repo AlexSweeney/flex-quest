@@ -11,16 +11,23 @@ import './LearnStyle.css';
 
 export default function Learn() {
 	const title = 'index.html';
-	const inital = `
-<div class="item_1">Item 1 text</div>
-<div class="item_2">Item 2 text</div>`;
+	const inital = '<p>hello</p>';
+// 	const inital = `
+// <div class="item_1">Item 1 text</div>
+// <div class="item_2">Item 2 text</div>`;
 	const [value, setValue] = useState(inital);
+
+	function onChange(e) {
+		setValue(e.target.value);
+	}
 
 	return (
 		<section className="learn-container">
 			<InfoBox/>
-			<CodeBox title={title} value={value} setValue={setValue}/>
+			<CodeBox title={title} value={value} onChange={onChange}/>
 			<DisplayBox htmlString={value}/>
+
+			value{value}
 			{/*<HtmlBox/>
 			<CssBox/>
 			<DisplayBox/>*/}
