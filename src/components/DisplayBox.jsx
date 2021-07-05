@@ -1,16 +1,16 @@
-import React, {useState} from 'react'; 
+import React, {useState, useEffect} from 'react'; 
 import OpenCloseBox from './parts/OpenCloseBox/OpenCloseBox.jsx';  
 
-export default function DisplayBox({htmlString, cssString}) {   
-	window.onload = function() {
-		let myiFrame = document.getElementById("iframe");
-  	let doc = myiFrame.contentDocument;
-  	doc.body.innerHTML = doc.body.innerHTML + `<style>${cssString}</style>`;
-  }
+export default function DisplayBox({htmlString, cssString}) {    
+  const [source, setSource] = useState(null);
+
+  useEffect(() => { 
+  	setSource(htmlString + `<style>${cssString}</style>`);
+  }, [htmlString, cssString]) 
 
 	return (
 		<OpenCloseBox>    
-			<iframe srcdoc={htmlString} id='iframe'/>
+			<iframe srcdoc={source}/>
 		</OpenCloseBox>
 	) 
 }
