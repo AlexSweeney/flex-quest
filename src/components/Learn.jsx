@@ -106,7 +106,7 @@ export default function Learn() {
 				handleMenuOptionClick={handleMenuOptionClick}/>
 			<CodeBox title="index.html" value={htmlString} handleChange={handleHtmlChange}/> 
 			<CodeBox title="style.css" value={cssString} handleChange={handleCssChange}/>
-			<DisplayBox htmlString={htmlString} cssString={cssString}/> 
+			<DisplayBox title="display" htmlString={htmlString} cssString={cssString}/> 
 		</section>
 	)
 }
