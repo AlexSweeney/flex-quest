@@ -35,7 +35,7 @@ function App() {
     	<Router>
     		<Header/>
         		<Switch>
-        			<Route path={["/", "/flex-quest/"]} exact component={Home}/>
+                    <Route path={["/", "/flex-quest/"]} exact component={Home}/>
         			<Route path="/learn" component={Learn}/>
         		</Switch>
 	    </Router>

@@ -4,18 +4,13 @@ import CodeBox from './CodeBox.jsx';
 import DisplayBox from './DisplayBox.jsx';
 import './LearnStyle.css'; 
 
-export default function Learn() {
-	const title = 'index.html';
-	const inital = `<div class="item_1">Item 1 text</div>
-<div class="item_2">Item 2 text</div>`;
-	const cssInitial = `.item_1 {
-  border: 2px solid black;
-  background: green;
-}
-`;
+import {text_1} from './data/text/text_1.jsx';
+import {html_1} from './data/html/html_1.jsx';
+import {style_1} from './data/css/style_1.jsx';
 
+export default function Learn() {  
 	const htmlStrings = [
-		'html_string_1',
+		html_1,
 		'html_string_2',
 		'html_string_3',
 		'html_string_4',
@@ -31,7 +26,7 @@ export default function Learn() {
 	];
 
 	const cssStrings = [
-		'style_1',
+		style_1,
 		'style_2',
 		'style_3',
 		'style_4',
@@ -63,7 +58,7 @@ export default function Learn() {
 	]; 
 
 	const menuText = [
-		'text 1',
+		text_1,
 		'text 2',
 		'text 3',
 		'text 4',

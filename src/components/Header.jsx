@@ -10,12 +10,18 @@ export default function Header() {
 		  </Link>
 		  <nav>
 		  	<ul class="header-options">
+		  		{/*<li>Intro</li>*/}
 		  		<Link to="/learn">
 		  			<li>Learn</li>
 		  		</Link>
 		  		<Link to="/play">
 		  			<li>Play</li>
 		  		</Link>
+		  		{/*<li>Read</li>
+		  		<li>Write</li>
+		  		<li>Use</li>
+		  		<li>Reference</li>
+		  		<li>Support</li>*/}
 		  	</ul>
 		  </nav>
 		</header>
