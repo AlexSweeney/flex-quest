@@ -83,6 +83,8 @@ export default function Learn() {
 	const [cssString, setCssString] = useState(cssStrings[levelNum]);  
 	const defaultCssString = cssStrings[levelNum];
 
+	const [fadeDisplay, setFadeDisplay] = useState(false);
+
 	function handleMenuOptionClick(option) { 
 		changeLevel(menuOptions.indexOf(option));
 	}
@@ -112,14 +114,18 @@ export default function Learn() {
 	}
 
 	function handleTextOptionClick(newCssString) { 
-		let thisStyle;
-		if(newCssString === cssString) thisStyle = defaultCssString;
-		else thisStyle = newCssString;
-  
-		setCssString(thisStyle);
-	}
+		setFadeDisplay(true);
 
-	console.log('infoText', infoText);
+		setTimeout(() => {
+			let thisStyle;
+			if(newCssString === cssString) thisStyle = defaultCssString;
+			else thisStyle = newCssString;
+	  
+			setCssString(thisStyle);
+
+			setFadeDisplay(false)
+		}, 500);
+	} 
 
 	return (
 		<section className="learn-container"> 
@@ -128,7 +134,7 @@ export default function Learn() {
 			</OpenCloseBox>
 			<CodeBox title="index.html" value={htmlString} handleChange={handleHtmlChange} handleRefresh={handleHtmlRefresh}/> 
 			<CodeBox title="style.css" value={cssString} handleChange={handleCssChange} handleRefresh={handleCssRefresh}/>
-			<DisplayBox title="display" htmlString={htmlString} cssString={cssString}/> 
+			<DisplayBox title="display" htmlString={htmlString} cssString={cssString} fade={fadeDisplay}/> 
 		</section>
 	)
 }

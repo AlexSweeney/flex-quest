@@ -7,12 +7,9 @@ import {style_2d} from './../css/style_2d.jsx';
 import './textStyle.css';
 
 export default function Text_2({handleClick}) {
-	const [currentStyle, setCurrentStyle] = useState(null);
-
 	function ClickHeader({newStyle, children}) { 
-		return <h2 
-		className={ currentStyle === newStyle ? "info-header selected" : "info-header"}
-		onClick={() => { handleClick(newStyle); }}>{children}</h2>
+		return <h2 className={"info-header"}
+							onClick={() => { handleClick(newStyle); }}>{children}</h2>
 	}
 
 	return (
