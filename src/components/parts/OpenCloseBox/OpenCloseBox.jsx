@@ -13,8 +13,8 @@ export default function OpenCloseBox({
 	handleRefresh = null, 
 	children = null,
 	background = '',
-}) {
-	console.log(RefreshIcon);
+	handleTextOptionClick = null,
+}) { 
 	const [burgerIsOpen, setBurgerIsOpen] = useState(false);
 	const [burgerWasOpen, setBurgerWasOpen] = useState(false);
 
@@ -65,7 +65,7 @@ export default function OpenCloseBox({
 			<div className={"box-body " + background}> 
 				{menuOptions && <BurgerDropDown isOpen={burgerIsOpen} options={menuOptions} handleOptionClick={handleClickMenu}/>}
 				{children && <div className={ isExpanded ? "text-body" : "text-body no-show"}>{children}</div>}
-				{text && <p className={ isExpanded ? "text-body padding" : "text-body padding no-show"}>{text}</p>}
+				{/*{text && <div className={ isExpanded ? "text-body padding" : "text-body padding no-show"}><p>{text}</p></div>}*/}
 			</div>
 	 	</div> 
 	);

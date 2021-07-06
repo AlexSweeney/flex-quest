@@ -5,7 +5,7 @@ import DisplayBox from './DisplayBox.jsx';
 import './LearnStyle.css'; 
 
 import {text_1} from './data/text/text_1.jsx';
-import {text_2} from './data/text/text_2.jsx';
+import Text_2 from './data/text/text_2.jsx';
 import {html_1} from './data/html/html_1.jsx';
 import {html_2} from './data/html/html_2.jsx';
 import {style_1} from './data/css/style_1.jsx';
@@ -62,7 +62,7 @@ export default function Learn() {
 
 	const menuText = [
 		text_1,
-		text_2,
+		'text_2',
 		'text 3',
 		'text 4',
 		'text 5',
@@ -114,14 +114,13 @@ export default function Learn() {
 		setCssString(newStyle);
 	}
 
+	console.log('infoText', infoText);
+
 	return (
 		<section className="learn-container"> 
-			<OpenCloseBox 
-				title={infoTitle} 
-				text={infoText} 
-				menuOptions={menuOptions} 
-				handleMenuOptionClick={handleMenuOptionClick}
-				handleTextOptionClick={handleTextOptionClick}/>
+			<OpenCloseBox title={infoTitle} menuOptions={menuOptions} handleMenuOptionClick={handleMenuOptionClick}>
+				<Text_2 handleClick={handleTextOptionClick}/>
+			</OpenCloseBox>
 			<CodeBox title="index.html" value={htmlString} handleChange={handleHtmlChange} handleRefresh={handleHtmlRefresh}/> 
 			<CodeBox title="style.css" value={cssString} handleChange={handleCssChange} handleRefresh={handleCssRefresh}/>
 			<DisplayBox title="display" htmlString={htmlString} cssString={cssString}/> 

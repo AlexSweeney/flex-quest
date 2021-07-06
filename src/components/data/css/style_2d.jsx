@@ -1,4 +1,4 @@
-export const style_2a = 
+export const style_2d = 
 `.container {
   display: flex;
   flex-direction: column-reverse;
