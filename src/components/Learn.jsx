@@ -5,13 +5,16 @@ import DisplayBox from './DisplayBox.jsx';
 import './LearnStyle.css'; 
 
 import {text_1} from './data/text/text_1.jsx';
+import {text_2} from './data/text/text_2.jsx';
 import {html_1} from './data/html/html_1.jsx';
+import {html_2} from './data/html/html_2.jsx';
 import {style_1} from './data/css/style_1.jsx';
+import {style_2} from './data/css/style_2.jsx';
 
 export default function Learn() {  
 	const htmlStrings = [
 		html_1,
-		'html_string_2',
+		html_2,
 		'html_string_3',
 		'html_string_4',
 		'html_string_5',
@@ -27,7 +30,7 @@ export default function Learn() {
 
 	const cssStrings = [
 		style_1,
-		'style_2',
+		style_2,
 		'style_3',
 		'style_4',
 		'style_5',
@@ -59,7 +62,7 @@ export default function Learn() {
 
 	const menuText = [
 		text_1,
-		'text 2',
+		text_2,
 		'text 3',
 		'text 4',
 		'text 5',
@@ -73,11 +76,11 @@ export default function Learn() {
 		'text 13',
 	];
 
-	const [levelNum, setLevelNum] = useState(0);
-	const [infoTitle, setInfoTitle] = useState(menuOptions[0]);
-	const [infoText, setInfoText] = useState(menuText[0]);
-	const [htmlString, setHtmlString] = useState(htmlStrings[0]);
-	const [cssString, setCssString] = useState(cssStrings[0]);  
+	const [levelNum, setLevelNum] = useState(1);
+	const [infoTitle, setInfoTitle] = useState(menuOptions[levelNum]);
+	const [infoText, setInfoText] = useState(menuText[levelNum]);
+	const [htmlString, setHtmlString] = useState(htmlStrings[levelNum]);
+	const [cssString, setCssString] = useState(cssStrings[levelNum]);  
 
 	function handleMenuOptionClick(option) { 
 		changeLevel(menuOptions.indexOf(option));
@@ -107,13 +110,18 @@ export default function Learn() {
 		setCssString(cssStrings[levelNum]);
 	}
 
+	function handleTextOptionClick(newStyle) {
+		setCssString(newStyle);
+	}
+
 	return (
 		<section className="learn-container"> 
 			<OpenCloseBox 
 				title={infoTitle} 
 				text={infoText} 
 				menuOptions={menuOptions} 
-				handleMenuOptionClick={handleMenuOptionClick}/>
+				handleMenuOptionClick={handleMenuOptionClick}
+				handleTextOptionClick={handleTextOptionClick}/>
 			<CodeBox title="index.html" value={htmlString} handleChange={handleHtmlChange} handleRefresh={handleHtmlRefresh}/> 
 			<CodeBox title="style.css" value={cssString} handleChange={handleCssChange} handleRefresh={handleCssRefresh}/>
 			<DisplayBox title="display" htmlString={htmlString} cssString={cssString}/> 

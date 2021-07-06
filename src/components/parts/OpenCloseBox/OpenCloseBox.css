@@ -167,6 +167,11 @@
 	padding: 0.5em 0.75em;
 }
 
+.text-body .bold {
+	font-weight: bold;
+	margin-bottom: 0;
+}
+
 .dark-background {
 	background: #272727;
 }
