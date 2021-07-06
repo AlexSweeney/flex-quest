@@ -4,7 +4,15 @@ import Burger from '../Burger/Burger.jsx';
 import BurgerDropDown from '../Burger/BurgerDropDown.jsx';
 import './OpenCloseBox.css';
 
-export default function OpenCloseBox({title = null, text = null, menuOptions = null, handleMenuOptionClick, handleRefresh = null, children = null}) {
+export default function OpenCloseBox({
+	title = null, 
+	text = null, 
+	menuOptions = null, 
+	handleMenuOptionClick, 
+	handleRefresh = null, 
+	children = null,
+	background = '',
+}) {
 	const [burgerIsOpen, setBurgerIsOpen] = useState(false);
 	const [burgerWasOpen, setBurgerWasOpen] = useState(false);
 
@@ -52,7 +60,7 @@ export default function OpenCloseBox({title = null, text = null, menuOptions = n
 					<OpenCloseToggle isOpen={!isExpanded} handleClick={handleOpenCloseToggleClick}/>
 	 			</div>
 			</div>
-			<div className={ children ? "box-body dark-background" : "box-body"}> 
+			<div className={"box-body " + background}> 
 				{menuOptions && <BurgerDropDown isOpen={burgerIsOpen} options={menuOptions} handleOptionClick={handleClickMenu}/>}
 				{children && <div className={ isExpanded ? "text-body" : "text-body no-show"}>{children}</div>}
 				{text && <p className={ isExpanded ? "text-body padding" : "text-body padding no-show"}>{text}</p>}

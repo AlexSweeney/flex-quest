@@ -4,7 +4,7 @@ import './CodeBox.css';
 
 export default function CodeBox({title, value, handleChange, handleRefresh}) {     
 	return ( 
-		<OpenCloseBox title={title} handleRefresh={handleRefresh}>    
+		<OpenCloseBox title={title} handleRefresh={handleRefresh} background="dark-background">    
 			<textarea className="text-area" value={value} onChange={handleChange}>   
 			</textarea>
 		</OpenCloseBox>

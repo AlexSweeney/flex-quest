@@ -11,7 +11,7 @@ export default function DisplayBox({title, htmlString, cssString}) {
   }, [htmlString, cssString]) 
   
 	return (
-		<OpenCloseBox title={title}>    
+		<OpenCloseBox title={title} background="white-background">    
 			<iframe srcdoc={source} className="iframe"/>
 		</OpenCloseBox>
 	) 
