@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import OpenCloseToggle from '../OpenCloseToggle/OpenCloseToggle.jsx'; 
 import Burger from '../Burger/Burger.jsx';
 import BurgerDropDown from '../Burger/BurgerDropDown.jsx';
+import RefreshIcon from '@material-ui/icons/Refresh';
 import './OpenCloseBox.css';
 
 export default function OpenCloseBox({
@@ -13,6 +14,7 @@ export default function OpenCloseBox({
 	children = null,
 	background = '',
 }) {
+	console.log(RefreshIcon);
 	const [burgerIsOpen, setBurgerIsOpen] = useState(false);
 	const [burgerWasOpen, setBurgerWasOpen] = useState(false);
 
@@ -51,7 +53,7 @@ export default function OpenCloseBox({
 					</div>}
 				{handleRefresh && 
 					<div className={ isExpanded ? "burger-container burger-container-opening" : "burger-container"}>
-						<div className="refresh-button" onClick={(handleRefresh)}></div>
+						<div className="refresh-button" onClick={(handleRefresh)}><RefreshIcon fontSize="small"/></div>
 					</div>}
 				
 		 		<div className="title">{title}</div>

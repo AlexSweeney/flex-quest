@@ -153,6 +153,9 @@
   width: 22px;
   border-radius: 100%;
   background: #E8E4E4; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* ======================== Util ======================== */ 
