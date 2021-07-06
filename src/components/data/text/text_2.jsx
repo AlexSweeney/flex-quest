@@ -12,26 +12,23 @@ export default function Text_2({handleClick}) {
 		if(currentStyle === newStyle) handleClick(style_2);
 		else handleClick(newStyle);
 
-		setCurrentStyle(newStyle);
-		// if(isClicked) handleClick(style_2);
-		// else handleClick(newStyle);
-		// setIsClicked(oldVal => !oldVal);
+		setCurrentStyle(newStyle); 
 	}
 
-	function clickHeader({children}) {
-
+	function ClickHeader({newStyle, children}) {
+		return <h2 className="bold" onClick={() => onClick(newStyle)}>{children}</h2>
 	}
 
 	return (
 		<>
 			<p>Flex direction allows you to set the direction the child elements of the flex container are displayed.</p>  
-			<h2 className="bold" onClick={() => onClick(style_2a)}>flex-direction: row; (default)</h2>
-			<p>Flex direction allows you to set the direction the child elements of the flex container are displayed.</p>  
-			<p className="bold" onClick={() => onClick(style_2b)}>flex-direction: row-reverse;</p>  
+			<ClickHeader newStyle={style_2a}>flex-direction: row; (default)</ClickHeader> 
+			<p>display children from left to right.</p>  
+			<ClickHeader newStyle={style_2b}>flex-direction: row-reverse;</ClickHeader> 
 			<p>display children from right to left.</p>  
-			<p className="bold" onClick={() => onClick(style_2c)}>flex-direction: column;</p>  
+			<ClickHeader newStyle={style_2c}>flex-direction: column;</ClickHeader> 
 			<p>display children from top to bottom.</p>   
-			<p className="bold" onClick={() => onClick(style_2d)}>flex-direction: column-reverse;</p>  
+			<ClickHeader newStyle={style_2d}>flex-direction: column-reverse;</ClickHeader>
 			<p>display children from bottom to top.</p>
 			<p>Try setting 'flex-direction' on '.container' to the different values.</p> 
 		</>
