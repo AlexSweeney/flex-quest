@@ -6,12 +6,16 @@ import {style_2c} from './../css/style_2c.jsx';
 import {style_2d} from './../css/style_2d.jsx';
 
 export default function Text_2({handleClick}) {
-	const [isClicked, setIsClicked] = useState(false);
+	const [currentStyle, setCurrentStyle] = useState(null);
+
 	function onClick(newStyle) {
+		if(currentStyle === newStyle) handleClick(style_2);
+		else handleClick(newStyle);
+
+		setCurrentStyle(newStyle);
 		// if(isClicked) handleClick(style_2);
 		// else handleClick(newStyle);
 		// setIsClicked(oldVal => !oldVal);
-		handleClick(newStyle);
 	}
 
 	function clickHeader({children}) {
