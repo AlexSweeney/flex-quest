@@ -41,7 +41,10 @@ export default function OpenCloseBox({title = null, text = null, menuOptions = n
 					<div className={ isExpanded ? "burger-container burger-container-opening" : "burger-container"}>
 						<Burger isOpen={burgerIsOpen} setIsOpen={setBurgerIsOpen} menuOptions={menuOptions}/>
 					</div>}
-				{handleRefresh && <div className="refresh-button" onClick={(handleRefresh)}></div>}
+				{handleRefresh && 
+					<div className={ isExpanded ? "burger-container burger-container-opening" : "burger-container"}>
+						<div className="refresh-button" onClick={(handleRefresh)}></div>
+					</div>}
 				
 		 		<div className="title">{title}</div>
 
@@ -49,10 +52,10 @@ export default function OpenCloseBox({title = null, text = null, menuOptions = n
 					<OpenCloseToggle isOpen={!isExpanded} handleClick={handleOpenCloseToggleClick}/>
 	 			</div>
 			</div>
-			<div className="box-body"> 
+			<div className={ children ? "box-body dark-background" : "box-body"}> 
 				{menuOptions && <BurgerDropDown isOpen={burgerIsOpen} options={menuOptions} handleOptionClick={handleClickMenu}/>}
-				{children && children}
-				{text && <p className={ isExpanded ? "text-body" : "text-body no-show"}>{text}</p>}
+				{children && <div className={ isExpanded ? "text-body" : "text-body no-show"}>{children}</div>}
+				{text && <p className={ isExpanded ? "text-body padding" : "text-body padding no-show"}>{text}</p>}
 			</div>
 	 	</div> 
 	);
