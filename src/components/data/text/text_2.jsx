@@ -4,19 +4,24 @@ import {style_2a} from './../css/style_2a.jsx';
 import {style_2b} from './../css/style_2b.jsx';
 import {style_2c} from './../css/style_2c.jsx';
 import {style_2d} from './../css/style_2d.jsx';
+import './textStyle.css';
 
 export default function Text_2({handleClick}) {
 	const [currentStyle, setCurrentStyle] = useState(null);
 
 	function onClick(newStyle) {
-		if(currentStyle === newStyle) handleClick(style_2);
-		else handleClick(newStyle);
+		let thisStyle;
+		if(currentStyle === newStyle) thisStyle = style_2;
+		else thisStyle = newStyle;
 
-		setCurrentStyle(newStyle); 
+		handleClick(thisStyle);
+		setCurrentStyle(thisStyle); 
 	}
 
-	function ClickHeader({newStyle, children}) {
-		return <h2 className="bold" onClick={() => onClick(newStyle)}>{children}</h2>
+	function ClickHeader({newStyle, children}) { 
+		return <h2 
+		className={ currentStyle === newStyle ? "info-header selected" : "info-header"}
+		onClick={() => { onClick(newStyle); }}>{children}</h2>
 	}
 
 	return (
