@@ -6,9 +6,9 @@ import {style_2c} from './../css/style_2c.jsx';
 import {style_2d} from './../css/style_2d.jsx';
 import './textStyle.css';
 
-export default function Text_2({handleClick}) {
+export default function Text_2({handleClick, styleString}) {
 	function ClickHeader({newStyle, children}) { 
-		return <h2 className={"info-header"}
+		return <h2 className={newStyle === styleString ? "info-header selected" : "info-header"}
 							onClick={() => { handleClick(newStyle); }}>{children}</h2>
 	}
 

@@ -130,7 +130,7 @@ export default function Learn() {
 	return (
 		<section className="learn-container"> 
 			<OpenCloseBox title={infoTitle} menuOptions={menuOptions} handleMenuOptionClick={handleMenuOptionClick}>
-				<Text_2 handleClick={handleTextOptionClick}/>
+				<Text_2 handleClick={handleTextOptionClick} styleString={cssString}/>
 			</OpenCloseBox>
 			<CodeBox title="index.html" value={htmlString} handleChange={handleHtmlChange} handleRefresh={handleHtmlRefresh}/> 
 			<CodeBox title="style.css" value={cssString} handleChange={handleCssChange} handleRefresh={handleCssRefresh}/>
