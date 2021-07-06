@@ -81,6 +81,7 @@ export default function Learn() {
 	const [infoText, setInfoText] = useState(menuText[levelNum]);
 	const [htmlString, setHtmlString] = useState(htmlStrings[levelNum]);
 	const [cssString, setCssString] = useState(cssStrings[levelNum]);  
+	const defaultCssString = cssStrings[levelNum];
 
 	function handleMenuOptionClick(option) { 
 		changeLevel(menuOptions.indexOf(option));
@@ -110,8 +111,12 @@ export default function Learn() {
 		setCssString(cssStrings[levelNum]);
 	}
 
-	function handleTextOptionClick(newStyle) {
-		setCssString(newStyle);
+	function handleTextOptionClick(newCssString) { 
+		let thisStyle;
+		if(newCssString === cssString) thisStyle = defaultCssString;
+		else thisStyle = newCssString;
+  
+		setCssString(thisStyle);
 	}
 
 	console.log('infoText', infoText);

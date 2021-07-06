@@ -9,23 +9,14 @@ import './textStyle.css';
 export default function Text_2({handleClick}) {
 	const [currentStyle, setCurrentStyle] = useState(null);
 
-	function onClick(newStyle) {
-		let thisStyle;
-		if(currentStyle === newStyle) thisStyle = style_2;
-		else thisStyle = newStyle;
-
-		handleClick(thisStyle);
-		setCurrentStyle(thisStyle); 
-	}
-
 	function ClickHeader({newStyle, children}) { 
 		return <h2 
 		className={ currentStyle === newStyle ? "info-header selected" : "info-header"}
-		onClick={() => { onClick(newStyle); }}>{children}</h2>
+		onClick={() => { handleClick(newStyle); }}>{children}</h2>
 	}
 
 	return (
-		<>
+		<div className="info-text">
 			<p>Flex direction allows you to set the direction the child elements of the flex container are displayed.</p>  
 			<ClickHeader newStyle={style_2a}>flex-direction: row; (default)</ClickHeader> 
 			<p>display children from left to right.</p>  
@@ -36,7 +27,7 @@ export default function Text_2({handleClick}) {
 			<ClickHeader newStyle={style_2d}>flex-direction: column-reverse;</ClickHeader>
 			<p>display children from bottom to top.</p>
 			<p>Try setting 'flex-direction' on '.container' to the different values.</p> 
-		</>
+		</div>
 	)
 }
 
