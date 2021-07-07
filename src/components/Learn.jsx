@@ -83,22 +83,45 @@ export default function Learn() {
 	const [cssString, setCssString] = useState(cssStrings[levelNum]);  
 	const defaultCssString = cssStrings[levelNum];
 
+	const [displayHtml, setDisplayHtml] = useState(htmlString);
+	const [displayCss, setDisplayCss] = useState(cssString);
+
 	const [fadeDisplay, setFadeDisplay] = useState(false);
+	const [fadeStyle, setFadeStyle] = useState(false);
 
 	function handleMenuOptionClick(option) { 
 		changeLevel(menuOptions.indexOf(option));
 	}
 
-	function changeLevel(levelNum) { 
+	function changeLevel(levelNum) {  
 		setLevelNum(levelNum);
 		setInfoTitle(menuOptions[levelNum]);
 		setInfoText(menuText[levelNum]);
 		setHtmlString(htmlStrings[levelNum]);
 		setCssString(cssStrings[levelNum]);
+
+		changeDispay(htmlStrings[levelNum], cssStrings[levelNum]); 
+	}
+
+	function changeDispay(htmlString, cssString) {
+		setFadeDisplay(true);
+
+		setTimeout(() => {
+			console.log('cssString', cssString);
+			setDisplayHtml(htmlString);
+			setDisplayCss(cssString);	
+			setFadeDisplay(false);
+		}, 500)
 	}
 
 	function handleHtmlChange(e) {
 		setHtmlString(e.target.value);
+		setFadeDisplay(true);
+
+		setTimeout(() => {
+			setFadeDisplay(false)
+			setDisplayHtml(e.target.value);
+		}, 500);
 	}
 
 	function handleHtmlRefresh() {
@@ -106,7 +129,14 @@ export default function Learn() {
 	}
 
 	function handleCssChange(e) {
-		setCssString(e.target.value);
+		const newString = e.target.value;
+		setCssString(newString);
+		setFadeDisplay(true);
+
+		setTimeout(() => {
+			setFadeDisplay(false); 
+			setDisplayCss(newString);
+		}, 500);
 	}
 
 	function handleCssRefresh() {
@@ -122,9 +152,10 @@ export default function Learn() {
 			else thisStyle = newCssString;
 	  
 			setCssString(thisStyle);
+			setDisplayCss(thisStyle);
 
 			setFadeDisplay(false)
-		}, 500);
+		}, 750);
 	} 
 
 	return (
@@ -133,8 +164,8 @@ export default function Learn() {
 				<Text_2 handleClick={handleTextOptionClick} styleString={cssString}/>
 			</OpenCloseBox>
 			<CodeBox title="index.html" value={htmlString} handleChange={handleHtmlChange} handleRefresh={handleHtmlRefresh}/> 
-			<CodeBox title="style.css" value={cssString} handleChange={handleCssChange} handleRefresh={handleCssRefresh} fade={fadeDisplay}/> 
-			<DisplayBox title="display" htmlString={htmlString} cssString={cssString} fade={fadeDisplay}/> 
+			<CodeBox title="style.css" value={cssString} handleChange={handleCssChange} handleRefresh={handleCssRefresh} fade={fadeStyle}/> 
+			<DisplayBox title="display" htmlString={displayHtml} cssString={displayCss} fade={fadeDisplay}/> 
 		</section>
 	)
 }

@@ -1,9 +1,7 @@
-const span = <span style={{color: 'pink'}}>flex-direction: row;</span> 
-
 export const style_2a = 
 `.container {
   display: flex;
-  ${span}
+  flex-direction: row;
 }
 
 .item { 
