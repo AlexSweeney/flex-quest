@@ -4,7 +4,7 @@ import './DisplayBox.css';
 
 export default function DisplayBox({title, htmlString, cssString, fade}) {    
   const [source, setSource] = useState(null);
-  const iframeStyle = '* {padding: 0; margin: 0; transition: opacity 2s; } *:hover { cursor: default; }';
+  const iframeStyle = '* {padding: 0; margin: 0; transition: opacity 2s; overflow: hidden;} *:hover { cursor: default; }';
   const fadeStyle = fade ? { opacity: 0 } : {};
   
 

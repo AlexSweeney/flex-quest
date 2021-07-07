@@ -20,6 +20,8 @@ export default function OpenCloseBox({
 
 	const [isExpanded, setIsExpanded] = useState(true); 
 
+	const [rotateNum, setRotateNum] = useState(0);
+
 	function handleOpenCloseToggleClick() {  
 		if(isExpanded) closeBox();
 		else if(!isExpanded) openBox();
@@ -44,6 +46,11 @@ export default function OpenCloseBox({
 		setBurgerIsOpen(false);
 	}
 
+	function refreshDown() {
+		setRotateNum(oldVal => oldVal + 360);
+		handleRefresh();
+	}
+  
 	return ( 
 		<div className={isExpanded ? "box box-expanded" : "box box-minimized"}> 
 			<div className="box-header">
@@ -52,8 +59,8 @@ export default function OpenCloseBox({
 						<Burger isOpen={burgerIsOpen} setIsOpen={setBurgerIsOpen} menuOptions={menuOptions}/>
 					</div>}
 				{handleRefresh && 
-					<div className={ isExpanded ? "burger-container burger-container-opening" : "burger-container"}>
-						<div className="refresh-button" onClick={(handleRefresh)}><RefreshIcon fontSize="small"/></div>
+					<div className={ isExpanded ? "burger-container burger-container-opening " : "burger-container " }>
+						<div className="refresh-button" onMouseDown={refreshDown}><RefreshIcon id="refresh-icon" style={{'transform': `rotate(${rotateNum}deg)`}}fontSize="small"/></div>
 					</div>}
 				
 		 		<div className="title">{title}</div>
