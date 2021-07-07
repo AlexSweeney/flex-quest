@@ -1,10 +1,14 @@
+const span = <span style={{color: 'pink'}}>flex-direction: row;</span> 
+
 export const style_2a = 
 `.container {
   display: flex;
-  flex-direction: row;
+  ${span}
 }
 
 .item { 
   border: 2px solid black;
   padding: 1em;
 }`;
+
+ 

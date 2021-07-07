@@ -7,4 +7,4 @@ export const style_2 =
 .item { 
   border: 2px solid black;
   padding: 1em;
-}`;
+}`; 

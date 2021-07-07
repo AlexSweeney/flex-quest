@@ -133,8 +133,10 @@ export default function Learn() {
 				<Text_2 handleClick={handleTextOptionClick} styleString={cssString}/>
 			</OpenCloseBox>
 			<CodeBox title="index.html" value={htmlString} handleChange={handleHtmlChange} handleRefresh={handleHtmlRefresh}/> 
-			<CodeBox title="style.css" value={cssString} handleChange={handleCssChange} handleRefresh={handleCssRefresh}/>
+			<CodeBox title="style.css" value={cssString} handleChange={handleCssChange} handleRefresh={handleCssRefresh} fade={fadeDisplay}/> 
 			<DisplayBox title="display" htmlString={htmlString} cssString={cssString} fade={fadeDisplay}/> 
 		</section>
 	)
 }
+
+	{/*<OpenCloseBox title="style.css"><p contentEditable>{cssString}</p></OpenCloseBox>*/} 
