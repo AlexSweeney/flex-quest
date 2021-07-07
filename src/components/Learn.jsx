@@ -4,7 +4,7 @@ import CodeBox from './CodeBox.jsx';
 import DisplayBox from './DisplayBox.jsx';
 import './LearnStyle.css'; 
 
-import {text_1} from './data/text/text_1.jsx';
+import Text_1 from './data/text/Text_1.jsx';
 import Text_2 from './data/text/text_2.jsx';
 import {html_1} from './data/html/html_1.jsx';
 import {html_2} from './data/html/html_2.jsx';
@@ -61,7 +61,7 @@ export default function Learn() {
 	]; 
 
 	const menuText = [
-		text_1,
+		<Text_1/>,
 		'text_2',
 		'text 3',
 		'text 4',
@@ -76,9 +76,9 @@ export default function Learn() {
 		'text 13',
 	];
 
-	const [levelNum, setLevelNum] = useState(1);
+	const [levelNum, setLevelNum] = useState(0);
 	const [infoTitle, setInfoTitle] = useState(menuOptions[levelNum]);
-	const [infoText, setInfoText] = useState(menuText[levelNum]);
+	const [infoText, setInfoText] = useState(menuText[levelNum]); 
 	const [htmlString, setHtmlString] = useState(htmlStrings[levelNum]);
 	const [cssString, setCssString] = useState(cssStrings[levelNum]);  
 	const defaultCssString = cssStrings[levelNum];
@@ -106,8 +106,7 @@ export default function Learn() {
 	function changeDispay(htmlString, cssString) {
 		setFadeDisplay(true);
 
-		setTimeout(() => {
-			console.log('cssString', cssString);
+		setTimeout(() => { 
 			setDisplayHtml(htmlString);
 			setDisplayCss(cssString);	
 			setFadeDisplay(false);
@@ -161,7 +160,8 @@ export default function Learn() {
 	return (
 		<section className="learn-container"> 
 			<OpenCloseBox title={infoTitle} menuOptions={menuOptions} handleMenuOptionClick={handleMenuOptionClick}>
-				<Text_2 handleClick={handleTextOptionClick} styleString={cssString}/>
+			{/*	<InfoText handleClick={handleTextOptionClick} styleString={cssString}/>*/}
+				<div className="info-text-container">{infoText}</div>
 			</OpenCloseBox>
 			<CodeBox title="index.html" value={htmlString} handleChange={handleHtmlChange} handleRefresh={handleHtmlRefresh}/> 
 			<CodeBox title="style.css" value={cssString} handleChange={handleCssChange} handleRefresh={handleCssRefresh} fade={fadeStyle}/> 

@@ -11,3 +11,7 @@
 	background: white;
 	border: 2px solid black;
 }
+
+.info-text-container {
+	padding: 0.5em 0.75em;
+}
