@@ -5,13 +5,15 @@ import DisplayBox from './DisplayBox.jsx';
 import './LearnStyle.css'; 
 
 import Text_1 from './data/text/Text_1.jsx';
-import Text_2 from './data/text/text_2.jsx';
+import Text_2 from './data/text/Text_2.jsx';
 import {html_1} from './data/html/html_1.jsx';
 import {html_2} from './data/html/html_2.jsx';
 import {style_1} from './data/css/style_1.jsx';
 import {style_2} from './data/css/style_2.jsx';
 
 export default function Learn() {  
+	const [levelNum, setLevelNum] = useState(1);
+
 	const htmlStrings = [
 		html_1,
 		html_2,
@@ -44,6 +46,10 @@ export default function Learn() {
 		'style_13',
 	];
 
+	const [htmlString, setHtmlString] = useState(htmlStrings[levelNum]);
+	const [cssString, setCssString] = useState(cssStrings[levelNum]);  
+	const defaultCssString = cssStrings[levelNum];
+
 	const menuOptions = [
 		'Level 1: display: flex',
 		'Level 2: flex-direction',
@@ -62,7 +68,7 @@ export default function Learn() {
 
 	const menuText = [
 		<Text_1/>,
-		'text_2',
+		<Text_2 handleClick={handleTextOptionClick} styleString={cssString}/>,
 		'text 3',
 		'text 4',
 		'text 5',
@@ -76,12 +82,9 @@ export default function Learn() {
 		'text 13',
 	];
 
-	const [levelNum, setLevelNum] = useState(0);
 	const [infoTitle, setInfoTitle] = useState(menuOptions[levelNum]);
 	const [infoText, setInfoText] = useState(menuText[levelNum]); 
-	const [htmlString, setHtmlString] = useState(htmlStrings[levelNum]);
-	const [cssString, setCssString] = useState(cssStrings[levelNum]);  
-	const defaultCssString = cssStrings[levelNum];
+	
 
 	const [displayHtml, setDisplayHtml] = useState(htmlString);
 	const [displayCss, setDisplayCss] = useState(cssString);
