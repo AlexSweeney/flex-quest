@@ -12,7 +12,7 @@ import {style_1} from './data/css/style_1.jsx';
 import {style_2} from './data/css/style_2.jsx';
 
 export default function Learn() {  
-	const [levelNum, setLevelNum] = useState(1);
+	const [levelNum, setLevelNum] = useState(0);
 
 	const htmlStrings = [
 		html_1,
@@ -47,7 +47,7 @@ export default function Learn() {
 	];
 
 	const [htmlString, setHtmlString] = useState(htmlStrings[levelNum]);
-	const [cssString, setCssString] = useState(cssStrings[levelNum]);  
+	const [cssString, setCssString] = useState(cssStrings[levelNum]); 
 	const defaultCssString = cssStrings[levelNum];
 
 	const menuOptions = [
@@ -67,8 +67,8 @@ export default function Learn() {
 	]; 
 
 	const menuText = [
-		<Text_1/>,
-		<Text_2 handleClick={handleTextOptionClick} styleString={cssString}/>,
+		Text_1,
+		Text_2,
 		'text 3',
 		'text 4',
 		'text 5',
@@ -82,14 +82,17 @@ export default function Learn() {
 		'text 13',
 	];
 
-	const [infoTitle, setInfoTitle] = useState(menuOptions[levelNum]);
-	const [infoText, setInfoText] = useState(menuText[levelNum]); 
-	
+	// const [infoTitle, setInfoTitle] = useState(menuOptions[levelNum]);
+	const infoTitle = menuOptions[levelNum];
+	const InfoText = menuText[levelNum];
+	// const [infoText, setInfoText] = useState(menuText[levelNum]); 
 
 	const [displayHtml, setDisplayHtml] = useState(htmlString);
 	const [displayCss, setDisplayCss] = useState(cssString);
 
+	const [fadeInfo, setFadeInfo] = useState(false);
 	const [fadeDisplay, setFadeDisplay] = useState(false);
+	const [fadeHtml, setFadeHtml] = useState(false);
 	const [fadeStyle, setFadeStyle] = useState(false);
 
 	function handleMenuOptionClick(option) { 
@@ -97,13 +100,24 @@ export default function Learn() {
 	}
 
 	function changeLevel(levelNum) {  
-		setLevelNum(levelNum);
-		setInfoTitle(menuOptions[levelNum]);
-		setInfoText(menuText[levelNum]);
-		setHtmlString(htmlStrings[levelNum]);
-		setCssString(cssStrings[levelNum]);
+		setFadeInfo(true);
+		setFadeHtml(true);
+		setFadeStyle(true);
+		setFadeDisplay(true);
 
-		changeDispay(htmlStrings[levelNum], cssStrings[levelNum]); 
+		setTimeout(() => {
+			setFadeInfo(false);
+			setFadeHtml(false);
+			setFadeStyle(false);
+			setFadeDisplay(false);
+
+			setLevelNum(levelNum);
+			setHtmlString(htmlStrings[levelNum]);
+			setCssString(cssStrings[levelNum]);
+
+			setDisplayHtml(htmlStrings[levelNum]);
+			setDisplayCss(cssStrings[levelNum]); 
+		}, 500);
 	}
 
 	function changeDispay(htmlString, cssString) {
@@ -127,7 +141,13 @@ export default function Learn() {
 	}
 
 	function handleHtmlRefresh() {
-		setHtmlString(htmlStrings[levelNum]);
+		setFadeHtml(true);
+
+		setTimeout(() => {
+			setFadeHtml(false);
+			setHtmlString(htmlStrings[levelNum]);
+			setDisplayHtml(htmlStrings[levelNum]);
+		}, 500);
 	}
 
 	function handleCssChange(e) {
@@ -142,31 +162,40 @@ export default function Learn() {
 	}
 
 	function handleCssRefresh() {
-		setCssString(cssStrings[levelNum]);
-	}
-
-	function handleTextOptionClick(newCssString) { 
-		setFadeDisplay(true);
+		setFadeStyle(true);
 
 		setTimeout(() => {
-			let thisStyle;
-			if(newCssString === cssString) thisStyle = defaultCssString;
-			else thisStyle = newCssString;
-	  
-			setCssString(thisStyle);
-			setDisplayCss(thisStyle);
+			setFadeStyle(false);
+			setCssString(cssStrings[levelNum]);
+			setDisplayCss(cssStrings[levelNum]);
+		}, 500);
+	}
 
-			setFadeDisplay(false)
+	function handleTextOptionClick(newCssString, cssString) { 
+		setFadeDisplay(true);
+		
+		let thisStyle;
+		if(newCssString === cssString) thisStyle = defaultCssString;
+		else thisStyle = newCssString;
+		
+		setCssString(thisStyle);
+
+		setTimeout(() => {
+			setDisplayCss(thisStyle);
+			setFadeDisplay(false);
 		}, 750);
 	} 
-
+ 
 	return (
 		<section className="learn-container"> 
-			<OpenCloseBox title={infoTitle} menuOptions={menuOptions} handleMenuOptionClick={handleMenuOptionClick}>
-			{/*	<InfoText handleClick={handleTextOptionClick} styleString={cssString}/>*/}
-				<div className="info-text-container">{infoText}</div>
+			<OpenCloseBox title={infoTitle} menuOptions={menuOptions} handleMenuOptionClick={handleMenuOptionClick} fade={fadeInfo}>
+				{/*	<InfoText handleClick={handleTextOptionClick} styleString={cssString}/>*/}
+			{/*	<div className="info-text-container">{infoText}</div>*/}
+					<div className={ fadeInfo ? "no-show info-text-container" : "info-text-container"}>
+						<InfoText handleClick={handleTextOptionClick} styleString={cssString} setStyleString={setCssString}/>
+					</div>
 			</OpenCloseBox>
-			<CodeBox title="index.html" value={htmlString} handleChange={handleHtmlChange} handleRefresh={handleHtmlRefresh}/> 
+			<CodeBox title="index.html" value={htmlString} handleChange={handleHtmlChange} handleRefresh={handleHtmlRefresh} fade={fadeHtml}/> 
 			<CodeBox title="style.css" value={cssString} handleChange={handleCssChange} handleRefresh={handleCssRefresh} fade={fadeStyle}/> 
 			<DisplayBox title="display" htmlString={displayHtml} cssString={displayCss} fade={fadeDisplay}/> 
 		</section>
