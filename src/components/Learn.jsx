@@ -171,18 +171,19 @@ export default function Learn() {
 		}, 500);
 	}
 
-	function handleTextOptionClick(newCssString, cssString) { 
+	function handleTextOptionClick(newCssString) { 
 		setFadeDisplay(true);
+		setFadeStyle(true);
 		
 		let thisStyle;
 		if(newCssString === cssString) thisStyle = defaultCssString;
 		else thisStyle = newCssString;
 		
-		setCssString(thisStyle);
-
 		setTimeout(() => {
+			setCssString(thisStyle);
 			setDisplayCss(thisStyle);
 			setFadeDisplay(false);
+			setFadeStyle(false);
 		}, 750);
 	} 
  

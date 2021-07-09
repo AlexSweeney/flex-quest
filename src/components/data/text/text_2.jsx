@@ -12,13 +12,13 @@ export default function Text_2({handleClick, styleString}) {
 	return (
 		<div>
 			<p>Flex direction allows you to set the direction the child elements of the flex container are displayed.</p>  
-			<ClickHeader newStyle={style_2a, styleString} {...props}>flex-direction: row; (default)</ClickHeader> 
+			<ClickHeader newStyle={style_2a} {...props}>flex-direction: row; (default)</ClickHeader> 
 			<p>display children from left to right.</p>  
-			<ClickHeader newStyle={style_2b, styleString} {...props}>flex-direction: row-reverse;</ClickHeader> 
+			<ClickHeader newStyle={style_2b} {...props}>flex-direction: row-reverse;</ClickHeader> 
 			<p>display children from right to left.</p>  
-			<ClickHeader newStyle={style_2c, styleString} {...props}>flex-direction: column;</ClickHeader> 
+			<ClickHeader newStyle={style_2c} {...props}>flex-direction: column;</ClickHeader> 
 			<p>display children from top to bottom.</p>   
-			<ClickHeader newStyle={style_2d, styleString} {...props}>flex-direction: column-reverse;</ClickHeader>
+			<ClickHeader newStyle={style_2d} {...props}>flex-direction: column-reverse;</ClickHeader>
 			<p>display children from bottom to top.</p>
 			<p>Try setting 'flex-direction' on '.container' to the different values.</p> 
 		</div>
