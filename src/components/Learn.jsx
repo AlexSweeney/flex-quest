@@ -6,10 +6,15 @@ import './LearnStyle.css';
 
 import Text_1 from './data/text/Text_1.jsx';
 import Text_2 from './data/text/Text_2.jsx';
+import Text_3 from './data/text/Text_3.jsx';
+
 import {html_1} from './data/html/html_1.jsx';
 import {html_2} from './data/html/html_2.jsx';
+import {html_3} from './data/html/html_3.jsx';
+
 import {style_1} from './data/css/style_1.jsx';
 import {style_2} from './data/css/style_2.jsx';
+import {style_3} from './data/css/style_3.jsx';
 
 export default function Learn() {  
 	const [levelNum, setLevelNum] = useState(0);
@@ -17,7 +22,7 @@ export default function Learn() {
 	const htmlStrings = [
 		html_1,
 		html_2,
-		'html_string_3',
+		html_3,
 		'html_string_4',
 		'html_string_5',
 		'html_string_6',
@@ -33,7 +38,7 @@ export default function Learn() {
 	const cssStrings = [
 		style_1,
 		style_2,
-		'style_3',
+		style_3,
 		'style_4',
 		'style_5',
 		'style_6',
@@ -69,7 +74,7 @@ export default function Learn() {
 	const menuText = [
 		Text_1,
 		Text_2,
-		'text 3',
+		Text_3,
 		'text 4',
 		'text 5',
 		'text 6',
@@ -178,9 +183,9 @@ export default function Learn() {
 		let thisStyle;
 		if(newCssString === cssString) thisStyle = defaultCssString;
 		else thisStyle = newCssString;
-		
+		setCssString(thisStyle);
+
 		setTimeout(() => {
-			setCssString(thisStyle);
 			setDisplayCss(thisStyle);
 			setFadeDisplay(false);
 			setFadeStyle(false);
@@ -192,9 +197,9 @@ export default function Learn() {
 			<OpenCloseBox title={infoTitle} menuOptions={menuOptions} handleMenuOptionClick={handleMenuOptionClick} fade={fadeInfo}>
 				{/*	<InfoText handleClick={handleTextOptionClick} styleString={cssString}/>*/}
 			{/*	<div className="info-text-container">{infoText}</div>*/}
-					<div className={ fadeInfo ? "no-show info-text-container" : "info-text-container"}>
-						<InfoText handleClick={handleTextOptionClick} styleString={cssString} setStyleString={setCssString}/>
-					</div>
+				<div className={ fadeInfo ? "no-show info-text-container" : "info-text-container"}>
+					<InfoText handleClick={handleTextOptionClick} styleString={cssString} setStyleString={setCssString}/>
+				</div>
 			</OpenCloseBox>
 			<CodeBox title="index.html" value={htmlString} handleChange={handleHtmlChange} handleRefresh={handleHtmlRefresh} fade={fadeHtml}/> 
 			<CodeBox title="style.css" value={cssString} handleChange={handleCssChange} handleRefresh={handleCssRefresh} fade={fadeStyle}/> 
