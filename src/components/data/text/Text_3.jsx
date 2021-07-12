@@ -2,9 +2,7 @@ import React, {useState} from 'react';
 import ClickHeader from './ClickHeader.jsx';
 import {style_3} from './../css/style_3.jsx';
 import {style_3a} from './../css/style_3a.jsx';
-import {style_3b} from './../css/style_3b.jsx';
-import {style_3c} from './../css/style_3c.jsx';
-import {style_3d} from './../css/style_3d.jsx';
+import {style_3b} from './../css/style_3b.jsx'; 
 import {style_3e} from './../css/style_3e.jsx';
 import {style_3f} from './../css/style_3f.jsx';
 import {style_3g} from './../css/style_3g.jsx';
@@ -28,13 +26,9 @@ export default function Text_3({handleClick, styleString}) {
 			<ClickHeader newStyle={style_3h} {...props}>justify-content: space-between;</ClickHeader>
 			<p>Children will be spread out across the x-axis, with space added between the child elements.  The first and last elements will be placed at the start and end of the x-axis.</p>
 			<ClickHeader newStyle={style_3i} {...props}>justify-content: space-around;</ClickHeader>
-			<p>Children will be spread out across the x-axis. Each child element will have the same amount of space added to the left and right of the child.  This means the space between the first and last children and the edge of the container will be half the size as the spaces between the child elements.</p>
+			<p>Children will be spread out across the x-axis. Each child element will have the same amount of space added to the left and right of the child.  This means the spaces between the first and last children and the edges of the flex container will be half the size as the spaces between the child elements.</p>
 			<ClickHeader newStyle={style_3j} {...props}>justify-content: space-evenly;</ClickHeader>
 			<p>Children will be spread out across the x-axis. The space will be distributed to give an evenly spaced appearence.  The space between the edges of the flex container and the first and last children will be the same size as the space between the children.</p>
 		</div>
-	)
+	) 
 }
-  
-    
-// justify-content: space-evenly;
-// space is divided so that the children are spaced evenly.
