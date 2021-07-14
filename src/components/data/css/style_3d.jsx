@@ -1,7 +1,8 @@
-export const style_3i = 
+export const style_3d = 
 `.container {
-  display: flex; 
-  justify-content: space-around;
+  display: flex;  
+  justify-content: start; 
+  writing-mode: vertical-rl;
   height: 100vh;
   width: 100vw;
 }

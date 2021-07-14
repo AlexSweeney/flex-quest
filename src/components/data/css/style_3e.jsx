@@ -1,8 +1,7 @@
 export const style_3e = 
 `.container {
   display: flex; 
-  justify-content: start; 
-  writing-mode: vertical-lr;
+  justify-content: space-between; 
   height: 100vh;
   width: 100vw;
 }

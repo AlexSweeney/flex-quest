@@ -1,7 +1,7 @@
-export const style_3j = 
+export const style_3c = 
 `.container {
-  display: flex; 
-  justify-content: space-evenly;  
+  display: flex;  
+  justify-content: start;
   height: 100vh;
   width: 100vw;
 }

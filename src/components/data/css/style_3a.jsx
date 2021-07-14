@@ -1,8 +1,7 @@
 export const style_3a = 
 `.container {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  display: flex; 
+  justify-content: flex-start;
   height: 100vh;
   width: 100vw;
 }

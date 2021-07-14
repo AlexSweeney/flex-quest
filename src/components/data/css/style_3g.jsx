@@ -1,7 +1,7 @@
 export const style_3g = 
 `.container {
   display: flex; 
-  justify-content: right;
+  justify-content: space-evenly;
   height: 100vh;
   width: 100vw;
 }
