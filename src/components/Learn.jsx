@@ -8,27 +8,33 @@ import Text_1 from './data/text/Text_1.jsx';
 import Text_2 from './data/text/Text_2.jsx';
 import Text_3 from './data/text/Text_3.jsx';
 import Text_4 from './data/text/Text_4.jsx';
+import Text_5 from './data/text/Text_5.jsx';
+import Text_6 from './data/text/Text_6.jsx';
 
 import {html_1} from './data/html/html_1.jsx';
 import {html_2} from './data/html/html_2.jsx';
 import {html_3} from './data/html/html_3.jsx';
 import {html_4} from './data/html/html_4.jsx';
+import {html_5} from './data/html/html_5.jsx';
+import {html_6} from './data/html/html_6.jsx';
 
 import {style_1} from './data/css/style_1.jsx';
 import {style_2} from './data/css/style_2.jsx';
 import {style_3} from './data/css/style_3.jsx';
 import {style_4} from './data/css/style_4.jsx';
+import {style_5} from './data/css/style_5.jsx';
+import {style_6} from './data/css/style_6.jsx';
 
 export default function Learn() {  
-	const [levelNum, setLevelNum] = useState(0);
+	const [levelNum, setLevelNum] = useState(5);
 
 	const htmlStrings = [
 		html_1,
 		html_2,
 		html_3,
 		html_4,
-		'html_string_5',
-		'html_string_6',
+		html_5,
+		html_6,
 		'html_string_7',
 		'html_string_8',
 		'html_string_9',
@@ -43,8 +49,8 @@ export default function Learn() {
 		style_2,
 		style_3,
 		style_4,
-		'style_5',
-		'style_6',
+		style_5,
+		style_6,
 		'style_7',
 		'style_8',
 		'style_9',
@@ -79,8 +85,8 @@ export default function Learn() {
 		Text_2,
 		Text_3,
 		Text_4,
-		'text 5',
-		'text 6',
+		Text_5,
+		Text_6,
 		'text 7',
 		'text 8',
 		'text 9',
