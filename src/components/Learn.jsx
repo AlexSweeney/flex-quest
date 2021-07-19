@@ -10,6 +10,8 @@ import Text_3 from './data/text/Text_3.jsx';
 import Text_4 from './data/text/Text_4.jsx';
 import Text_5 from './data/text/Text_5.jsx';
 import Text_6 from './data/text/Text_6.jsx';
+import Text_7 from './data/text/Text_7.jsx';
+import Text_8 from './data/text/Text_8.jsx';
 
 import {html_1} from './data/html/html_1.jsx';
 import {html_2} from './data/html/html_2.jsx';
@@ -17,6 +19,8 @@ import {html_3} from './data/html/html_3.jsx';
 import {html_4} from './data/html/html_4.jsx';
 import {html_5} from './data/html/html_5.jsx';
 import {html_6} from './data/html/html_6.jsx';
+import {html_7} from './data/html/html_7.jsx';
+import {html_8} from './data/html/html_8.jsx';
 
 import {style_1} from './data/css/style_1.jsx';
 import {style_2} from './data/css/style_2.jsx';
@@ -24,9 +28,11 @@ import {style_3} from './data/css/style_3.jsx';
 import {style_4} from './data/css/style_4.jsx';
 import {style_5} from './data/css/style_5.jsx';
 import {style_6} from './data/css/style_6.jsx';
+import {style_7} from './data/css/style_7.jsx';
+import {style_8} from './data/css/style_8.jsx';
 
 export default function Learn() {  
-	const [levelNum, setLevelNum] = useState(5);
+	const [levelNum, setLevelNum] = useState(7);
 
 	const htmlStrings = [
 		html_1,
@@ -35,8 +41,8 @@ export default function Learn() {
 		html_4,
 		html_5,
 		html_6,
-		'html_string_7',
-		'html_string_8',
+		html_7,
+		html_8,
 		'html_string_9',
 		'html_string_10',
 		'html_string_11',
@@ -51,8 +57,8 @@ export default function Learn() {
 		style_4,
 		style_5,
 		style_6,
-		'style_7',
-		'style_8',
+		style_7,
+		style_8,
 		'style_9',
 		'style_10',
 		'style_11',
@@ -87,8 +93,8 @@ export default function Learn() {
 		Text_4,
 		Text_5,
 		Text_6,
-		'text 7',
-		'text 8',
+		Text_7,
+		Text_8,
 		'text 9',
 		'text 10',
 		'text 11',
