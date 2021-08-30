@@ -12,7 +12,7 @@ export default function OpenCloseBox({
 	handleMenuOptionClick, 
 	handleRefresh = null, 
 	children = null,
-	background = '',
+	bodyClass = '',
 	handleTextOptionClick = null,
 }) { 
 	const [burgerIsOpen, setBurgerIsOpen] = useState(false);
@@ -72,9 +72,10 @@ export default function OpenCloseBox({
 					<OpenCloseToggle isOpen={!isExpanded} handleClick={handleOpenCloseToggleClick}/>
 	 			</div>
 			</div>
-			<div className={"box-body " + background}> 
+			<div className={"box-body " + bodyClass}> 
 				{menuOptions && <BurgerDropDown isOpen={burgerIsOpen} options={menuOptions} handleOptionClick={handleClickMenu}/>}
-				{children && <div className={ isExpanded ? "text-body" : "text-body no-show"}>{children}</div>}
+				{children && children}
+				{/*{children && <div className={ isExpanded ? "text-body" : "text-body no-show"}>{children}</div>}*/}
 				{/*{text && <div className={ isExpanded ? "text-body padding" : "text-body padding no-show"}><p>{text}</p></div>}*/}
 			</div>
 	 	</div> 
