@@ -10,7 +10,7 @@ export default function DisplayBox({title, htmlString, cssString, fade}) {
   // const iframeStyle = '* {padding: 0; margin: 0; transition: opacity 2s; overflow: hidden;} *:hover { cursor: default; }';
   
   const defaultIframeStyle = {
-  	transition: 'opacity 2s',
+  	transition: 'opacity 1s',
   	overflow: 'auto',
   	width: '100%',
   	height: '100%',
@@ -20,8 +20,14 @@ export default function DisplayBox({title, htmlString, cssString, fade}) {
 
   const handleRefresh = function() {
 		const iframeElement = document.getElementById('iframe');
-		iframeElement.style.width = '100%';
-		iframeElement.style.height = '100%'; 
+
+		iframeElement.style.opacity = 0;
+
+		setTimeout(() => {
+			iframeElement.style.opacity = 1;
+			iframeElement.style.width = '100%';
+			iframeElement.style.height = '100%'; 
+		}, 1000); 
 	}
   
   // useEffect(() => { 
