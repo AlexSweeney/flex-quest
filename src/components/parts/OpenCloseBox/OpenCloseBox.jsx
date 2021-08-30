@@ -54,10 +54,13 @@ export default function OpenCloseBox({
 	return ( 
 		<div className={isExpanded ? "box box-expanded" : "box box-minimized"}> 
 			<div className="box-header">
+				{/* Menu Button */}
 				{menuOptions &&
 					<div className={ isExpanded ? "burger-container burger-container-opening" : "burger-container"}>
 						<Burger isOpen={burgerIsOpen} setIsOpen={setBurgerIsOpen} menuOptions={menuOptions}/>
 					</div>}
+
+			  {/* Refresh Button */}
 				{handleRefresh && 
 					<div className={ isExpanded ? "burger-container burger-container-opening " : "burger-container " }>
 						<div className="refresh-button" onMouseDown={refreshDown}><RefreshIcon id="refresh-icon" style={{'transform': `rotate(${rotateNum}deg)`}}fontSize="small"/></div>
