@@ -23,4 +23,4 @@ export const style_13e =
   justify-content: center;
   align-items: center;
   width: 20%;
-} `;
+}`;

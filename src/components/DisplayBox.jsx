@@ -7,7 +7,6 @@ export default function DisplayBox({title, htmlString, cssString, fade}) {
   const iframeStyle = '* {padding: 0; margin: 0; transition: opacity 2s; overflow: hidden;} *:hover { cursor: default; }';
   const fadeStyle = fade ? { opacity: 0 } : {};
   
-
   useEffect(() => { 
   	setSource(htmlString + `<style>${cssString} ${iframeStyle} ${fadeStyle}</style>`);
   }, [htmlString, cssString]) 
@@ -15,7 +14,9 @@ export default function DisplayBox({title, htmlString, cssString, fade}) {
 	return (
 		<OpenCloseBox title={title} background="white-background">   
 			<div style={fadeStyle} className="iframe-container">
-				<iframe srcdoc={source} className="iframe"/>
+				<div className="iframe-background">
+					<iframe srcdoc={source} className="iframe"/>
+				</div>
 			</div> 		
 		</OpenCloseBox>
 	) 
