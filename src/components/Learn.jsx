@@ -13,6 +13,7 @@ import Text_6 from './data/text/Text_6.jsx';
 import Text_7 from './data/text/Text_7.jsx';
 import Text_8 from './data/text/Text_8.jsx';
 import Text_9 from './data/text/Text_9.jsx';
+import Text_10 from './data/text/Text_10.jsx';
 
 import {html_1} from './data/html/html_1.jsx';
 import {html_2} from './data/html/html_2.jsx';
@@ -23,6 +24,7 @@ import {html_6} from './data/html/html_6.jsx';
 import {html_7} from './data/html/html_7.jsx';
 import {html_8} from './data/html/html_8.jsx';
 import {html_9} from './data/html/html_9.jsx';
+import {html_10} from './data/html/html_10.jsx';
 
 import {style_1} from './data/css/style_1.jsx';
 import {style_2} from './data/css/style_2.jsx';
@@ -33,6 +35,7 @@ import {style_6} from './data/css/style_6.jsx';
 import {style_7} from './data/css/style_7.jsx';
 import {style_8} from './data/css/style_8.jsx';
 import {style_9} from './data/css/style_9.jsx';
+import {style_10} from './data/css/style_10.jsx';
 
 export default function Learn() {  
 	const [levelNum, setLevelNum] = useState(8);

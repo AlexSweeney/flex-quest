@@ -4,7 +4,7 @@
 // add level selector on burger click 
 // animate changes  
 // play -> if all deselected = change spacing so all move to left
-
+// learn -> type undo cut paste enables
 // Introduction - why is flex box useful => static vs flexible
 
 // Learn
