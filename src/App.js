@@ -1,3 +1,6 @@
+
+
+
 // animate router
 // animate open and close play
 // click min window = close burger
@@ -8,6 +11,9 @@
 // Introduction - why is flex box useful => static vs flexible
 
 // Learn
+// use color boxes
+// allow users to shrink display view to show how flex works
+// check through all, show users what values are allowed for properties
 
 // Read
 
