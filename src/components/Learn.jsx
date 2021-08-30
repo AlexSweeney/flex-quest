@@ -38,7 +38,7 @@ import {style_9} from './data/css/style_9.jsx';
 import {style_10} from './data/css/style_10.jsx';
 
 export default function Learn() {  
-	const [levelNum, setLevelNum] = useState(8);
+	const [levelNum, setLevelNum] = useState(9);
 
 	const htmlStrings = [
 		html_1,
@@ -50,7 +50,7 @@ export default function Learn() {
 		html_7,
 		html_8,
 		html_9,
-		'html_string_10',
+		html_10,
 		'html_string_11',
 		'html_string_12',
 		'html_string_13',
@@ -66,7 +66,7 @@ export default function Learn() {
 		style_7,
 		style_8,
 		style_9,
-		'style_10',
+		style_10,
 		'style_11',
 		'style_12',
 		'style_13',
@@ -102,7 +102,7 @@ export default function Learn() {
 		Text_7,
 		Text_8,
 		Text_9,
-		'text 10',
+		Text_10,
 		'text 11',
 		'text 12',
 		'text 13',
