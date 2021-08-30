@@ -13,8 +13,8 @@
 // Learn
 // use color boxes
 // allow users to shrink display view to show how flex works
+// click button to toggle reference grid on/off
 // check through all, show users what values are allowed for properties
-
 // Read
 
 // Write
