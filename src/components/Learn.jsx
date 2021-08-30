@@ -16,6 +16,7 @@ import Text_9 from './data/text/Text_9.jsx';
 import Text_10 from './data/text/Text_10.jsx';
 import Text_11 from './data/text/Text_11.jsx';
 import Text_12 from './data/text/Text_12.jsx';
+import Text_13 from './data/text/Text_13.jsx';
 
 import {html_1} from './data/html/html_1.jsx';
 import {html_2} from './data/html/html_2.jsx';
@@ -29,6 +30,7 @@ import {html_9} from './data/html/html_9.jsx';
 import {html_10} from './data/html/html_10.jsx';
 import {html_11} from './data/html/html_11.jsx';
 import {html_12} from './data/html/html_12.jsx';
+import {html_13} from './data/html/html_13.jsx';
 
 import {style_1} from './data/css/style_1.jsx';
 import {style_2} from './data/css/style_2.jsx';
@@ -42,9 +44,10 @@ import {style_9} from './data/css/style_9.jsx';
 import {style_10} from './data/css/style_10.jsx';
 import {style_11} from './data/css/style_11.jsx';
 import {style_12} from './data/css/style_12.jsx';
+import {style_13} from './data/css/style_13.jsx';
 
 export default function Learn() {  
-	const [levelNum, setLevelNum] = useState(10);
+	const [levelNum, setLevelNum] = useState(12);
 
 	const htmlStrings = [
 		html_1,
@@ -59,7 +62,7 @@ export default function Learn() {
 		html_10,
 		html_11,
 		html_12,
-		'html_string_13',
+		html_13,
 	];
 
 	const cssStrings = [
@@ -75,7 +78,7 @@ export default function Learn() {
 		style_10,
 		style_11,
 		style_12,
-		'style_13',
+		style_13,
 	];
 
 	const [htmlString, setHtmlString] = useState(htmlStrings[levelNum]);
@@ -111,7 +114,7 @@ export default function Learn() {
 		Text_10,
 		Text_11,
 		Text_12,
-		'text 13',
+		Text_13,
 	];
 
 	// const [infoTitle, setInfoTitle] = useState(menuOptions[levelNum]);
