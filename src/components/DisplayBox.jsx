@@ -1,7 +1,9 @@
-// add grid toggle
+// reresh button component => pass button 1, button 2 etc.
+// add grid toggle button
 
 import React, {useState, useEffect, useRef} from 'react'; 
-import OpenCloseBox from './parts/OpenCloseBox/OpenCloseBox.jsx';  
+import OpenCloseBox from './parts/OpenCloseBox/OpenCloseBox.jsx'; 
+import GridButton from './parts/GridButton.jsx'; 
 import './DisplayBox.css';
 
 export default function DisplayBox({title, htmlString, cssString, fade}) {    
@@ -17,7 +19,7 @@ export default function DisplayBox({title, htmlString, cssString, fade}) {
 			iframeElement.style.padding = 0;
 			iframeElement.style.width = '100%';
 			iframeElement.style.height = '100%'; 
-		}, 1000); 
+		}, 500); 
 	}
 
 	const [showGrid, setShowGrid] = useState(true);
@@ -79,14 +81,14 @@ export default function DisplayBox({title, htmlString, cssString, fade}) {
 		}`;
 
   useEffect(() => {  
-  	const newString = grid;
-  	const newStyle = defaultStyles + gridStyle; 
+  	const newString = grid + htmlString;
+  	const newStyle = defaultStyles + gridStyle + cssString; 
 
   	setSource(`<style>${newStyle}</style> ${newString}`);
   }, [htmlString, cssString, showGrid]) 
    
 	return (
-		<OpenCloseBox title={title} handleRefresh={handleRefresh} bodyClass="display-box-background">
+		<OpenCloseBox title={title} button_2={<GridButton/>} handleRefresh={handleRefresh} bodyClass="display-box-background">
 			<iframe srcdoc={source} className="iframe"id="iframe"/> 
 		</OpenCloseBox>
 	) 

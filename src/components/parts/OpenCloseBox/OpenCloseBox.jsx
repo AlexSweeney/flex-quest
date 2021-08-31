@@ -14,6 +14,7 @@ export default function OpenCloseBox({
 	children = null,
 	bodyClass = '',
 	handleTextOptionClick = null,
+	button_2 = null,
 }) { 
 	const [burgerIsOpen, setBurgerIsOpen] = useState(false);
 	const [burgerWasOpen, setBurgerWasOpen] = useState(false);
@@ -61,11 +62,32 @@ export default function OpenCloseBox({
 					</div>}
 
 			  {/* Refresh Button */}
-				{handleRefresh && 
+			  {handleRefresh && 
+		  		<div className="button refresh-button" onMouseDown={refreshDown}>
+						<RefreshIcon id="refresh-icon" style={{'transform': `rotate(${rotateNum}deg)`}} fontSize="small"/>
+					</div>
+			  }
+
+			 	{/* Button 2 */}
+			 	{button_2 && 
+					<div className="button button-2">
+						{button_2}
+					</div>
+				}
+				{/*{handleRefresh && 
 					<div className={ isExpanded ? "burger-container burger-container-opening " : "burger-container " }>
-						<div className="refresh-button" onMouseDown={refreshDown}><RefreshIcon id="refresh-icon" style={{'transform': `rotate(${rotateNum}deg)`}}fontSize="small"/></div>
-					</div>}
+						<div className="refresh-button" onMouseDown={refreshDown}>
+							<RefreshIcon id="refresh-icon" style={{'transform': `rotate(${rotateNum}deg)`}}fontSize="small"/>
+						</div>
+
+						{button_2 && 
+							<div className="refresh-button">
+
+							</div>
+						}
+					</div>} */}
 				
+				{/* Title */}
 		 		<div className="title">{title}</div>
 
 				<div className={ menuOptions ? "open-close-toggle-container" : "open-close-toggle-container open-close-toggle-container-big" }>
