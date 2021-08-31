@@ -1,10 +1,11 @@
-.iframe-background {
+.display-box-background {
 	background: white;
-	padding: 0.5em;
-	box-sizing: border-box;
+	padding: 0.5em;   
+}
+
+.display-box-container { 
 	width: 100%;
-	height: 100%;
-	display: flex;
+	height: 100%; 
 }
 
 .iframe {   
@@ -15,5 +16,5 @@
 	transition: opacity 500ms ease-in-out;
 	overflow: auto;
 	resize: both;
-	box-sizing: border-box; 
+	box-sizing: border-box;  
 }
