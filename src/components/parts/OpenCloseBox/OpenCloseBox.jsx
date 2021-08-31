@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import OpenCloseToggle from '../OpenCloseToggle/OpenCloseToggle.jsx'; 
 import Burger from '../Burger/Burger.jsx';
 import BurgerDropDown from '../Burger/BurgerDropDown.jsx';
-import RefreshIcon from '@material-ui/icons/Refresh';
+// import RefreshIcon from '@material-ui/icons/Refresh';
 import './OpenCloseBox.css';
 
 export default function OpenCloseBox({
@@ -14,6 +14,7 @@ export default function OpenCloseBox({
 	children = null,
 	bodyClass = '',
 	handleTextOptionClick = null,
+	button_1 = null,
 	button_2 = null,
 }) { 
 	const [burgerIsOpen, setBurgerIsOpen] = useState(false);
@@ -62,11 +63,18 @@ export default function OpenCloseBox({
 					</div>}
 
 			  {/* Refresh Button */}
-			  {handleRefresh && 
+			  {/*{handleRefresh && 
 		  		<div className="button refresh-button" onMouseDown={refreshDown}>
 						<RefreshIcon id="refresh-icon" style={{'transform': `rotate(${rotateNum}deg)`}} fontSize="small"/>
 					</div>
-			  }
+			  }*/}
+
+				{/* Button 1 */}
+				{button_1 && 
+					<div className="button button-1">
+						{button_1}
+					</div>
+				}
 
 			 	{/* Button 2 */}
 			 	{button_2 && 

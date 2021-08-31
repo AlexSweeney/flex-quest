@@ -5,8 +5,7 @@
 	display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1em;
-  z-index: 1000;
+  font-size: 1em; 
 }
 
 .grid-button:hover {

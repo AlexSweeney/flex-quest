@@ -1,8 +1,10 @@
-// reresh button component => pass button 1, button 2 etc.
-// add grid toggle button
+// reresh button component => pass button 1, button 2 etc. 
+// fix open close
+// check levels 
 
 import React, {useState, useEffect, useRef} from 'react'; 
 import OpenCloseBox from './parts/OpenCloseBox/OpenCloseBox.jsx'; 
+import RefreshButton from './parts/RefreshButton.jsx';
 import GridButton from './parts/GridButton.jsx'; 
 import './DisplayBox.css';
 
@@ -93,7 +95,11 @@ export default function DisplayBox({title, htmlString, cssString, fade}) {
   }
    
 	return (
-		<OpenCloseBox title={title} button_2={<GridButton handleClick={handleGridClick} selected={showGrid}/>} handleRefresh={handleRefresh} bodyClass="display-box-background">
+		<OpenCloseBox 
+			title={title} 
+			button_1={<RefreshButton onClick={handleRefresh}/>}
+			button_2={<GridButton handleClick={handleGridClick} selected={showGrid}/>}  
+			bodyClass="display-box-background">
 			<iframe srcdoc={source} className="iframe"id="iframe"/>  
 		</OpenCloseBox>
 	) 
