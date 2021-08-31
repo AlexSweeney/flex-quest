@@ -22,7 +22,7 @@ export default function DisplayBox({title, htmlString, cssString, fade}) {
 		}, 500); 
 	}
 
-	const [showGrid, setShowGrid] = useState(true);
+	const [showGrid, setShowGrid] = useState(false);
 
 	const grid = `
 	<div class="grid-container"> 
@@ -64,6 +64,7 @@ export default function DisplayBox({title, htmlString, cssString, fade}) {
 			height: 100%;
 			position: absolute;
 			border: 2px solid #2196f3;
+			opacity: 0.5;
 		}
 
 		.grid-line-vert {
@@ -81,15 +82,19 @@ export default function DisplayBox({title, htmlString, cssString, fade}) {
 		}`;
 
   useEffect(() => {  
-  	const newString = grid + htmlString;
-  	const newStyle = defaultStyles + gridStyle + cssString; 
+  	const newString = showGrid ? grid + htmlString : htmlString;
+  	const newStyle =  showGrid ? defaultStyles + gridStyle + cssString : defaultStyles + cssString ; 
 
   	setSource(`<style>${newStyle}</style> ${newString}`);
   }, [htmlString, cssString, showGrid]) 
+
+  function handleGridClick() { 
+  	setShowGrid(oldVal => !oldVal);
+  }
    
 	return (
-		<OpenCloseBox title={title} button_2={<GridButton/>} handleRefresh={handleRefresh} bodyClass="display-box-background">
-			<iframe srcdoc={source} className="iframe"id="iframe"/> 
+		<OpenCloseBox title={title} button_2={<GridButton handleClick={handleGridClick} selected={showGrid}/>} handleRefresh={handleRefresh} bodyClass="display-box-background">
+			<iframe srcdoc={source} className="iframe"id="iframe"/>  
 		</OpenCloseBox>
 	) 
 }
