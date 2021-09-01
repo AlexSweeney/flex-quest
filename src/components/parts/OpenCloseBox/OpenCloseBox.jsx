@@ -104,8 +104,10 @@ export default function OpenCloseBox({
 	 			</div>
 			</div>
 			<div className={"box-body " + bodyClass}> 
-				{menuOptions && <BurgerDropDown isOpen={burgerIsOpen} options={menuOptions} handleOptionClick={handleClickMenu}/>}
-				{children && children}
+				<div className={"box-body-content-container" + (!isExpanded ? " no-show" : "")}>
+					{menuOptions && <BurgerDropDown isOpen={burgerIsOpen} options={menuOptions} handleOptionClick={handleClickMenu}/>}
+					{children && children}
+				</div>
 				{/*{children && <div className={ isExpanded ? "text-body" : "text-body no-show"}>{children}</div>}*/}
 				{/*{text && <div className={ isExpanded ? "text-body padding" : "text-body padding no-show"}><p>{text}</p></div>}*/}
 			</div>

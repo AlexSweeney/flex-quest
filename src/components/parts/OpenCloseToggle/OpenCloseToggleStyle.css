@@ -17,14 +17,14 @@
 	width: 12px;
   height: 4px;
 	background: #272727;
-	transition: transform 1s 750ms;
+	transition: transform 1s 750ms, background 500ms;
 }
 
-.line-over {
+.line-over { 
 	background: #2196f3;
 }
 
-.line-down {
+.line-down { 
 	background: #3f51b5;
 }
 

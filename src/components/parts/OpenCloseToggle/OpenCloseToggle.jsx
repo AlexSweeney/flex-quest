@@ -1,25 +1,50 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './OpenCloseToggleStyle.css';
 
 export default function OpenCloseToggle({isOpen, handleClick}) { 
 	const [lineClass, setLineClass] = useState('');
 
+	const [isHovering, setIsHovering] = useState(false);
+	const [isDown, setIsDown] = useState(false);
+	const [isAnimating, setIsAnimating] = useState(false);
+
+	const animationTime = 2000;
+
 	function handleOver() {
-		setLineClass('line-over');
+		setIsHovering(true);
 	}
 
 	function handleOut() {
-		setLineClass('');
+		setIsHovering(false);
 	}
 
 	function handleDown() {
-		setLineClass('line-down');
+		setIsAnimating(true);
+		setIsDown(true);
 		handleClick();
+
+		setTimeout(() => {
+			setIsAnimating(false);
+		}, animationTime);
 	}
 
 	function handleUp() {
-		setLineClass('');
+		setIsDown(false);
 	}
+
+	useEffect(() => {
+		let newLineClass;
+
+		if(isHovering && !isDown) {
+			newLineClass = 'line-over';
+		} else if(isAnimating || isDown && !isHovering) {
+			newLineClass = 'line-down';
+		} else {
+			newLineClass = '';
+		}
+
+		setLineClass(newLineClass);
+	}, [isHovering, isDown, isAnimating]);
 
 	return (
 		<div className="open-close-toggle" 	

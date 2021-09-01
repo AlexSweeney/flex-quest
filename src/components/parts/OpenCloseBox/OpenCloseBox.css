@@ -106,6 +106,10 @@
   overflow: auto;
 }
 
+.box-body-content-container {
+	transition: opacity 750ms ease-in-out;
+}
+
 /*.text-body {
 	position: absolute;
 	width: 100%;
