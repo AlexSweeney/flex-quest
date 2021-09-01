@@ -68,20 +68,21 @@ export default function OpenCloseBox({
 						<RefreshIcon id="refresh-icon" style={{'transform': `rotate(${rotateNum}deg)`}} fontSize="small"/>
 					</div>
 			  }*/}
+			  <div className="button-container">
+					{/* Button 1 */}
+					{button_1 && 
+						<div className="button button-1">
+							{button_1}
+						</div>
+					}
 
-				{/* Button 1 */}
-				{button_1 && 
-					<div className="button button-1">
-						{button_1}
-					</div>
-				}
-
-			 	{/* Button 2 */}
-			 	{button_2 && 
-					<div className="button button-2">
-						{button_2}
-					</div>
-				}
+				 	{/* Button 2 */}
+				 	{button_2 && 
+						<div className="button button-2">
+							{button_2}
+						</div>
+					}
+				</div>
 				{/*{handleRefresh && 
 					<div className={ isExpanded ? "burger-container burger-container-opening " : "burger-container " }>
 						<div className="refresh-button" onMouseDown={refreshDown}>
