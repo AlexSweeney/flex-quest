@@ -1,7 +1,3 @@
-// reresh button component => pass button 1, button 2 etc. 
-// fix open close
-// check levels 
-
 import React, {useState, useEffect, useRef} from 'react'; 
 import OpenCloseBox from './parts/OpenCloseBox/OpenCloseBox.jsx'; 
 import RefreshButton from './parts/RefreshButton.jsx';
@@ -104,12 +100,4 @@ export default function DisplayBox({title, htmlString, cssString, fade}) {
 			<iframe srcdoc={source} className="iframe"id="iframe"/>  
 		</OpenCloseBox>
 	) 
-}
-
-{/* <OpenCloseBox 
-			
-			button_1={<RefreshButton onClick={handleRefresh}/>}
-			button_2={<GridButton handleClick={handleGridClick} selected={showGrid}/>}  
-			bodyClass="display-box-background">
-			<iframe srcdoc={source} className="iframe"id="iframe"/>  
-		</OpenCloseBox> */}
+} 

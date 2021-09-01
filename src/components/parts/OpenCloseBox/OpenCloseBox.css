@@ -107,7 +107,8 @@
 }
 
 .box-body-content-container {
-	transition: opacity 750ms ease-in-out;
+	width: 100%;
+	transition: opacity 500ms ease-in-out;
 }
 
 /*.text-body {
@@ -195,8 +196,12 @@
 }
 
 /* ======================== Util ======================== */ 
+.show {
+	opacity: 1;   
+}
+
 .no-show {
-	opacity: 0; 
+	opacity: 0;   
 }
 
 .padding {
