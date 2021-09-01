@@ -95,12 +95,17 @@ export default function DisplayBox({title, htmlString, cssString, fade}) {
   }
    
 	return (
-		<OpenCloseBox 
-			title={title} 
+		<OpenCloseBox
+			title={title}
+		></OpenCloseBox>
+		
+	) 
+}
+
+{/* <OpenCloseBox 
+			
 			button_1={<RefreshButton onClick={handleRefresh}/>}
 			button_2={<GridButton handleClick={handleGridClick} selected={showGrid}/>}  
 			bodyClass="display-box-background">
 			<iframe srcdoc={source} className="iframe"id="iframe"/>  
-		</OpenCloseBox>
-	) 
-}
+		</OpenCloseBox> */}

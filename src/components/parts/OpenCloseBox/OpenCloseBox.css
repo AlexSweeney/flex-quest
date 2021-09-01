@@ -10,6 +10,7 @@
 
 	transition: 1s width ease-in-out; 
 	margin-right: 30px;
+	overflow: hidden;
 }
 
 .box:last-child {
