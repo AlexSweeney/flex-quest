@@ -97,6 +97,7 @@ export default function DisplayBox({title, htmlString, cssString, fade}) {
 	return (
 		<OpenCloseBox
 			title={title}
+			button_1={<RefreshButton onClick={handleRefresh}/>} 
 		></OpenCloseBox>
 		
 	) 
