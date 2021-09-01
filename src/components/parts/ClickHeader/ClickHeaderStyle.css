@@ -20,6 +20,10 @@
 	color: #3f51b5; 
 }
 
+.inline {
+	display: inline;
+}
+
 .info-text {
 	padding: 0.5em 0.75em;
 }

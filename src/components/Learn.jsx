@@ -5,7 +5,7 @@ import DisplayBox from './DisplayBox.jsx';
 import './LearnStyle.css'; 
 
 import {Text as Text_1} from './data/learn/Level_1/text.jsx';
-import Text_2 from './data/text/Text_2.jsx';
+import {Text as Text_2} from './data/learn/Level_2/text.jsx';
 import Text_3 from './data/text/Text_3.jsx';
 import Text_4 from './data/text/Text_4.jsx';
 import Text_5 from './data/text/Text_5.jsx';
@@ -19,7 +19,7 @@ import Text_12 from './data/text/Text_12.jsx';
 import Text_13 from './data/text/Text_13.jsx';
 
 import {html as html_1} from './data/learn/Level_1/html.jsx';
-import {html_2} from './data/html/html_2.jsx';
+import {html as html_2} from './data/learn/Level_2/html.jsx';
 import {html_3} from './data/html/html_3.jsx';
 import {html_4} from './data/html/html_4.jsx';
 import {html_5} from './data/html/html_5.jsx';
@@ -33,7 +33,7 @@ import {html_12} from './data/html/html_12.jsx';
 import {html_13} from './data/html/html_13.jsx';
 
 import {style as style_1} from './data/learn/Level_1/style.jsx';
-import {style_2} from './data/css/style_2.jsx';
+import {style as style_2} from './data/learn/Level_2/style.jsx';
 import {style_3} from './data/css/style_3.jsx';
 import {style_4} from './data/css/style_4.jsx';
 import {style_5} from './data/css/style_5.jsx';
@@ -47,7 +47,7 @@ import {style_12} from './data/css/style_12.jsx';
 import {style_13} from './data/css/style_13.jsx';
 
 export default function Learn() {  
-	const [levelNum, setLevelNum] = useState(0);
+	const [levelNum, setLevelNum] = useState(1);
 
 	const htmlStrings = [
 		html_1,
@@ -87,8 +87,8 @@ export default function Learn() {
 
 	const menuOptions = [
 		'Level 1: display: flex',
-		'Level 2: flex-direction',
-		'Level 3: justify-content',
+		'Level 2: justify-content',
+		'Level 3: flex-direction',
 		'Level 4: flex-wrap',
 		'Level 5: flex-flow',
 		'Level 6: align-items',

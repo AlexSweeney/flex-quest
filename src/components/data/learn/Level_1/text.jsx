@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import ClickHeader from '../../../parts/ClickHeader/ClickHeader.jsx';
 import {style_1} from './style_1.jsx';
 
-const Text = function ({handleClick, styleString}) {
+function Text ({handleClick, styleString}) {
 	const props = {handleClick, styleString};
 
 	return (

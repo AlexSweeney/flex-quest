@@ -18,7 +18,10 @@
 	box-sizing: border-box;
 }
 
-.info-text-container p,
-.info-text-container h2 { 
+.info-text-container p {
 	margin-bottom: 0.5em;
+}
+
+.info-text-container h2 { 
+  margin-bottom: 0.2em;
 }
