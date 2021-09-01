@@ -4,7 +4,7 @@ import CodeBox from './CodeBox.jsx';
 import DisplayBox from './DisplayBox.jsx';
 import './LearnStyle.css'; 
 
-import Text_1 from './data/text/Text_1.jsx';
+import {Text as Text_1} from './data/learn/Level_1/text.jsx';
 import Text_2 from './data/text/Text_2.jsx';
 import Text_3 from './data/text/Text_3.jsx';
 import Text_4 from './data/text/Text_4.jsx';
@@ -18,7 +18,7 @@ import Text_11 from './data/text/Text_11.jsx';
 import Text_12 from './data/text/Text_12.jsx';
 import Text_13 from './data/text/Text_13.jsx';
 
-import {html_1} from './data/html/html_1.jsx';
+import {html as html_1} from './data/learn/Level_1/html.jsx';
 import {html_2} from './data/html/html_2.jsx';
 import {html_3} from './data/html/html_3.jsx';
 import {html_4} from './data/html/html_4.jsx';
@@ -32,7 +32,7 @@ import {html_11} from './data/html/html_11.jsx';
 import {html_12} from './data/html/html_12.jsx';
 import {html_13} from './data/html/html_13.jsx';
 
-import {style_1} from './data/css/style_1.jsx';
+import {style as style_1} from './data/learn/Level_1/style.jsx';
 import {style_2} from './data/css/style_2.jsx';
 import {style_3} from './data/css/style_3.jsx';
 import {style_4} from './data/css/style_4.jsx';
