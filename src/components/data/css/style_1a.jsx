@@ -1,15 +1,12 @@
 export const style_1a = 
 `.item_1 { 
   display: flex; 
-  justify-content: center; 
-  border: 2px solid black; 
-  background: black; 
-  color: white;
+  justify-content: center;  
+  background: red;  
 } 
 
 .item_2 {  	
-  display: flex;
-  justify-content: center; 
-  border: 2px solid black; 
-  background: white; 
+  display: flex;	
+  justify-content: center;  
+  background: blue; 
 }`;

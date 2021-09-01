@@ -7,12 +7,10 @@ export default function Text_1({handleClick, styleString}) {
 
 	return (
 		<>
-			<p>Set the display property to flex to turn an element into a flex container.</p>
-			<ClickHeader newStyle={style_1a} {...props}>display: flex;</ClickHeader> 
-			<br/>
-			<p>You can then use flex properties such as 'justify-content' on the flex container and it's children.</p>
-			<p>Try setting 'display: flex;' on item_2 to turn it into a flex container.</p>
-			<p>Once you do this, 'justify-content: center' will be applied.</p>
+			<p>Setting the display property on an element turns it into a flex container.</p> 
+			<p>You can then use flex properties such as 'justify-content' on the flex container.</p>
+			<ClickHeader newStyle={style_1a} {...props}>Try setting 'display: flex;' on item_2 to turn it into a flex container.</ClickHeader>
+			<p>Once you do this, 'justify-content: center' will be applied, and the text will be centered along the y-axis.</p> 
 		</>
 	)
 }

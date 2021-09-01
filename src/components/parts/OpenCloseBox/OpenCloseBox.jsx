@@ -98,28 +98,7 @@ export default function OpenCloseBox({
 					{menuOptions && <BurgerDropDown isOpen={burgerIsOpen} options={menuOptions} handleOptionClick={handleClickMenu}/>}
 					{children && children}
 				</div>
-				{/*{children && <div className={ isExpanded ? "text-body" : "text-body no-show"}>{children}</div>}*/}
-				{/*{text && <div className={ isExpanded ? "text-body padding" : "text-body padding no-show"}><p>{text}</p></div>}*/}
 			</div>
 	 	</div> 
 	);
 } 
-
-{/* Refresh Button */}
-			  {/*{handleRefresh && 
-		  		<div className="button refresh-button" onMouseDown={refreshDown}>
-						<RefreshIcon id="refresh-icon" style={{'transform': `rotate(${rotateNum}deg)`}} fontSize="small"/>
-					</div>
-			  }*/}
-{/*{handleRefresh && 
-					<div className={ isExpanded ? "burger-container burger-container-opening " : "burger-container " }>
-						<div className="refresh-button" onMouseDown={refreshDown}>
-							<RefreshIcon id="refresh-icon" style={{'transform': `rotate(${rotateNum}deg)`}}fontSize="small"/>
-						</div>
-
-						{button_2 && 
-							<div className="refresh-button">
-
-							</div>
-						}
-					</div>} */}
