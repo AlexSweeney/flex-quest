@@ -26,25 +26,26 @@ function Text({handleClick, styleString}) {
 				<p>If writing mode is from right to left, the start of the writing-mode direction will be the left side.</p> 
 			</ClickHeader> 
  
-			{/* 
+			<ClickHeader newStyle={style_4} title="justify-content: space-between;" {...props}>
+				<p>Child elements will be spread out across the x-axis.</p>
+				<p>The first and last child elements will touch the edges of the x-axis.</p>
+				<p>Space will be added between the other child elements along the x-axis.</p>
+	 			<p>Text is not affected.</p>
+ 			</ClickHeader> 
 
-			<ClickHeader newStyle={style_4} {...props}>justify-content: space-between;</ClickHeader> 
-			<p>Child elements will be spread out across the x-axis.</p>
-			<p>The first and last child elements will touch the edges of the x-axis.</p>
-			<p>Space will be added between the other child elements along the x-axis.</p>
- 			<p>Text is not affected.</p>
+ 			<ClickHeader newStyle={style_5} title="justify-content: space-around;" {...props}>
+	 			<p>Child elements will be spread out across the x-axis.</p>
+				<p>Each child element will have the same amount of space added to the left and right of the child.</p>
+				<p>This means the spaces between the first and last children and the edges of the flex container will be half the size as the spaces between the child elements.</p>
+	 			<p>Text is not affected.</p>
+ 			</ClickHeader> 
 
- 			<ClickHeader newStyle={style_5} {...props}>justify-content: space-around;</ClickHeader> 
- 			<p>Child elements will be spread out across the x-axis.</p>
-			<p>Each child element will have the same amount of space added to the left and right of the child.</p>
-			<p>This means the spaces between the first and last children and the edges of the flex container will be half the size as the spaces between the child elements.</p>
- 			<p>Text is not affected.</p>
-
- 			<ClickHeader newStyle={style_6} {...props}>justify-content: space-evenly;</ClickHeader>
-			<p>Child elements will be spread out across the x-axis.</p>
-			<p>The space will be distributed to give an evenly spaced appearence.</p>
-			<p>The spacse between the edges of the flex container and the first and last child elements will be the same size as the spaces between the child elements.</p>
-			<p>Text is not affected.</p>*/}
+ 			<ClickHeader newStyle={style_6} title="justify-content: space-evenly;" {...props}>
+				<p>Child elements will be spread out across the x-axis.</p>
+				<p>The space will be distributed to give an evenly spaced appearence.</p>
+				<p>The spacse between the edges of the flex container and the first and last child elements will be the same size as the spaces between the child elements.</p>
+				<p>Text is not affected.</p>
+			</ClickHeader>
 		</div>
 	)
 }
