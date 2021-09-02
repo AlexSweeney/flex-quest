@@ -1,0 +1,21 @@
+/*.icon {
+	width: 1em;
+  height: 1em;
+  background: #272727;
+  color: #E8E4E4;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2em;
+}*/
+
+div .play-icon {
+	background: #272727;
+  color: #E8E4E4;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  padding: 1px;
+  display: inline-block;
+}
