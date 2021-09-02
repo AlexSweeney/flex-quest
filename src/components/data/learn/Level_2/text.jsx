@@ -16,10 +16,18 @@ function Text({handleClick, styleString}) {
 			<p>Any<ClickHeader newStyle={style_1} passedClass="inline" {...props}> padding you add to an element</ClickHeader> will be outside of the content area, and so will add space between any text and the edge of the element.</p>   */}
 
 			<ClickHeader newStyle={style_2} {...props} title="justify-content: flex-start; (default)">
+				<div style={{background: 'blue', 'z-index': '-1000'}}>
 				<p>Child elements and text will be placed at the start of the x-axis.</p>
 				<p>Text will be placed at the start of the x-axis of the content area.</p>
+				</div>
 			</ClickHeader> 
 			
+			<ClickHeader newStyle={style_2} {...props} title="justify-content: flex-start; (default)">
+				<div style={{background: 'red'}}>
+				<p>Child elements and text will be placed at the start of the x-axis.</p>
+				<p>Text will be placed at the start of the x-axis of the content area.</p>
+				</div>
+			</ClickHeader> 
 
 			{/*<ClickHeader newStyle={style_3} {...props}>justify-content: start;</ClickHeader> 
 			<p>Child elements will be placed at the start of writing-mode direction.</p>
