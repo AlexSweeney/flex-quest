@@ -5,11 +5,9 @@
 	flex-direction: column;
   align-items: center; 
   justify-content: center; 
-	transition: transform 500ms ease-in-out; 
-}
-
-.burger:hover {
-	cursor: pointer;
+	transition: transform 500ms ease-in-out;  
+	/*background: green;*/
+	z-index: 1000;
 }
 
 .burger-open {
@@ -20,16 +18,30 @@
 	margin-bottom: 0;
 }
 
-.burger-bar {
+.burger-bar-container {
+	width: 22px;
+	height: 24px;
+	max-height: 24px;
+	/*background: blue;*/
+	display: flex;
+	cursor: pointer;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+.burger-bar { 
+	width: 22px;
 	height: 4px;
-	margin-bottom: 4px;
-	width: 100%;
+	margin-bottom: 4px; 
 	background: #E8E4E4;
 	transition: background 500ms, width 500ms ease-in-out;
+	z-index: 2000;
 }
 
 .burger-bar-hover {
 	background: #2196f3;
+	cursor: pointer;
 }
 
 .burger-bar-down {

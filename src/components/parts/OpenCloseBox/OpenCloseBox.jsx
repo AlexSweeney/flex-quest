@@ -67,7 +67,9 @@ export default function OpenCloseBox({
 				{/* Menu Button */}
 				{menuOptions &&
 					<div className={ isExpanded ? "burger-container burger-container-opening" : "burger-container"}>
-						<Burger isOpen={burgerIsOpen} setIsOpen={setBurgerIsOpen} menuOptions={menuOptions}/>
+						<Burger isOpen={burgerIsOpen} 
+										setIsOpen={setBurgerIsOpen} 
+										menuOptions={menuOptions}/>
 					</div>}
 
 			  <div className="button-container">
