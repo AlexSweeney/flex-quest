@@ -12,14 +12,16 @@ function Text({handleClick, styleString}) {
 
 	return (
 		<div>
-			<p>Use 'justify-content' to control where child elements are placed along the x-axis of the flex container and where text is placed along the x-axis of the content area of the flex container.</p>   
-			<p>Any<ClickHeader newStyle={style_1} passedClass="inline" {...props}> padding you add to an element</ClickHeader> will be outside of the content area, and so will add space between any text and the edge of the element.</p>   
+			{/*<p>Use 'justify-content' to control where child elements are placed along the x-axis of the flex container and where text is placed along the x-axis of the content area of the flex container.</p>   
+			<p>Any<ClickHeader newStyle={style_1} passedClass="inline" {...props}> padding you add to an element</ClickHeader> will be outside of the content area, and so will add space between any text and the edge of the element.</p>   */}
 
-			<ClickHeader newStyle={style_2} {...props}>justify-content: flex-start; (default)</ClickHeader> 
-			<p>Child elements and text will be placed at the start of the x-axis.</p>
-			<p>Text will be placed at the start of the x-axis of the content area.</p>
+			<ClickHeader newStyle={style_2} {...props} title="justify-content: flex-start; (default)">
+				<p>Child elements and text will be placed at the start of the x-axis.</p>
+				<p>Text will be placed at the start of the x-axis of the content area.</p>
+			</ClickHeader> 
+			
 
-			<ClickHeader newStyle={style_3} {...props}>justify-content: start;</ClickHeader> 
+			{/*<ClickHeader newStyle={style_3} {...props}>justify-content: start;</ClickHeader> 
 			<p>Child elements will be placed at the start of writing-mode direction.</p>
 			<p>Text will be placed at the start of the writing-mode direction of the content area.</p> 
 			<p>If writing mode is from right to left, the start of the writing-mode direction will be the left side.</p>
@@ -40,7 +42,7 @@ function Text({handleClick, styleString}) {
 			<p>Child elements will be spread out across the x-axis.</p>
 			<p>The space will be distributed to give an evenly spaced appearence.</p>
 			<p>The spacse between the edges of the flex container and the first and last child elements will be the same size as the spaces between the child elements.</p>
-			<p>Text is not affected.</p>
+			<p>Text is not affected.</p>*/}
 		</div>
 	)
 }
