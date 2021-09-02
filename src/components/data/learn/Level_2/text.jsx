@@ -15,24 +15,18 @@ function Text({handleClick, styleString}) {
 			{/*<p>Use 'justify-content' to control where child elements are placed along the x-axis of the flex container and where text is placed along the x-axis of the content area of the flex container.</p>   
 			<p>Any<ClickHeader newStyle={style_1} passedClass="inline" {...props}> padding you add to an element</ClickHeader> will be outside of the content area, and so will add space between any text and the edge of the element.</p>   */}
 
-			<ClickHeader newStyle={style_2} {...props} title="justify-content: flex-start; (default)">
-				<div style={{background: 'blue', 'z-index': '-1000'}}>
+			<ClickHeader newStyle={style_2} {...props} title="justify-content: flex-start; (default)"> 
 				<p>Child elements and text will be placed at the start of the x-axis.</p>
-				<p>Text will be placed at the start of the x-axis of the content area.</p>
-				</div>
+				<p>Text will be placed at the start of the x-axis of the content area.</p> 
 			</ClickHeader> 
 			
-			<ClickHeader newStyle={style_2} {...props} title="justify-content: flex-start; (default)">
-				<div style={{background: 'red'}}>
-				<p>Child elements and text will be placed at the start of the x-axis.</p>
-				<p>Text will be placed at the start of the x-axis of the content area.</p>
-				</div>
+			<ClickHeader newStyle={style_3} {...props} title="justify-content: start;"> 
+				<p>Child elements will be placed at the start of writing-mode direction.</p>
+				<p>Text will be placed at the start of the writing-mode direction of the content area.</p>
+				<p>If writing mode is from right to left, the start of the writing-mode direction will be the left side.</p> 
 			</ClickHeader> 
-
-			{/*<ClickHeader newStyle={style_3} {...props}>justify-content: start;</ClickHeader> 
-			<p>Child elements will be placed at the start of writing-mode direction.</p>
-			<p>Text will be placed at the start of the writing-mode direction of the content area.</p> 
-			<p>If writing mode is from right to left, the start of the writing-mode direction will be the left side.</p>
+ 
+			{/* 
 
 			<ClickHeader newStyle={style_4} {...props}>justify-content: space-between;</ClickHeader> 
 			<p>Child elements will be spread out across the x-axis.</p>

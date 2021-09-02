@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import './ClickHeaderStyle.css';
-import './iconStyle.css';
+import './ClickHeaderStyle.css'; 
 
 export default function ClickHeader({title, newStyle, styleString, setStyleString, handleClick, passedClass = '', children}) { 
-	const [showChildren, setShowChildren] = useState(false);
+	const [showChildren, setShowChildren] = useState(false); 
 	const [playIconClass, setPlayIconClass] = useState('play-icon');
 	const [playIconAnimating, setPlayIconAnimating] = useState(false);
 
@@ -14,7 +13,7 @@ export default function ClickHeader({title, newStyle, styleString, setStyleStrin
 
 		setTimeout(() => {
 			setPlayIconAnimating(false);
-		}, 500)
+		}, 500) 
 	}
 
 	useEffect(() => {
@@ -32,11 +31,12 @@ export default function ClickHeader({title, newStyle, styleString, setStyleStrin
 	}, [playIconAnimating, showChildren])
 
 	return (
-		<div>
-			<h2 className={(newStyle === styleString ? `info-header selected ${passedClass}`: `info-header ${passedClass}`)}
-						onClick={() => { handleClick(newStyle, styleString, setStyleString); }}>{title}</h2>
-			{/*<div className='icon' onClick={handleIconClick}>*/}
-			<PlayArrowIcon className={playIconClass} onClick={handleIconClick}/>
+		<div className='click-header'>
+			<div className='header-container'>
+				<h2 className={`info-header ${passedClass} ${newStyle === styleString ? 'selected' : ''}`} 
+						onClick={() => { handleClick(newStyle, styleString, setStyleString); }}>{title}</h2> 
+				<PlayArrowIcon className={playIconClass} onClick={handleIconClick}/>
+			</div> 
 			<div className={`child-container ${showChildren ? 'child-container-visible' : 'child-container-hidden'}`}>{children}</div>
 		</div>
 	)
