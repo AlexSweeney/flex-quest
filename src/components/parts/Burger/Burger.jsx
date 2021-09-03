@@ -11,19 +11,16 @@ export default function Burger({isOpen, setIsOpen, menuOptions}) {
 	const [isAnimating, setIsAnimating] = useState(false);
 
 	function handleMouseOver(e) { 
-		if(e.target.id === 'burger-bar-container' || e.target.id === 'burger-bar') {
-			//console.log('over');
+		if(e.target.id === 'burger-bar-container' || e.target.id === 'burger-bar') { 
 			setIsOver(true);
 		}
 	}
 
-	function handleMouseOut(e) {
-		// console.log('out target', e.target.id);
-		const fromContainerToBurger = e.target.id === 'burger-bar-container' && e.relatedTarget.id === 'burger';
-		const fromBurgerBarToBurger = e.target.id === 'burger-bar' && e.relatedTarget.id === 'burger';
-		const outOfContainer = fromContainerToBurger || fromBurgerBarToBurger; 
+	function handleMouseOut(e) { 
+		const outOfBurger = e.relatedTarget.id !== 'burger-bar-container' && e.relatedTarget.id !== 'burger-bar';
+		
 
-		if(outOfContainer) {
+		if(outOfBurger) {
 			setIsOver(false); 
 			setIsDown(false);
 		}
@@ -54,14 +51,11 @@ export default function Burger({isOpen, setIsOpen, menuOptions}) {
 	}
  
 	useEffect(() => {
-		if(isOver && !isDown) {
-			console.log('hover');
+		if(isOver && !isDown) { 
 			setBurgerBarClass('burger-bar burger-bar-hover');
-		} else if(!isOver && !isDown && !isAnimating) {
-			console.log('up');
+		} else if(!isOver && !isDown && !isAnimating) { 
 			setBurgerBarClass('burger-bar');
-		} else if(isDown || isAnimating && !isOver) {
-			console.log('down');
+		} else if(isDown || isAnimating && !isOver) { 
 			setBurgerBarClass('burger-bar burger-bar-down');
 		}
 	}, [isOver, isDown, isAnimating]); 
