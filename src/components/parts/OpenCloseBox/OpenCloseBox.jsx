@@ -96,8 +96,8 @@ export default function OpenCloseBox({
 					<OpenCloseToggle isOpen={!isExpanded} handleClick={handleOpenCloseToggleClick}/>
 	 			</div>
 			</div>
-			<div className={"box-body " + bodyClass + "open-close-box-scroll"}> 
-				<div className={"box-body-content-container" + (showBody ? " show" : " no-show") + (burgerIsOpen ? " no-scroll" : "")}>
+			<div className={"box-body " + bodyClass + " open-close-box-scroll"}> 
+				<div className={"box-body-content-container" + (showBody ? " show" : " no-show") + (burgerIsOpen ? " no-scroll" : " scroll")}>
 					{menuOptions && <BurgerDropDown isOpen={burgerIsOpen} options={menuOptions} handleOptionClick={handleClickMenu}/>}
 						{children && children}
 				</div>

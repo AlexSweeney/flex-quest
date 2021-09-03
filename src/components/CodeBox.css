@@ -5,7 +5,21 @@
   color: #E8E4E4;
   border: none;
   resize: none;
-  padding: 0.5em 0.75em;
+  padding: 0.5em 0.75em; 
+}
+
+.text-area::-webkit-scrollbar {
+  height: 16px;
+  width: 16px;
+  background: #E8E4E4;
+}
+ 
+.text-area::-webkit-scrollbar-thumb {
+	background: #a7a7a7;  
+}
+
+.text-area::-webkit-scrollbar-thumb:hover { 
+	background: #d6d1d1;
 } 
 
 textarea:focus, input:focus{
