@@ -4,6 +4,7 @@ import Burger from '../Burger/Burger.jsx';
 import BurgerDropDown from '../Burger/BurgerDropDown.jsx';
 // import RefreshIcon from '@material-ui/icons/Refresh';
 import './OpenCloseBox.css';
+import './scrollbar.css';
 
 export default function OpenCloseBox({
 	title = null, 
@@ -95,7 +96,7 @@ export default function OpenCloseBox({
 					<OpenCloseToggle isOpen={!isExpanded} handleClick={handleOpenCloseToggleClick}/>
 	 			</div>
 			</div>
-			<div className={"box-body " + bodyClass}> 
+			<div className={"box-body " + bodyClass + "open-close-box-scroll"}> 
 				<div className={"box-body-content-container" + (showBody ? " show" : " no-show") + (burgerIsOpen ? " no-scroll" : "")}>
 					{menuOptions && <BurgerDropDown isOpen={burgerIsOpen} options={menuOptions} handleOptionClick={handleClickMenu}/>}
 						{children && children}

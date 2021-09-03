@@ -47,7 +47,7 @@ import {style_12} from './data/css/style_12.jsx';
 import {style_13} from './data/css/style_13.jsx';
 
 export default function Learn() {  
-	const [levelNum, setLevelNum] = useState(1);
+	const [levelNum, setLevelNum] = useState(2);
 
 	const htmlStrings = [
 		html_1,

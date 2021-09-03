@@ -1,0 +1,15 @@
+.open-close-box-scroll::-webkit-scrollbar {
+  height: 16px;
+  width: 16px;
+  background: transparent;
+}
+ 
+.open-close-box-scroll::-webkit-scrollbar-thumb {
+	background: #a7a7a7;  
+
+}
+
+.open-close-box-scroll::-webkit-scrollbar-thumb:hover { 
+	background: #d6d1d1;
+	 
+}
