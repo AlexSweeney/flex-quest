@@ -96,7 +96,7 @@ export default function OpenminimizeBox({
 																				options={menuOptions} 
 																				handleOptionClick={handleClickMenu}/>}
 				
-				<div className="box-body-children-container open-close-box-scroll">
+				<div className={"box-body-children-container open-close-box-scroll " + (isExpanded ? "box-body-children-container-open" : "box-body-children-container-closed")}>
 					{children && children}
 				</div> 
 			</div>

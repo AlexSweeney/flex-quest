@@ -109,8 +109,7 @@
 }
 
 /* Content */
-.box-body-content-container {
-	width: 100%;
+.box-body {
 	transition: opacity 500ms ease-in-out;
 }
 
@@ -118,8 +117,18 @@
 	overflow: auto;
 	width: 100%;
 	height: 100%; 
+	transition: opacity 500ms ease-in-out;
 }
- 
+
+.box-body-children-container-open {
+	overflow: auto;
+	opacity: 1;
+}
+
+.box-body-children-container-closed {
+	overflow: hidden;
+	opacity: 0;
+}
 
 /*.button-container {
 	display: flex;
