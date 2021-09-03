@@ -18,9 +18,20 @@ export default function OpenminimizeBox({
 	const [burgerIsOpen, setBurgerIsOpen] = useState(false);
 	const [burgerWasOpen, setBurgerWasOpen] = useState(false); 
 
+	const [showBodyScroll, setShowBodyScroll] = useState(true);
+
 	const [isExpanded, setIsExpanded] = useState(true);  
 
 	const [rotateNum, setRotateNum] = useState(0);
+
+	// Burger Click
+	function handleBurgerClick() {
+		/*if(showBodyScroll) {
+			setShowBodyScroll(false);
+		} else {
+			setTimeout(() => setShowBodyScroll(true), 500);
+		}*/
+	}
 
 	// Open Close Toggle
 	function handleOpenCloseToggleClick() {  
@@ -59,6 +70,7 @@ export default function OpenminimizeBox({
 					<div className="burger-container">
 						<Burger isOpen={burgerIsOpen} 
 										setIsOpen={setBurgerIsOpen} 
+										onClick={handleBurgerClick}
 										menuOptions={menuOptions}/>
 					</div>}
 
@@ -85,16 +97,15 @@ export default function OpenminimizeBox({
 					<OpenCloseToggle isOpen={!isExpanded} handleClick={handleOpenCloseToggleClick}/>
 	 			</div>
 			</div>
-			
-			<div className={"box-body " + bodyClass + " open-close-box-scroll"}> 
-				<div className={`box-body-content-container`}>
-					{menuOptions && 
-						<BurgerDropDown isOpen={burgerIsOpen} 
-														options={menuOptions} 
-														handleOptionClick={handleClickMenu}/>}
-					
+
+			<div className={"box-body " + bodyClass}>  
+				{menuOptions && <BurgerDropDown isOpen={burgerIsOpen} 
+																				options={menuOptions} 
+																				handleOptionClick={handleClickMenu}/>}
+				
+				<div className="box-body-children-container open-close-box-scroll">
 					{children && children}
-				</div>
+				</div> 
 			</div>
 	 	</div> 
 	);

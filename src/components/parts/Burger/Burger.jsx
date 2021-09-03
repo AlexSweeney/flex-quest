@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import './BurgerStyle.css';
 
-export default function Burger({isOpen, setIsOpen, menuOptions}) {
+export default function Burger({isOpen, setIsOpen, onClick, menuOptions}) {
 	const burgerClass = isOpen ? 'burger burger-open' : 'burger'; 
 	const [burgerBarClass, setBurgerBarClass] = useState('burger-bar'); 
 
@@ -19,7 +19,6 @@ export default function Burger({isOpen, setIsOpen, menuOptions}) {
 	function handleMouseOut(e) { 
 		const outOfBurger = e.relatedTarget.id !== 'burger-bar-container' && e.relatedTarget.id !== 'burger-bar';
 		
-
 		if(outOfBurger) {
 			setIsOver(false); 
 			setIsDown(false);
@@ -28,6 +27,7 @@ export default function Burger({isOpen, setIsOpen, menuOptions}) {
 
 	function handleMouseDown(e) {
 		if(e.target.id === 'burger-bar-container' || e.target.id === 'burger-bar') {
+			onClick();
 			setIsDown(true);
 			setIsOpen(oldVal => !oldVal);
 

@@ -104,6 +104,10 @@
   overflow: auto;
 }
 
+.box-body-hidden {
+	overflow: hidden;
+}
+
 /* Content */
 .box-body-content-container {
 	width: 100%;
@@ -112,11 +116,10 @@
 
 .box-body-children-container {
 	overflow: auto;
+	width: 100%;
+	height: 100%; 
 }
-
-.box-body-children-container {
-	overflow: hidden;
-} 
+ 
 
 /*.button-container {
 	display: flex;
