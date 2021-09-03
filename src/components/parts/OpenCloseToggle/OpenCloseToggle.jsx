@@ -4,18 +4,18 @@ import './OpenCloseToggleStyle.css';
 export default function OpenCloseToggle({isOpen, handleClick}) { 
 	const [lineClass, setLineClass] = useState('');
 
-	const [isHovering, setIsHovering] = useState(false);
+	const [isOver, setIsOver] = useState(false);
 	const [isDown, setIsDown] = useState(false);
 	const [isAnimating, setIsAnimating] = useState(false);
 
 	const animationTime = 2000;
 
-	function handleOver() {
-		setIsHovering(true);
+	function handleOver() { 
+		setIsOver(true);
 	}
 
-	function handleOut() {
-		setIsHovering(false);
+	function handleOut() { 
+		setIsOver(false);
 	}
 
 	function handleDown() {
@@ -23,7 +23,7 @@ export default function OpenCloseToggle({isOpen, handleClick}) {
 		setIsDown(true);
 		handleClick();
 
-		setTimeout(() => {
+		setTimeout(() => { 
 			setIsAnimating(false);
 		}, animationTime);
 	}
@@ -35,16 +35,16 @@ export default function OpenCloseToggle({isOpen, handleClick}) {
 	useEffect(() => {
 		let newLineClass;
 
-		if(isHovering && !isDown) {
+		if(isOver && !isDown) {
 			newLineClass = 'line-over';
-		} else if(isAnimating || isDown && !isHovering) {
+		} else if(isAnimating || !isAnimating && isDown && isOver) {
 			newLineClass = 'line-down';
 		} else {
 			newLineClass = '';
 		}
-
+ 
 		setLineClass(newLineClass);
-	}, [isHovering, isDown, isAnimating]);
+	}, [isOver, isDown, isAnimating]);
 
 	return (
 		<div className="open-close-toggle" 	

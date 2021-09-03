@@ -83,7 +83,7 @@ export default function OpenminimizeBox({
 					}
 				</div>
 				
-				{/* Title  + (menuOptions ? "open-close-toggle-container-big" : "") */}
+				{/* Title */}
 		 		<div className="title">{title}</div>
 
 				<div className={"open-close-toggle-container"}>
@@ -91,15 +91,15 @@ export default function OpenminimizeBox({
 	 			</div>
 			</div>
 
-			{/*<div className={"box-body " + bodyClass}>  
+			<div className={"box-body " + bodyClass}>  
 				{menuOptions && <BurgerDropDown isOpen={burgerIsOpen} 
 																				options={menuOptions} 
 																				handleOptionClick={handleClickMenu}/>}
 				
 				<div className={"box-body-children-container open-close-box-scroll " + (isExpanded ? "box-body-children-container-open" : "box-body-children-container-closed")}>
-					{/*{children && children}
+					{children && children}
 				</div> 
-			</div>*/}
+			</div>
 	 	</div> 
 	);
 } 
