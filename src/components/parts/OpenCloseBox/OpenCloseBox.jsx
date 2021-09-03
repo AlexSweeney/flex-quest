@@ -64,7 +64,7 @@ export default function OpenminimizeBox({
 				{/* Menu Button */}
 				{menuOptions && 
 					<div className="burger-container">
-						<Burger menuOptions={menuOptions} onClick={handleBurgerClick}/> 
+						<Burger menuOptions={menuOptions} burgerIsOpen={burgerIsOpen} onClick={handleBurgerClick}/> 
 					</div>}
 
 			  <div className="button-container">
