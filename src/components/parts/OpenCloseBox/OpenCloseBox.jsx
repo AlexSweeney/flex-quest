@@ -1,73 +1,62 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import OpenCloseToggle from '../OpenCloseToggle/OpenCloseToggle.jsx'; 
 import Burger from '../Burger/Burger.jsx';
 import BurgerDropDown from '../Burger/BurgerDropDown.jsx';
-// import RefreshIcon from '@material-ui/icons/Refresh';
 import './OpenCloseBox.css';
 import './scrollbar.css';
 
-export default function OpenCloseBox({
-	title = null, 
-	text = null, 
+export default function OpenminimizeBox({
+	title = null,  
 	menuOptions = null, 
 	handleMenuOptionClick, 
-	handleRefresh = null, 
+	handleRefresh = () => {},
 	children = null,
-	bodyClass = '',
-	handleTextOptionClick = null,
+	bodyClass = '', 
 	button_1 = null,
 	button_2 = null,
 }) { 
-	const animationTime = 1000;
-
 	const [burgerIsOpen, setBurgerIsOpen] = useState(false);
 	const [burgerWasOpen, setBurgerWasOpen] = useState(false); 
 
-	const [isExpanded, setIsExpanded] = useState(true); 
-	const [showBody, setShowBody] = useState(true);
+	const [isExpanded, setIsExpanded] = useState(true);  
 
 	const [rotateNum, setRotateNum] = useState(0);
 
+	// Open Close Toggle
 	function handleOpenCloseToggleClick() {  
-		if(isExpanded) closeBox();
-		else if(!isExpanded) openBox();
+		if(isExpanded) minimizeBox();
+		else if(!isExpanded) expandBox();
 	}
 
-	function closeBox() {
+	function minimizeBox() {
 		setBurgerWasOpen(burgerIsOpen);
 		setBurgerIsOpen(false);
 		setIsExpanded(false); 
-		setShowBody(false);
 	}
  
-	function openBox() {
-		if(burgerWasOpen) {
-			setBurgerIsOpen(true);
-			setBurgerWasOpen(false);
-		}
-		setIsExpanded(true); 
-
-		setTimeout(() => {
-			setShowBody(true);
-		}, animationTime)
+	function expandBox() {
+		if(burgerWasOpen) setBurgerIsOpen(true);
+		setIsExpanded(true);  
 	} 
 
+	// burger titles
 	function handleClickMenu(option) {
 		handleMenuOptionClick(option);
 		setBurgerIsOpen(false);
 	}
 
+	// refresh button
 	function refreshDown() {
 		setRotateNum(oldVal => oldVal + 360);
 		handleRefresh();
-	}
-  
+	} 
+
 	return ( 
 		<div className={isExpanded ? "box box-expanded" : "box box-minimized"}> 
 			<div className="box-header">
 				{/* Menu Button */}
-				{menuOptions &&
-					<div className={ isExpanded ? "burger-container burger-container-opening" : "burger-container"}>
+				{menuOptions && 
+					<div className="burger-container">
 						<Burger isOpen={burgerIsOpen} 
 										setIsOpen={setBurgerIsOpen} 
 										menuOptions={menuOptions}/>
@@ -92,14 +81,19 @@ export default function OpenCloseBox({
 				{/* Title */}
 		 		<div className="title">{title}</div>
 
-				<div className={ menuOptions ? "open-close-toggle-container" : "open-close-toggle-container open-close-toggle-container-big" }>
+				<div className={"open-close-toggle-container " + (menuOptions ? "open-close-toggle-container-big" : "") }>
 					<OpenCloseToggle isOpen={!isExpanded} handleClick={handleOpenCloseToggleClick}/>
 	 			</div>
 			</div>
+			
 			<div className={"box-body " + bodyClass + " open-close-box-scroll"}> 
-				<div className={"box-body-content-container" + (showBody ? " show" : " no-show") + (burgerIsOpen ? " no-scroll" : " scroll")}>
-					{menuOptions && <BurgerDropDown isOpen={burgerIsOpen} options={menuOptions} handleOptionClick={handleClickMenu}/>}
-						{children && children}
+				<div className={`box-body-content-container`}>
+					{menuOptions && 
+						<BurgerDropDown isOpen={burgerIsOpen} 
+														options={menuOptions} 
+														handleOptionClick={handleClickMenu}/>}
+					
+					{children && children}
 				</div>
 			</div>
 	 	</div> 

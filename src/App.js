@@ -1,5 +1,3 @@
-
-
 // animate router
 // animate open and close play
 // click min window = close burger
