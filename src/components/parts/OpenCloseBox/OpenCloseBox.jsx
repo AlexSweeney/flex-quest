@@ -96,9 +96,9 @@ export default function OpenCloseBox({
 	 			</div>
 			</div>
 			<div className={"box-body " + bodyClass}> 
-				<div className={"box-body-content-container" + (showBody ? " show" : " no-show")}>
+				<div className={"box-body-content-container" + (showBody ? " show" : " no-show") + (burgerIsOpen ? " no-scroll" : "")}>
 					{menuOptions && <BurgerDropDown isOpen={burgerIsOpen} options={menuOptions} handleOptionClick={handleClickMenu}/>}
-					{children && children}
+						{children && children}
 				</div>
 			</div>
 	 	</div> 

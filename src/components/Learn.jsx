@@ -98,7 +98,7 @@ export default function Learn() {
 		'Level 10: flex-shrink',
 		'Level 11: flex-basis',
 		'Level 12: flex',
-		'Level 13: align-self',  
+		'Level 13: align-self',
 	]; 
 
 	const menuText = [

@@ -106,22 +106,13 @@
 	transition: opacity 500ms ease-in-out;
 }
 
-/*.text-body {
-	position: absolute;
-	width: 100%;
-	height: 100%; 
-	transition: opacity 500ms ease-in-out;
-	z-index: 0; 
-	/*overflow: hidden;
-} 
-
-.text-body p {
-	margin-bottom: 1em;
+.box-body-children-container {
+	overflow: auto;
 }
 
-.text-body:hover {
-	cursor: default;
-}*/
+.box-body-children-container {
+	overflow: hidden;
+}
 
 .burger-body {
 	width: 100%;  
@@ -170,8 +161,7 @@
   background: #E8E4E4; 
   display: flex;
   justify-content: center;
-  align-items: center;
- /* z-index: 1000;*/
+  align-items: center; 
 } 
 
 .button:hover {
@@ -197,6 +187,10 @@
 
 .no-show {
 	opacity: 0;   
+}
+
+.no-scroll {
+	overflow: hidden;
 }
 
 .padding {
