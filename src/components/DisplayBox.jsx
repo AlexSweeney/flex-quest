@@ -54,6 +54,24 @@ export default function DisplayBox({title, htmlString, cssString, fade}) {
 		* {
 			box-sizing: border-box;
 		}
+
+		::-webkit-scrollbar {
+		  height: 16px;
+		  width: 16px;
+		  background: #E8E4E4;
+		}
+
+		::-webkit-scrollbar-corner {
+			background: #a7a7a7;
+		}
+		 
+		::-webkit-scrollbar-thumb {
+			background: #a7a7a7;  
+		}
+
+		::-webkit-scrollbar-thumb:hover { 
+			background: #d6d1d1;
+		} 
 	`;
 
 	const gridStyle = `

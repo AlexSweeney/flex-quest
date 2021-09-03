@@ -3,6 +3,10 @@
   width: 16px;
   background: transparent;
 }
+
+.open-close-box-scroll::-webkit-scrollbar-corner {
+	background: #a7a7a7;
+}
  
 .open-close-box-scroll::-webkit-scrollbar-thumb {
 	background: #a7a7a7;  

@@ -1,4 +1,3 @@
-// burger - click drag out = mouseout not detected, color held
 
 
 // animate router
