@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import './BurgerStyle.css';
 
-export default function Burger({isOpen, setIsOpen, onClick, menuOptions}) {
-	const burgerClass = isOpen ? 'burger burger-open' : 'burger'; 
+export default function Burger({menuOptions, onClick}) {
+	// const burgerClass = isOpen ? 'burger burger-open' : 'burger'; 
+	const [burgerIsOpen, setBurgerIsOpen] = useState(false);
 	const [burgerBarClass, setBurgerBarClass] = useState('burger-bar'); 
 
 	const animationTime = 500;
@@ -27,11 +28,10 @@ export default function Burger({isOpen, setIsOpen, onClick, menuOptions}) {
 
 	function handleMouseDown(e) {
 		if(e.target.id === 'burger-bar-container' || e.target.id === 'burger-bar') {
-			onClick();
-			setIsDown(true);
-			setIsOpen(oldVal => !oldVal);
-
+			setIsDown(true); 
+			setBurgerIsOpen(oldVal => !oldVal);
 			setIsAnimating(true);
+			onClick();
 
 			setTimeout(() => {
 				setIsAnimating(false);
@@ -61,7 +61,7 @@ export default function Burger({isOpen, setIsOpen, onClick, menuOptions}) {
 	}, [isOver, isDown, isAnimating]); 
 	
 	return (
-		<div className={burgerClass} id="burger"  
+		<div className={"burger " + (burgerIsOpen ? "burger-open" : "")} id="burger"  
 			onMouseOver={handleMouseOver}
 			onMouseOut={handleMouseOut}
 			onMouseDown={handleMouseDown}

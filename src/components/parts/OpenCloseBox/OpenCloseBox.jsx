@@ -26,11 +26,7 @@ export default function OpenminimizeBox({
 
 	// Burger Click
 	function handleBurgerClick() {
-		/*if(showBodyScroll) {
-			setShowBodyScroll(false);
-		} else {
-			setTimeout(() => setShowBodyScroll(true), 500);
-		}*/
+		setBurgerIsOpen(oldVal => !oldVal);
 	}
 
 	// Open Close Toggle
@@ -68,10 +64,7 @@ export default function OpenminimizeBox({
 				{/* Menu Button */}
 				{menuOptions && 
 					<div className="burger-container">
-						<Burger isOpen={burgerIsOpen} 
-										setIsOpen={setBurgerIsOpen} 
-										onClick={handleBurgerClick}
-										menuOptions={menuOptions}/>
+						<Burger menuOptions={menuOptions} onClick={handleBurgerClick}/> 
 					</div>}
 
 			  <div className="button-container">
