@@ -12,16 +12,18 @@ export default function Burger({isOpen, setIsOpen, menuOptions}) {
 
 	function handleMouseOver(e) { 
 		if(e.target.id === 'burger-bar-container' || e.target.id === 'burger-bar') {
+			//console.log('over');
 			setIsOver(true);
 		}
 	}
 
 	function handleMouseOut(e) {
+		// console.log('out target', e.target.id);
 		const fromContainerToBurger = e.target.id === 'burger-bar-container' && e.relatedTarget.id === 'burger';
 		const fromBurgerBarToBurger = e.target.id === 'burger-bar' && e.relatedTarget.id === 'burger';
 		const outOfContainer = fromContainerToBurger || fromBurgerBarToBurger; 
 
-		if(!isAnimating && outOfContainer) {
+		if(outOfContainer) {
 			setIsOver(false); 
 			setIsDown(false);
 		}
@@ -40,7 +42,7 @@ export default function Burger({isOpen, setIsOpen, menuOptions}) {
 		}
 	}
 
-	function handleMouseUp(e) { 
+	function handleMouseUp(e) {  
 		setIsDown(false);
 	} 
 
@@ -53,10 +55,13 @@ export default function Burger({isOpen, setIsOpen, menuOptions}) {
  
 	useEffect(() => {
 		if(isOver && !isDown) {
+			console.log('hover');
 			setBurgerBarClass('burger-bar burger-bar-hover');
 		} else if(!isOver && !isDown && !isAnimating) {
+			console.log('up');
 			setBurgerBarClass('burger-bar');
 		} else if(isDown || isAnimating && !isOver) {
+			console.log('down');
 			setBurgerBarClass('burger-bar burger-bar-down');
 		}
 	}, [isOver, isDown, isAnimating]); 
