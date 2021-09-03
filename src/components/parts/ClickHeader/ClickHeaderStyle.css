@@ -71,8 +71,9 @@ div .play-icon-selected {
 	opacity: 0; 
 	max-height: 0; 
 	pointer-events: none;
+	overflow: hidden;
 }
-
+ 
 .child-container-visible {
 	opacity: 1;  
 	max-height: 1000px; 
