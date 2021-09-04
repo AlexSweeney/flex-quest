@@ -31,10 +31,6 @@ export default function DisplayBox({title, htmlString, cssString}) {
   		<head>
   			<style>
   				body { padding: 0; margin: 0; }
-  				.container {
-  					resize: both;
-  					overflow: hidden;
-  				}
   				${cssString}
   			</style>
   		</head>
@@ -51,13 +47,11 @@ export default function DisplayBox({title, htmlString, cssString}) {
 			title={title}
 			button_1={<RefreshButton onClick={handleRefresh}/>} 
 			button_2={<GridButton handleClick={handleGridClick} selected={showGrid}/>}
-			
 		>	
 			<div className="display-box-background">
 				<div className="iframe-container">
-					<iframe className="iframe" id="iframe"/>
 					<GridOverlay showGrid={showGrid}/>
-					{/*<iframe srcdoc={source} className="iframe" id="iframe"/>*/}
+					<iframe srcdoc={source} className="iframe" id="iframe"/> 
 				</div>
 			</div>
 		</OpenCloseBox>
