@@ -13,11 +13,8 @@ export default function DisplayBox({title, htmlString, cssString}) {
   	const iframeElement = document.getElementById('iframe-container');
   	iframeElement.style = "";
 
-		setIframeContainerClass('iframe-container iframe-container-big');
- 		// const iframeElement = document.getElementById('iframe-container-small');
-		/*iframeElement.style.width = '200px';
-		iframeElement.style.height = '200px';
-		*/
+		setIframeContainerClass('iframe-container iframe-container-big'); 
+
 		setTimeout(() => {
 			setIframeContainerClass('iframe-container');
 		}, 500); 
@@ -30,7 +27,7 @@ export default function DisplayBox({title, htmlString, cssString}) {
   		<html lang="en">
   		<head>
   			<style>
-  				body { padding: 0; margin: 0; }
+  				body { padding: 0; margin: 0; overflow: hidden; }
   				${cssString}
   			</style>
   		</head>
