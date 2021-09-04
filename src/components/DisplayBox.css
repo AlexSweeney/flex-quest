@@ -6,12 +6,23 @@
 
 .iframe-container {
 	width: 100%;
-	height: 100%; 
+	height: 100%;
 	position: relative;
 	resize: both;
 	overflow: hidden;  
 	background: #272727;
 } 
+
+.iframe-container-big { 
+	width: 100%;
+	height: 100%;
+	transition: width 500ms, height 500ms;
+} 
+
+.iframe-container-hidden {
+	opacity: 0;
+	overflow: hidden;
+}
 
 .grid-overlay {
 	width: 100%;

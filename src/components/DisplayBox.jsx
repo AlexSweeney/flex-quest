@@ -7,19 +7,19 @@ import './DisplayBox.css';
 
 export default function DisplayBox({title, htmlString, cssString}) {    
   const [source, setSource] = useState(null);
-  // const defaultStyle = '.container { overflow: hidden; background: red} ';
+  const [iframeContainerClass, setIframeContainerClass] = useState('iframe-container'); 
 
   const handleRefresh = function() {
-		const iframeElement = document.getElementById('iframe');
+  	const iframeElement = document.getElementById('iframe-container');
+  	iframeElement.style = "";
 
-		iframeElement.style.opacity = 0;
-		iframeElement.style.overflow = 'hidden';
-
+		setIframeContainerClass('iframe-container iframe-container-big');
+ 		// const iframeElement = document.getElementById('iframe-container-small');
+		/*iframeElement.style.width = '200px';
+		iframeElement.style.height = '200px';
+		*/
 		setTimeout(() => {
-			iframeElement.style.opacity = 1;
-			iframeElement.style.padding = 0;
-			iframeElement.style.width = '100%';
-			iframeElement.style.height = '100%'; 
+			setIframeContainerClass('iframe-container');
 		}, 500); 
 	}
 
@@ -49,9 +49,9 @@ export default function DisplayBox({title, htmlString, cssString}) {
 			button_2={<GridButton handleClick={handleGridClick} selected={showGrid}/>}
 		>	
 			<div className="display-box-background">
-				<div className="iframe-container">
+				<div className={iframeContainerClass} id="iframe-container">
 					<GridOverlay showGrid={showGrid}/>
-					<iframe srcdoc={source} className="iframe" id="iframe"/> 
+					<iframe srcdoc={source} className="iframe"/> 
 				</div>
 			</div>
 		</OpenCloseBox>
