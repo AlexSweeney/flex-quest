@@ -1,17 +1,17 @@
-.open-close-box-scroll::-webkit-scrollbar {
+.custom-scroll::-webkit-scrollbar {
   height: 16px;
   width: 16px;
   background: transparent;
 }
 
-.open-close-box-scroll::-webkit-scrollbar-corner {
+.custom-scroll::-webkit-scrollbar-corner {
 	background: #a7a7a7;
 }
  
-.open-close-box-scroll::-webkit-scrollbar-thumb {
+.custom-scroll::-webkit-scrollbar-thumb {
 	background: #a7a7a7;  
 }
 
-.open-close-box-scroll::-webkit-scrollbar-thumb:hover { 
+.custom-scroll::-webkit-scrollbar-thumb:hover { 
 	background: #d6d1d1;
 }

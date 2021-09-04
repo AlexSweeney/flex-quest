@@ -91,12 +91,12 @@ export default function OpenminimizeBox({
 	 			</div>
 			</div>
 
-			<div className="box-body">  
+			<div className="box-body custom-scroll">  
 				{menuOptions && <BurgerDropDown isOpen={burgerIsOpen} 
 																				options={menuOptions} 
 																				handleOptionClick={handleClickMenu}/>}
 				
-				<div className={"box-body-children-container open-close-box-scroll " + (isExpanded ? "box-body-children-container-open" : "box-body-children-container-closed")}>
+				<div className={"box-body-children-container custom-scroll " + (isExpanded ? "box-body-children-container-open" : "box-body-children-container-closed")}>
 					{children && children}
 				</div> 
 			</div>
