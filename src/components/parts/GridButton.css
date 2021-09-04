@@ -6,10 +6,12 @@
   justify-content: center;
   align-items: center;
   font-size: 1em; 
+  transition: color 500ms ease-in-out;
 }
 
 .grid-button:hover {
 	color: #2196f3; 
+	cursor: pointer;
 }
 
 .grid-button:active {
