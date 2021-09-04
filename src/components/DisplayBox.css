@@ -8,7 +8,39 @@
 	height: 100%; 
 }
 
-.iframe {   
+.iframe-container {
+	width: 100%;
+	height: 100%;
+	/*background: pink;*/
+	resize: both;
+	overflow: auto;
+	position: relative;
+}
+
+.grid-overlay {
+	width: 100%;
+	height: 100%;
+	background: blue;
+	opacity: 0.5;
+	position: absolute;
+
+	/*z-index: 3000;
+	width: 100%;
+	height: 100%;
+	background: blue; 
+	overflow: auto;
+	resize: both;
+	display: flex;*/
+}
+
+.iframe {
+	width: 100%;
+	height: 100%;
+	background: #272727;
+	position: absolute;
+}
+
+/*.iframe {   
 	width: 100%;
 	height: 100%;
 	padding: 0;
@@ -17,4 +49,4 @@
 	overflow: auto;
 	resize: both;
 	box-sizing: border-box;  
-}
+}*/

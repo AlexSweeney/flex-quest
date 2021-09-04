@@ -2,6 +2,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import OpenCloseBox from './parts/OpenCloseBox/OpenCloseBox.jsx'; 
 import RefreshButton from './parts/RefreshButton.jsx';
 import GridButton from './parts/GridButton.jsx'; 
+import GridOverlay from './parts/GridOverlay.jsx';
 import './DisplayBox.css';
 
 export default function DisplayBox({title, htmlString, cssString, fade}) {    
@@ -23,7 +24,7 @@ export default function DisplayBox({title, htmlString, cssString, fade}) {
 	const [showGrid, setShowGrid] = useState(false);
 
 	const grid = `
-	<div class="grid-container"> 
+	<div class="grid-container">
 		<div class="grid-line-vert"></div>
 		<div class="grid-line-vert"></div>
 		<div class="grid-line-vert"></div>
@@ -81,6 +82,11 @@ export default function DisplayBox({title, htmlString, cssString, fade}) {
 			position: absolute;
 			border: 2px solid #2196f3;
 			opacity: 0.5;
+			transition: opacity 1s ease-in-out;
+		}
+
+		.grid-container-hide {
+			opacity: 0;
 		}
 
 		.grid-line-vert {
@@ -97,12 +103,14 @@ export default function DisplayBox({title, htmlString, cssString, fade}) {
 		  top: 0;
 		}`;
 
-  useEffect(() => {  
-  	const newString = showGrid ? grid + htmlString : htmlString;
-  	const newStyle =  showGrid ? defaultStyles + gridStyle + cssString : defaultStyles + cssString ; 
+  // useEffect(() => {  
+  // 	// const newString = showGrid ? grid + htmlString : htmlString;
+  // 	// const newStyle =  showGrid ? defaultStyles + gridStyle + cssString : defaultStyles + cssString ; 
+  // 	const newString = showGrid ? grid + htmlString : hideGrid + htmlString;
+  // 	const newStyle =  defaultStyles + gridStyle + cssString; 
 
-  	setSource(`<style>${newStyle}</style> ${newString}`);
-  }, [htmlString, cssString, showGrid]) 
+  // 	setSource(`<style>${newStyle}</style> ${newString}`);
+  // }, [htmlString, cssString, showGrid]) 
 
   function handleGridClick() { 
   	setShowGrid(oldVal => !oldVal);
@@ -114,8 +122,13 @@ export default function DisplayBox({title, htmlString, cssString, fade}) {
 			button_1={<RefreshButton onClick={handleRefresh}/>} 
 			button_2={<GridButton handleClick={handleGridClick} selected={showGrid}/>}
 			bodyClass="display-box-background"
-		>
-			<iframe srcdoc={source} className="iframe"id="iframe"/>  
+		>	
+			<div className="iframe-container">
+				<GridOverlay showGrid={showGrid}/>
+				<iframe className="iframe"/>
+			</div>
+				{/*<iframe srcdoc={source} className="iframe" id="iframe"/>  */}
+			
 		</OpenCloseBox>
 	) 
 } 
