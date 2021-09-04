@@ -1,30 +1,37 @@
-.display-box {
+/*.display-box {
 	width: 100%;
   height: 100%;
-  resize: both;
-  overflow: auto;
+  resize: both; 
+  overflow: hidden;
   position: absolute;
   border: 0.5em solid transparent;
   z-index: 2;
 }
+*/
+
+.display-box-background {
+	width: 100%;
+	height: 100%;
+	padding: 0.5em;
+}
 
 .iframe-container {
 	width: 100%;
-	height: 100%;
+	height: 100%; 
 	position: relative;
-}
+	resize: both;
+	overflow: hidden;  
+	background: #272727;
+} 
 
 .grid-overlay {
 	width: 100%;
-	height: 100%;
-	background: blue;
-	opacity: 0.5;
+	height: 100%; 
 	position: absolute;
+	top: 0;
 }
 
 .iframe {
 	width: 100%;
-	height: 100%;
-	background: #272727;
-	position: absolute;
+	height: 100%; 
 }

@@ -2,11 +2,9 @@
 	width: 100%;
 	height: 100%;
 	border: 2px solid #2196f3;
-	background: transparent;
-	opacity: 0.5;
-	position: absolute;
-	z-index: 1;
+	opacity: 0.5; 
 	transition: opacity 500ms ease-in-out;
+	position: relative;
 }
 
 .grid-container-hide {
@@ -26,31 +24,3 @@
 	position: absolute;
   top: 0;
 }
-
-/*body { 
-	padding: 0; 
-	margin: 0; 
-} 
-
-* {
-	box-sizing: border-box;
-}
-
-::-webkit-scrollbar {
-  height: 16px;
-  width: 16px;
-  background: #E8E4E4;
-}
-
-::-webkit-scrollbar-corner {
-	background: #a7a7a7;
-}
- 
-::-webkit-scrollbar-thumb {
-	background: #a7a7a7;  
-}
-
-::-webkit-scrollbar-thumb:hover { 
-	background: #d6d1d1;
-}
-*/

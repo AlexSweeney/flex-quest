@@ -135,7 +135,7 @@
 	width: 100%;
 	height: 100%; 
 	transition: opacity 500ms ease-in-out;
-	display: flex; 
+	display: flex;
 }
 
 .box-body-children-container-open {

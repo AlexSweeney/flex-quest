@@ -5,13 +5,15 @@ import GridButton from './parts/GridButton.jsx';
 import GridOverlay from './parts/GridOverlay.jsx';
 import './DisplayBox.css';
 
-export default function DisplayBox({title, htmlString, cssString, fade}) {    
+export default function DisplayBox({title, htmlString, cssString}) {    
   const [source, setSource] = useState(null);
+  // const defaultStyle = '.container { overflow: hidden; background: red} ';
 
   const handleRefresh = function() {
 		const iframeElement = document.getElementById('iframe');
 
 		iframeElement.style.opacity = 0;
+		iframeElement.style.overflow = 'hidden';
 
 		setTimeout(() => {
 			iframeElement.style.opacity = 1;
@@ -24,8 +26,21 @@ export default function DisplayBox({title, htmlString, cssString, fade}) {
 	const [showGrid, setShowGrid] = useState(false);
  
   useEffect(() => {  
-  	setSource(`<style>${cssString}</style> ${htmlString}`);
-  }, [htmlString, cssString, showGrid]) 
+  	setSource(`
+  		<html lang="en">
+  		<head>
+  			<style>
+  				body { padding: 0; margin: 0; }
+  				.container {
+  					resize: both;
+  					overflow: hidden;
+  				}
+  				${cssString}
+  			</style>
+  		</head>
+  		<body>${htmlString}</body>
+  		</html>`);
+  }, [htmlString, cssString]) 
 
   function handleGridClick() { 
   	setShowGrid(oldVal => !oldVal);
@@ -38,10 +53,11 @@ export default function DisplayBox({title, htmlString, cssString, fade}) {
 			button_2={<GridButton handleClick={handleGridClick} selected={showGrid}/>}
 			
 		>	
-			<div className="display-box">
+			<div className="display-box-background">
 				<div className="iframe-container">
+					<iframe className="iframe" id="iframe"/>
 					<GridOverlay showGrid={showGrid}/>
-					<iframe srcdoc={source} className="iframe" id="iframe"/>
+					{/*<iframe srcdoc={source} className="iframe" id="iframe"/>*/}
 				</div>
 			</div>
 		</OpenCloseBox>
