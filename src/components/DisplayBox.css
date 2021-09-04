@@ -1,20 +1,32 @@
-.display-box-background {
+/*.display-box-background {
 	background: #E8E4E4;
+	background: red;
 	padding: 0.5em;   
-}
+}*/
 
-.display-box-container { 
+/*.display-box-container { 
 	width: 100%;
 	height: 100%; 
+}*/
+
+.display-box {
+	width: 100%;
+  height: 100%;
+  resize: both;
+  overflow: auto;
+  position: absolute;
+  border: 0.5em solid transparent;
 }
 
 .iframe-container {
 	width: 100%;
 	height: 100%;
-	/*background: pink;*/
-	resize: both;
-	overflow: auto;
 	position: relative;
+	/*background: pink;
+	resize: both;
+	overflow: auto;*/
+	/*
+	margin: 0.5em;*/
 }
 
 .grid-overlay {
@@ -23,14 +35,6 @@
 	background: blue;
 	opacity: 0.5;
 	position: absolute;
-
-	/*z-index: 3000;
-	width: 100%;
-	height: 100%;
-	background: blue; 
-	overflow: auto;
-	resize: both;
-	display: flex;*/
 }
 
 .iframe {
@@ -39,14 +43,3 @@
 	background: #272727;
 	position: absolute;
 }
-
-/*.iframe {   
-	width: 100%;
-	height: 100%;
-	padding: 0;
-	background: #272727;
-	transition: opacity 500ms ease-in-out;
-	overflow: auto;
-	resize: both;
-	box-sizing: border-box;  
-}*/

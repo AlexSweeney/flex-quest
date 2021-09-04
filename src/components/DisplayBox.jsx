@@ -121,12 +121,15 @@ export default function DisplayBox({title, htmlString, cssString, fade}) {
 			title={title}
 			button_1={<RefreshButton onClick={handleRefresh}/>} 
 			button_2={<GridButton handleClick={handleGridClick} selected={showGrid}/>}
-			bodyClass="display-box-background"
+			
 		>	
-			<div className="iframe-container">
-				<GridOverlay showGrid={showGrid}/>
-				<iframe className="iframe"/>
+			<div className="display-box">
+				<div className="iframe-container">
+					<GridOverlay showGrid={showGrid}/>
+					<iframe className="iframe"/>
+				</div>
 			</div>
+
 				{/*<iframe srcdoc={source} className="iframe" id="iframe"/>  */}
 			
 		</OpenCloseBox>
