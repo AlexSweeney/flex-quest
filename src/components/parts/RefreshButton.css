@@ -8,6 +8,10 @@
 	transition: color 500ms ease-in-out;
 }
 
+.refresh-button:hover {
+	cursor: pointer;
+}
+
 .refresh-button-down {
 	color: #495fda;
 }
