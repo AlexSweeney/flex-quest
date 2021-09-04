@@ -7,6 +7,14 @@
 	align-items: center;
 }
 
+.refresh-button-down {
+	color: #495fda;
+}
+
+.refresh-button-over {
+	color:  #2196f3;
+}
+
 .refresh-icon {
 	transition: 1s transform; 
 }
