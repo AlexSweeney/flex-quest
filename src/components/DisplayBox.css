@@ -1,14 +1,3 @@
-/*.display-box-background {
-	background: #E8E4E4;
-	background: red;
-	padding: 0.5em;   
-}*/
-
-/*.display-box-container { 
-	width: 100%;
-	height: 100%; 
-}*/
-
 .display-box {
 	width: 100%;
   height: 100%;
@@ -16,17 +5,13 @@
   overflow: auto;
   position: absolute;
   border: 0.5em solid transparent;
+  z-index: 2;
 }
 
 .iframe-container {
 	width: 100%;
 	height: 100%;
 	position: relative;
-	/*background: pink;
-	resize: both;
-	overflow: auto;*/
-	/*
-	margin: 0.5em;*/
 }
 
 .grid-overlay {
