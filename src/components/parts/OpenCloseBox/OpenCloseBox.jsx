@@ -15,20 +15,19 @@ export default function OpenCloseBox({
 	button_2 = null,
 	i = Math.random(),
 }) { 
-	// const [boxState, setBoxState] = useState('open');
 	const thisId = `box_${i}`;
 	const [boxIsOpen, setBoxIsOpen] = useState(true);
 	const [boxClass, setBoxClass] = useState('');
 
 	const [animateOpenCloseToggle, setAnimateOpenCloseToggle] = useState(false);
+	const [isChangingWidth, setIsChangingWidth] = useState(false);
 
 	const [burgerIsOpen, setBurgerIsOpen] = useState(false);
 	const [burgerWasOpen, setBurgerWasOpen] = useState(false); 
 	
-	const [bodyClass, setBodyClass] = useState('body-open');
-  
 	const [rotateNum, setRotateNum] = useState(0);
-
+	// const [bodyClass, setBodyClass] = useState('body-open');
+  
 	// Burger Click
 	function handleBurgerClick() {
 		setBurgerIsOpen(oldVal => !oldVal);
@@ -49,24 +48,8 @@ export default function OpenCloseBox({
 		else if(!boxIsOpen) showBurger();
 
 		setBoxIsOpen(oldVal => !oldVal);
+		setIsChangingWidth(true);
 	}
-
-
-	/*function openBox() {
-		setBoxState('opening');
-
-		setTimeout(() => {
-			setBoxState('open');
-		}, 1000);
-	}
-
-	function closeBox() { 
-		setBoxState('closing');
-
-		setTimeout(() => {
-			setBoxState('closed');
-		}, 1000);
-	}*/
 
 	// burger titles
 	function handleClickMenu(option) {
@@ -111,11 +94,10 @@ export default function OpenCloseBox({
 		boxElement.addEventListener('transitionend', (e) => {
       if(e.propertyName === 'width') {
       	setAnimateOpenCloseToggle(oldVal => !oldVal);
+      	setIsChangingWidth(false);
       }
     });
 	}, [])
-
-
 
 	return ( 
 		<div className={`box ${boxClass}`} id={thisId}>  
@@ -128,25 +110,29 @@ export default function OpenCloseBox({
 
 			  <div className="button-container">
 					{/* Button 1 */}
-					{button_1 && 
+					{/*{button_1 && 
 						<div className="button button-1">
 							{button_1}
 						</div>
 					}
-
+*/}
 				 	{/* Button 2 */}
-					{button_2 && 
+	{/*				{button_2 && 
 						<div className="button button-2">
 							{button_2}
 						</div>
-					}
+					}*/}
 				</div>
 				
 				{/* Title */}
 		 	<div className="title">{title}</div>
 
 				<div className={"open-close-toggle-container"}>
-					<OpenCloseToggle isOpen={boxIsOpen} isAnimating={animateOpenCloseToggle} handleClick={handleOpenCloseToggleClick}/>
+					<OpenCloseToggle 
+						isOpen={boxIsOpen} 
+						handleClick={handleOpenCloseToggleClick}
+						waiting={isChangingWidth}
+						animate={animateOpenCloseToggle} />
 	 			</div>
 			</div>
 

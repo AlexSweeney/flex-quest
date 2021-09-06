@@ -1,37 +1,72 @@
 import React, {useState, useEffect} from 'react';
 import './OpenCloseToggleStyle.css';
 
-export default function OpenCloseToggle({isOpen, isAnimating, handleClick}) {  
+export default function OpenCloseToggle({isOpen, waiting, animate, handleClick}) {  
+	const thisLineId = 'Line_' + Math.random();
+
 	const [lineDirectionClass, setLineDirectionClass] = useState(isOpen ? 'line-open' : 'line-closed');
 	const [lineColorClass, setLineColorClass] = useState('');
 
+	const [isOver, setIsOver] = useState(false);
+	const [isDown, setIsDown] = useState(false);
+	const [isAnimating, setIsAnimating] = useState(false);
+
 	function handleDown() {
 		handleClick();
-		setLineColorClass('line-down');
+		setIsDown(true); 
 	}
 
 	function handleUp() {
-		setLineColorClass('');
+		setIsDown(false); 
 	}
 
 	function handleOver() {
-		setLineColorClass('line-over');
+		setIsOver(true); 
 	}
 
 	function handleOut() {
-		setLineColorClass('line-out');
+		setIsOver(false);
+		setIsDown(false); 
 	}
 
+	// change line color
 	useEffect(() => {	
-		if(isAnimating) {
+		if(isOver) {
+			setLineColorClass('line-over');
+		} else if(isDown) {
+			setLineColorClass('line-down');
+		} else if(isAnimating) {
+			setLineColorClass('line-animating');
+		} else {
+			setLineColorClass('');
+		} 
+	}, [isOver, isDown, isAnimating, waiting])
+
+	// change line direction
+	useEffect(() => {	
+		if(animate) {
 			if(isOpen) {
 				setLineDirectionClass('line-open');
 			} else {
 				setLineDirectionClass('line-closed');
 			}	
+		} 
+	}, [isOpen, animate])
+
+	// detect animation status
+	useEffect(() => {
+		if(animate || waiting) {
+			setIsAnimating(true);
+		} else {
+			setIsAnimating(false)
 		}
-		
-	}, [isOpen, isAnimating])
+
+		const lineElement = document.getElementById(thisLineId);
+
+		lineElement.addEventListener('transitionend', () => {
+			setIsAnimating(false);
+		})
+	}, [animate, waiting])
 
 	return (
 		<div className="open-close-toggle" 	
@@ -40,7 +75,7 @@ export default function OpenCloseToggle({isOpen, isAnimating, handleClick}) {
 			onMouseDown={handleDown}
 			onMouseUp={handleUp}>
 			<div className={`line ${lineColorClass}`}></div>
-			<div className={`line ${lineColorClass} ${lineDirectionClass}`}></div>
+			<div className={`line ${lineColorClass} ${lineDirectionClass}`} id={thisLineId}></div>
 		</div> 
 	)
 }

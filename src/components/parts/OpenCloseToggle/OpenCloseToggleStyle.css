@@ -29,16 +29,13 @@
 	transform: rotate(90deg); 
 }
 
-.line-over { 
+.line-over,
+.line-up { 
 	background: #2196f3;
 }
 
-.line-down { 
+.line-down,
+.line-animating { 
 	background: #3f51b5;
 }
-
-.line-animating {
-	background:  #3f51b5;
-}
- 
 
