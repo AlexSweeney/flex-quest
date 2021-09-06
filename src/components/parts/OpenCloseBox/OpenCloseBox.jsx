@@ -20,11 +20,7 @@ export default function OpenminimizeBox({
 	const [boxState, setBoxState] = useState('open'); 
 	const [boxClass, setBoxClass] = useState('box-expanded');
 	const [bodyClass, setBodyClass] = useState('body-open');
-
-	/*const [containerClass, setContainerClass] = useState('');
-
-	const [childrenContainerClass, setChildrenContainerClass] = useState('box-expanded');*/
-
+  
 	const [rotateNum, setRotateNum] = useState(0);
 
 	// Burger Click
@@ -94,8 +90,7 @@ export default function OpenminimizeBox({
 	}, [boxState])
 
 	return ( 
-		<div className={`box ${boxClass}`}> 
-		{/*<div className={isExpanded ? "box box-expanded" : "box box-minimized"}> */}
+		<div className={`box ${boxClass}`}>  
 			<div className="box-header">
 				{/* Menu Button */}
 				{menuOptions && 
@@ -124,7 +119,7 @@ export default function OpenminimizeBox({
 
 				<div className={"open-close-toggle-container"}>
 {/* Fix */}
-					<OpenCloseToggle isOpen={boxState === "closed"} handleClick={handleOpenCloseToggleClick}/>
+					<OpenCloseToggle isOpen={boxState === "open"} handleClick={handleOpenCloseToggleClick}/>
 	 			</div>
 			</div>
 
