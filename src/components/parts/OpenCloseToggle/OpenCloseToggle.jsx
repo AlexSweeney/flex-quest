@@ -1,25 +1,44 @@
 import React, {useState, useEffect} from 'react';
 import './OpenCloseToggleStyle.css';
 
-export default function OpenCloseToggle({isOpen, handleClick}) {  
-	/*const [isOver, setIsOver] = useState(false);
-	const [isDown, setIsDown] = useState(false);*/
-
-	/*const [isClosing, setIsClosing] = useState(false);
-	const [isAnimating, setIsAnimating] = useState(false);*/
-
+export default function OpenCloseToggle({isOpen, isAnimating, handleClick}) {  
+	const [lineDirectionClass, setLineDirectionClass] = useState('line-open');
 	const [lineColorClass, setLineColorClass] = useState('');
-	const [lineAnimationClass, setLineAnimationClass] = useState('');
 
-	/*const [lineClass, setLineClass] = useState('');
-	const [crossLineClass, setCrossLineClass] = useState('');*/
+	function handleDown() {
+		handleClick();
+		setLineColorClass('line-down');
+	}
+
+	function handleUp() {
+		setLineColorClass('');
+	}
+
+	function handleOver() {
+		setLineColorClass('line-over');
+	}
+
+	function handleOut() {
+		setLineColorClass('line-out');
+	}
+
+	useEffect(() => {	
+		if(isOpen) {
+			setLineDirectionClass('line-closed');
+		} else {
+			setLineDirectionClass('line-open');
+		}
+	}, [isOpen, isAnimating])
+	/*const [lineColorClass, setLineColorClass] = useState('');
+	const [lineAnimationClass, setLineAnimationClass] = useState('');
 
 	const [animationStatus, setAnimationStatus] = useState('');
 
 	const [cursorLocation, setCursorLocation] = useState('out')
 	const [cursorStatus, setCursorStatus] = useState('up');
 
-	const animationDelay = 1000;
+	const openingDelay = 1000;
+	const closingDelay = 0;
 	const animationTime = 1000;
 
 	function handleOver() {
@@ -50,87 +69,25 @@ export default function OpenCloseToggle({isOpen, handleClick}) {
 		}, animationDelay + animationTime)
 	}
 
-	/*function animateMovement() {
-		if(isOpen) {
-			setTimeout(() => {
-				setCrossLineClass('vert-line');	
-			}, animationDelay); 
-		} else {
-			setCrossLineClass('');
-		}
-	}
-
-	function animateColors() {  
-		setAnimationStatus('waiting');
-
-		setTimeout(() => {
-			setAnimationStatus('animating'); 
-
-			setTimeout(() => {
-				setAnimationStatus('');
-			}, animationTime)
-		}, animationDelay)
-	}*/
-/*
-	function animateOpen() {
-		setCrossLineClass('');
-	}*/
-
-	/*function handleOver() { 
-		setIsOver(true);
-	}
-
-	function handleOut() { 
-		setIsOver(false);
-	}
-
-	function handleDown() {
-		setIsAnimating(true);
-		setIsDown(true);
-		handleClick();
-
-		setTimeout(() => { 
-			setIsAnimating(false);
-		}, animationTime);
-	}
-
-	function handleUp() {
-		setIsDown(false);
-	}
-
-	useEffect(() => {
-		let newLineClass;
-
-		if(isOver && !isDown) {
-			newLineClass = 'line-over';
-		} else if(isAnimating || !isAnimating && isDown && isOver) {
-			newLineClass = 'line-down';
-		} else {
-			newLineClass = '';
-		}
- 
-		setLineClass(newLineClass);
-	}, [isOver, isDown, isAnimating]);*/
-
 	useEffect(() => { 
-		let newLineClass = '';  
+		let newLineColorClass = '';  
 
 		// over
 		if(cursorLocation === 'over') {
 			if(cursorStatus === 'up') {
-				newLineClass = 'line-over';
+				newLineColorClass = 'line-over';
 			// down
 			} else if(cursorStatus === 'down') {
-				newLineClass = 'line-down';
+				newLineColorClass = 'line-down';
 			}
 		// out
-		} else {
+		}/* else {
 			if(animationStatus === 'opening' || animationStatus === 'closing') {
-				newLineClass = 'line-animating ';
+				newLineColorClass = 'line-animating ';
 			} 
 		} 
 
-		setLineColorClass(newLineClass);
+		setLineColorClass(newLineColorClass);
 	}, [cursorStatus, cursorLocation, animationStatus])
 
 	useEffect(() => {
@@ -138,25 +95,26 @@ export default function OpenCloseToggle({isOpen, handleClick}) {
 			setLineAnimationClass('line-closing');
 		} else if (animationStatus === 'opening') {
 			setLineAnimationClass('line-opening');
-		}
-		/*console.log('animationStatus', animationStatus);*/
-		/*if(isOpen) {
-			console.log('opening');
-		} else {
-			console.log('isClosing');
-		}*/
-	}, [animationStatus])
+		} 
+	}, [animationStatus])*/
 
+	{/* 
+		onMouseOver={handleOver}
+			onMouseOut={handleOut}
+			
+			onMouseUp={handleUp}
 
+			${lineColorClass}
+	*/}
 
 	return (
 		<div className="open-close-toggle" 	
 			onMouseOver={handleOver}
 			onMouseOut={handleOut}
 			onMouseDown={handleDown}
-			onMouseUp={handleUp}> 
+			onMouseUp={handleUp}>
 			<div className={`line ${lineColorClass}`}></div>
-			<div className={`line ${lineColorClass} ${lineAnimationClass}`}></div>
+			<div className={`line ${lineColorClass} ${lineDirectionClass}`}></div>
 		</div> 
 	)
 }

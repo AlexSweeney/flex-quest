@@ -1,5 +1,5 @@
 // header - fixed min - hieght, play not clipped
-
+// seperate settings file
 // animate router
 // animate open and close play
 // click min window = close burger

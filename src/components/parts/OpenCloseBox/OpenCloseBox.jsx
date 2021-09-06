@@ -18,6 +18,7 @@ export default function OpenminimizeBox({
 	const [burgerWasOpen, setBurgerWasOpen] = useState(false); 
 
 	const [boxState, setBoxState] = useState('open'); 
+	const [boxIsOpen, setBoxIsOpen] = useState(true);
 	const [boxClass, setBoxClass] = useState('box-expanded');
 	const [bodyClass, setBodyClass] = useState('body-open');
   
@@ -30,8 +31,10 @@ export default function OpenminimizeBox({
 
 	// Open Close Toggle
 	function handleOpenCloseToggleClick() {  
-		if(boxState === 'open') { closeBurger(); closeBox();}
-		else if(boxState === 'closed') { openBurger(); openBox(); }
+		if(boxIsOpen === 'open') { closeBurger();}
+		else if(boxIsOpen === 'closed') { openBurger();}
+
+		setBoxIsOpen(oldVal => !oldVal);
 	}
 
 	function openBurger() {
@@ -119,7 +122,7 @@ export default function OpenminimizeBox({
 
 				<div className={"open-close-toggle-container"}>
 {/* Fix */}
-					<OpenCloseToggle isOpen={boxState === "open"} handleClick={handleOpenCloseToggleClick}/>
+					<OpenCloseToggle isOpen={boxIsOpen} isAnimating={true} handleClick={handleOpenCloseToggleClick}/>
 	 			</div>
 			</div>
 
