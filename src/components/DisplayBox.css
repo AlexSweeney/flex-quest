@@ -2,6 +2,7 @@
 	width: 100%;
 	height: 100%;
 	padding: 0.5em;
+	/*background: #E8E4E4;*/
 }
 
 .iframe-container {
@@ -34,4 +35,36 @@
 .iframe {
 	width: 100%;
 	height: 100%; 
+}
+
+.body-background {
+	width: 100%;
+	height: 100%;
+	background: pink;
+}
+
+.body {
+	width: 100%;
+	height: 100%;
+	background: red;
+	transition: height 1000ms ease-in-out;
+}
+
+.body-opening {
+	height: 100%;
+	
+	/*background: red;*/
+}
+
+.body-open {
+	/*background: green;*/
+}
+
+.body-closing {
+	/*background: yellow;*/
+}
+
+.body-closed {
+	/*background: purple;*/
+	height: 0;
 }

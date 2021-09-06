@@ -117,7 +117,7 @@
 	display: flex; 
   width: 100%;
   height: 100%;
-  background: #E8E4E4; 
+  /*background: #E8E4E4; */
   position: relative;
   overflow: auto;
 }
@@ -127,27 +127,27 @@
 }
 
 /* Content */
-.box-body {
-	transition: opacity 500ms ease-in-out;
-}
-
-.box-body-children-container {
-	width: 100%;
-	height: 100%; 
+/*.box-body-children-container {
+	
 	transition: opacity 500ms ease-in-out;
 	display: flex;
+}
+*/
+/*.box-body-children-container-closing {
+	overflow: hidden;
 }
 
 .box-body-children-container-open {
 	overflow: auto;
-	opacity: 1;
+	/*opacity: 1;
 }
 
 .box-body-children-container-closed {
-	overflow: hidden;
-	opacity: 0;
+	/*overflow: hidden;
+	height: 0;
+	/*opacity: 0;
 }
-
+*/
 /*.refresh-clicked {
 	transform: rotate(360deg);
 }
@@ -156,6 +156,8 @@
 	transition: 1s transform; 
 }
 */
+
+
 /* ======================== Util ======================== */ 
 .show {
 	opacity: 1;   

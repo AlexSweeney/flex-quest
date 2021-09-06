@@ -11,16 +11,19 @@ export default function OpenminimizeBox({
 	handleMenuOptionClick, 
 	handleRefresh = () => {},
 	children = null,
-	bodyClass = '', 
 	button_1 = null,
 	button_2 = null,
 }) { 
 	const [burgerIsOpen, setBurgerIsOpen] = useState(false);
 	const [burgerWasOpen, setBurgerWasOpen] = useState(false); 
 
-	const [showBodyScroll, setShowBodyScroll] = useState(true);
+	const [boxState, setBoxState] = useState('open'); 
+	const [boxClass, setBoxClass] = useState('box-expanded');
+	const [bodyClass, setBodyClass] = useState('body-open');
 
-	const [isExpanded, setIsExpanded] = useState(true);  
+	/*const [containerClass, setContainerClass] = useState('');
+
+	const [childrenContainerClass, setChildrenContainerClass] = useState('box-expanded');*/
 
 	const [rotateNum, setRotateNum] = useState(0);
 
@@ -31,20 +34,34 @@ export default function OpenminimizeBox({
 
 	// Open Close Toggle
 	function handleOpenCloseToggleClick() {  
-		if(isExpanded) minimizeBox();
-		else if(!isExpanded) expandBox();
+		if(boxState === 'open') { closeBurger(); closeBox();}
+		else if(boxState === 'closed') { openBurger(); openBox(); }
 	}
 
-	function minimizeBox() {
-		setBurgerWasOpen(burgerIsOpen);
-		setBurgerIsOpen(false);
-		setIsExpanded(false); 
-	}
- 
-	function expandBox() {
+	function openBurger() {
 		if(burgerWasOpen) setBurgerIsOpen(true);
-		setIsExpanded(true);  
-	} 
+	}
+
+	function closeBurger() {
+		setBurgerWasOpen(burgerIsOpen);
+		setBurgerIsOpen(false);	
+	}
+
+	function openBox() {
+		setBoxState('opening');
+
+		setTimeout(() => {
+			setBoxState('open');
+		}, 1000);
+	}
+
+	function closeBox() { 
+		setBoxState('closing');
+
+		setTimeout(() => {
+			setBoxState('closed');
+		}, 1000);
+	}
 
 	// burger titles
 	function handleClickMenu(option) {
@@ -58,8 +75,27 @@ export default function OpenminimizeBox({
 		handleRefresh();
 	} 
 
+	useEffect(() => {
+		let newClass;
+
+		if(boxState === 'opening') {
+			newClass = 'body-opening';
+			setBoxClass('box-expanded');
+		} else if(boxState === 'open') {
+			newClass = 'body-open';
+		} else if(boxState === 'closing') {
+			newClass = 'body-closing';
+			setBoxClass('box-minimized');
+		} else if(boxState === 'closed') {
+			newClass = 'body-closed';
+		}	
+
+		setBodyClass(newClass);
+	}, [boxState])
+
 	return ( 
-		<div className={isExpanded ? "box box-expanded" : "box box-minimized"}> 
+		<div className={`box ${boxClass}`}> 
+		{/*<div className={isExpanded ? "box box-expanded" : "box box-minimized"}> */}
 			<div className="box-header">
 				{/* Menu Button */}
 				{menuOptions && 
@@ -87,16 +123,17 @@ export default function OpenminimizeBox({
 		 	<div className="title">{title}</div>
 
 				<div className={"open-close-toggle-container"}>
-					<OpenCloseToggle isOpen={!isExpanded} handleClick={handleOpenCloseToggleClick}/>
+{/* Fix */}
+					<OpenCloseToggle isOpen={boxState === "closed"} handleClick={handleOpenCloseToggleClick}/>
 	 			</div>
 			</div>
 
-			<div className="box-body custom-scroll">  
+			<div className="body-background custom-scroll">  
 				{menuOptions && <BurgerDropDown isOpen={burgerIsOpen} 
 																				options={menuOptions} 
 																				handleOptionClick={handleClickMenu}/>}
 				
-				<div className={"box-body-children-container custom-scroll " + (isExpanded ? "box-body-children-container-open" : "box-body-children-container-closed")}>
+				<div className={`body custom-scroll ${bodyClass}`}>
 					{children && children}
 				</div> 
 			</div>
