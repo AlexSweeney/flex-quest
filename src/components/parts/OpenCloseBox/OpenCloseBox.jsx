@@ -5,7 +5,7 @@ import BurgerDropDown from '../Burger/BurgerDropDown.jsx';
 import './OpenCloseBox.css';
 import './scrollbar.css';
 
-export default function OpenminimizeBox({
+export default function OpenCloseBox({
 	title = null,  
 	menuOptions = null, 
 	handleMenuOptionClick, 
@@ -13,14 +13,17 @@ export default function OpenminimizeBox({
 	children = null,
 	button_1 = null,
 	button_2 = null,
+	i = Math.random(),
 }) { 
+	// const [boxState, setBoxState] = useState('open');
+	const thisId = `box_${i}`;
+	const [boxIsOpen, setBoxIsOpen] = useState(true);
+	const [boxClass, setBoxClass] = useState('');
+
+	const [animateOpenCloseToggle, setAnimateOpenCloseToggle] = useState(false);
+
 	const [burgerIsOpen, setBurgerIsOpen] = useState(false);
 	const [burgerWasOpen, setBurgerWasOpen] = useState(false); 
-
-	// const [boxState, setBoxState] = useState('open');
-
-	const [boxIsOpen, setBoxIsOpen] = useState(true);
-	const [boxClass, setBoxClass] = useState('box-open');
 	
 	const [bodyClass, setBodyClass] = useState('body-open');
   
@@ -30,7 +33,7 @@ export default function OpenminimizeBox({
 	function handleBurgerClick() {
 		setBurgerIsOpen(oldVal => !oldVal);
 	}
-	
+
 	function showBurger() {
 		if(burgerWasOpen) setBurgerIsOpen(true);
 	}
@@ -103,8 +106,19 @@ export default function OpenminimizeBox({
 		}
 	}, [boxIsOpen])
 
+	useEffect(() => {
+		const boxElement = document.getElementById(thisId);
+		boxElement.addEventListener('transitionend', (e) => {
+      if(e.propertyName === 'width') {
+      	setAnimateOpenCloseToggle(oldVal => !oldVal);
+      }
+    });
+	}, [])
+
+
+
 	return ( 
-		<div className={`box ${boxClass}`}>  
+		<div className={`box ${boxClass}`} id={thisId}>  
 			<div className="box-header">
 				{/* Menu Button */}
 				{menuOptions && 
@@ -132,7 +146,7 @@ export default function OpenminimizeBox({
 		 	<div className="title">{title}</div>
 
 				<div className={"open-close-toggle-container"}>
-					<OpenCloseToggle isOpen={boxIsOpen} isAnimating={true} handleClick={handleOpenCloseToggleClick}/>
+					<OpenCloseToggle isOpen={boxIsOpen} isAnimating={animateOpenCloseToggle} handleClick={handleOpenCloseToggleClick}/>
 	 			</div>
 			</div>
 

@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import './OpenCloseToggleStyle.css';
 
 export default function OpenCloseToggle({isOpen, isAnimating, handleClick}) {  
-	const [lineDirectionClass, setLineDirectionClass] = useState('line-open');
+	const [lineDirectionClass, setLineDirectionClass] = useState(isOpen ? 'line-open' : 'line-closed');
 	const [lineColorClass, setLineColorClass] = useState('');
 
 	function handleDown() {
@@ -23,11 +23,14 @@ export default function OpenCloseToggle({isOpen, isAnimating, handleClick}) {
 	}
 
 	useEffect(() => {	
-		if(isOpen) {
-			setLineDirectionClass('line-closed');
-		} else {
-			setLineDirectionClass('line-open');
+		if(isAnimating) {
+			if(isOpen) {
+				setLineDirectionClass('line-open');
+			} else {
+				setLineDirectionClass('line-closed');
+			}	
 		}
+		
 	}, [isOpen, isAnimating])
 
 	return (
