@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import './OpenCloseToggleStyle.css';
 
-export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick}) {  
+export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick, i = Math.random()}) { 
+	const vertLineId = 'vert-line-' + i;
+
 	const [lineDirectionClass, setLineDirectionClass] = useState(isOpen ? 'line-open' : 'line-closed');
 	const [lineColorClass, setLineColorClass] = useState('line-out');
 	const [lineIsAnimating, setLineIsAnimating] = useState(false);
@@ -10,6 +12,7 @@ export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick}
 	const [isDown, setIsDown] = useState(false);*/
 	const [cursorLocation, setCursorLocation] = useState('');
 	const [cursorStatus, setCursorStatus] = useState('');
+	const [animationStatus, setAnimationStatus] = useState('');
 
 	function handleDown() {
 		handleClick();
@@ -25,8 +28,9 @@ export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick}
 	}
 
 	function handleOut(e) { 
-		if (e.target.id === 'open-close-toggle' &&  e.relatedTarget.id !== 'vert_line' && e.relatedTarget.id !== 'horiz_line'){
+		if (e.target.id === 'open-close-toggle' &&  e.relatedTarget.id !== 'vert-line' && e.relatedTarget.id !== 'horiz-line'){
 			setCursorLocation('out'); 
+			setCursorStatus('up'); 
 		}
 	}
 
@@ -34,11 +38,11 @@ export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick}
 	useEffect(() => {	
 		if(cursorLocation === 'over' && cursorStatus !== 'down') {
 			setLineColorClass('line-over');
-		} else if(cursorStatus === 'parentIsAnimating') {
+		} else if(animationStatus === 'parentIsAnimating') {
 			setLineColorClass('line-parent-animating');
-		} else if(cursorStatus === 'lineIsAnimating') {
+		} else if(animationStatus === 'lineIsAnimating') {
 			setLineColorClass('line-animating');
-		} else if(cursorStatus === 'lineHasAnimated') {
+		} else if(animationStatus === 'lineHasAnimated') {
 			setLineColorClass('line-animated');
 		} else if(cursorStatus === 'down' && cursorLocation === 'over') {
 			setLineColorClass('line-down');
@@ -50,18 +54,18 @@ export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick}
 	// animation status
 	useEffect(() => {
 		if(parentIsAnimating) {
-			setCursorStatus('parentIsAnimating');
-		} else if(lineIsAnimating) {
-			setCursorStatus('lineIsAnimating');
+			setAnimationStatus('parentIsAnimating');
+		} else if (animationStatus === 'parentIsAnimating' && !parentIsAnimating) {
+			setAnimationStatus('lineIsAnimating');
 		}
 	}, [parentIsAnimating, lineIsAnimating]) 
 
 	useEffect(() => {
-		/*const lineElement = document.getElementById(thisLineId);
+		const lineElement = document.getElementById(vertLineId);
 
-		lineElement.addEventListener('transitionend', () => {
-			// setCursorStatus('lineHasAnimated');
-		})*/
+		lineElement.addEventListener('transitionend', (e) => {
+			setAnimationStatus('lineHasAnimated');
+		})
 	}, [])
 
 	// line animation
@@ -112,10 +116,11 @@ export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick}
 		}
 	}, [animate, waiting])*/
 
-	useEffect(() => {
+	/*useEffect(() => {
 		console.log('cursorLocation', cursorLocation);
-		// console.log('cursorStatus', cursorStatus);
-	}, [cursorLocation, cursorStatus]);
+		console.log('cursorStatus', cursorStatus);
+		console.log('animationStatus', animationStatus); 
+	}, [cursorLocation, cursorStatus, animationStatus]);*/
 
 	return (
 		<div className="open-close-toggle" 	
@@ -124,8 +129,8 @@ export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick}
 			onMouseOut={handleOut}
 			onMouseDown={handleDown}
 			onMouseUp={handleUp}>
-			<div className={`line ${lineColorClass}`} id="horiz_line"></div>
-			<div className={`line ${lineColorClass} ${lineDirectionClass}`} id="vert_line"></div>
+			<div className={`line ${lineColorClass}`} id="horiz-line"></div>
+			<div className={`line ${lineColorClass} ${lineDirectionClass}`} id={vertLineId}></div>
 		</div> 
 	)
 }
