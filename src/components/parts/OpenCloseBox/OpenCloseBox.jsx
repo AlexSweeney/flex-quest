@@ -17,9 +17,11 @@ export default function OpenminimizeBox({
 	const [burgerIsOpen, setBurgerIsOpen] = useState(false);
 	const [burgerWasOpen, setBurgerWasOpen] = useState(false); 
 
-	const [boxState, setBoxState] = useState('open'); 
+	// const [boxState, setBoxState] = useState('open');
+
 	const [boxIsOpen, setBoxIsOpen] = useState(true);
-	const [boxClass, setBoxClass] = useState('box-expanded');
+	const [boxClass, setBoxClass] = useState('box-open');
+	
 	const [bodyClass, setBodyClass] = useState('body-open');
   
 	const [rotateNum, setRotateNum] = useState(0);
@@ -28,25 +30,26 @@ export default function OpenminimizeBox({
 	function handleBurgerClick() {
 		setBurgerIsOpen(oldVal => !oldVal);
 	}
-
-	// Open Close Toggle
-	function handleOpenCloseToggleClick() {  
-		if(boxIsOpen === 'open') { closeBurger();}
-		else if(boxIsOpen === 'closed') { openBurger();}
-
-		setBoxIsOpen(oldVal => !oldVal);
-	}
-
-	function openBurger() {
+	
+	function showBurger() {
 		if(burgerWasOpen) setBurgerIsOpen(true);
 	}
 
-	function closeBurger() {
+	function hideBurger() {
 		setBurgerWasOpen(burgerIsOpen);
 		setBurgerIsOpen(false);	
 	}
 
-	function openBox() {
+	// Open Close Toggle
+	function handleOpenCloseToggleClick() {  
+		if(boxIsOpen) hideBurger();
+		else if(!boxIsOpen) showBurger();
+
+		setBoxIsOpen(oldVal => !oldVal);
+	}
+
+
+	/*function openBox() {
 		setBoxState('opening');
 
 		setTimeout(() => {
@@ -60,7 +63,7 @@ export default function OpenminimizeBox({
 		setTimeout(() => {
 			setBoxState('closed');
 		}, 1000);
-	}
+	}*/
 
 	// burger titles
 	function handleClickMenu(option) {
@@ -69,7 +72,7 @@ export default function OpenminimizeBox({
 	}
 
 	// refresh button
-	function refreshDown() {
+	/*function refreshDown() {
 		setRotateNum(oldVal => oldVal + 360);
 		handleRefresh();
 	} 
@@ -90,7 +93,15 @@ export default function OpenminimizeBox({
 		}	
 
 		setBodyClass(newClass);
-	}, [boxState])
+	}, [boxState])*/
+
+	useEffect(() => {
+		if(boxIsOpen) {
+			setBoxClass('box-open');
+		} else {	
+			setBoxClass('box-closed');
+		}
+	}, [boxIsOpen])
 
 	return ( 
 		<div className={`box ${boxClass}`}>  
@@ -121,12 +132,11 @@ export default function OpenminimizeBox({
 		 	<div className="title">{title}</div>
 
 				<div className={"open-close-toggle-container"}>
-{/* Fix */}
 					<OpenCloseToggle isOpen={boxIsOpen} isAnimating={true} handleClick={handleOpenCloseToggleClick}/>
 	 			</div>
 			</div>
 
-			<div className="body-background custom-scroll">  
+			{/*<div className="body-background custom-scroll">  
 				{menuOptions && <BurgerDropDown isOpen={burgerIsOpen} 
 																				options={menuOptions} 
 																				handleOptionClick={handleClickMenu}/>}
@@ -134,7 +144,7 @@ export default function OpenminimizeBox({
 				<div className={`body custom-scroll ${bodyClass}`}>
 					{children && children}
 				</div> 
-			</div>
+			</div>*/}
 	 	</div> 
 	);
 } 

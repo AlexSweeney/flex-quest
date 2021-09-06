@@ -17,12 +17,12 @@
 	margin-right: 30px;
 }
 
-.box-expanded {
+.box-open {
 	width: 100%;
 	min-width: 36px;
 }
 
-.box-minimized {
+.box-closed {
 	width: 36px; 
 	min-width: 36px;
 }

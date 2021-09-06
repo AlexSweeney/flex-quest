@@ -29,6 +29,20 @@ export default function OpenCloseToggle({isOpen, isAnimating, handleClick}) {
 			setLineDirectionClass('line-open');
 		}
 	}, [isOpen, isAnimating])
+
+	return (
+		<div className="open-close-toggle" 	
+			onMouseOver={handleOver}
+			onMouseOut={handleOut}
+			onMouseDown={handleDown}
+			onMouseUp={handleUp}>
+			<div className={`line ${lineColorClass}`}></div>
+			<div className={`line ${lineColorClass} ${lineDirectionClass}`}></div>
+		</div> 
+	)
+}
+
+/* ==================== Bin
 	/*const [lineColorClass, setLineColorClass] = useState('');
 	const [lineAnimationClass, setLineAnimationClass] = useState('');
 
@@ -106,15 +120,3 @@ export default function OpenCloseToggle({isOpen, isAnimating, handleClick}) {
 
 			${lineColorClass}
 	*/}
-
-	return (
-		<div className="open-close-toggle" 	
-			onMouseOver={handleOver}
-			onMouseOut={handleOut}
-			onMouseDown={handleDown}
-			onMouseUp={handleUp}>
-			<div className={`line ${lineColorClass}`}></div>
-			<div className={`line ${lineColorClass} ${lineDirectionClass}`}></div>
-		</div> 
-	)
-}
