@@ -1,49 +1,99 @@
 import React, {useState, useEffect} from 'react';
 import './OpenCloseToggleStyle.css';
 
-export default function OpenCloseToggle({isOpen, waiting, animate, handleClick}) {  
-	const thisLineId = 'Line_' + Math.random();
-
+export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick}) {  
 	const [lineDirectionClass, setLineDirectionClass] = useState(isOpen ? 'line-open' : 'line-closed');
-	const [lineColorClass, setLineColorClass] = useState('');
+	const [lineColorClass, setLineColorClass] = useState('line-out');
+	const [lineIsAnimating, setLineIsAnimating] = useState(false);
 
-	const [isOver, setIsOver] = useState(false);
-	const [isDown, setIsDown] = useState(false);
-	const [isAnimating, setIsAnimating] = useState(false);
+	/*const [isOver, setIsOver] = useState(false);
+	const [isDown, setIsDown] = useState(false);*/
+	const [cursorLocation, setCursorLocation] = useState('');
+	const [cursorStatus, setCursorStatus] = useState('');
 
 	function handleDown() {
 		handleClick();
-		setIsDown(true); 
+		setCursorStatus('down'); 
 	}
 
 	function handleUp() {
-		setIsDown(false); 
+		setCursorStatus('up'); 
 	}
 
 	function handleOver() {
-		setIsOver(true); 
+		setCursorLocation('over');
 	}
 
-	function handleOut() {
-		setIsOver(false);
-		setIsDown(false); 
+	function handleOut(e) { 
+		if (e.target.id === 'open-close-toggle' &&  e.relatedTarget.id !== 'vert_line' && e.relatedTarget.id !== 'horiz_line'){
+			setCursorLocation('out'); 
+		}
 	}
 
 	// change line color
 	useEffect(() => {	
-		if(isOver) {
+		if(cursorLocation === 'over' && cursorStatus !== 'down') {
 			setLineColorClass('line-over');
-		} else if(isDown) {
-			setLineColorClass('line-down');
-		} else if(isAnimating) {
+		} else if(cursorStatus === 'parentIsAnimating') {
+			setLineColorClass('line-parent-animating');
+		} else if(cursorStatus === 'lineIsAnimating') {
 			setLineColorClass('line-animating');
-		} else {
-			setLineColorClass('');
+		} else if(cursorStatus === 'lineHasAnimated') {
+			setLineColorClass('line-animated');
+		} else if(cursorStatus === 'down' && cursorLocation === 'over') {
+			setLineColorClass('line-down');
+		} else if(cursorLocation === 'out') {
+			setLineColorClass('line-out');
+		}
+	}, [cursorStatus, cursorLocation])
+
+	// animation status
+	useEffect(() => {
+		if(parentIsAnimating) {
+			setCursorStatus('parentIsAnimating');
+		} else if(lineIsAnimating) {
+			setCursorStatus('lineIsAnimating');
+		}
+	}, [parentIsAnimating, lineIsAnimating]) 
+
+	useEffect(() => {
+		/*const lineElement = document.getElementById(thisLineId);
+
+		lineElement.addEventListener('transitionend', () => {
+			// setCursorStatus('lineHasAnimated');
+		})*/
+	}, [])
+
+	// line animation
+	useEffect(() => {
+		if(!parentIsAnimating) {
+			if(isOpen) {
+				setLineDirectionClass('line-open');
+			} else {
+				setLineDirectionClass('line-closed');
+			}	
 		} 
-	}, [isOver, isDown, isAnimating, waiting])
+	}, [parentIsAnimating, isOpen]);
+
+
+	/*useEffect(() => {	
+		console.log('lineIsAnimating', lineIsAnimating);
+		if(lineIsAnimating) {
+			
+		} 
+	}, [isOpen, lineIsAnimating])*/
+
+	/*useEffect(() => {
+		const lineElement = document.getElementById(thisLineId);
+
+		lineElement.addEventListener('transitionend', () => {
+			setIsAnimating(false);
+			setHasAnimated(true);
+		})
+	})*/
 
 	// change line direction
-	useEffect(() => {	
+	/*useEffect(() => {	
 		if(animate) {
 			if(isOpen) {
 				setLineDirectionClass('line-open');
@@ -51,31 +101,31 @@ export default function OpenCloseToggle({isOpen, waiting, animate, handleClick})
 				setLineDirectionClass('line-closed');
 			}	
 		} 
-	}, [isOpen, animate])
+	}, [isOpen])*/
 
 	// detect animation status
-	useEffect(() => {
+	/*useEffect(() => {
 		if(animate || waiting) {
 			setIsAnimating(true);
 		} else {
 			setIsAnimating(false)
 		}
+	}, [animate, waiting])*/
 
-		const lineElement = document.getElementById(thisLineId);
-
-		lineElement.addEventListener('transitionend', () => {
-			setIsAnimating(false);
-		})
-	}, [animate, waiting])
+	useEffect(() => {
+		console.log('cursorLocation', cursorLocation);
+		// console.log('cursorStatus', cursorStatus);
+	}, [cursorLocation, cursorStatus]);
 
 	return (
 		<div className="open-close-toggle" 	
+			id="open-close-toggle"
 			onMouseOver={handleOver}
 			onMouseOut={handleOut}
 			onMouseDown={handleDown}
 			onMouseUp={handleUp}>
-			<div className={`line ${lineColorClass}`}></div>
-			<div className={`line ${lineColorClass} ${lineDirectionClass}`} id={thisLineId}></div>
+			<div className={`line ${lineColorClass}`} id="horiz_line"></div>
+			<div className={`line ${lineColorClass} ${lineDirectionClass}`} id="vert_line"></div>
 		</div> 
 	)
 }

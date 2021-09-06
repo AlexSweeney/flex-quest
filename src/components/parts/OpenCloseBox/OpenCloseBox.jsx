@@ -19,7 +19,7 @@ export default function OpenCloseBox({
 	const [boxIsOpen, setBoxIsOpen] = useState(true);
 	const [boxClass, setBoxClass] = useState('');
 
-	const [animateOpenCloseToggle, setAnimateOpenCloseToggle] = useState(false);
+	// const [animateOpenCloseToggle, setAnimateOpenCloseToggle] = useState(false);
 	const [isChangingWidth, setIsChangingWidth] = useState(false);
 
 	const [burgerIsOpen, setBurgerIsOpen] = useState(false);
@@ -93,7 +93,7 @@ export default function OpenCloseBox({
 		const boxElement = document.getElementById(thisId);
 		boxElement.addEventListener('transitionend', (e) => {
       if(e.propertyName === 'width') {
-      	setAnimateOpenCloseToggle(oldVal => !oldVal);
+      	// setAnimateOpenCloseToggle(oldVal => !oldVal);
       	setIsChangingWidth(false);
       }
     });
@@ -131,8 +131,7 @@ export default function OpenCloseBox({
 					<OpenCloseToggle 
 						isOpen={boxIsOpen} 
 						handleClick={handleOpenCloseToggleClick}
-						waiting={isChangingWidth}
-						animate={animateOpenCloseToggle} />
+						parentIsAnimating={isChangingWidth}/>
 	 			</div>
 			</div>
 

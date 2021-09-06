@@ -17,25 +17,58 @@
 	width: 12px;
   height: 4px;
 	background: #272727;
-}
-
-.line-open { 
-	transition: transform 1s;
-	transform: rotate(0deg); 
+	transition: transform 1s, background 500ms;
 }
 
 .line-closed { 
-	transition: transform 1s;
 	transform: rotate(90deg); 
 }
 
-.line-over,
+.line-over {
+	background: yellow;
+}
+
+.line-out {
+	background: pink;
+}
+
+.line-down {
+	background: red;
+}
+
+.line-parent-animating {
+	background: red;
+}
+
+.line-animating {
+	background: red;
+}
+
+.line-animated {
+	background: blue;
+}
+
+/*.line-over,
 .line-up { 
-	background: #2196f3;
+	background: #2196f3; 
 }
 
 .line-down,
-.line-animating { 
+.line-animating {  
 	background: #3f51b5;
+} 
+
+.line-out { 
+	background: #272727;
+}*/
+
+/*.line-animated {
+	background: #272727;
+	transition: transform 1s, background 2s;
 }
 
+.line-down,
+.line-up, {
+	transition: transform 1s, background 0s;
+}
+*/
