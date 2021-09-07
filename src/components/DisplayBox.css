@@ -12,26 +12,28 @@
 	resize: both;
 	overflow: hidden;  
 	background: #272727;
-	transition:  width 500ms ease-in-out, height 500ms ease-in-out;
 } 
 
-.display-open {
+.display-box-open {
 	height: 100%; 
+	width: 100%;
 }
 
-.display-closed {
+.display-box-closed {
 	height: 0;
 }
 
-
-/*.iframe-container-big { 
+.display-box-transition {
+	transition:  width 500ms ease-in-out, height 500ms ease-in-out;
+}
+/*
+.iframe-container-big { 
 	width: 100%;
 	height: 100%;
 	transition: width 500ms, height 500ms;
 } 
 
 .iframe-container-hidden {
-	opacity: 0;
 	overflow: hidden;
 }*/
 

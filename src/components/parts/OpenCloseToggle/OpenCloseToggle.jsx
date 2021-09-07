@@ -4,7 +4,7 @@ import React, {useState, useEffect} from 'react';
 import './OpenCloseToggleStyle.css';
 
 export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick, i = Math.random()}) { 
-	const vertLineId = 'vert-line-' + i;
+	const vertLineId = 'vert-line';
 	const horizLineId = 'horiz-line-' + i;
 	const openCloseToggleId = 'open-close-toggle' + i;
 
