@@ -27,9 +27,7 @@ export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick,
 		setCursorLocation('over');
 	}
 
-	function handleOut(e) { 
-		console.log('e.target.id', e.target.id);
-		console.log('e.relatedTarget.id', e.relatedTarget.id);
+	function handleOut(e) {  
 		if (e.target.id === 'open-close-toggle' &&  e.relatedTarget.id !== vertLineId && e.relatedTarget.id !== 'horiz-line'){
 			setCursorLocation('out'); 
 			setCursorStatus('up'); 
@@ -65,8 +63,10 @@ export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick,
 	useEffect(() => {
 		const lineElement = document.getElementById(vertLineId);
 
-		lineElement.addEventListener('transitionend', (e) => {
-			setAnimationStatus('lineHasAnimated');
+		lineElement.addEventListener('transitionend', (e) => { 
+			if(e.propertyName === 'transform') {
+				setAnimationStatus('lineHasAnimated');
+			} 
 		})
 	}, [])
 
@@ -118,17 +118,17 @@ export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick,
 		}
 	}, [animate, waiting])*/
 
-	useEffect(() => {
-		console.log('cursorLocation', cursorLocation);
-	}, [cursorLocation]);
+	// useEffect(() => {
+	// 	console.log('cursorLocation', cursorLocation);
+	// }, [cursorLocation]);
 
-	/*useEffect(() => {
-		console.log('cursorStatus', cursorStatus);
-	}, [cursorStatus]);
+	// useEffect(() => {
+	// 	console.log('cursorStatus', cursorStatus);
+	// }, [cursorStatus]);
 
-	useEffect(() => {
-		console.log('animationStatus', animationStatus); 
-	}, [animationStatus]);*/
+	// useEffect(() => {
+	// 	console.log('animationStatus', animationStatus); 
+	// }, [animationStatus]); 
 
 	return (
 		<div className="open-close-toggle" 	
