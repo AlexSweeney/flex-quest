@@ -1,4 +1,4 @@
-// header - fixed min - hieght, play not clipped
+// add unique ids
 // seperate settings file
 // animate router
 // animate open and close play

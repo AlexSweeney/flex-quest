@@ -14,8 +14,9 @@ export default function OpenCloseBox({
 	button_1 = null,
 	button_2 = null,
 	i = Math.random(),
+	id = `box_${i}`,
 }) { 
-	const thisId = `box_${i}`;
+	const thisId = id;
 	const [boxIsOpen, setBoxIsOpen] = useState(true);
 	const [boxClass, setBoxClass] = useState('');
 
@@ -26,7 +27,7 @@ export default function OpenCloseBox({
 	const [burgerWasOpen, setBurgerWasOpen] = useState(false); 
 	
 	const [rotateNum, setRotateNum] = useState(0);
-	// const [bodyClass, setBodyClass] = useState('body-open');
+	const [bodyClass, setBodyClass] = useState('body-open');
   
 	// Burger Click
 	function handleBurgerClick() {
@@ -135,7 +136,7 @@ export default function OpenCloseBox({
 	 			</div>
 			</div>
 
-			{/*<div className="body-background custom-scroll">  
+			<div className="body-background custom-scroll">  
 				{menuOptions && <BurgerDropDown isOpen={burgerIsOpen} 
 																				options={menuOptions} 
 																				handleOptionClick={handleClickMenu}/>}
@@ -143,7 +144,7 @@ export default function OpenCloseBox({
 				<div className={`body custom-scroll ${bodyClass}`}>
 					{children && children}
 				</div> 
-			</div>*/}
+			</div>
 	 	</div> 
 	);
 } 

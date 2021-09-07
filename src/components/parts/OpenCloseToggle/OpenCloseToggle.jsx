@@ -5,6 +5,8 @@ import './OpenCloseToggleStyle.css';
 
 export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick, i = Math.random()}) { 
 	const vertLineId = 'vert-line-' + i;
+	const horizLineId = 'horiz-line-' + i;
+	const openCloseToggleId = 'open-close-toggle' + i;
 
 	const [lineDirectionClass, setLineDirectionClass] = useState(isOpen ? 'line-open' : 'line-closed');
 	const [lineColorClass, setLineColorClass] = useState('line-out');
@@ -29,11 +31,38 @@ export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick,
 	}
 
 	function handleOut(e) {  
-		if (e.target.id === 'open-close-toggle' &&  e.relatedTarget.id !== vertLineId && e.relatedTarget.id !== 'horiz-line'){
+		if(e.target.id !== vertLineId && e.target.id !== horizLineId 
+			&& e.relatedTarget.id !== vertLineId && e.relatedTarget.id !== horizLineId) {
 			setCursorLocation('out'); 
 			setCursorStatus(''); 
 		}
 	}
+
+	// animation status : parent animating
+	useEffect(() => {
+		if(parentIsAnimating) {
+			setAnimationStatus('parentIsAnimating');
+		} else if (animationStatus !== 'lineIsAnimating' && !parentIsAnimating) {
+			setAnimationStatus('');
+		}
+	}, [parentIsAnimating]) 
+
+	// animation status : line animating
+	useEffect(() => {
+		const lineElement = document.getElementById(vertLineId);
+
+		lineElement.addEventListener('transitionstart', (e) => { 
+			if(e.propertyName === 'transform') {
+				setAnimationStatus('lineIsAnimating');
+			} 
+		})
+
+		lineElement.addEventListener('transitionend', (e) => { 
+			if(e.propertyName === 'transform') {
+				setAnimationStatus('lineHasAnimated');
+			} 
+		})
+	}, [])
 
 	// change line color
 	useEffect(() => {	
@@ -67,33 +96,7 @@ export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick,
 		} 
 	}, [parentIsAnimating, isOpen]);
 
-	// animation status : parent animating
-	useEffect(() => {
-		if(parentIsAnimating) {
-			setAnimationStatus('parentIsAnimating');
-		} else if (animationStatus !== 'lineIsAnimating' && !parentIsAnimating) {
-			setAnimationStatus('');
-		}
-	}, [parentIsAnimating]) 
-
-	// animation status : line animating
-	useEffect(() => {
-		const lineElement = document.getElementById(vertLineId);
-
-		lineElement.addEventListener('transitionstart', (e) => { 
-			if(e.propertyName === 'transform') {
-				setAnimationStatus('lineIsAnimating');
-			} 
-		})
-
-		lineElement.addEventListener('transitionend', (e) => { 
-			if(e.propertyName === 'transform') {
-				setAnimationStatus('lineHasAnimated');
-			} 
-		})
-	}, [])
-
-
+	
 
 	// useEffect(() => {
 	// 	console.log('parentIsAnimating', parentIsAnimating);
@@ -113,12 +116,12 @@ export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick,
 
 	return (
 		<div className="open-close-toggle" 	
-			id="open-close-toggle"
+			id={openCloseToggleId}
 			onMouseOver={handleOver}
 			onMouseOut={handleOut}
 			onMouseDown={handleDown}
 			onMouseUp={handleUp}>
-			<div className={`line ${lineColorClass}`} id="horiz-line"></div>
+			<div className={`line ${lineColorClass}`} id={horizLineId}></div>
 			<div className={`line ${lineColorClass} ${lineDirectionClass}`} id={vertLineId}></div>
 		</div> 
 	)

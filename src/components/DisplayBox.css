@@ -2,19 +2,29 @@
 	width: 100%;
 	height: 100%;
 	padding: 0.5em;
-	/*background: #E8E4E4;*/
+	background: #E8E4E4;
 }
 
-.iframe-container {
+.display-box {
 	width: 100%;
 	height: 100%;
 	position: relative;
 	resize: both;
 	overflow: hidden;  
 	background: #272727;
+	transition:  width 500ms ease-in-out, height 500ms ease-in-out;
 } 
 
-.iframe-container-big { 
+.display-open {
+	height: 100%; 
+}
+
+.display-closed {
+	height: 0;
+}
+
+
+/*.iframe-container-big { 
 	width: 100%;
 	height: 100%;
 	transition: width 500ms, height 500ms;
@@ -23,7 +33,7 @@
 .iframe-container-hidden {
 	opacity: 0;
 	overflow: hidden;
-}
+}*/
 
 .grid-overlay {
 	width: 100%;
@@ -45,16 +55,10 @@
 
 .body {
 	width: 100%;
-	height: 100%;
-	background: red;
+	height: 100%; 
 	transition: height 1000ms;
 }
 
-.body-opening {
-	height: 100%;
-	
-	/*background: red;*/
-}
 
 .body-open {
 	/*background: green;*/
