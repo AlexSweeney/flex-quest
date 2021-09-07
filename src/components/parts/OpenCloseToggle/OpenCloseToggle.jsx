@@ -30,33 +30,33 @@ export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick,
 	function handleOut(e) {  
 		if (e.target.id === 'open-close-toggle' &&  e.relatedTarget.id !== vertLineId && e.relatedTarget.id !== 'horiz-line'){
 			setCursorLocation('out'); 
-			setCursorStatus('up'); 
+			setCursorStatus(''); 
 		}
 	}
 
 	// change line color
 	useEffect(() => {	
-		console.log('color change ============================');
-		console.log('cursorStatus', cursorStatus);
-		console.log('cursorLocation', cursorLocation);
-
-		if(cursorLocation === 'over' && cursorStatus !== 'down') {
+		if(cursorLocation === 'over' && cursorStatus === '') {
 			setLineColorClass('line-over');
-		} else if(animationStatus === 'parentIsAnimating') {
+		} else if(cursorLocation === 'out') {
+			setLineColorClass('line-out');
+		} else if(cursorLocation === 'over' && cursorStatus === 'up') {
+			setLineColorClass('line-up');
+		} else if(cursorStatus === 'down' && cursorLocation === 'over') {
+			setLineColorClass('line-down');
+		} 
+/*
+		else if(animationStatus === 'parentIsAnimating') {
 			setLineColorClass('line-parent-animating');
 		} else if(animationStatus === 'lineIsAnimating') {
 			setLineColorClass('line-animating');
 		} else if(animationStatus === 'lineHasAnimated') {
 			setLineColorClass('line-animated');
-		} else if(cursorStatus === 'down' && cursorLocation === 'over') {
-			setLineColorClass('line-down');
-		} else if(cursorLocation === 'out') {
-			setLineColorClass('line-out');
-		}
+		} */
 	}, [cursorStatus, cursorLocation, animationStatus])
 
 	// animation status
-	useEffect(() => {
+	/*useEffect(() => {
 		if(parentIsAnimating) {
 			setAnimationStatus('parentIsAnimating');
 		} else if (animationStatus === 'parentIsAnimating' && !parentIsAnimating) {
@@ -72,10 +72,10 @@ export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick,
 				setAnimationStatus('lineHasAnimated');
 			} 
 		})
-	}, [])
+	}, [])*/
 
 	// line animation
-	useEffect(() => {
+	/*useEffect(() => {
 		if(!parentIsAnimating) {
 			if(isOpen) {
 				setLineDirectionClass('line-open');
@@ -83,7 +83,7 @@ export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick,
 				setLineDirectionClass('line-closed');
 			}	
 		} 
-	}, [parentIsAnimating, isOpen]);
+	}, [parentIsAnimating, isOpen]);*/
 
 
 	/*useEffect(() => {	
