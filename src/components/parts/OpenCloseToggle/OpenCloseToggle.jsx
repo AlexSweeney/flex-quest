@@ -36,6 +36,10 @@ export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick,
 
 	// change line color
 	useEffect(() => {	
+		console.log('color change ============================');
+		console.log('cursorStatus', cursorStatus);
+		console.log('cursorLocation', cursorLocation);
+
 		if(cursorLocation === 'over' && cursorStatus !== 'down') {
 			setLineColorClass('line-over');
 		} else if(animationStatus === 'parentIsAnimating') {
@@ -49,7 +53,7 @@ export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick,
 		} else if(cursorLocation === 'out') {
 			setLineColorClass('line-out');
 		}
-	}, [cursorStatus, cursorLocation])
+	}, [cursorStatus, cursorLocation, animationStatus])
 
 	// animation status
 	useEffect(() => {
