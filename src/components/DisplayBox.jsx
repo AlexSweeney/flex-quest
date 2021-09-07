@@ -116,11 +116,12 @@ export default function DisplayBox({title, htmlString, cssString, i = Math.rando
 			title={title}
 			id={thisId} 
 			button_1={<RefreshButton onClick={handleRefresh}/>} 
+			button_2={<GridButton handleClick={handleGridClick} selected={showGrid}/>}
 		>
 			<div className={`display-box-background `}>
 				<div className={`display-box-container ${displayContainerSizeClass} ${displayContainerTransitionClass}`}>
 					<div className={`display-box ${displaySizeClass} ${displayTransitionClass}`} id="display-box">
-						{/*<GridOverlay showGrid={showGrid}/>*/}
+						<GridOverlay showGrid={showGrid}/>
 						<iframe srcdoc={source} className="iframe"/> 
 					</div>
 				</div>
@@ -130,7 +131,7 @@ export default function DisplayBox({title, htmlString, cssString, i = Math.rando
 } 
 
 {/*
-	button_2={<GridButton handleClick={handleGridClick} selected={showGrid}/>}*/}
+	*/}
 
 
   /*useEffect(() => {

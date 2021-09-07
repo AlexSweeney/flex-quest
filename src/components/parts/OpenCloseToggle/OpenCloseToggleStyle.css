@@ -55,5 +55,5 @@
 }
 
 .line-animated {
-	transition: background 2s, transform 1s;
+	transition: background 1s, transform 1s;
 }

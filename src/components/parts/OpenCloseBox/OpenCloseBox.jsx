@@ -118,11 +118,11 @@ export default function OpenCloseBox({
 					}
 
 				 	{/* Button 2 */}
-	{/*				{button_2 && 
+					{button_2 && 
 						<div className="button button-2">
 							{button_2}
 						</div>
-					}*/}
+					}
 				</div>
 				
 				{/* Title */}

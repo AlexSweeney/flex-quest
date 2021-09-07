@@ -48,12 +48,10 @@ export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick,
 	}, [parentIsAnimating]) 
 
 	// animation status : line animating
-	useEffect(() => {
-		console.log('listener')
-		const lineElement = document.getElementById(vertLineId);
-		console.log(lineElement)
-		lineElement.addEventListener('transitionstart', (e) => { 
-			console.log(e)
+	useEffect(() => { 
+		const lineElement = document.getElementById(vertLineId); 
+		
+		lineElement.addEventListener('transitionstart', (e) => {  
 			if(e.propertyName === 'transform') {
 				setAnimationStatus('lineIsAnimating');
 			} 
@@ -112,9 +110,9 @@ export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick,
 	// 	console.log('cursorStatus', cursorStatus);
 	// }, [cursorStatus]);
 
-	useEffect(() => {
-		console.log('animationStatus', animationStatus); 
-	}, [animationStatus]); 
+	// useEffect(() => {
+	// 	console.log('animationStatus', animationStatus); 
+	// }, [animationStatus]); 
 
 	return (
 		<div className="open-close-toggle" 	
