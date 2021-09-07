@@ -1,4 +1,4 @@
-// change display box size then close
+// change display box size then close - use container -> so don't interfere with chaning size transiiont
 // press refresh loads
 
 import React, {useState, useEffect} from 'react'; 
@@ -12,7 +12,8 @@ export default function DisplayBox({title, htmlString, cssString, i = Math.rando
 	const thisId = `open-close-box_${i}`;
 	const [source, setSource] = useState(null);
 
-  const [hideDisplay, setHideDisplay] = useState(false);
+  // const [hideDisplay, setHideDisplay] = useState(false);
+  const [boxIsOpen, setBoxIsOpen] = useState(true);
   const [displaySizeClass, setDisplaySizeClass] = useState('display-box-open');
 
  	const [sizeTransition, setSizeTransition] = useState(false);
@@ -21,40 +22,11 @@ export default function DisplayBox({title, htmlString, cssString, i = Math.rando
   
   const [showGrid, setShowGrid] = useState(false);
 
-  // Refresh
-  function handleRefresh() { 
-  	setIsRefresh(true);
-  	// const displayBoxElement = document.getElementById('display-box');
-  	// displayBoxElement.style = "";
-
-		/*setDisplaySizeClass('display-box-open'); 
-		setDisplayTransitionClass('display-box-transition')
-
-		setTimeout(() => {
-			setDisplaySizeClass('');
-		}, 500); */
-	}
-
 	// grid
 	function handleGridClick() { 
   	setShowGrid(oldVal => !oldVal);
   }
  	
- 	// handle updates from code boxes
-  useEffect(() => {  
-  	setSource(`
-  		<html lang="en">
-  		<head>
-  			<style>
-  				body { padding: 0; margin: 0; overflow: hidden; }
-  				${cssString}
-  			</style>
-  		</head>
-  		<body>${htmlString}</body>
-  		</html>`);
-  }, [htmlString, cssString]) 
-
-  // refresh - on / off
   function handleRefresh() { 
   	const displayBoxElement = document.getElementById('display-box'); 
   	
@@ -69,17 +41,29 @@ export default function DisplayBox({title, htmlString, cssString, i = Math.rando
   	} 
   }
 
-  useEffect(() => {
-  	const openCloseBoxElement = document.getElementById(thisId);
+	function removeDisplayInlineStyle() {
+		const displayBoxElement = document.getElementById('display-box');
+		displayBoxElement.style = '';
+	}
 
-  	if(isRefresh) {
-  		openCloseBoxElement.addEventListener('transitionend', handleRefreshEnd)
-  	} else {
-  		openCloseBoxElement.removeEventListener('transitionend', handleRefreshEnd)
-  	}
-  }, [isRefresh]) 
+	// box open and close detect
+	useEffect(() => {
+		const openCloseBoxElement = document.getElementById(thisId);
 
-  // handle refresh 
+		openCloseBoxElement.addEventListener('transitionend', (e) => {
+			if(e.propertyName === 'width') {
+				const isOpen = e.srcElement.getAttribute('isopen')
+				
+				if(isOpen === 'true') {
+					setBoxIsOpen(true)
+				} else if (isOpen === 'false') {
+					setBoxIsOpen(false)
+				}
+			}
+		})
+	}, [])
+
+	// handle refresh 
   useEffect(() => {
   	if(isRefresh) {
   		removeDisplayInlineStyle()
@@ -90,10 +74,41 @@ export default function DisplayBox({title, htmlString, cssString, i = Math.rando
   	}
 	}, [isRefresh])
 
-	function removeDisplayInlineStyle() {
-		const displayBoxElement = document.getElementById('display-box');
-		displayBoxElement.style = '';
-	}
+	// handle refresh end
+	useEffect(() => {
+  	const openCloseBoxElement = document.getElementById(thisId);
+
+  	if(isRefresh) {
+  		openCloseBoxElement.addEventListener('transitionend', handleRefreshEnd)
+  	} else {
+  		openCloseBoxElement.removeEventListener('transitionend', handleRefreshEnd)
+  	}
+  }, [isRefresh]) 
+
+	// handle box open and close
+	useEffect(() => {
+		if(boxIsOpen) {
+			setDisplayTransitionClass('display-box-transition')
+  		setDisplaySizeClass('display-box-open')
+		} else {
+			setDisplaySizeClass('display-box-closed')
+			setDisplayTransitionClass('display-box-transition')
+		}
+	}, [boxIsOpen])
+
+	// handle updates from code boxes
+  useEffect(() => {  
+  	setSource(`
+  		<html lang="en">
+  		<head>
+  			<style>
+  				body { padding: 0; margin: 0; overflow: hidden; }
+  				${cssString}
+  			</style>
+  		</head>
+  		<body>${htmlString}</body>
+  		</html>`);
+  }, [htmlString, cssString]) 
 
   /*useEffect(() => {
 
@@ -132,7 +147,7 @@ export default function DisplayBox({title, htmlString, cssString, i = Math.rando
 			title={title}
 			id={thisId} 
 			button_1={<RefreshButton onClick={handleRefresh}/>} 
-		>	
+		>
 			<div className={`display-box-background `}>
 				<div className={`display-box ${displaySizeClass} ${displayTransitionClass}`} id="display-box">
 					{/*<GridOverlay showGrid={showGrid}/>*/}

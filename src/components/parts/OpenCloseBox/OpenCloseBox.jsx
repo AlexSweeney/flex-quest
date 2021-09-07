@@ -101,7 +101,7 @@ export default function OpenCloseBox({
 	}, [])
 
 	return ( 
-		<div className={`box ${boxClass}`} id={thisId}>  
+		<div className={`box ${boxClass}`} isopen={boxIsOpen.toString()} id={thisId}>  
 			<div className="box-header">
 				{/* Menu Button */}
 				{menuOptions && 
