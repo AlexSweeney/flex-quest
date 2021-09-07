@@ -14,10 +14,11 @@ export default function DisplayBox({title, htmlString, cssString, i = Math.rando
 
   // const [hideDisplay, setHideDisplay] = useState(false);
   const [boxIsOpen, setBoxIsOpen] = useState(true);
-  const [displaySizeClass, setDisplaySizeClass] = useState('display-box-open');
+ 	const [displayContainerSizeClass, setDisplayContainerSizeClass] = useState('display-container-open')
+ 	const [displayContainerTransitionClass, setDisplayContainerTransitionClass] = useState('');
 
- 	const [sizeTransition, setSizeTransition] = useState(false);
  	const [isRefresh, setIsRefresh] = useState(false);
+ 	const [displaySizeClass, setDisplaySizeClass] = useState('display-box-open');
  	const [displayTransitionClass, setDisplayTransitionClass] = useState('');
   
   const [showGrid, setShowGrid] = useState(false);
@@ -87,12 +88,13 @@ export default function DisplayBox({title, htmlString, cssString, i = Math.rando
 
 	// handle box open and close
 	useEffect(() => {
+		console.log('boxIsOpen', boxIsOpen)
 		if(boxIsOpen) {
-			setDisplayTransitionClass('display-box-transition')
-  		setDisplaySizeClass('display-box-open')
+			setDisplayContainerTransitionClass('display-box-container-transition')
+  		setDisplayContainerSizeClass('display-box-container-open')
 		} else {
-			setDisplaySizeClass('display-box-closed')
-			setDisplayTransitionClass('display-box-transition')
+			setDisplayContainerSizeClass('display-box-container-closed')
+			setDisplayContainerTransitionClass('display-box-container-transition')
 		}
 	}, [boxIsOpen])
 
@@ -109,6 +111,28 @@ export default function DisplayBox({title, htmlString, cssString, i = Math.rando
   		<body>${htmlString}</body>
   		</html>`);
   }, [htmlString, cssString]) 
+
+	return (
+		<OpenCloseBox
+			title={title}
+			id={thisId} 
+			button_1={<RefreshButton onClick={handleRefresh}/>} 
+		>
+			<div className={`display-box-background `}>
+				<div className={`display-box-container ${displayContainerSizeClass} ${displayContainerTransitionClass}`}>
+					<div className={`display-box ${displaySizeClass} ${displayTransitionClass}`} id="display-box">
+						{/*<GridOverlay showGrid={showGrid}/>*/}
+						<iframe srcdoc={source} className="iframe"/> 
+					</div>
+				</div>
+			</div>
+		</OpenCloseBox>
+	) 
+} 
+
+{/*
+	button_2={<GridButton handleClick={handleGridClick} selected={showGrid}/>}*/}
+
 
   /*useEffect(() => {
 
@@ -141,22 +165,3 @@ export default function DisplayBox({title, htmlString, cssString, i = Math.rando
 			setDisplaySizeClass('display-open');
 		}
 	}, [hideDisplay])*/
-   
-	return (
-		<OpenCloseBox
-			title={title}
-			id={thisId} 
-			button_1={<RefreshButton onClick={handleRefresh}/>} 
-		>
-			<div className={`display-box-background `}>
-				<div className={`display-box ${displaySizeClass} ${displayTransitionClass}`} id="display-box">
-					{/*<GridOverlay showGrid={showGrid}/>*/}
-					<iframe srcdoc={source} className="iframe"/> 
-				</div>
-			</div>
-		</OpenCloseBox>
-	) 
-} 
-
-{/*
-			button_2={<GridButton handleClick={handleGridClick} selected={showGrid}/>}*/}

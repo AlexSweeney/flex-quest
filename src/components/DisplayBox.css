@@ -5,10 +5,28 @@
 	background: #E8E4E4;
 }
 
-.display-box {
+.display-box-container {
 	width: 100%;
 	height: 100%;
 	position: relative;
+}
+
+.display-box-container-open {
+	height: 100%; 
+	width: 100%;
+}
+
+.display-box-container-closed {
+	height: 0;
+}
+
+.display-box-container-transition {
+	transition:  width 500ms ease-in-out, height 500ms ease-in-out; 
+}
+
+.display-box {
+	width: 100%;
+	height: 100%;
 	resize: both;
 	overflow: hidden;  
 	background: #272727;
