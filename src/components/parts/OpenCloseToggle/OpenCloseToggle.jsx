@@ -8,7 +8,6 @@ export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick,
 
 	const [lineDirectionClass, setLineDirectionClass] = useState(isOpen ? 'line-open' : 'line-closed');
 	const [lineColorClass, setLineColorClass] = useState('line-out');
-	const [lineIsAnimating, setLineIsAnimating] = useState(false);
 
 	/*const [isOver, setIsOver] = useState(false);
 	const [isDown, setIsDown] = useState(false);*/
@@ -57,7 +56,27 @@ export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick,
 		} 
 	}, [cursorStatus, cursorLocation, animationStatus])
 
-	// animation status 
+	// change line direction
+	useEffect(() => {
+		if(!parentIsAnimating) {
+			if(isOpen) {
+				setLineDirectionClass('line-open');
+			} else {
+				setLineDirectionClass('line-closed');
+			}	
+		} 
+	}, [parentIsAnimating, isOpen]);
+
+	// animation status : parent animating
+	useEffect(() => {
+		if(parentIsAnimating) {
+			setAnimationStatus('parentIsAnimating');
+		} else if (animationStatus !== 'lineIsAnimating' && !parentIsAnimating) {
+			setAnimationStatus('');
+		}
+	}, [parentIsAnimating]) 
+
+	// animation status : line animating
 	useEffect(() => {
 		const lineElement = document.getElementById(vertLineId);
 
@@ -74,16 +93,7 @@ export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick,
 		})
 	}, [])
 
-	// line animation
-	useEffect(() => {
-		if(!parentIsAnimating) {
-			if(isOpen) {
-				setLineDirectionClass('line-open');
-			} else {
-				setLineDirectionClass('line-closed');
-			}	
-		} 
-	}, [parentIsAnimating, isOpen]);
+
 
 	// useEffect(() => {
 	// 	console.log('parentIsAnimating', parentIsAnimating);

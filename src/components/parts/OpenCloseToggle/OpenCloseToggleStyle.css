@@ -17,7 +17,6 @@
 	width: 12px;
   height: 4px;
 	background: #272727;
-	transition: transform 1s;
 }
 
 .line-open {
@@ -29,7 +28,7 @@
 	transition: transform 1s;
 }
 
-/*.line-over,
+.line-over,
 .line-up {
 	background: #2196f3; 
 }
@@ -37,21 +36,17 @@
 .line-out,
 .line-animated {
 	background: #272727;
-}*/
+}
 
-/*.line-down 
+.line-down,
 .line-parent-animating,
 .line-animating {
 	background: #3f51b5;
 } 
 
-.line-parent-animating {
-	background: red;
-}
-
 .line-over,
 .line-out {
-	transition: background 500ms;
+	transition: background 500ms, transform 1s;
 }
 
 .line-down,
@@ -60,5 +55,5 @@
 }
 
 .line-animated {
-	transition: background 2s;
-}*/
+	transition: background 2s, transform 1s;
+}
