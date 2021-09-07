@@ -29,7 +29,7 @@
 
 /* ======================== Header ======================== */
 .box-header {
-	height: 40px;
+	min-height: 40px;
 	width: 100%; 
 	position: relative;
 	/*overflow: hidden;*/
