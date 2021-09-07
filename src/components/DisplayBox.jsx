@@ -88,7 +88,6 @@ export default function DisplayBox({title, htmlString, cssString, i = Math.rando
 
 	// handle box open and close
 	useEffect(() => {
-		console.log('boxIsOpen', boxIsOpen)
 		if(boxIsOpen) {
 			setDisplayContainerTransitionClass('display-box-container-transition')
   		setDisplayContainerSizeClass('display-box-container-open')

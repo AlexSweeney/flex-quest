@@ -4,7 +4,7 @@ import React, {useState, useEffect} from 'react';
 import './OpenCloseToggleStyle.css';
 
 export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick, i = Math.random()}) { 
-	const vertLineId = 'vert-line';
+	const vertLineId = 'vert-line-' + i;
 	const horizLineId = 'horiz-line-' + i;
 	const openCloseToggleId = 'open-close-toggle' + i;
 
@@ -31,7 +31,7 @@ export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick,
 	}
 
 	function handleOut(e) {  
-		if(e.target.id === vertLineId === openCloseToggleId
+		if(e.target.id === openCloseToggleId
 			&& e.relatedTarget.id !== vertLineId && e.relatedTarget.id !== horizLineId) {
 			setCursorLocation('out'); 
 			setCursorStatus(''); 
@@ -49,9 +49,11 @@ export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick,
 
 	// animation status : line animating
 	useEffect(() => {
+		console.log('listener')
 		const lineElement = document.getElementById(vertLineId);
-
+		console.log(lineElement)
 		lineElement.addEventListener('transitionstart', (e) => { 
+			console.log(e)
 			if(e.propertyName === 'transform') {
 				setAnimationStatus('lineIsAnimating');
 			} 
@@ -110,9 +112,9 @@ export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick,
 	// 	console.log('cursorStatus', cursorStatus);
 	// }, [cursorStatus]);
 
-	// useEffect(() => {
-	// 	console.log('animationStatus', animationStatus); 
-	// }, [animationStatus]); 
+	useEffect(() => {
+		console.log('animationStatus', animationStatus); 
+	}, [animationStatus]); 
 
 	return (
 		<div className="open-close-toggle" 	
