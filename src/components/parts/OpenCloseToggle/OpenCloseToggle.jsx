@@ -1,3 +1,5 @@
+// fix multiclick
+
 import React, {useState, useEffect} from 'react';
 import './OpenCloseToggleStyle.css';
 
@@ -36,27 +38,27 @@ export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick,
 
 	// change line color
 	useEffect(() => {	
+		// cursor
 		if(cursorLocation === 'over' && cursorStatus === '') {
 			setLineColorClass('line-over');
-		} else if(cursorLocation === 'out') {
+		} else if(cursorLocation === 'out' && animationStatus == '') {
 			setLineColorClass('line-out');
 		} else if(cursorLocation === 'over' && cursorStatus === 'up') {
 			setLineColorClass('line-up');
 		} else if(cursorStatus === 'down' && cursorLocation === 'over') {
 			setLineColorClass('line-down');
-		} 
-/*
-		else if(animationStatus === 'parentIsAnimating') {
+		// animation
+		} else if(animationStatus === 'parentIsAnimating' && cursorLocation === 'out') {
 			setLineColorClass('line-parent-animating');
-		} else if(animationStatus === 'lineIsAnimating') {
+		} else if(animationStatus === 'lineIsAnimating'  && cursorLocation === 'out') {
 			setLineColorClass('line-animating');
-		} else if(animationStatus === 'lineHasAnimated') {
+		} else if(animationStatus === 'lineHasAnimated'  && cursorLocation === 'out') {
 			setLineColorClass('line-animated');
-		} */
+		} 
 	}, [cursorStatus, cursorLocation, animationStatus])
 
 	// animation status
-	/*useEffect(() => {
+	useEffect(() => {
 		if(parentIsAnimating) {
 			setAnimationStatus('parentIsAnimating');
 		} else if (animationStatus === 'parentIsAnimating' && !parentIsAnimating) {
@@ -72,10 +74,10 @@ export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick,
 				setAnimationStatus('lineHasAnimated');
 			} 
 		})
-	}, [])*/
+	}, [])
 
 	// line animation
-	/*useEffect(() => {
+	useEffect(() => {
 		if(!parentIsAnimating) {
 			if(isOpen) {
 				setLineDirectionClass('line-open');
@@ -83,45 +85,8 @@ export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick,
 				setLineDirectionClass('line-closed');
 			}	
 		} 
-	}, [parentIsAnimating, isOpen]);*/
-
-
-	/*useEffect(() => {	
-		console.log('lineIsAnimating', lineIsAnimating);
-		if(lineIsAnimating) {
-			
-		} 
-	}, [isOpen, lineIsAnimating])*/
-
-	/*useEffect(() => {
-		const lineElement = document.getElementById(thisLineId);
-
-		lineElement.addEventListener('transitionend', () => {
-			setIsAnimating(false);
-			setHasAnimated(true);
-		})
-	})*/
-
-	// change line direction
-	/*useEffect(() => {	
-		if(animate) {
-			if(isOpen) {
-				setLineDirectionClass('line-open');
-			} else {
-				setLineDirectionClass('line-closed');
-			}	
-		} 
-	}, [isOpen])*/
-
-	// detect animation status
-	/*useEffect(() => {
-		if(animate || waiting) {
-			setIsAnimating(true);
-		} else {
-			setIsAnimating(false)
-		}
-	}, [animate, waiting])*/
-
+	}, [parentIsAnimating, isOpen]);
+   
 	// useEffect(() => {
 	// 	console.log('cursorLocation', cursorLocation);
 	// }, [cursorLocation]);
