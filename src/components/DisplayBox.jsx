@@ -1,4 +1,5 @@
 // change display box size then close
+// press refresh loads
 
 import React, {useState, useEffect} from 'react'; 
 import OpenCloseBox from './parts/OpenCloseBox/OpenCloseBox.jsx'; 
@@ -55,7 +56,11 @@ export default function DisplayBox({title, htmlString, cssString, i = Math.rando
 
   // refresh - on / off
   function handleRefresh() { 
-  	setIsRefresh(true);
+  	const displayBoxElement = document.getElementById('display-box'); 
+  	
+  	if(displayBoxElement.style.width !== '' || displayBoxElement.style.height !== '') {
+  		setIsRefresh(true);
+  	} 
   }
 
   function handleRefreshEnd(e) {
@@ -78,8 +83,8 @@ export default function DisplayBox({title, htmlString, cssString, i = Math.rando
   useEffect(() => {
   	if(isRefresh) {
   		removeDisplayInlineStyle()
-  		setDisplaySizeClass('display-box-open')
   		setDisplayTransitionClass('display-box-transition')
+  		setDisplaySizeClass('display-box-open')
   	} else {
   		setDisplayTransitionClass('')
   	}

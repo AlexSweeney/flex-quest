@@ -24,7 +24,7 @@
 }
 
 .display-box-transition {
-	transition:  width 500ms ease-in-out, height 500ms ease-in-out;
+	transition:  width 500ms ease-in-out, height 500ms ease-in-out; 
 }
 /*
 .iframe-container-big { 
@@ -57,8 +57,7 @@
 
 .body {
 	width: 100%;
-	height: 100%; 
-	transition: height 1000ms;
+	height: 100%;  
 }
 
 

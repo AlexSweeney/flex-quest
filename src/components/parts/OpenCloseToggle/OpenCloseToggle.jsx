@@ -31,7 +31,7 @@ export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick,
 	}
 
 	function handleOut(e) {  
-		if(e.target.id !== vertLineId && e.target.id !== horizLineId 
+		if(e.target.id === vertLineId === openCloseToggleId
 			&& e.relatedTarget.id !== vertLineId && e.relatedTarget.id !== horizLineId) {
 			setCursorLocation('out'); 
 			setCursorStatus(''); 
