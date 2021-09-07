@@ -28,7 +28,9 @@ export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick,
 	}
 
 	function handleOut(e) { 
-		if (e.target.id === 'open-close-toggle' &&  e.relatedTarget.id !== 'vert-line' && e.relatedTarget.id !== 'horiz-line'){
+		console.log('e.target.id', e.target.id);
+		console.log('e.relatedTarget.id', e.relatedTarget.id);
+		if (e.target.id === 'open-close-toggle' &&  e.relatedTarget.id !== vertLineId && e.relatedTarget.id !== 'horiz-line'){
 			setCursorLocation('out'); 
 			setCursorStatus('up'); 
 		}
@@ -116,11 +118,17 @@ export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick,
 		}
 	}, [animate, waiting])*/
 
-	/*useEffect(() => {
+	useEffect(() => {
 		console.log('cursorLocation', cursorLocation);
+	}, [cursorLocation]);
+
+	/*useEffect(() => {
 		console.log('cursorStatus', cursorStatus);
+	}, [cursorStatus]);
+
+	useEffect(() => {
 		console.log('animationStatus', animationStatus); 
-	}, [cursorLocation, cursorStatus, animationStatus]);*/
+	}, [animationStatus]);*/
 
 	return (
 		<div className="open-close-toggle" 	

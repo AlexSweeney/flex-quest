@@ -28,25 +28,17 @@
 	background: yellow;
 }
 
-.line-out {
-	background: pink;
-}
-
-.line-down {
-	background: red;
-}
-
-.line-parent-animating {
-	background: red;
-}
-
-.line-animating {
-	background: red;
-}
-
+.line-out,
 .line-animated {
 	background: blue;
 }
+
+.line-down,
+.line-parent-animating,
+.line-animating  {
+	background: red;
+} 
+ 
 
 /*.line-over,
 .line-up { 
