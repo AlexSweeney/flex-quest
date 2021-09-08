@@ -7,6 +7,8 @@ import './scrollbar.css';
 
 export default function OpenCloseBox({
 	title = null,  
+	boxIsOpen = true,
+	handleToggleClick = null,
 	menuOptions = null, 
 	handleMenuOptionClick, 
 	handleRefresh = () => {},
@@ -17,7 +19,8 @@ export default function OpenCloseBox({
 	id = `box_${i}`,
 }) { 
 	const thisId = id;
-	const [boxIsOpen, setBoxIsOpen] = useState(true);
+	// const [boxIsOpen, setBoxIsOpen] = useState(true);
+	
 	const [boxClass, setBoxClass] = useState('');
 
 	// const [animateOpenCloseToggle, setAnimateOpenCloseToggle] = useState(false);
@@ -44,13 +47,13 @@ export default function OpenCloseBox({
 	}
 
 	// Open Close Toggle
-	function handleOpenCloseToggleClick() {  
+	/*function handleOpenCloseToggleClick() {  
 		if(boxIsOpen) hideBurger();
 		else if(!boxIsOpen) showBurger();
 
 		setBoxIsOpen(oldVal => !oldVal);
 		setIsChangingWidth(true);
-	}
+	}*/
 
 	// burger titles
 	function handleClickMenu(option) {
@@ -90,7 +93,7 @@ export default function OpenCloseBox({
 		}
 	}, [boxIsOpen])
 
-	useEffect(() => {
+	/*useEffect(() => {
 		const boxElement = document.getElementById(thisId);
 		boxElement.addEventListener('transitionend', (e) => {
       if(e.propertyName === 'width') {
@@ -99,7 +102,7 @@ export default function OpenCloseBox({
       }
     });
 	}, [])
-
+*/
 	return ( 
 		<div className={`box ${boxClass}`} isopen={boxIsOpen.toString()} id={thisId}>  
 			<div className="box-header">
@@ -126,14 +129,17 @@ export default function OpenCloseBox({
 				</div>
 				
 				{/* Title */}
-		 	<div className="title">{title}</div>
+		 		<div className="title">{title}</div>
 
-				<div className={"open-close-toggle-container"}>
-					<OpenCloseToggle 
-						isOpen={boxIsOpen} 
-						handleClick={handleOpenCloseToggleClick}
-						parentIsAnimating={isChangingWidth}/>
-	 			</div>
+				{ 
+					handleToggleClick && 
+					<div className={"open-close-toggle-container"}>
+						<OpenCloseToggle 
+							isOpen={boxIsOpen} 
+							handleClick={handleToggleClick}
+							parentIsAnimating={isChangingWidth}/>
+	 				</div>
+	 			}
 			</div>
 
 			<div className="box-body">  

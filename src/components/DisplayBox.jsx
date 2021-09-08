@@ -11,7 +11,110 @@ import GridButton from './parts/GridButton.jsx';
 import GridOverlay from './parts/GridOverlay.jsx';
 import './DisplayBox.css';
 
-export default function DisplayBox({title, htmlString, cssString, i = Math.random()}) {    
+export default function DisplayBox({title, htmlString, cssString}) {
+	const [boxIsOpen, setBoxIsOpen] = useState(true); 
+
+	// const [boxIsTransitioning, setBoxIsTransitioning] = useState(false);
+	 
+	// const [displaySizeClass, setDisplaySizeClass] = useState('display-box-open');
+	// const [displayTransitionClass, setDisplayTransitionClass] = useState('');
+
+	// function handleToggleClick() {
+
+	// }
+
+	// function adjustDisplayInlineStyle() {
+	// 	const displayElement = document.getElementById('display-box');
+
+	// 	let width = displayElement.style.width;
+	// 	let height = displayElement.style.height;
+
+	// 	displayElement.style.width = '';
+	// 	displayElement.style.height = '';
+
+	// 	// displayElement.style['max-width'] = width;
+	// 	// displayElement.style['max-height'] = height;
+	// }
+
+	// detect box open / close 
+	// useEffect(() => {
+	// 	const openCloseBoxElement = document.getElementById(openCloseBoxId);
+
+	// 	openCloseBoxElement.addEventListener('transitionstart', (e) => {
+	// 		if(e.propertyName === 'width' || e) {
+	// 			setBoxIsTransitioning(true)
+	// 		}
+	// 	})
+
+	// 	openCloseBoxElement.addEventListener('transitionend', (e) => {
+	// 		if(e.propertyName === 'width') {
+	// 			setBoxIsTransitioning(false)
+
+	// 			const isOpen = e.srcElement.getAttribute('isopen');
+				
+	// 			if(isOpen === 'true') {
+	// 				setBoxIsOpen(true)
+	// 			} else if (isOpen === 'false') {
+	// 				setBoxIsOpen(false)
+	// 			}
+	// 		}
+	// 	})
+	// }, [])
+
+	// detect display open / close
+	/*useEffect(() => {
+		const displayBoxElement = document.getElementById('diplay-box');
+
+		displayElement.addEventListener('transitionstart', (e) => {
+
+		})
+
+		displayElement.addEventListener('transitionend', (e) => {
+			
+		})
+	}, [])*/
+ 
+	// handle box open / close
+	// useEffect(() => {
+	// 	if(boxIsOpen) {
+	// 		setDisplaySizeClass('display-box-open')
+	// 	} else {
+	// 		adjustDisplayInlineStyle()
+	// 		setDisplaySizeClass('display-box-closed')
+	// 	}
+	// }, [boxIsOpen])
+
+	/*useEffect(() => {
+		if(boxIsTransitioning) {
+			console.log('is trans')
+			setDisplayTransitionClass('display-box-transition')
+		} else if (!displayIsTransitioning){	
+			console.log('is not trans')
+			setDisplayTransitionClass('')
+		}
+	}, [boxIsTransitioning, displayIsTransitioning])*/
+
+	return (
+		<OpenCloseBox
+			title={title} 
+			boxIsOpen={boxIsOpen}
+		>
+			{/*<div className={"display-box-background custom-scroll"}>
+				<div className={`display-box ${displaySizeClass} ${displayTransitionClass}`} id="display-box"> 
+				</div>
+				<div className={`display-box ${displaySizeClass} ${displayTransitionClass}`} id="display-box">
+					<GridOverlay showGrid={showGrid}/>
+					<iframe srcdoc={source} className="iframe"/>  
+				</div>
+			</div>*/}
+		</OpenCloseBox>
+	)
+}
+
+{/*button_1={<RefreshButton onClick={handleRefresh}/>} 
+			button_2={<GridButton handleClick={handleGridClick} selected={showGrid}/>}*/}
+
+/*export default function DisplayBox({title, htmlString, cssString, i = Math.random()}) {    
 	const thisId = `open-close-box_${i}`;
 	const [source, setSource] = useState(null);
 
@@ -170,14 +273,14 @@ export default function DisplayBox({title, htmlString, cssString, i = Math.rando
 			<div className={'display-box-background custom-scroll'}>
 				<div className={`display-box-container ${displayContainerSizeClass} ${displayContainerTransitionClass}`} id='display-box-container'>
 					<div className={`display-box ${displaySizeClass} ${displayTransitionClass}`} id="display-box">
-						{/*<GridOverlay showGrid={showGrid}/>*/}
+						{/*<GridOverlay showGrid={showGrid}/>
 						<iframe srcdoc={source} className="iframe"/> 
 					</div>
 				</div>
 			</div>
 		</OpenCloseBox>
 	) 
-} 
+} */
 
 {/*
 	*/}
