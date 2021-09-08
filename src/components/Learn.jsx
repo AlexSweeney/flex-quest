@@ -224,15 +224,15 @@ export default function Learn() {
  
 	return (
 		<section className="learn-container"> 
-			<OpenCloseBox title={infoTitle} menuOptions={menuOptions} handleMenuOptionClick={handleMenuOptionClick} fade={fadeInfo}>
+			{/*<OpenCloseBox title={infoTitle} menuOptions={menuOptions} handleMenuOptionClick={handleMenuOptionClick} fade={fadeInfo}>*/}
 				{/*	<InfoText handleClick={handleTextOptionClick} styleString={cssString}/>*/}
 			{/*	<div className="info-text-container">{infoText}</div>*/}
-				<div className={ fadeInfo ? "no-show info-text-container" : "info-text-container"}>
+				{/*<div className={ fadeInfo ? "no-show info-text-container" : "info-text-container"}>
 					<InfoText handleClick={handleTextOptionClick} styleString={cssString} setStyleString={setCssString}/>
 				</div>
-			</OpenCloseBox>
-			<CodeBox title="index.html" value={htmlString} handleChange={handleHtmlChange} handleRefresh={handleHtmlRefresh} fade={fadeHtml}/> 
-			<CodeBox title="style.css" value={cssString} handleChange={handleCssChange} handleRefresh={handleCssRefresh} fade={fadeStyle}/> 
+			</OpenCloseBox>*/}
+			{/*<CodeBox title="index.html" value={htmlString} handleChange={handleHtmlChange} handleRefresh={handleHtmlRefresh} fade={fadeHtml}/> 
+			<CodeBox title="style.css" value={cssString} handleChange={handleCssChange} handleRefresh={handleCssRefresh} fade={fadeStyle}/> */}
 			<DisplayBox title="display" htmlString={displayHtml} cssString={displayCss}/> 
 		</section>
 	)

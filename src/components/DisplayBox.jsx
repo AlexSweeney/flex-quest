@@ -21,7 +21,24 @@ export default function DisplayBox({title, htmlString, cssString}) {
 	const [toggleIsOpen, setToggleIsOpen] = useState(false);
 
 	const [numTransitions, setNumTransitions] = useState(0);
+
+	// const [openCloseBoxIsTransitioning, setOpenCloseBoxIsTransitioning] = useState(false);
 	const [isAnimating, setIsAnimating] = useState(false);
+	const [numOpenCloseBoxTransitions, setNumOpenCloseBoxTransitions] = useState(0);
+	const [openCloseBoxIsAnimating, setOpenCloseBoxIsAnimating] = useState(false);
+
+	// detect animation start / end open close
+	useEffect(() => {
+		detectTransitions(openCloseBoxId, 'width', setNumOpenCloseBoxTransitions, setOpenCloseBoxIsAnimating);
+	}, [])
+
+	useEffect(() => {
+		console.log('openCloseBoxIsAnimating', openCloseBoxIsAnimating)
+	}, [openCloseBoxIsAnimating])
+
+	// const openCloseBoxIsTransitioning = detectTransitions(openCloseBoxId, 'width');
+	// console.log('openCloseBoxIsTransitioning', openCloseBoxIsTransitioning)
+	// detectTransitions(displayBoxId, 'height')  
 
 	function handleToggleClick() {
 		setBoxIsOpen(oldVal => !oldVal) 
@@ -31,9 +48,50 @@ export default function DisplayBox({title, htmlString, cssString}) {
 		setToggleIsOpen(!boxIsOpen)
 	}
 
+	// const [numTransitions, setNumTransitions] = useState(0);
+	// const [isTransitioning, setIsTransitioning] = useState(false);
+
+	
+
+	function detectTransitions(id, propertyName, setNumTransitions, setIsAnimating) {
+		const element = document.getElementById('open-close-box-0');
+
+		element.addEventListener('transitionstart', (e) => { 
+			if(e.propertyName === propertyName) {
+				console.log('onStart')
+				setNumTransitions(oldVal => {
+					const newVal = oldVal + 1;
+					if(newVal === 1) setIsAnimating(true)
+					if(newVal === 0) setIsAnimating(false)
+					return newVal;
+				}) 
+			}
+		})
+
+		element.addEventListener('transitionend', (e) => { 
+			if(e.propertyName === propertyName) {
+				console.log('onEnd')
+				setNumTransitions(oldVal => {
+					const newVal = oldVal -1;
+					if(newVal === 1) setIsAnimating(true)
+					if(newVal === 0) setIsAnimating(false)
+					return newVal;
+				})
+			}
+		})
+
+		/* useEffect(() => {
+			if(numTransitions === 1) {
+				setIsAnimating(true)
+			} else if(numTransitions === 0) {
+				setIsAnimating(false)
+			}
+		}, [numTransitions])*/
+	}
+
 	// detect box open close
 	useEffect(() => {
-		const openCloseBoxElement = document.getElementById(openCloseBoxId);
+		const openCloseBoxElement = document.getElementById(openCloseBoxId); 
 
 		openCloseBoxElement.addEventListener('transitionend', (e) => {
 			if(e.propertyName === 'width') {
@@ -42,39 +100,7 @@ export default function DisplayBox({title, htmlString, cssString}) {
 		})
 	}, [])
 
-	// detect animation start / end open close
-	useEffect(() => {
-		const openCloseBoxElement = document.getElementById(openCloseBoxId);
-
-		openCloseBoxElement.addEventListener('transitionstart', (e) => { 
-			if(e.propertyName === 'width') {
-				setNumTransitions(oldVal => oldVal + 1)
-			}
-		})
-
-		openCloseBoxElement.addEventListener('transitionend', (e) => {
-			if(e.propertyName === 'width') {
-				setNumTransitions(oldVal => oldVal - 1)
-			}
-		}) 
-	}, [])
-
-	// detect animation start / end  toggle line
-	useEffect(() => {
-		const displayBoxElement = document.getElementById(displayBoxId);
-
-		displayBoxElement.addEventListener('transitionstart', (e) => {
-			if(e.propertyName === 'height') {
-				setNumTransitions(oldVal => oldVal + 1)
-			}
-		})
-
-		displayBoxElement.addEventListener('transitionend', (e) => {
-			if(e.propertyName === 'height') {
-				setNumTransitions(oldVal => oldVal - 1)
-			}
-		})
-	}, [])
+	
 
 	useEffect(() => {
 		if(numTransitions === 1) {
@@ -86,11 +112,9 @@ export default function DisplayBox({title, htmlString, cssString}) {
 
 	useEffect(() => { console.log('isAnimating', isAnimating)}, [isAnimating])
 
-
 	useEffect(() => { 
 		changeDisplay()
 	}, [displayIsOpen])
-
 
 	// const [boxIsTransitioning, setBoxIsTransitioning] = useState(false);
 	 
