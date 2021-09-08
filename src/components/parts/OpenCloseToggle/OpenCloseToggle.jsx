@@ -2,17 +2,21 @@
 
 import React, {useState, useEffect} from 'react';
 import './OpenCloseToggleStyle.css';
+import {detectTransitions} from './../../utils.js';
 
-export default function OpenCloseToggle({toggleIsOpen, isAnimating, handleClick, i = Math.random()}) { 
+export default function OpenCloseToggle({toggleIsOpen, parentIsAnimating, handleClick, i = Math.random()}) { 
 	const vertLineId = 'vert-line-' + i;
 	const horizLineId = 'horiz-line-' + i;
 	const openCloseToggleId = 'open-close-toggle' + i;
 
+	const [lineIsAnimating, setLineIsAnimating] = useState(false);
 	const [lineDirectionClass, setLineDirectionClass] = useState(toggleIsOpen ? 'line-open' : 'line-closed');
 	const [lineColorClass, setLineColorClass] = useState('line-out');
 
 	const [cursorLocation, setCursorLocation] = useState('');
 	const [cursorStatus, setCursorStatus] = useState(''); 
+
+	const [isAnimating, setIsAnimating] = useState(false);
 
 	function handleDown() {
 		handleClick();
@@ -52,7 +56,6 @@ export default function OpenCloseToggle({toggleIsOpen, isAnimating, handleClick,
 		} 
 	}, [cursorStatus, cursorLocation, isAnimating])
 
-
 	// change line direction
 	useEffect(() => {
 		if(toggleIsOpen) {
@@ -61,6 +64,21 @@ export default function OpenCloseToggle({toggleIsOpen, isAnimating, handleClick,
 			setLineDirectionClass('line-closed');
 		} 
 	}, [toggleIsOpen]);
+
+	// detect animation
+	useEffect(() => {
+		detectTransitions(vertLineId, 'transform', setLineIsAnimating)
+	}, [])
+
+	useEffect(() => {
+		if(parentIsAnimating || lineIsAnimating) {
+			setIsAnimating(true)
+		} else {	
+			setIsAnimating(false)
+		}
+	}, [parentIsAnimating, lineIsAnimating])
+
+	// useEffect(() => { console.log('isAnimating', isAnimating)}, [isAnimating])
 
 	// // change line direction
 	// useEffect(() => {

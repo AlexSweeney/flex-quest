@@ -1,3 +1,6 @@
+// pass down parentIsAnimating
+// openCloseToggle isAnimating
+
 // change display box size then close - use container -> so don't interfere with chaning size transiiont
 // change size the close box
 // prevent resize smaller than 28px
@@ -20,36 +23,18 @@ export default function DisplayBox({title, htmlString, cssString}) {
 	const [displayIsOpen, setDisplayIsOpen] = useState(true);
 
 	const [toggleIsOpen, setToggleIsOpen] = useState(false);
-
-	const [numTransitions, setNumTransitions] = useState(0);
-
-	// const [openCloseBoxIsTransitioning, setOpenCloseBoxIsTransitioning] = useState(false);
-	const [isAnimating, setIsAnimating] = useState(false); 
+ 
 	const [openCloseBoxIsAnimating, setOpenCloseBoxIsAnimating] = useState(false);
-
-	// detect animation start / end open close
-
-
-	useEffect(() => {
-		detectTransitions(openCloseBoxId, 'width', setOpenCloseBoxIsAnimating)
-	}, [])
-
-	useEffect(() => {
-		console.log('openCloseBoxIsAnimating', openCloseBoxIsAnimating)
-	}, [openCloseBoxIsAnimating])
-
-	// const openCloseBoxIsTransitioning = detectTransitions(openCloseBoxId, 'width');
-	// console.log('openCloseBoxIsTransitioning', openCloseBoxIsTransitioning)
-	// detectTransitions(displayBoxId, 'height')  
+	const [displayBoxIsAnimating, setDisplayBoxIsAnimating] = useState(false);
+	const [isAnimating, setIsAnimating] = useState(false);  
 
 	function handleToggleClick() {
 		setBoxIsOpen(oldVal => !oldVal) 
 	}
 
-	function changeDisplay() {
+	function onDisplayBoxChange() {
 		setToggleIsOpen(!boxIsOpen)
 	}
- 
  
 	// detect box open close
 	useEffect(() => {
@@ -62,20 +47,25 @@ export default function DisplayBox({title, htmlString, cssString}) {
 		})
 	}, [])
 
-	
+	// detect animation start and end
+	useEffect(() => {
+		detectTransitions(openCloseBoxId, 'width', setOpenCloseBoxIsAnimating)
+		detectTransitions(displayBoxId, 'height', setDisplayBoxIsAnimating)
+	}, [])
 
 	useEffect(() => {
-		if(numTransitions === 1) {
+		// console.log('openCloseBoxIsAnimating', openCloseBoxIsAnimating)
+		if(openCloseBoxIsAnimating || displayBoxIsAnimating) {
 			setIsAnimating(true)
-		} else if(numTransitions === 0) {
+		} else {
 			setIsAnimating(false)
 		}
-	}, [numTransitions])
-
+	}, [openCloseBoxIsAnimating, displayBoxIsAnimating])
+ 
 	useEffect(() => { console.log('isAnimating', isAnimating)}, [isAnimating])
 
 	useEffect(() => { 
-		changeDisplay()
+		onDisplayBoxChange()
 	}, [displayIsOpen])
 
 	// const [boxIsTransitioning, setBoxIsTransitioning] = useState(false);
@@ -165,7 +155,7 @@ export default function DisplayBox({title, htmlString, cssString}) {
 			boxIsOpen={boxIsOpen}
 			handleToggleClick={handleToggleClick}
 			toggleIsOpen={toggleIsOpen}
-			toggleIsAnimating={isAnimating}
+			isAnimating={isAnimating}
 		>
 			<div className={"display-box-background custom-scroll"}> 
 				<div id={displayBoxId}>

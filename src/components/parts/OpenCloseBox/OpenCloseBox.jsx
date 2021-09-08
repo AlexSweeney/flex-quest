@@ -11,7 +11,7 @@ export default function OpenCloseBox({
 	boxIsOpen = true, 
 	handleToggleClick = null,
 	toggleIsOpen = false,
-	toggleIsAnimating = false,
+	isAnimating = false,
 	children = null,
 	
 }) { 
@@ -137,7 +137,7 @@ export default function OpenCloseBox({
 					<div className={"open-close-toggle-container"}>
 						<OpenCloseToggle 
 							toggleIsOpen={toggleIsOpen} 
-							isAnimating={toggleIsAnimating}
+							parentIsAnimating={isAnimating}
 							handleClick={handleToggleClick}/>
 	 				</div>
 	 			}
