@@ -45,12 +45,12 @@
 
 .line-over,
 .line-out {
-	transition: background 500ms, transform 3s;
+	transition: background 500ms, transform 1s;
 }
 
 .line-down,
 .line-up {
-	transition: background 250ms, transform 3s;
+	transition: background 250ms, transform 1s;
 }
 
 /*.line-animated {

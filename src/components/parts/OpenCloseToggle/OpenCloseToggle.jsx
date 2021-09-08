@@ -1,4 +1,4 @@
-// fix multiclick -> leaves on animating -> fix parent is animating?
+// fix out
 
 import React, {useState, useEffect} from 'react';
 import './OpenCloseToggleStyle.css';
@@ -32,12 +32,12 @@ export default function OpenCloseToggle({toggleIsOpen, parentIsAnimating, handle
 	}
 
 	function handleOut(e) {  
-		if(e.target.id === openCloseToggleId
-			&& e.relatedTarget.id !== vertLineId && e.relatedTarget.id !== horizLineId) {
+		if(e.target.id !== vertLineId && e.target.id !== horizLineId &&
+			e.relatedTarget.id !== vertLineId && e.relatedTarget.id !== horizLineId) { 
 			setCursorLocation('out'); 
 			setCursorStatus(''); 
 		}
-	}
+	} 
 
 	// change line color
 	useEffect(() => {	
@@ -78,7 +78,7 @@ export default function OpenCloseToggle({toggleIsOpen, parentIsAnimating, handle
 		}
 	}, [parentIsAnimating, lineIsAnimating])
 
-	// useEffect(() => { console.log('isAnimating', isAnimating)}, [isAnimating])
+	useEffect(() => { console.log('isAnimating', isAnimating)}, [isAnimating])
 
 	// // change line direction
 	// useEffect(() => {

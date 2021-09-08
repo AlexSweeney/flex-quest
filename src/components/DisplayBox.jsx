@@ -62,7 +62,7 @@ export default function DisplayBox({title, htmlString, cssString}) {
 		}
 	}, [openCloseBoxIsAnimating, displayBoxIsAnimating])
  
-	useEffect(() => { console.log('isAnimating', isAnimating)}, [isAnimating])
+	// useEffect(() => { console.log('isAnimating', isAnimating)}, [isAnimating])
 
 	useEffect(() => { 
 		onDisplayBoxChange()
