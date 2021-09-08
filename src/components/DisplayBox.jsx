@@ -1,5 +1,8 @@
 // change display box size then close - use container -> so don't interfere with chaning size transiiont
-// press refresh loads
+// change size the close box
+// prevent resize smaller than 28px
+
+// seperate -> resize with margin ?
 
 import React, {useState, useEffect} from 'react'; 
 import OpenCloseBox from './parts/OpenCloseBox/OpenCloseBox.jsx'; 
@@ -89,13 +92,31 @@ export default function DisplayBox({title, htmlString, cssString, i = Math.rando
 	// handle box open and close
 	useEffect(() => {
 		if(boxIsOpen) {
-			setDisplayContainerTransitionClass('display-box-container-transition')
-  		setDisplayContainerSizeClass('display-box-container-open')
+			openContainer()
+			openDisplayBox()
 		} else {
-			setDisplayContainerSizeClass('display-box-container-closed')
-			setDisplayContainerTransitionClass('display-box-container-transition')
+			closeContainer()
+			closeDisplayBox()
 		}
 	}, [boxIsOpen])
+
+	function openContainer() {
+		setDisplayContainerTransitionClass('display-box-container-transition')
+  	setDisplayContainerSizeClass('display-box-container-open')
+	}
+
+	function openDisplayBox() {
+		setDisplaySizeClass('display-box-open')
+	}
+
+	function closeContainer() {
+		setDisplayContainerSizeClass('display-box-container-closed')
+		setDisplayContainerTransitionClass('display-box-container-transition')
+	}
+
+	function closeDisplayBox() {
+		setDisplaySizeClass('display-box-closed')
+	}
 
 	// handle updates from code boxes
   useEffect(() => {  
@@ -118,10 +139,10 @@ export default function DisplayBox({title, htmlString, cssString, i = Math.rando
 			button_1={<RefreshButton onClick={handleRefresh}/>} 
 			button_2={<GridButton handleClick={handleGridClick} selected={showGrid}/>}
 		>
-			<div className={`display-box-background `}>
+			<div className={'display-box-background custom-scroll'}>
 				<div className={`display-box-container ${displayContainerSizeClass} ${displayContainerTransitionClass}`}>
 					<div className={`display-box ${displaySizeClass} ${displayTransitionClass}`} id="display-box">
-						<GridOverlay showGrid={showGrid}/>
+						{/*<GridOverlay showGrid={showGrid}/>*/}
 						<iframe srcdoc={source} className="iframe"/> 
 					</div>
 				</div>

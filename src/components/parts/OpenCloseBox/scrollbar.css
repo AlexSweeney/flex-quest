@@ -1,4 +1,8 @@
-.custom-scroll::-webkit-scrollbar {
+.custom-scroll {
+	overflow: auto;
+}
+
+.custom-scroll::-webkit-scrollbar { 
   height: 16px;
   width: 16px;
   background: transparent;

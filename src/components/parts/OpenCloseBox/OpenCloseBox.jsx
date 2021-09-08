@@ -136,14 +136,14 @@ export default function OpenCloseBox({
 	 			</div>
 			</div>
 
-			<div className="body-background custom-scroll">  
+			<div className="box-body">  
 				{menuOptions && <BurgerDropDown isOpen={burgerIsOpen} 
 																				options={menuOptions} 
 																				handleOptionClick={handleClickMenu}/>}
 				
-				<div className={`body custom-scroll ${bodyClass}`}>
+				{/*<div className={`body ${bodyClass}`}>*/}
 					{children && children}
-				</div> 
+				{/*</div> */}
 			</div>
 	 	</div> 
 	);

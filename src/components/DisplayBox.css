@@ -1,13 +1,13 @@
 .display-box-background {
 	width: 100%;
 	height: 100%;
-	padding: 0.5em;
 	background: #E8E4E4;
+	overflow: auto;
 }
 
 .display-box-container {
 	width: 100%;
-	height: 100%;
+	height: 100%; 
 }
 
 .display-box-container-open {
@@ -17,6 +17,7 @@
 
 .display-box-container-closed {
 	height: 0;
+	overflow: hidden;
 }
 
 .display-box-container-transition {
@@ -26,10 +27,14 @@
 .display-box {
 	width: 100%;
 	height: 100%;
-	resize: both;
-	overflow: hidden;  
-	background: #272727;
+	/*min-width: 28px;
+	min-height: 28px;
+*/
 	position: relative;
+	resize: both; 
+	overflow: hidden;
+	
+	border: 0.5em solid #E8E4E4;
 } 
 
 .display-box-open {
@@ -38,22 +43,18 @@
 }
 
 .display-box-closed {
-	height: 0;
+	resize: none;
 }
 
 .display-box-transition {
 	transition:  width 500ms ease-in-out, height 500ms ease-in-out; 
-}
-/*
-.iframe-container-big { 
-	width: 100%;
-	height: 100%;
-	transition: width 500ms, height 500ms;
 } 
 
-.iframe-container-hidden {
-	overflow: hidden;
-}*/
+.iframe {
+	width: 100%;
+	height: 100%; 
+	background: #272727;
+}
 
 .grid-overlay {
 	width: 100%;
@@ -62,12 +63,9 @@
 	top: 0;
 }
 
-.iframe {
-	width: 100%;
-	height: 100%; 
-}
 
-.body-background {
+
+/*.body-background {
 	width: 100%;
 	height: 100%;
 	background: pink;
@@ -76,18 +74,23 @@
 .body {
 	width: 100%;
 	height: 100%;  
+}*/
+
+/* Scrollbar */
+.custom-scroll::-webkit-scrollbar {
+  height: 16px;
+  width: 16px;
+  background: transparent;
 }
 
-
-.body-open {
-	/*background: green;*/
+.custom-scroll::-webkit-scrollbar-corner {
+	background: #a7a7a7;
+}
+ 
+.custom-scroll::-webkit-scrollbar-thumb {
+	background: #a7a7a7;  
 }
 
-.body-closing {
-	/*background: yellow;*/
-}
-
-.body-closed {
-	/*background: purple;*/
-	height: 0;
+.custom-scroll::-webkit-scrollbar-thumb:hover { 
+	background: #d6d1d1;
 }
