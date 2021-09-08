@@ -7,33 +7,38 @@ import './scrollbar.css';
 
 export default function OpenCloseBox({
 	title = null,  
-	boxIsOpen = true,
+	id = `open-close-box-${Math.random()}`, 
+	boxIsOpen = true, 
 	handleToggleClick = null,
-	menuOptions = null, 
+	toggleIsOpen = false,
+	toggleIsAnimating = false,
+	children = null,
+	
+}) { 
+
+	/*menuOptions = null, 
 	handleMenuOptionClick, 
 	handleRefresh = () => {},
 	children = null,
 	button_1 = null,
 	button_2 = null,
-	i = Math.random(),
-	id = `box_${i}`,
-}) { 
-	const thisId = id;
+	i = Math.random(),*/
+
 	// const [boxIsOpen, setBoxIsOpen] = useState(true);
 	
-	const [boxClass, setBoxClass] = useState('');
+	const [boxOpenClass, setBoxOpenClass] = useState('');
 
 	// const [animateOpenCloseToggle, setAnimateOpenCloseToggle] = useState(false);
-	const [isChangingWidth, setIsChangingWidth] = useState(false);
+	// const [isChangingWidth, setIsChangingWidth] = useState(false);
 
-	const [burgerIsOpen, setBurgerIsOpen] = useState(false);
-	const [burgerWasOpen, setBurgerWasOpen] = useState(false); 
+	// const [burgerIsOpen, setBurgerIsOpen] = useState(false);
+	// const [burgerWasOpen, setBurgerWasOpen] = useState(false); 
 	
-	const [rotateNum, setRotateNum] = useState(0);
-	const [bodyClass, setBodyClass] = useState('body-open');
+	// const [rotateNum, setRotateNum] = useState(0);
+	// const [bodyClass, setBodyClass] = useState('body-open');
   
 	// Burger Click
-	function handleBurgerClick() {
+	/*function handleBurgerClick() {
 		setBurgerIsOpen(oldVal => !oldVal);
 	}
 
@@ -44,7 +49,7 @@ export default function OpenCloseBox({
 	function hideBurger() {
 		setBurgerWasOpen(burgerIsOpen);
 		setBurgerIsOpen(false);	
-	}
+	}*/
 
 	// Open Close Toggle
 	/*function handleOpenCloseToggleClick() {  
@@ -56,10 +61,10 @@ export default function OpenCloseBox({
 	}*/
 
 	// burger titles
-	function handleClickMenu(option) {
+	/*function handleClickMenu(option) {
 		handleMenuOptionClick(option);
 		setBurgerIsOpen(false);
-	}
+	}*/
 
 	// refresh button
 	/*function refreshDown() {
@@ -87,9 +92,9 @@ export default function OpenCloseBox({
 
 	useEffect(() => {
 		if(boxIsOpen) {
-			setBoxClass('box-open');
+			setBoxOpenClass('box-open');
 		} else {	
-			setBoxClass('box-closed');
+			setBoxOpenClass('box-closed');
 		}
 	}, [boxIsOpen])
 
@@ -104,48 +109,44 @@ export default function OpenCloseBox({
 	}, [])
 */
 	return ( 
-		<div className={`box ${boxClass}`} isopen={boxIsOpen.toString()} id={thisId}>  
+		<div className={`box ${boxOpenClass}`} id={id}>  
 			<div className="box-header">
-				{/* Menu Button */}
-				{menuOptions && 
+				{/*{menuOptions && 
 					<div className="burger-container">
 						<Burger menuOptions={menuOptions} burgerIsOpen={burgerIsOpen} onClick={handleBurgerClick}/> 
 					</div>}
 
 			  <div className="button-container">
-					{/* Button 1 */}
-					{button_1 && 
+					{/*{button_1 && 
 						<div className="button button-1">
 							{button_1}
 						</div>
 					}
 
-				 	{/* Button 2 */}
-					{button_2 && 
+					{/*{button_2 && 
 						<div className="button button-2">
 							{button_2}
 						</div>
 					}
-				</div>
+				</div>*/}
 				
-				{/* Title */}
 		 		<div className="title">{title}</div>
 
 				{ 
 					handleToggleClick && 
 					<div className={"open-close-toggle-container"}>
 						<OpenCloseToggle 
-							isOpen={boxIsOpen} 
-							handleClick={handleToggleClick}
-							parentIsAnimating={isChangingWidth}/>
+							toggleIsOpen={toggleIsOpen} 
+							isAnimating={toggleIsAnimating}
+							handleClick={handleToggleClick}/>
 	 				</div>
 	 			}
 			</div>
 
 			<div className="box-body">  
-				{menuOptions && <BurgerDropDown isOpen={burgerIsOpen} 
+				{/*{menuOptions && <BurgerDropDown isOpen={burgerIsOpen} 
 																				options={menuOptions} 
-																				handleOptionClick={handleClickMenu}/>}
+																				handleOptionClick={handleClickMenu}/>}*/}
 				
 				{/*<div className={`body ${bodyClass}`}>*/}
 					{children && children}

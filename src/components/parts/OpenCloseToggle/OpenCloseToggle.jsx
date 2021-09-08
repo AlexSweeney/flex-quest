@@ -3,19 +3,16 @@
 import React, {useState, useEffect} from 'react';
 import './OpenCloseToggleStyle.css';
 
-export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick, i = Math.random()}) { 
+export default function OpenCloseToggle({toggleIsOpen, isAnimating, handleClick, i = Math.random()}) { 
 	const vertLineId = 'vert-line-' + i;
 	const horizLineId = 'horiz-line-' + i;
 	const openCloseToggleId = 'open-close-toggle' + i;
 
-	const [lineDirectionClass, setLineDirectionClass] = useState(isOpen ? 'line-open' : 'line-closed');
+	const [lineDirectionClass, setLineDirectionClass] = useState(toggleIsOpen ? 'line-open' : 'line-closed');
 	const [lineColorClass, setLineColorClass] = useState('line-out');
 
-	/*const [isOver, setIsOver] = useState(false);
-	const [isDown, setIsDown] = useState(false);*/
 	const [cursorLocation, setCursorLocation] = useState('');
-	const [cursorStatus, setCursorStatus] = useState('');
-	const [animationStatus, setAnimationStatus] = useState('');
+	const [cursorStatus, setCursorStatus] = useState(''); 
 
 	function handleDown() {
 		handleClick();
@@ -38,65 +35,78 @@ export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick,
 		}
 	}
 
-	// animation status : parent animating
-	useEffect(() => {
-		if(parentIsAnimating) {
-			setAnimationStatus('parentIsAnimating');
-		} else if (animationStatus !== 'lineIsAnimating' && !parentIsAnimating) {
-			setAnimationStatus('');
-		}
-	}, [parentIsAnimating]) 
-
-	// animation status : line animating
-	useEffect(() => { 
-		const lineElement = document.getElementById(vertLineId); 
-		
-		lineElement.addEventListener('transitionstart', (e) => {  
-			if(e.propertyName === 'transform') {
-				setAnimationStatus('lineIsAnimating');
-			} 
-		})
-
-		lineElement.addEventListener('transitionend', (e) => { 
-			if(e.propertyName === 'transform') {
-				setAnimationStatus('lineHasAnimated');
-			} 
-		})
-	}, [])
-
 	// change line color
 	useEffect(() => {	
 		// cursor
 		if(cursorLocation === 'over' && cursorStatus === '') {
 			setLineColorClass('line-over');
-		} else if(cursorLocation === 'out' && animationStatus == '') {
+		} else if(cursorLocation === 'out' && !isAnimating) {
 			setLineColorClass('line-out');
 		} else if(cursorLocation === 'over' && cursorStatus === 'up') {
 			setLineColorClass('line-up');
 		} else if(cursorStatus === 'down' && cursorLocation === 'over') {
 			setLineColorClass('line-down');
 		// animation
-		} else if(animationStatus === 'parentIsAnimating' && cursorLocation === 'out') {
-			setLineColorClass('line-parent-animating');
-		} else if(animationStatus === 'lineIsAnimating'  && cursorLocation === 'out') {
+		} else if(isAnimating && cursorLocation === 'out') {
 			setLineColorClass('line-animating');
-		} else if(animationStatus === 'lineHasAnimated'  && cursorLocation === 'out') {
-			setLineColorClass('line-animated');
 		} 
-	}, [cursorStatus, cursorLocation, animationStatus])
+	}, [cursorStatus, cursorLocation, isAnimating])
+
 
 	// change line direction
 	useEffect(() => {
-		if(!parentIsAnimating) {
-			if(isOpen) {
-				setLineDirectionClass('line-open');
-			} else {
-				setLineDirectionClass('line-closed');
-			}	
+		if(toggleIsOpen) {
+			setLineDirectionClass('line-open');
+		} else {
+			setLineDirectionClass('line-closed');
 		} 
-	}, [parentIsAnimating, isOpen]);
+	}, [toggleIsOpen]);
 
-	
+	// // change line direction
+	// useEffect(() => {
+	// 	if(toggleIsOpen) {
+	// 		setLineDirectionClass('line-open');
+	// 	} else {
+	// 		setLineDirectionClass('line-closed');
+	// 	}
+	// 	if(!parentIsAnimating) {
+	// 		if(isOpen) {
+	// 			setLineDirectionClass('line-open');
+	// 		} else {
+	// 			setLineDirectionClass('line-closed');
+	// 		}	
+	// 	} 
+	// }, [toggleIsOpen]);
+
+	// change line color
+	// useEffect(() => {	
+	// 	// cursor
+	// 	if(cursorLocation === 'over' && cursorStatus === '') {
+	// 		setLineColorClass('line-over');
+	// 	} else if(cursorLocation === 'out' && animationStatus == '') {
+	// 		setLineColorClass('line-out');
+	// 	} else if(cursorLocation === 'over' && cursorStatus === 'up') {
+	// 		setLineColorClass('line-up');
+	// 	} else if(cursorStatus === 'down' && cursorLocation === 'over') {
+	// 		setLineColorClass('line-down');
+	// 	// animation
+	// 	} else if(toggleIsAnimating && cursorLocation === 'out') {
+	// 		setLineColorClass('line-animating');
+	// 	} /*else if(animationStatus === 'lineIsAnimating'  && cursorLocation === 'out') {
+	// 		setLineColorClass('line-animating');
+	// 	} else if(animationStatus === 'lineHasAnimated'  && cursorLocation === 'out') {
+	// 		setLineColorClass('line-animated');
+	// 	} */
+	// }, [cursorStatus, cursorLocation, animationStatus])
+
+	// animation status : parent animating
+	/*useEffect(() => {
+		if(parentIsAnimating) {
+			setAnimationStatus('parentIsAnimating');
+		} else if (animationStatus !== 'lineIsAnimating' && !parentIsAnimating) {
+			setAnimationStatus('');
+		}
+	}, [parentIsAnimating]) */
 
 	// useEffect(() => {
 	// 	console.log('parentIsAnimating', parentIsAnimating);
@@ -113,6 +123,24 @@ export default function OpenCloseToggle({isOpen, parentIsAnimating, handleClick,
 	// useEffect(() => {
 	// 	console.log('animationStatus', animationStatus); 
 	// }, [animationStatus]); 
+
+	// animation status : line animating
+	// useEffect(() => { 
+	// 	const lineElement = document.getElementById(vertLineId); 
+		
+	// 	lineElement.addEventListener('transitionstart', (e) => {  
+	// 		if(e.propertyName === 'transform') {
+	// 			setAnimationStatus('lineIsAnimating');
+	// 		} 
+	// 	})
+
+	// 	lineElement.addEventListener('transitionend', (e) => { 
+	// 		if(e.propertyName === 'transform') {
+	// 			setAnimationStatus('lineHasAnimated');
+	// 		} 
+	// 	})
+	// }, [])
+
 
 	return (
 		<div className="open-close-toggle" 	

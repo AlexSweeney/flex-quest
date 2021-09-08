@@ -12,7 +12,85 @@ import GridOverlay from './parts/GridOverlay.jsx';
 import './DisplayBox.css';
 
 export default function DisplayBox({title, htmlString, cssString}) {
+	const openCloseBoxId = 'open-close-box-0';
+	const displayBoxId = 'display-box-0';
+
 	const [boxIsOpen, setBoxIsOpen] = useState(true); 
+	const [displayIsOpen, setDisplayIsOpen] = useState(true);
+
+	const [toggleIsOpen, setToggleIsOpen] = useState(false);
+
+	const [numTransitions, setNumTransitions] = useState(0);
+	const [isAnimating, setIsAnimating] = useState(false);
+
+	function handleToggleClick() {
+		setBoxIsOpen(oldVal => !oldVal) 
+	}
+
+	function changeDisplay() {
+		setToggleIsOpen(!boxIsOpen)
+	}
+
+	// detect box open close
+	useEffect(() => {
+		const openCloseBoxElement = document.getElementById(openCloseBoxId);
+
+		openCloseBoxElement.addEventListener('transitionend', (e) => {
+			if(e.propertyName === 'width') {
+				setDisplayIsOpen(oldVal => !oldVal)
+			}
+		})
+	}, [])
+
+	// detect animation start / end open close
+	useEffect(() => {
+		const openCloseBoxElement = document.getElementById(openCloseBoxId);
+
+		openCloseBoxElement.addEventListener('transitionstart', (e) => { 
+			if(e.propertyName === 'width') {
+				setNumTransitions(oldVal => oldVal + 1)
+			}
+		})
+
+		openCloseBoxElement.addEventListener('transitionend', (e) => {
+			if(e.propertyName === 'width') {
+				setNumTransitions(oldVal => oldVal - 1)
+			}
+		}) 
+	}, [])
+
+	// detect animation start / end  toggle line
+	useEffect(() => {
+		const displayBoxElement = document.getElementById(displayBoxId);
+
+		displayBoxElement.addEventListener('transitionstart', (e) => {
+			if(e.propertyName === 'height') {
+				setNumTransitions(oldVal => oldVal + 1)
+			}
+		})
+
+		displayBoxElement.addEventListener('transitionend', (e) => {
+			if(e.propertyName === 'height') {
+				setNumTransitions(oldVal => oldVal - 1)
+			}
+		})
+	}, [])
+
+	useEffect(() => {
+		if(numTransitions === 1) {
+			setIsAnimating(true)
+		} else if(numTransitions === 0) {
+			setIsAnimating(false)
+		}
+	}, [numTransitions])
+
+	useEffect(() => { console.log('isAnimating', isAnimating)}, [isAnimating])
+
+
+	useEffect(() => { 
+		changeDisplay()
+	}, [displayIsOpen])
+
 
 	// const [boxIsTransitioning, setBoxIsTransitioning] = useState(false);
 	 
@@ -96,17 +174,21 @@ export default function DisplayBox({title, htmlString, cssString}) {
 
 	return (
 		<OpenCloseBox
+			id={openCloseBoxId}
 			title={title} 
 			boxIsOpen={boxIsOpen}
+			handleToggleClick={handleToggleClick}
+			toggleIsOpen={toggleIsOpen}
+			toggleIsAnimating={isAnimating}
 		>
-			{/*<div className={"display-box-background custom-scroll"}>
-				<div className={`display-box ${displaySizeClass} ${displayTransitionClass}`} id="display-box"> 
+			<div className={"display-box-background custom-scroll"}> 
+				<div id={displayBoxId}>
 				</div>
-				<div className={`display-box ${displaySizeClass} ${displayTransitionClass}`} id="display-box">
+				{/*<div className={`display-box ${displaySizeClass} ${displayTransitionClass}`} id="display-box">
 					<GridOverlay showGrid={showGrid}/>
 					<iframe srcdoc={source} className="iframe"/>  
-				</div>
-			</div>*/}
+				</div>*/}
+			</div>
 		</OpenCloseBox>
 	)
 }

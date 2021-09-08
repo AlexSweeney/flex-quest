@@ -19,13 +19,13 @@
 	background: #272727;
 }
 
-.line-open {
-	transition: transform 1s;
+.line-closed {
+	transition: transform 3s;
 }
 
-.line-closed { 
-	transform: rotate(90deg); 
-	transition: transform 1s;
+.line-open { 
+	transform: rotate(90deg);  
+	transition: transform 3s;
 }
 
 .line-over,
@@ -38,22 +38,21 @@
 	background: #272727;
 }
 
-.line-down,
-.line-parent-animating,
+.line-down, 
 .line-animating {
 	background: #3f51b5;
 } 
 
 .line-over,
 .line-out {
-	transition: background 500ms, transform 1s;
+	transition: background 500ms, transform 3s;
 }
 
 .line-down,
 .line-up {
-	transition: background 250ms, transform 1s;
+	transition: background 250ms, transform 3s;
 }
 
-.line-animated {
+/*.line-animated {
 	transition: background 1s, transform 1s;
-}
+}*/
