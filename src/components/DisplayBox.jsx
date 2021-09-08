@@ -21,6 +21,7 @@ export default function DisplayBox({title, htmlString, cssString, i = Math.rando
  	const [displayContainerTransitionClass, setDisplayContainerTransitionClass] = useState('');
 
  	const [isRefresh, setIsRefresh] = useState(false);
+ 	const [displayBoxContainerStatus, setDisplayBoxContainerStatus] = useState('');
  	const [displaySizeClass, setDisplaySizeClass] = useState('display-box-open');
  	const [displayTransitionClass, setDisplayTransitionClass] = useState('');
   
@@ -50,7 +51,25 @@ export default function DisplayBox({title, htmlString, cssString, i = Math.rando
 		displayBoxElement.style = '';
 	}
 
-	// box open and close detect
+	function openContainer() {
+		setDisplayContainerSizeClass('display-box-container-open')
+		setDisplayContainerTransitionClass('display-box-container-transition')
+	}
+
+	function closeContainer() {
+		setDisplayContainerSizeClass('display-box-container-closed')
+		setDisplayContainerTransitionClass('display-box-container-transition')
+	}
+
+	function openDisplayBox() {
+		setDisplaySizeClass('display-box-open')
+	}
+
+	function closeDisplayBox() {
+		setDisplaySizeClass('display-box-closed')
+	}
+
+	// detect box open and close 
 	useEffect(() => {
 		const openCloseBoxElement = document.getElementById(thisId);
 
@@ -63,6 +82,23 @@ export default function DisplayBox({title, htmlString, cssString, i = Math.rando
 				} else if (isOpen === 'false') {
 					setBoxIsOpen(false)
 				}
+			}
+		})
+	}, [])
+
+	// detect display box open and close
+	useEffect(() => {
+		const displayBoxElement = document.getElementById('display-box-container');
+
+		displayBoxElement.addEventListener('transitionstart', (e) => {
+			if(e.propertyName === 'height') {
+				setDisplayBoxContainerStatus('started')
+			}
+		})
+
+		displayBoxElement.addEventListener('transitionend', (e) => {
+			if(e.propertyName === 'height') {
+				setDisplayBoxContainerStatus('finished')
 			}
 		})
 	}, [])
@@ -93,30 +129,22 @@ export default function DisplayBox({title, htmlString, cssString, i = Math.rando
 	useEffect(() => {
 		if(boxIsOpen) {
 			openContainer()
-			openDisplayBox()
+			
 		} else {
 			closeContainer()
 			closeDisplayBox()
 		}
 	}, [boxIsOpen])
 
-	function openContainer() {
-		setDisplayContainerTransitionClass('display-box-container-transition')
-  	setDisplayContainerSizeClass('display-box-container-open')
-	}
-
-	function openDisplayBox() {
-		setDisplaySizeClass('display-box-open')
-	}
-
-	function closeContainer() {
-		setDisplayContainerSizeClass('display-box-container-closed')
-		setDisplayContainerTransitionClass('display-box-container-transition')
-	}
-
-	function closeDisplayBox() {
-		setDisplaySizeClass('display-box-closed')
-	}
+	useEffect(() => {
+		if(displayBoxContainerStatus === 'finished' && boxIsOpen) {
+			openDisplayBox() 
+			setDisplayBoxContainerStatus('')
+		} else if(displayBoxContainerStatus === 'finished' && !boxIsOpen) {
+			closeDisplayBox()
+			setDisplayBoxContainerStatus('')
+		}
+	}, [displayBoxContainerStatus, boxIsOpen])
 
 	// handle updates from code boxes
   useEffect(() => {  
@@ -140,7 +168,7 @@ export default function DisplayBox({title, htmlString, cssString, i = Math.rando
 			button_2={<GridButton handleClick={handleGridClick} selected={showGrid}/>}
 		>
 			<div className={'display-box-background custom-scroll'}>
-				<div className={`display-box-container ${displayContainerSizeClass} ${displayContainerTransitionClass}`}>
+				<div className={`display-box-container ${displayContainerSizeClass} ${displayContainerTransitionClass}`} id='display-box-container'>
 					<div className={`display-box ${displaySizeClass} ${displayTransitionClass}`} id="display-box">
 						{/*<GridOverlay showGrid={showGrid}/>*/}
 						<iframe srcdoc={source} className="iframe"/> 
