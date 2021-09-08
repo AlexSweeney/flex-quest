@@ -9,6 +9,7 @@ import OpenCloseBox from './parts/OpenCloseBox/OpenCloseBox.jsx';
 import RefreshButton from './parts/RefreshButton.jsx';
 import GridButton from './parts/GridButton.jsx'; 
 import GridOverlay from './parts/GridOverlay.jsx';
+import {detectTransitions} from './utils.js';
 import './DisplayBox.css';
 
 export default function DisplayBox({title, htmlString, cssString}) {
@@ -23,13 +24,14 @@ export default function DisplayBox({title, htmlString, cssString}) {
 	const [numTransitions, setNumTransitions] = useState(0);
 
 	// const [openCloseBoxIsTransitioning, setOpenCloseBoxIsTransitioning] = useState(false);
-	const [isAnimating, setIsAnimating] = useState(false);
-	const [numOpenCloseBoxTransitions, setNumOpenCloseBoxTransitions] = useState(0);
+	const [isAnimating, setIsAnimating] = useState(false); 
 	const [openCloseBoxIsAnimating, setOpenCloseBoxIsAnimating] = useState(false);
 
 	// detect animation start / end open close
+
+
 	useEffect(() => {
-		detectTransitions(openCloseBoxId, 'width', setNumOpenCloseBoxTransitions, setOpenCloseBoxIsAnimating);
+		detectTransitions(openCloseBoxId, 'width', setOpenCloseBoxIsAnimating)
 	}, [])
 
 	useEffect(() => {
@@ -47,48 +49,8 @@ export default function DisplayBox({title, htmlString, cssString}) {
 	function changeDisplay() {
 		setToggleIsOpen(!boxIsOpen)
 	}
-
-	// const [numTransitions, setNumTransitions] = useState(0);
-	// const [isTransitioning, setIsTransitioning] = useState(false);
-
-	
-
-	function detectTransitions(id, propertyName, setNumTransitions, setIsAnimating) {
-		const element = document.getElementById('open-close-box-0');
-
-		element.addEventListener('transitionstart', (e) => { 
-			if(e.propertyName === propertyName) {
-				console.log('onStart')
-				setNumTransitions(oldVal => {
-					const newVal = oldVal + 1;
-					if(newVal === 1) setIsAnimating(true)
-					if(newVal === 0) setIsAnimating(false)
-					return newVal;
-				}) 
-			}
-		})
-
-		element.addEventListener('transitionend', (e) => { 
-			if(e.propertyName === propertyName) {
-				console.log('onEnd')
-				setNumTransitions(oldVal => {
-					const newVal = oldVal -1;
-					if(newVal === 1) setIsAnimating(true)
-					if(newVal === 0) setIsAnimating(false)
-					return newVal;
-				})
-			}
-		})
-
-		/* useEffect(() => {
-			if(numTransitions === 1) {
-				setIsAnimating(true)
-			} else if(numTransitions === 0) {
-				setIsAnimating(false)
-			}
-		}, [numTransitions])*/
-	}
-
+ 
+ 
 	// detect box open close
 	useEffect(() => {
 		const openCloseBoxElement = document.getElementById(openCloseBoxId); 
