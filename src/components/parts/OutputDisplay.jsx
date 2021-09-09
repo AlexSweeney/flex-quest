@@ -10,12 +10,28 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 
 	const [displayBoxContainerClass, setDisplayBoxContainerClass] = useState('');
 	const [displayBoxClass, setDisplayBoxClass] = useState('');
+	const [displayBoxMaxSizeClass, setDisplayBoxMaxSizeClass] = useState('');
 	const [isAnimating, setIsAnimating] = useState(false);
+
+	function setMaxSize(id) {
+		const element = document.getElementById(id);
+
+		if(!elementIsOverflowing(element)) { 
+			setDisplayBoxMaxSizeClass('display-box-max-size')
+		} else { 
+			setDisplayBoxMaxSizeClass('')
+		}
+	}
+
+	function elementIsOverflowing(element) {
+	  return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
+	}
 
 	useEffect(() => {
 		if(isAnimating) {
 			setDisplayBoxContainerClass('display-box-container-animating')
 			setDisplayBoxClass('display-box-animating')
+			setMaxSize(displayBoxContainerId)
 		} else {
 			setDisplayBoxContainerClass('')
 			setDisplayBoxClass('')
@@ -63,7 +79,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 		<div className="output-display">
 			<LearnBox title={title} i={i} isAnimating={isAnimating} setIsAnimating={setIsAnimating}>
 				<div className={`display-box-container ${displayBoxContainerClass}`} id={displayBoxContainerId}>
-					<div className={`display-box ${displayBoxClass}`} id="display-box">
+					<div className={`display-box ${displayBoxClass} ${displayBoxMaxSizeClass}`} id="display-box">
 						{/*<GridOverlay showGrid={showGrid}/>*/}
 						<iframe srcdoc={source} className="iframe"/>  
 					</div>

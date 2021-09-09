@@ -17,7 +17,8 @@
 
 .output-display .display-box {
 	height: 100%;
-	width: 100%;  
+	width: 100%; 
+	max-width: 200%; 
 	position: relative;
 	resize: both; 
 	overflow: hidden;
@@ -27,4 +28,9 @@
 
 .output-display .display-box-animating {
 	resize: none;
+}
+
+.output-display .display-box-max-size {
+	max-width: 100%;
+	max-height: 100%;
 }

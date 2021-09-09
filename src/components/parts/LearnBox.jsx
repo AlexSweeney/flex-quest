@@ -88,9 +88,11 @@ export default function LearnBox({title, i, isAnimating, setIsAnimating, childre
 			setIsAnimating(true)
 		}
 	}, [learnBoxStatus])*/
+	/*useEffect(() => {
+		console.log('isAnimating', isAnimating)
+	}, [isAnimating])*/
 
 	// set content container open / closed
-	// set isAnimating
 	useEffect(() => {
 		if(learnBoxStatus === 'learn-box-open') {
 			setContentContainerClass('content-container-open')

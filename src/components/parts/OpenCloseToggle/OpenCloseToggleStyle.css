@@ -20,12 +20,12 @@
 }
 
 .line-closed {
-	transition: transform 3s;
+	transition: transform 1s;
 }
 
 .line-open { 
 	transform: rotate(90deg);  
-	transition: transform 3s;
+	transition: transform 1s;
 }
 
 .line-over,
