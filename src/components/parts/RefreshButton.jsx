@@ -49,6 +49,7 @@ export default function RefreshButton({onClick}) {
 	}
 
 	useEffect(() => { 
+		console.log('isOver', isOver);
 		let newClass = 'refresh-button';
 
 		if(isDown || isAnimating && !isOver) {
@@ -58,19 +59,7 @@ export default function RefreshButton({onClick}) {
 		}
 
 		setRefreshClass(newClass);
-	}, [isDown, isOver, isAnimating])
-
-	/* useEffect(() => {
-	 	console.log('timer start');
-
-    const timer = setTimeout(() => {
-    	console.log('timer finished');
-      setIsAnimating(false);
-    }, 1000);
-
-    console.log('timer', timer);
-    return () => clearTimeout(timer);
-  }, [isAnimating]);*/
+	}, [isDown, isOver, isAnimating]) 
 
 	return ( 
 		<div className={refreshClass}

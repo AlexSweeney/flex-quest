@@ -26,6 +26,10 @@
 	background: #272727; 
 }
 
+.learn-box .buttons-container {
+	z-index: 1000;
+}
+
 /* Title */
 .learn-box .title {
 	flex-grow: 1; 

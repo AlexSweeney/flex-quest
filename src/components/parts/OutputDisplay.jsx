@@ -1,10 +1,16 @@
 import React, {useState, useEffect} from 'react'; 
 import LearnBox from './LearnBox.jsx';
+import RefreshButton from './RefreshButton.jsx';
 import {detectTransitions} from './../utils.js';
 import './OutputDisplay.css';
 import './scrollbar.css';
 
 export default function OutputDisplay({title, i, htmlString, cssString}) {
+	const buttons = [
+		<RefreshButton onClick={onRefreshClick}/>
+
+	];	
+
 	const displayBoxContainerId = `display-box-container-${i}`;
 
 	const [source, setSource] = useState(null);
@@ -13,6 +19,10 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	const [displayBoxClass, setDisplayBoxClass] = useState('');
 	const [displayBoxMaxSizeClass, setDisplayBoxMaxSizeClass] = useState('');
 	const [isAnimating, setIsAnimating] = useState(false);
+
+	function onRefreshClick() {
+		console.log('refresh')
+	}
 
 	function setMaxSize(id) {
 		const element = document.getElementById(id);
@@ -78,7 +88,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 
 	return (
 		<div className="output-display">
-			<LearnBox title={title} i={i} isAnimating={isAnimating} setIsAnimating={setIsAnimating}>
+			<LearnBox title={title} i={i} isAnimating={isAnimating} setIsAnimating={setIsAnimating} buttons={buttons}>
 				<div className={`display-box-container custom-scroll ${displayBoxContainerClass}`} id={displayBoxContainerId}>
 					<div className={`display-box ${displayBoxClass} ${displayBoxMaxSizeClass}`} id="display-box">
 						{/*<GridOverlay showGrid={showGrid}/>*/}
