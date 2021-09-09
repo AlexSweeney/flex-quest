@@ -1,4 +1,6 @@
-// change display box size then close - use container -> so don't interfere with chaning size transiiont
+// change display box size then close 
+// a smaller then close
+// b bigger then close
 // change size the close box
 
 // seperate -> resize with margin ?
@@ -15,7 +17,10 @@ export default function DisplayBox({title, htmlString, cssString}) {
 	const openCloseBoxId = 'open-close-box-0';
 	const displayBoxId = 'display-box-0';
 
-	const [boxIsOpen, setBoxIsOpen] = useState(true); 
+	const [boxIsOpen, setBoxIsOpen] = useState(true);
+	const [boxIsAnimating, setBoxIsAnimating] = useState(false);
+	const [boxStatus, setBoxStatus] = useState('box-open');
+	
 	const [displayIsOpen, setDisplayIsOpen] = useState(true);
 	const [displayBoxHeightClass, setDisplayBoxHeightClass] = useState('display-box-open');
 	const [displayBoxTransitionClass, setDisplayBoxTransitionClass] = useState('');
@@ -27,12 +32,50 @@ export default function DisplayBox({title, htmlString, cssString}) {
 	const [isAnimating, setIsAnimating] = useState(false);  
 
 	function handleToggleClick() {
-		setBoxIsOpen(oldVal => !oldVal) 
-		setIsAnimating(true)
+		setBoxIsOpen(oldVal => !oldVal)
 	}  
-  
-	// detect box open close
+
+	/*function updateBoxStatus(oldVal) {
+		let newStatus;
+		if(boxStatus === 'open') newStatus = 'closing';
+		else if(boxStatus === 'closed') newStatus = 'opening';
+		setBoxStatus(newStatus)
+	}*/
+
+	/*function setMaxSize(id) {
+		const element = document.getElementById(id);
+		const width = element.style.width;
+		const height = element.style.height;
+		element.style.width = '100%';
+		element.style.height = '100%';
+
+		element.style['max-width'] = width;
+		element.style['max-height'] = height;
+	}*/
+
+	// detect box animations
 	useEffect(() => {
+		detectTransitions(openCloseBoxId, 'width', setBoxIsAnimating)
+	}, [])
+
+	// set box status 
+	useEffect(() => { 
+		if(boxIsAnimating) {
+			if(boxIsOpen) setBoxStatus('box-opening')
+			else setBoxStatus('box-closing')
+		} else {
+			if(boxIsOpen && boxStatus === 'box-opening') setBoxStatus('box-open')
+			else if(!boxIsOpen && boxStatus === 'box-closing') setBoxStatus('box-closed')
+		} 
+	}, [boxIsOpen, boxIsAnimating, boxStatus])
+
+	// set classes
+	useEffect(() => {
+		console.log('boxStatus', boxStatus)
+	}, [boxStatus])
+  
+	// detect display box open close
+	/*useEffect(() => {
 		const openCloseBoxElement = document.getElementById(openCloseBoxId); 
 
 		openCloseBoxElement.addEventListener('transitionend', (e) => {
@@ -40,22 +83,22 @@ export default function DisplayBox({title, htmlString, cssString}) {
 				setDisplayIsOpen(oldVal => !oldVal)
 			}
 		})
-	}, [])
+	}, [])*/
 
 	// detect animation end
-	useEffect(() => {
-		detectTransitions(openCloseBoxId, 'width', setOpenCloseBoxIsAnimating)
-		detectTransitions(displayBoxId, 'height', setDisplayBoxIsAnimating)
-	}, [])
+	// useEffect(() => {
+	// 	detectTransitions(openCloseBoxId, 'width', setOpenCloseBoxIsAnimating)
+	// 	detectTransitions(displayBoxId, 'height', setDisplayBoxIsAnimating)
+	// }, [])
 
-	useEffect(() => {
+	/*useEffect(() => {
 		if(!openCloseBoxIsAnimating && !displayBoxIsAnimating) {
 			setIsAnimating(false)
 		}
-	}, [openCloseBoxIsAnimating, displayBoxIsAnimating])
+	}, [openCloseBoxIsAnimating, displayBoxIsAnimating])*/
 
-	// open close display box and toggle
-	useEffect(() => { 
+	// handle box open and close
+	/*useEffect(() => { 
 		if(displayIsOpen) {
 			setToggleIsOpen(false)
 			setDisplayBoxHeightClass('display-box-open')
@@ -63,16 +106,25 @@ export default function DisplayBox({title, htmlString, cssString}) {
 			setToggleIsOpen(true)
 			setDisplayBoxHeightClass('display-box-closed')
 		}
-	}, [displayIsOpen])
+	}, [displayIsOpen])*/
 
-	// display box transition on of
-	useEffect(() => { 
+	// handle displaybox size change
+	/*useEffect(() => {
+		// on close = set max width
+		if(!boxIsOpen) {
+			setMaxSize(displayBoxId)
+		}
+		// on open = reset inline style to old value
+	}, [boxIsOpen])*/
+
+	// handle animation start and end
+	/*useEffect(() => { 
 		if(isAnimating) {
 			setDisplayBoxTransitionClass('display-box-transition')
 		} else if(!displayBoxIsAnimating && !displayBoxIsAnimating) {
 			setDisplayBoxTransitionClass('')
 		}
-	}, [isAnimating])
+	}, [isAnimating])*/
 
 	// const [boxIsTransitioning, setBoxIsTransitioning] = useState(false);
 	 
@@ -163,14 +215,14 @@ export default function DisplayBox({title, htmlString, cssString}) {
 			toggleIsOpen={toggleIsOpen}
 			isAnimating={isAnimating}
 		>
-			<div className={"display-box-background custom-scroll"}> 
+			{/*<div className={"display-box-background custom-scroll"}> 
 				<div className={`display-box ${displayBoxHeightClass} ${displayBoxTransitionClass}`} id={displayBoxId}>
 				</div>
-				{/*<div className={`display-box ${displaySizeClass} `} id="display-box">
+				<div className={`display-box ${displaySizeClass} `} id="display-box">
 					<GridOverlay showGrid={showGrid}/>
 					<iframe srcdoc={source} className="iframe"/>  
-				</div>*/}
-			</div>
+				</div>
+			</div>*/}
 		</OpenCloseBox>
 	)
 }
@@ -213,10 +265,7 @@ export default function DisplayBox({title, htmlString, cssString}) {
   	} 
   }
 
-	function removeDisplayInlineStyle() {
-		const displayBoxElement = document.getElementById('display-box');
-		displayBoxElement.style = '';
-	}
+	
 
 	function openContainer() {
 		setDisplayContainerSizeClass('display-box-container-open')

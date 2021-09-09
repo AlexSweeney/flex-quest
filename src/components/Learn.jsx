@@ -233,6 +233,7 @@ export default function Learn() {
 			</OpenCloseBox>*/}
 			{/*<CodeBox title="index.html" value={htmlString} handleChange={handleHtmlChange} handleRefresh={handleHtmlRefresh} fade={fadeHtml}/> 
 			<CodeBox title="style.css" value={cssString} handleChange={handleCssChange} handleRefresh={handleCssRefresh} fade={fadeStyle}/> */}
+			 
 			<DisplayBox title="display" htmlString={displayHtml} cssString={displayCss}/> 
 		</section>
 	)

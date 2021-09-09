@@ -1,0 +1,137 @@
+* {
+	box-sizing: border-box;
+}
+  
+.box {
+	height: 400px;  
+	display: flex;
+	flex-direction: column;
+
+	transition: 6s width ease-in-out; 
+	margin-right: 30px;
+}
+
+.box:last-child {
+	margin-right: 30px;
+}
+
+.box-expanded {
+	width: 100%;
+	min-width: 36px;
+}
+
+.box-minimized {
+	width: 36px; 
+	min-width: 36px;
+}
+
+.box-header {
+	height: 40px;
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	background: #272727; 
+}
+
+.burger-container { 
+	width: 29px; 
+	height: 100%;
+	max-width: 29px;
+	padding-left: 7px;
+	transition: width 2s;
+	z-index: 2;
+  background: #272727; 
+  position: absolute;
+  display: flex;
+ 	align-items: center;
+}
+
+.burger {
+	height: 22px;
+}
+
+.title {
+	flex-grow: 1; 
+	min-width: 0;
+	display: flex;
+	justify-content: center; 
+	white-space: nowrap; 
+	position: absolute;
+	color: #E8E4E4;
+	font-size: 1.2em; 
+	font-family: BaiJamjuree-Medium, Verdana, sans-serif; 
+	width: 29px;
+	min-width: 29px;
+}
+
+.title-opening {
+	width: 100%;
+}
+
+.open-close-toggle-container {
+	height: 100%; 
+	width: 29px;
+	min-width: 29px;
+	display: flex;
+  align-items: center;
+  padding-right: 7px; 
+  background: #272727; 
+  z-index: 3;
+  position: absolute;
+  right: 0;
+}
+
+.open-close-toggle { 
+	width: 22px;
+	height: 22px;
+	z-index: 1000; 
+}
+
+.box-body {
+	display: flex; 
+  width: 100%;
+  height: 100%;
+  background: #E8E4E4; 
+  position: relative;
+}
+
+.text-body {
+	position: absolute;
+	padding: 0.5em 1em;
+	width: 275px;
+	height: 100%;
+	box-sizing: border-box;
+	transition: opacity 500ms ease-in-out;
+} 
+
+.text-body:hover {
+	cursor: default;
+}
+
+.burger-body {
+	width: 100%;  
+	background: #272727;  
+	position: absolute;
+	overflow: hidden;
+	transition: height 500ms ease-in-out; 
+}
+
+.burger-title {
+	height: 20px;
+	color: #E8E4E4;  
+	font-size: 1em;
+	padding: 0.25em 7px;
+	display: flex;
+	align-items: center;
+	font-family: BaiJamjuree-Medium, Verdana, sans-serif;   
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.burger-title:hover {
+	color: #2196f3;
+	background: #4e4e4e;
+	cursor: pointer;
+}

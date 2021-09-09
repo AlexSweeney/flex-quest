@@ -21,17 +21,25 @@
 	
 	height: 100%;
 	/*background: green;*/
+}	
+
+.display-box-closing { 
+
 }
 
 .display-box-closed { 
 	height: 0;
+
+	/*max-width: 100%;
+	max-height: 100%;*/
+
 	resize: none;  
 	border-bottom: none;
 	/*background: red;*/
 }
-
+		
 .display-box-transition {
-	transition: height 500ms;
+	transition: height 500ms, width 500ms;
 }
 
 /*.display-box-background {
