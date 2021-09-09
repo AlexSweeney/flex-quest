@@ -5,36 +5,44 @@
 
 // seperate -> resize with margin ?
 
+// import OpenCloseBox from './parts/OpenCloseBox/OpenCloseBox.jsx'; 
+// import RefreshButton from './parts/RefreshButton.jsx';
+// import GridButton from './parts/GridButton.jsx'; 
+// import GridOverlay from './parts/GridOverlay.jsx';
+
 import React, {useState, useEffect} from 'react'; 
-import OpenCloseBox from './parts/OpenCloseBox/OpenCloseBox.jsx'; 
-import RefreshButton from './parts/RefreshButton.jsx';
-import GridButton from './parts/GridButton.jsx'; 
-import GridOverlay from './parts/GridOverlay.jsx';
-import {detectTransitions} from './utils.js';
-import './DisplayBox.css';
+import OpenCloseToggle from './OpenCloseToggle/OpenCloseToggle.jsx'
+import {detectTransitions} from './../utils.js';
+import './LearnBox.css';
 
-export default function DisplayBox({title, htmlString, cssString}) {
-	/*const openCloseBoxId = 'open-close-box-0';
-	const displayBoxId = 'display-box-0';*/
+export default function LearnBox({title}) {
+	const [learnBoxIsOpen, setLearnBoxIsOpen] = useState(true);
+	const [learnBoxIsAnimating, setLearnBoxIsAnimating] = useState(false);
+	const [learnBoxStatus, setLearnBoxStatus] = useState('box-open');
+	const [learnBoxClass, setLearnBoxClass] = useState('box-open');
 
-	const [boxIsOpen, setBoxIsOpen] = useState(true);
-	const [boxIsAnimating, setBoxIsAnimating] = useState(false);
-	const [boxStatus, setBoxStatus] = useState('box-open');
-	
-	const [displayIsOpen, setDisplayIsOpen] = useState(true);
-	const [displayBoxHeightClass, setDisplayBoxHeightClass] = useState('display-box-open');
-	const [displayBoxTransitionClass, setDisplayBoxTransitionClass] = useState('');
+ 	const [openCloseToggleIsOpen, setOpenCloseToggleIsOpen] = useState(false);
 
-	const [toggleIsOpen, setToggleIsOpen] = useState(false);
- 
-	const [openCloseBoxIsAnimating, setOpenCloseBoxIsAnimating] = useState(false);
-	const [displayBoxIsAnimating, setDisplayBoxIsAnimating] = useState(false);
-	const [isAnimating, setIsAnimating] = useState(false);  
-
-	function handleToggleClick() {
-		setBoxIsOpen(oldVal => !oldVal)
+ 	function handleOpenCloseToggleClick() {
+		setLearnBoxIsOpen(oldVal => !oldVal)
 	}  
 
+	useEffect(() => {
+		let newClass = learnBoxIsOpen ? 'learn-box-open' : 'learn-box-closed';
+		setLearnBoxClass(newClass)
+	}, [learnBoxIsOpen])
+	
+	/*const [displayIsOpen, setDisplayIsOpen] = useState(true);
+	const [displayBoxHeightClass, setDisplayBoxHeightClass] = useState('display-box-open');
+	const [displayBoxTransitionClass, setDisplayBoxTransitionClass] = useState('');*/
+
+	
+ 
+	/*const [openCloseBoxIsAnimating, setOpenCloseBoxIsAnimating] = useState(false);
+	const [displayBoxIsAnimating, setDisplayBoxIsAnimating] = useState(false);*/
+	// const [isAnimating, setIsAnimating] = useState(false);  
+
+	
 	/*function updateBoxStatus(oldVal) {
 		let newStatus;
 		if(boxStatus === 'open') newStatus = 'closing';
@@ -54,174 +62,50 @@ export default function DisplayBox({title, htmlString, cssString}) {
 	}*/
 
 	// detect box animations
-	/*useEffect(() => {
-		detectTransitions(openCloseBoxId, 'width', setBoxIsAnimating)
-	}, [])*/
+	// useEffect(() => {
+	// 	detectTransitions(openCloseBoxId, 'width', setBoxIsAnimating)
+	// }, [])
 
 	// set box status 
-	useEffect(() => { 
-		if(boxIsAnimating) {
-			if(boxIsOpen) setBoxStatus('box-opening')
-			else setBoxStatus('box-closing')
-		} else {
-			if(boxIsOpen && boxStatus === 'box-opening') setBoxStatus('box-open')
-			else if(!boxIsOpen && boxStatus === 'box-closing') setBoxStatus('box-closed')
-		} 
-	}, [boxIsOpen, boxIsAnimating, boxStatus])
+	// useEffect(() => { 
+	// 	if(boxIsAnimating) {
+	// 		if(boxIsOpen) setBoxStatus('box-opening')
+	// 		else setBoxStatus('box-closing')
+	// 	} else {
+	// 		if(boxIsOpen && boxStatus === 'box-opening') setBoxStatus('box-open')
+	// 		else if(!boxIsOpen && boxStatus === 'box-closing') setBoxStatus('box-closed')
+	// 	} 
+	// }, [boxIsOpen, boxIsAnimating, boxStatus])
 
 	// set classes
-	useEffect(() => {
-		console.log('boxStatus', boxStatus)
-		if(boxStatus === 'box-open') {
-			setToggleIsOpen(false)
-		} else if(boxStatus === 'box-closed') {
-			setToggleIsOpen(true)
-		}
-	}, [boxStatus])
-  
-	// detect display box open close
-	/*useEffect(() => {
-		const openCloseBoxElement = document.getElementById(openCloseBoxId); 
-
-		openCloseBoxElement.addEventListener('transitionend', (e) => {
-			if(e.propertyName === 'width') {
-				setDisplayIsOpen(oldVal => !oldVal)
-			}
-		})
-	}, [])*/
-
-	// detect animation end
 	// useEffect(() => {
-	// 	detectTransitions(openCloseBoxId, 'width', setOpenCloseBoxIsAnimating)
-	// 	detectTransitions(displayBoxId, 'height', setDisplayBoxIsAnimating)
-	// }, [])
-
-	/*useEffect(() => {
-		if(!openCloseBoxIsAnimating && !displayBoxIsAnimating) {
-			setIsAnimating(false)
-		}
-	}, [openCloseBoxIsAnimating, displayBoxIsAnimating])*/
-
-	// handle box open and close
-	/*useEffect(() => { 
-		if(displayIsOpen) {
-			setToggleIsOpen(false)
-			setDisplayBoxHeightClass('display-box-open')
-		} else {
-			setToggleIsOpen(true)
-			setDisplayBoxHeightClass('display-box-closed')
-		}
-	}, [displayIsOpen])*/
-
-	// handle displaybox size change
-	/*useEffect(() => {
-		// on close = set max width
-		if(!boxIsOpen) {
-			setMaxSize(displayBoxId)
-		}
-		// on open = reset inline style to old value
-	}, [boxIsOpen])*/
-
-	// handle animation start and end
-	/*useEffect(() => { 
-		if(isAnimating) {
-			setDisplayBoxTransitionClass('display-box-transition')
-		} else if(!displayBoxIsAnimating && !displayBoxIsAnimating) {
-			setDisplayBoxTransitionClass('')
-		}
-	}, [isAnimating])*/
-
-	// const [boxIsTransitioning, setBoxIsTransitioning] = useState(false);
-	 
-	// const [displaySizeClass, setDisplaySizeClass] = useState('display-box-open');
-	// const [displayTransitionClass, setDisplayTransitionClass] = useState('');
-
-	// function handleToggleClick() {
-
-	// }
-
-	// function adjustDisplayInlineStyle() {
-	// 	const displayElement = document.getElementById('display-box');
-
-	// 	let width = displayElement.style.width;
-	// 	let height = displayElement.style.height;
-
-	// 	displayElement.style.width = '';
-	// 	displayElement.style.height = '';
-
-	// 	// displayElement.style['max-width'] = width;
-	// 	// displayElement.style['max-height'] = height;
-	// }
-
-	// detect box open / close 
-	// useEffect(() => {
-	// 	const openCloseBoxElement = document.getElementById(openCloseBoxId);
-
-	// 	openCloseBoxElement.addEventListener('transitionstart', (e) => {
-	// 		if(e.propertyName === 'width' || e) {
-	// 			setBoxIsTransitioning(true)
-	// 		}
-	// 	})
-
-	// 	openCloseBoxElement.addEventListener('transitionend', (e) => {
-	// 		if(e.propertyName === 'width') {
-	// 			setBoxIsTransitioning(false)
-
-	// 			const isOpen = e.srcElement.getAttribute('isopen');
-				
-	// 			if(isOpen === 'true') {
-	// 				setBoxIsOpen(true)
-	// 			} else if (isOpen === 'false') {
-	// 				setBoxIsOpen(false)
-	// 			}
-	// 		}
-	// 	})
-	// }, [])
-
-	// detect display open / close
-	/*useEffect(() => {
-		const displayBoxElement = document.getElementById('diplay-box');
-
-		displayElement.addEventListener('transitionstart', (e) => {
-
-		})
-
-		displayElement.addEventListener('transitionend', (e) => {
-			
-		})
-	}, [])*/
- 
-	// handle box open / close
-	// useEffect(() => {
-	// 	if(boxIsOpen) {
-	// 		setDisplaySizeClass('display-box-open')
-	// 	} else {
-	// 		adjustDisplayInlineStyle()
-	// 		setDisplaySizeClass('display-box-closed')
+	// 	console.log('boxStatus', boxStatus)
+	// 	if(boxStatus === 'box-open') {
+	// 		setToggleIsOpen(false)
+	// 	} else if(boxStatus === 'box-closed') {
+	// 		setToggleIsOpen(true)
 	// 	}
-	// }, [boxIsOpen])
-
-	/*useEffect(() => {
-		if(boxIsTransitioning) {
-			console.log('is trans')
-			setDisplayTransitionClass('display-box-transition')
-		} else if (!displayIsTransitioning){	
-			console.log('is not trans')
-			setDisplayTransitionClass('')
-		}
-	}, [boxIsTransitioning, displayIsTransitioning])*/
+	// }, [boxStatus])
 
 	return (
-		<div className={`box`} id="box">
+		<div className={`learn-box ${learnBoxClass}`} id="learn-box">
+			<div className="header">
+				<div className="title">{title}</div>
 
+				<div className="open-close-toggle-container">
+					<OpenCloseToggle 	
+						isOpen={openCloseToggleIsOpen}
+						handleClick={handleOpenCloseToggleClick}
+					/>
+				</div>
+			</div>
+
+			<div></div>
 		</div>
-
-
-		
 	)
 }
 
-{/*<OpenCloseBox
+		{/*<OpenCloseBox
 			id={openCloseBoxId}
 			title={title} 
 			boxIsOpen={boxIsOpen}
@@ -238,7 +122,6 @@ export default function DisplayBox({title, htmlString, cssString}) {
 				</div>
 			</div>
 		</OpenCloseBox>*/}
-
 {/*button_1={<RefreshButton onClick={handleRefresh}/>} 
 			button_2={<GridButton handleClick={handleGridClick} selected={showGrid}/>}*/}
 
@@ -442,3 +325,135 @@ export default function DisplayBox({title, htmlString, cssString}) {
 			setDisplaySizeClass('display-open');
 		}
 	}, [hideDisplay])*/
+
+		// detect display box open close
+	/*useEffect(() => {
+		const openCloseBoxElement = document.getElementById(openCloseBoxId); 
+
+		openCloseBoxElement.addEventListener('transitionend', (e) => {
+			if(e.propertyName === 'width') {
+				setDisplayIsOpen(oldVal => !oldVal)
+			}
+		})
+	}, [])*/
+
+	// detect animation end
+	// useEffect(() => {
+	// 	detectTransitions(openCloseBoxId, 'width', setOpenCloseBoxIsAnimating)
+	// 	detectTransitions(displayBoxId, 'height', setDisplayBoxIsAnimating)
+	// }, [])
+
+	/*useEffect(() => {
+		if(!openCloseBoxIsAnimating && !displayBoxIsAnimating) {
+			setIsAnimating(false)
+		}
+	}, [openCloseBoxIsAnimating, displayBoxIsAnimating])*/
+
+	// handle box open and close
+	/*useEffect(() => { 
+		if(displayIsOpen) {
+			setToggleIsOpen(false)
+			setDisplayBoxHeightClass('display-box-open')
+		} else {
+			setToggleIsOpen(true)
+			setDisplayBoxHeightClass('display-box-closed')
+		}
+	}, [displayIsOpen])*/
+
+	// handle displaybox size change
+	/*useEffect(() => {
+		// on close = set max width
+		if(!boxIsOpen) {
+			setMaxSize(displayBoxId)
+		}
+		// on open = reset inline style to old value
+	}, [boxIsOpen])*/
+
+	// handle animation start and end
+	/*useEffect(() => { 
+		if(isAnimating) {
+			setDisplayBoxTransitionClass('display-box-transition')
+		} else if(!displayBoxIsAnimating && !displayBoxIsAnimating) {
+			setDisplayBoxTransitionClass('')
+		}
+	}, [isAnimating])*/
+
+	// const [boxIsTransitioning, setBoxIsTransitioning] = useState(false);
+	 
+	// const [displaySizeClass, setDisplaySizeClass] = useState('display-box-open');
+	// const [displayTransitionClass, setDisplayTransitionClass] = useState('');
+
+	// function handleToggleClick() {
+
+	// }
+
+	// function adjustDisplayInlineStyle() {
+	// 	const displayElement = document.getElementById('display-box');
+
+	// 	let width = displayElement.style.width;
+	// 	let height = displayElement.style.height;
+
+	// 	displayElement.style.width = '';
+	// 	displayElement.style.height = '';
+
+	// 	// displayElement.style['max-width'] = width;
+	// 	// displayElement.style['max-height'] = height;
+	// }
+
+	// detect box open / close 
+	// useEffect(() => {
+	// 	const openCloseBoxElement = document.getElementById(openCloseBoxId);
+
+	// 	openCloseBoxElement.addEventListener('transitionstart', (e) => {
+	// 		if(e.propertyName === 'width' || e) {
+	// 			setBoxIsTransitioning(true)
+	// 		}
+	// 	})
+
+	// 	openCloseBoxElement.addEventListener('transitionend', (e) => {
+	// 		if(e.propertyName === 'width') {
+	// 			setBoxIsTransitioning(false)
+
+	// 			const isOpen = e.srcElement.getAttribute('isopen');
+				
+	// 			if(isOpen === 'true') {
+	// 				setBoxIsOpen(true)
+	// 			} else if (isOpen === 'false') {
+	// 				setBoxIsOpen(false)
+	// 			}
+	// 		}
+	// 	})
+	// }, [])
+
+	// detect display open / close
+	/*useEffect(() => {
+		const displayBoxElement = document.getElementById('diplay-box');
+
+		displayElement.addEventListener('transitionstart', (e) => {
+
+		})
+
+		displayElement.addEventListener('transitionend', (e) => {
+			
+		})
+	}, [])*/
+ 
+	// handle box open / close
+	// useEffect(() => {
+	// 	if(boxIsOpen) {
+	// 		setDisplaySizeClass('display-box-open')
+	// 	} else {
+	// 		adjustDisplayInlineStyle()
+	// 		setDisplaySizeClass('display-box-closed')
+	// 	}
+	// }, [boxIsOpen])
+
+	/*useEffect(() => {
+		if(boxIsTransitioning) {
+			console.log('is trans')
+			setDisplayTransitionClass('display-box-transition')
+		} else if (!displayIsTransitioning){	
+			console.log('is not trans')
+			setDisplayTransitionClass('')
+		}
+	}, [boxIsTransitioning, displayIsTransitioning])*/

@@ -1,3 +1,63 @@
+/* =================== Box */
+.learn-box {
+	height: 400px;  
+	display: flex;
+	flex-direction: column;
+	transition: 1s width ease-in-out; 
+	margin-right: 30px;
+	overflow: hidden;
+}
+
+.learn-box-open {
+	width: 100%;
+}
+
+.learn-box-closed {
+	width: 36px
+}
+
+/* =================== Box Header */
+.learn-box .header {
+	min-height: 40px;
+	width: 100%; 
+	position: relative;
+	/*overflow: hidden;*/
+	display: flex;
+	align-items: center;
+	background: #272727; 
+}
+
+/* Title */
+.learn-box .title {
+	flex-grow: 1; 
+	min-width: 0;
+	display: flex;
+	justify-content: center; 
+	white-space: nowrap; 
+	position: absolute;
+	color: #E8E4E4;
+	font-size: 1.2em; 
+	font-family: BaiJamjuree-Medium, Verdana, sans-serif; 
+	width: 100%;
+	cursor: default;
+} 
+
+
+/* Open close toggle */ 
+.learn-box .open-close-toggle-container {
+	height: 100%; 
+	width: 36px;
+	min-width: 36px;
+	display: flex;
+	justify-content: center;
+  align-items: center;
+  background: #272727; 
+  z-index: 9000;
+  position: absolute;
+  right: 0;
+}
+
+/*
 
 .display-box-background {
 	width: 100%;
@@ -20,8 +80,7 @@
 	min-width: 28px;
 	min-height: 28px;
 	
-	height: 100%;
-	/*background: green;*/
+	height: 100%; 
 }	
 
 .display-box-closing { 
@@ -30,13 +89,10 @@
 
 .display-box-closed { 
 	height: 0;
-
-	/*max-width: 100%;
-	max-height: 100%;*/
+ 
 
 	resize: none;  
-	border-bottom: none;
-	/*background: red;*/
+	border-bottom: none; 
 }
 		
 .display-box-transition {

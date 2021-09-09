@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import OpenCloseBox from './parts/OpenCloseBox/OpenCloseBox.jsx';
+import LearnBox from './parts/LearnBox.jsx';
+// import OpenCloseBox from './parts/OpenCloseBox/OpenCloseBox.jsx';
 import CodeBox from './CodeBox.jsx';  
 import DisplayBox from './DisplayBox.jsx';
 import './LearnStyle.css'; 
@@ -233,8 +234,11 @@ export default function Learn() {
 			</OpenCloseBox>*/}
 			{/*<CodeBox title="index.html" value={htmlString} handleChange={handleHtmlChange} handleRefresh={handleHtmlRefresh} fade={fadeHtml}/> 
 			<CodeBox title="style.css" value={cssString} handleChange={handleCssChange} handleRefresh={handleCssRefresh} fade={fadeStyle}/> */}
-			 
-			<DisplayBox title="display" htmlString={displayHtml} cssString={displayCss}/> 
+
+			{/*<DisplayBox title="display" htmlString={displayHtml} cssString={displayCss}/> */}
+			<LearnBox title="display">
+				{/*<DisplayBox/>*/}
+			</LearnBox>
 		</section>
 	)
 }
