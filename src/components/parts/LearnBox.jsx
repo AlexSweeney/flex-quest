@@ -15,7 +15,7 @@ import OpenCloseToggle from './OpenCloseToggle/OpenCloseToggle.jsx'
 import {detectTransitions} from './../utils.js';
 import './LearnBox.css';
 
-export default function LearnBox({title, i}) {
+export default function LearnBox({title, i, children}) {
 	const learnBoxId = `learn-box-${i}`;
 
 	const [learnBoxIsOpen, setLearnBoxIsOpen] = useState(true);
@@ -107,7 +107,9 @@ export default function LearnBox({title, i}) {
 
 			<div className="body">
 				<div className={`content-container ${contentContainerClass}`}>
-
+					{
+						children && children
+					}
 				</div>
 			</div>
 		</div>
