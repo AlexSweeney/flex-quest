@@ -6,12 +6,15 @@
 }
 
 .display-box {
-	width: 100%;
+	height: 100%;
+	width: 100%;  
 	position: relative;
 	resize: both; 
 	overflow: hidden;
 	background: blue;
 	border: 0.5em solid #E8E4E4;
+
+	transition: height 5ms; 
 } 
 
 .display-box-open {
@@ -30,7 +33,7 @@
 }
 
 .display-box-transition {
-	transition: height 2ms; 
+	/*transition: height 2ms; */
 }
 
 /*.display-box-background {

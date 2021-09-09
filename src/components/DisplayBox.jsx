@@ -21,6 +21,8 @@ export default function DisplayBox({title, htmlString, cssString}) {
 
 	const [boxIsOpen, setBoxIsOpen] = useState(true); 
 	const [displayIsOpen, setDisplayIsOpen] = useState(true);
+	const [displayBoxHeightClass, setDisplayBoxHeightClass] = useState('display-box-open');
+	const [displayBoxTransitionClass, setDisplayBoxTransitionClass] = useState('');
 
 	const [toggleIsOpen, setToggleIsOpen] = useState(false);
  
@@ -30,11 +32,7 @@ export default function DisplayBox({title, htmlString, cssString}) {
 
 	function handleToggleClick() {
 		setBoxIsOpen(oldVal => !oldVal) 
-	}
-
-	function onDisplayBoxChange() {
-		setToggleIsOpen(!boxIsOpen)
-	}
+	} 
  
 	// detect box open close
 	useEffect(() => {
@@ -64,9 +62,34 @@ export default function DisplayBox({title, htmlString, cssString}) {
  
 	// useEffect(() => { console.log('isAnimating', isAnimating)}, [isAnimating])
 
+
+	// open close display box and toggle
 	useEffect(() => { 
-		onDisplayBoxChange()
+		if(displayIsOpen) {
+			setToggleIsOpen(false)
+			setDisplayBoxHeightClass('display-box-open')
+		} else {
+			setToggleIsOpen(true)
+			setDisplayBoxHeightClass('display-box-closed')
+		}
 	}, [displayIsOpen])
+
+	// display box transition on of
+	useEffect(() => {
+		/*if(displayBoxIsAnimating) {
+			
+		} else {
+			setDisplayBoxTransitionClass('')
+		}*/
+
+		if(openCloseBoxIsAnimating) {
+			console.log('transition on')
+			setDisplayBoxTransitionClass('display-box-transition')
+		} else if(!openCloseBoxIsAnimating && !displayBoxIsAnimating) {
+			// console.log('transition off')
+			// setDisplayBoxTransitionClass('')
+		}
+	}, [openCloseBoxIsAnimating])
 
 	// const [boxIsTransitioning, setBoxIsTransitioning] = useState(false);
 	 
@@ -158,9 +181,9 @@ export default function DisplayBox({title, htmlString, cssString}) {
 			isAnimating={isAnimating}
 		>
 			<div className={"display-box-background custom-scroll"}> 
-				<div id={displayBoxId}>
+				<div className={`display-box ${displayBoxHeightClass}`} id={displayBoxId}>
 				</div>
-				{/*<div className={`display-box ${displaySizeClass} ${displayTransitionClass}`} id="display-box">
+				{/*<div className={`display-box ${displaySizeClass}  ${displayBoxTransitionClass}`} id="display-box">
 					<GridOverlay showGrid={showGrid}/>
 					<iframe srcdoc={source} className="iframe"/>  
 				</div>*/}
