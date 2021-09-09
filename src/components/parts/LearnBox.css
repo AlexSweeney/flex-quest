@@ -3,7 +3,7 @@
 	height: 400px;  
 	display: flex;
 	flex-direction: column;
-	transition: 2s width ease-in-out; 
+	transition: 1s width ease-in-out; 
 	margin-right: 30px;
 	overflow: hidden;
 }
@@ -67,7 +67,7 @@
 .learn-box .content-container {
 	width: 100%;  
 	overflow: hidden; 
-	transition: height 2s;
+	transition: height 1s;
 }
 
 .learn-box .content-container-open { 

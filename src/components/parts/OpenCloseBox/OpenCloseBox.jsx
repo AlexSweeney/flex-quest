@@ -3,7 +3,7 @@ import OpenCloseToggle from '../OpenCloseToggle/OpenCloseToggle.jsx';
 import Burger from '../Burger/Burger.jsx';
 import BurgerDropDown from '../Burger/BurgerDropDown.jsx';
 import './OpenCloseBox.css';
-import './scrollbar.css';
+// import './scrollbar.css';
 
 export default function OpenCloseBox({
 	title = null,  

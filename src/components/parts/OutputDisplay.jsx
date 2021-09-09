@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import LearnBox from './LearnBox.jsx';
 import {detectTransitions} from './../utils.js';
 import './OutputDisplay.css';
+import './scrollbar.css';
 
 export default function OutputDisplay({title, i, htmlString, cssString}) {
 	const displayBoxContainerId = `display-box-container-${i}`;
@@ -78,7 +79,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	return (
 		<div className="output-display">
 			<LearnBox title={title} i={i} isAnimating={isAnimating} setIsAnimating={setIsAnimating}>
-				<div className={`display-box-container ${displayBoxContainerClass}`} id={displayBoxContainerId}>
+				<div className={`display-box-container custom-scroll ${displayBoxContainerClass}`} id={displayBoxContainerId}>
 					<div className={`display-box ${displayBoxClass} ${displayBoxMaxSizeClass}`} id="display-box">
 						{/*<GridOverlay showGrid={showGrid}/>*/}
 						<iframe srcdoc={source} className="iframe"/>  
