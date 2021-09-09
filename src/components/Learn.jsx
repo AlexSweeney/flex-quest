@@ -236,7 +236,7 @@ export default function Learn() {
 			<CodeBox title="style.css" value={cssString} handleChange={handleCssChange} handleRefresh={handleCssRefresh} fade={fadeStyle}/> */}
 
 			{/*<DisplayBox title="display" htmlString={displayHtml} cssString={displayCss}/> */}
-			<LearnBox title="display">
+			<LearnBox title="display" i="4">
 				{/*<DisplayBox/>*/}
 			</LearnBox>
 		</section>
