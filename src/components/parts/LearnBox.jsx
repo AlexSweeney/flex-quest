@@ -15,19 +15,19 @@ import OpenCloseToggle from './OpenCloseToggle/OpenCloseToggle.jsx'
 import {detectTransitions} from './../utils.js';
 import './LearnBox.css';
 
-export default function LearnBox({title, i, children}) {
+export default function LearnBox({title, i, isAnimating, setIsAnimating, children}) {
 	const learnBoxId = `learn-box-${i}`;
+	const contentContainerId = `content-container-${i}`;
 
 	const [learnBoxIsOpen, setLearnBoxIsOpen] = useState(true);
 	const [learnBoxIsAnimating, setLearnBoxIsAnimating] = useState(false);
-	const [learnBoxStatus, setLearnBoxStatus] = useState('learn-box-open');
 	const [learnBoxClass, setLearnBoxClass] = useState('learn-box-open');
+	const [learnBoxStatus, setLearnBoxStatus] = useState('learn-box-open');
 
 	const [contentContainerClass, setContentContainerClass] = useState('content-container-open');
+	const [contentContainerIsAnimating, setContentContainerIsAnimating] = useState(false);
 
  	const [openCloseToggleIsOpen, setOpenCloseToggleIsOpen] = useState(false);
-
- 	const [isAnimating, setIsAnimating] = useState(false);
 
  	function handleOpenCloseToggleClick() {
 		setLearnBoxIsOpen(oldVal => !oldVal)
@@ -36,6 +36,7 @@ export default function LearnBox({title, i, children}) {
 	// detect learn box animations
 	useEffect(() => {
 		detectTransitions(learnBoxId, 'width', setLearnBoxIsAnimating)
+		detectTransitions(contentContainerId, 'height', setContentContainerIsAnimating)
 	}, [])
 
 	// set class learn box
@@ -70,6 +71,13 @@ export default function LearnBox({title, i, children}) {
 
 	// set isAnimating
 	useEffect(() => {
+		if(learnBoxIsAnimating || contentContainerIsAnimating) {
+			setIsAnimating(true)
+		} else if (learnBoxStatus === 'learn-box-open' || learnBoxStatus === 'learn-box-closed') {
+			setIsAnimating(false)
+		}
+	}, [learnBoxIsAnimating, contentContainerIsAnimating])
+	/*useEffect(() => {
 		if(learnBoxStatus === 'learn-box-open') {
 			setIsAnimating(false)
 		} else if(learnBoxStatus === 'learn-box-opening') {
@@ -79,7 +87,7 @@ export default function LearnBox({title, i, children}) {
 		} else if(learnBoxStatus === 'learn-box-closing') {
 			setIsAnimating(true)
 		}
-	}, [learnBoxStatus])
+	}, [learnBoxStatus])*/
 
 	// set content container open / closed
 	// set isAnimating
@@ -106,7 +114,7 @@ export default function LearnBox({title, i, children}) {
 			</div>
 
 			<div className="body">
-				<div className={`content-container ${contentContainerClass}`}>
+				<div className={`content-container ${contentContainerClass}`} id={contentContainerId}>
 					{
 						children && children
 					}

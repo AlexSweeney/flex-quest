@@ -6,7 +6,13 @@
 .output-display .display-box-container {
 	width: 100%;
 	height: 100%;
+	background: green;
 	overflow: auto;
+}
+
+.output-display .display-box-container-animating {
+	overflow: hidden;
+	background: red;
 }
 
 .output-display .display-box {
