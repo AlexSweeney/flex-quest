@@ -3,7 +3,7 @@
 	height: 400px;  
 	display: flex;
 	flex-direction: column;
-	transition: 2s width ease-in-out; 
+	transition: 5s width ease-in-out; 
 	margin-right: 30px;
 	overflow: hidden;
 }
@@ -55,6 +55,30 @@
   z-index: 9000;
   position: absolute;
   right: 0;
+}
+
+/* =================== Body */
+.learn-box .body {
+	width: 100%;
+	height: 100%;
+	background: #E8E4E4;
+	overflow: auto; 
+}
+
+.learn-box .content-container {
+	width: 100%; 
+	background: red;
+	overflow: hidden;
+	border: 4px solid green;
+	transition: height 4s;
+}
+
+.learn-box .content-container-open { 
+	height: 100%; 
+}
+
+.learn-box .content-container-closed { 
+	height: 0;
 }
 
 /*

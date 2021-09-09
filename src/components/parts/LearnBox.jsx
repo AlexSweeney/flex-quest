@@ -23,14 +23,15 @@ export default function LearnBox({title, i}) {
 	const [learnBoxStatus, setLearnBoxStatus] = useState('learn-box-open');
 	const [learnBoxClass, setLearnBoxClass] = useState('learn-box-open');
 
+	const [contentContainerClass, setContentContainerClass] = useState('content-container-open');
+
  	const [openCloseToggleIsOpen, setOpenCloseToggleIsOpen] = useState(false);
+
+ 	const [isAnimating, setIsAnimating] = useState(false);
 
  	function handleOpenCloseToggleClick() {
 		setLearnBoxIsOpen(oldVal => !oldVal)
 	}  
-
-	
-
 
 	// detect learn box animations
 	useEffect(() => {
@@ -60,49 +61,36 @@ export default function LearnBox({title, i}) {
 
 	// set open-close-toggle open / closed
 	useEffect(() => {
-		console.log('learnBoxStatus', learnBoxStatus)
 		if(learnBoxStatus === 'learn-box-open') {
 			setOpenCloseToggleIsOpen(false)
 		} else if(learnBoxStatus === 'learn-box-closed') {
-			console.log('isClosed')
 			setOpenCloseToggleIsOpen(true)
 		}
 	}, [learnBoxStatus])
 
-	/*const [displayIsOpen, setDisplayIsOpen] = useState(true);
-	const [displayBoxHeightClass, setDisplayBoxHeightClass] = useState('display-box-open');
-	const [displayBoxTransitionClass, setDisplayBoxTransitionClass] = useState('');*/
+	// set isAnimating
+	useEffect(() => {
+		if(learnBoxStatus === 'learn-box-open') {
+			setIsAnimating(false)
+		} else if(learnBoxStatus === 'learn-box-opening') {
+			setIsAnimating(true)
+		} else if(learnBoxStatus === 'learn-box-closed') {
+			setIsAnimating(false)
+		} else if(learnBoxStatus === 'learn-box-closing') {
+			setIsAnimating(true)
+		}
+	}, [learnBoxStatus])
 
+	// set content container open / closed
+	// set isAnimating
+	useEffect(() => {
+		if(learnBoxStatus === 'learn-box-open') {
+			setContentContainerClass('content-container-open')
+		} else if(learnBoxStatus === 'learn-box-closed') {
+			setContentContainerClass('content-container-closed')
+		}
+	}, [learnBoxStatus])
 	
- 
-	/*const [openCloseBoxIsAnimating, setOpenCloseBoxIsAnimating] = useState(false);
-	const [displayBoxIsAnimating, setDisplayBoxIsAnimating] = useState(false);*/
-	// const [isAnimating, setIsAnimating] = useState(false);  
-
-	
-	/*function updateBoxStatus(oldVal) {
-		let newStatus;
-		if(boxStatus === 'open') newStatus = 'closing';
-		else if(boxStatus === 'closed') newStatus = 'opening';
-		setBoxStatus(newStatus)
-	}*/
-
-	/*function setMaxSize(id) {
-		const element = document.getElementById(id);
-		const width = element.style.width;
-		const height = element.style.height;
-		element.style.width = '100%';
-		element.style.height = '100%';
-
-		element.style['max-width'] = width;
-		element.style['max-height'] = height;
-	}*/
-
-	
-
-	
-	
-
 	return (
 		<div className={`learn-box ${learnBoxClass}`} id={learnBoxId}>
 			<div className="header">
@@ -112,11 +100,16 @@ export default function LearnBox({title, i}) {
 					<OpenCloseToggle 	
 						toggleIsOpen={openCloseToggleIsOpen}
 						handleClick={handleOpenCloseToggleClick}
+						parentIsAnimating={isAnimating}
 					/>
 				</div>
 			</div>
 
-			<div></div>
+			<div className="body">
+				<div className={`content-container ${contentContainerClass}`}>
+
+				</div>
+			</div>
 		</div>
 	)
 }
