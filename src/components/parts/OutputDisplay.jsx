@@ -9,13 +9,16 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	const [source, setSource] = useState(null);
 
 	const [displayBoxContainerClass, setDisplayBoxContainerClass] = useState('');
+	const [displayBoxClass, setDisplayBoxClass] = useState('');
 	const [isAnimating, setIsAnimating] = useState(false);
 
 	useEffect(() => {
 		if(isAnimating) {
 			setDisplayBoxContainerClass('display-box-container-animating')
+			setDisplayBoxClass('display-box-animating')
 		} else {
 			setDisplayBoxContainerClass('')
+			setDisplayBoxClass('')
 		}
 	}, [isAnimating])
 
@@ -60,7 +63,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 		<div className="output-display">
 			<LearnBox title={title} i={i} isAnimating={isAnimating} setIsAnimating={setIsAnimating}>
 				<div className={`display-box-container ${displayBoxContainerClass}`} id={displayBoxContainerId}>
-					<div className={`display-box`} id="display-box">
+					<div className={`display-box ${displayBoxClass}`} id="display-box">
 						{/*<GridOverlay showGrid={showGrid}/>*/}
 						<iframe srcdoc={source} className="iframe"/>  
 					</div>

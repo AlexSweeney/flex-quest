@@ -24,3 +24,7 @@
 	background: blue;
 	border: 0.5em solid #E8E4E4;
 }
+
+.output-display .display-box-animating {
+	resize: none;
+}
