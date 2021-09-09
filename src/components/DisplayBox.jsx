@@ -1,9 +1,5 @@
-// pass down parentIsAnimating
-// openCloseToggle isAnimating
-
 // change display box size then close - use container -> so don't interfere with chaning size transiiont
 // change size the close box
-// prevent resize smaller than 28px
 
 // seperate -> resize with margin ?
 
@@ -32,8 +28,9 @@ export default function DisplayBox({title, htmlString, cssString}) {
 
 	function handleToggleClick() {
 		setBoxIsOpen(oldVal => !oldVal) 
-	} 
- 
+		setIsAnimating(true)
+	}  
+  
 	// detect box open close
 	useEffect(() => {
 		const openCloseBoxElement = document.getElementById(openCloseBoxId); 
@@ -45,23 +42,17 @@ export default function DisplayBox({title, htmlString, cssString}) {
 		})
 	}, [])
 
-	// detect animation start and end
+	// detect animation end
 	useEffect(() => {
 		detectTransitions(openCloseBoxId, 'width', setOpenCloseBoxIsAnimating)
 		detectTransitions(displayBoxId, 'height', setDisplayBoxIsAnimating)
 	}, [])
 
 	useEffect(() => {
-		// console.log('openCloseBoxIsAnimating', openCloseBoxIsAnimating)
-		if(openCloseBoxIsAnimating || displayBoxIsAnimating) {
-			setIsAnimating(true)
-		} else {
+		if(!openCloseBoxIsAnimating && !displayBoxIsAnimating) {
 			setIsAnimating(false)
 		}
 	}, [openCloseBoxIsAnimating, displayBoxIsAnimating])
- 
-	// useEffect(() => { console.log('isAnimating', isAnimating)}, [isAnimating])
-
 
 	// open close display box and toggle
 	useEffect(() => { 
@@ -75,21 +66,13 @@ export default function DisplayBox({title, htmlString, cssString}) {
 	}, [displayIsOpen])
 
 	// display box transition on of
-	useEffect(() => {
-		/*if(displayBoxIsAnimating) {
-			
-		} else {
-			setDisplayBoxTransitionClass('')
-		}*/
-
-		if(openCloseBoxIsAnimating) {
-			console.log('transition on')
+	useEffect(() => { 
+		if(isAnimating) {
 			setDisplayBoxTransitionClass('display-box-transition')
-		} else if(!openCloseBoxIsAnimating && !displayBoxIsAnimating) {
-			// console.log('transition off')
-			// setDisplayBoxTransitionClass('')
+		} else if(!displayBoxIsAnimating && !displayBoxIsAnimating) {
+			setDisplayBoxTransitionClass('')
 		}
-	}, [openCloseBoxIsAnimating])
+	}, [isAnimating])
 
 	// const [boxIsTransitioning, setBoxIsTransitioning] = useState(false);
 	 
@@ -181,9 +164,9 @@ export default function DisplayBox({title, htmlString, cssString}) {
 			isAnimating={isAnimating}
 		>
 			<div className={"display-box-background custom-scroll"}> 
-				<div className={`display-box ${displayBoxHeightClass}`} id={displayBoxId}>
+				<div className={`display-box ${displayBoxHeightClass} ${displayBoxTransitionClass}`} id={displayBoxId}>
 				</div>
-				{/*<div className={`display-box ${displaySizeClass}  ${displayBoxTransitionClass}`} id="display-box">
+				{/*<div className={`display-box ${displaySizeClass} `} id="display-box">
 					<GridOverlay showGrid={showGrid}/>
 					<iframe srcdoc={source} className="iframe"/>  
 				</div>*/}
