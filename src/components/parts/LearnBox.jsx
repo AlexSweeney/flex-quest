@@ -103,9 +103,13 @@ export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating
 	
 	return (
 		<div className={`learn-box ${learnBoxClass}`} id={learnBoxId}>
-			<div className="header">
-				<div className="buttons-container">
-					{buttons && buttons}
+			<div className="learn-box-header">
+				<div className="learn-box-buttons-container">
+					{buttons && buttons.map(button => {
+						return (<div className="learn-box-button">
+							 {button}
+						</div>)
+					})}
 				</div>
 
 				<div className="title">{title}</div>

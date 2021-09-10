@@ -62,7 +62,7 @@ export default function RefreshButton({onClick}) {
 	}, [isDown, isOver, isAnimating]) 
 
 	return ( 
-		<div className={refreshClass}
+		<div className={`${refreshClass}`}
 			onMouseOver={handleMouseOver}
 			onMouseOut={handleMouseOut}
 			onMouseDown={handleMouseDown}

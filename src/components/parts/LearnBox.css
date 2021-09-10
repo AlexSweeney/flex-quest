@@ -3,7 +3,7 @@
 	height: 400px;  
 	display: flex;
 	flex-direction: column;
-	transition: 1s width ease-in-out; 
+	transition: 4s width ease-in-out; 
 	margin-right: 30px;
 	overflow: hidden;
 }
@@ -17,7 +17,7 @@
 }
 
 /* =================== Box Header */
-.learn-box .header {
+.learn-box-header {
 	min-height: 40px;
 	width: 100%; 
 	position: relative; 
@@ -26,8 +26,24 @@
 	background: #272727; 
 }
 
-.learn-box .buttons-container {
+.learn-box-buttons-container {
+	z-index: 1000;  
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 6px;
+  background: #272727;
+}
+
+.learn-box-button {
+	height: 22px;
+  width: 22px;
+  border-radius: 100%;
+  background: #E8E4E4;
 	z-index: 1000;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 /* Title */

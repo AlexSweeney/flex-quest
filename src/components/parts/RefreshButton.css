@@ -1,13 +1,11 @@
-.refresh-button {
+ .refresh-button {
 	width: 100%;
 	height: 100%;
-	font-size: 1.1em;
+	font-size: 1.1em; 
+	transition: color 500ms ease-in-out;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	transition: color 500ms ease-in-out;
-	background: red;
-	z-index: 1000;
 }
 
 .refresh-button:hover {
