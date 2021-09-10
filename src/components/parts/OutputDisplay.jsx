@@ -85,8 +85,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	}, [animateDisplayResize])
 
 	// handle animating on / off
-	useEffect(() => {
-		// console.log('isAnimating', isAnimating)
+	useEffect(() => { 
 		if(isAnimating) {
 			setDisplayBoxContainerClass('display-box-container-animating')
 			setDisplayBoxAnimatingClass('display-box-animating')
@@ -94,7 +93,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 		} else {
 			setDisplayBoxContainerClass('')
 			setDisplayBoxAnimatingClass('')
-			setDisplayBoxMaxSizeClass('')
+			// setDisplayBoxMaxSizeClass('')
 		}
 	}, [isAnimating]) 
 
@@ -115,12 +114,12 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	return (
 		<div className="output-display">
 			<LearnBox title={title} i={i} isAnimating={isAnimating} setIsAnimating={setIsAnimating} buttons={buttons}>
-				<div className={`display-box-container custom-scroll ${displayBoxContainerClass}`} id={displayBoxContainerId}>
+				{/*<div className={`display-box-container custom-scroll ${displayBoxContainerClass}`} id={displayBoxContainerId}>
 					<div className={`display-box ${displayBoxAnimatingClass} ${displayBoxMaxSizeClass} ${displayBoxTransitionClass}`} id="display-box">
 						<GridOverlay showGrid={showGrid}/>
 						<iframe srcdoc={source} className="iframe"/>  
 					</div>
-				</div>
+				</div>*/}
 			</LearnBox>
 		</div>
 	)
