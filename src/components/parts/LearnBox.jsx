@@ -12,7 +12,7 @@
 
 import React, {useState, useEffect} from 'react'; 
 import OpenCloseToggle from './OpenCloseToggle/OpenCloseToggle.jsx'
-import {detectTransitions} from './../utils.js';
+import {detectTransition} from './../utils.js';
 import './LearnBox.css';
 
 export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating, children}) {
@@ -35,8 +35,8 @@ export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating
 
 	// detect learn box animations
 	useEffect(() => {
-		detectTransitions(learnBoxId, 'width', setLearnBoxIsAnimating)
-		detectTransitions(contentContainerId, 'height', setContentContainerIsAnimating)
+		detectTransition(learnBoxId, 'width', setLearnBoxIsAnimating)
+		detectTransition(contentContainerId, 'height', setContentContainerIsAnimating)
 	}, [])
 
 	// set class learn box
@@ -107,7 +107,7 @@ export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating
 				<div className="learn-box-buttons-container">
 					{buttons && buttons.map(button => {
 						return (<div className="learn-box-button">
-							 {button}
+							 {buttons}
 						</div>)
 					})}
 				</div>

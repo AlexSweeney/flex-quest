@@ -3,7 +3,7 @@
 	height: 400px;  
 	display: flex;
 	flex-direction: column;
-	transition: 4s width ease-in-out; 
+	transition: 1s width ease-in-out; 
 	margin-right: 30px;
 	overflow: hidden;
 }

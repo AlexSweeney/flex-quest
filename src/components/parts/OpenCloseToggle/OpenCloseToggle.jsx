@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import './OpenCloseToggleStyle.css';
-import {detectTransitions} from './../../utils.js';
+import {detectTransition} from './../../utils.js';
 
 export default function OpenCloseToggle({toggleIsOpen, parentIsAnimating, handleClick, i = Math.random()}) { 
 	const vertLineId = 'vert-line-' + i;
@@ -65,7 +65,7 @@ export default function OpenCloseToggle({toggleIsOpen, parentIsAnimating, handle
 
 	// detect animation
 	useEffect(() => {
-		detectTransitions(vertLineId, 'transform', setLineIsAnimating)
+		detectTransition(vertLineId, 'transform', setLineIsAnimating)
 	}, [])
 
 	useEffect(() => {
