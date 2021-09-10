@@ -2,17 +2,19 @@ import React, {useState, useEffect} from 'react';
 import LearnBox from './LearnBox.jsx';
 import RefreshButton from './RefreshButton.jsx';
 import GridButton from './GridButton.jsx';
+import GridOverlay from './GridOverlay.jsx';
 import {detectTransitions} from './../utils.js';
 import './OutputDisplay.css';
 import './scrollbar.css';
 
 export default function OutputDisplay({title, i, htmlString, cssString}) {
+	const displayBoxContainerId = `display-box-container-${i}`;
+
+	const [showGrid, setShowGrid] = useState(false);
 	const buttons = [
 		<RefreshButton onClick={onRefreshClick}/>,
-		<GridButton />
-	];	
-
-	const displayBoxContainerId = `display-box-container-${i}`;
+		<GridButton handleClick={onGridClick} showGrid={showGrid} />
+	];	 
 
 	const [source, setSource] = useState(null);
 
@@ -29,6 +31,10 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 
 	function onRefreshClick() {
 		if(hasBeenResized('display-box')) setAnimateDisplayResize(true)
+	}
+
+	function onGridClick() {
+		setShowGrid(oldVal => !oldVal)
 	} 
 
 	function hasBeenResized(id, propertyNames) {
@@ -111,7 +117,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 			<LearnBox title={title} i={i} isAnimating={isAnimating} setIsAnimating={setIsAnimating} buttons={buttons}>
 				<div className={`display-box-container custom-scroll ${displayBoxContainerClass}`} id={displayBoxContainerId}>
 					<div className={`display-box ${displayBoxAnimatingClass} ${displayBoxMaxSizeClass} ${displayBoxTransitionClass}`} id="display-box">
-						{/*<GridOverlay showGrid={showGrid}/>*/}
+						<GridOverlay showGrid={showGrid}/>
 						<iframe srcdoc={source} className="iframe"/>  
 					</div>
 				</div>
