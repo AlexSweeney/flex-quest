@@ -50,6 +50,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 
 	function setMaxSize(id) {
 		const element = document.getElementById(id);
+		if(!element) return;
 
 		if(!elementIsOverflowing(element)) { 
 			setDisplayBoxMaxSizeClass('display-box-max-size')
