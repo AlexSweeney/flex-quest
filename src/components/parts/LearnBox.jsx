@@ -18,6 +18,7 @@ import './LearnBox.css';
 export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating, children}) {
 	const learnBoxId = `learn-box-${i}`;
 	const contentContainerId = `content-container-${i}`;
+	console.log('buttons', buttons)
 
 	const [learnBoxIsOpen, setLearnBoxIsOpen] = useState(true);
 	const [learnBoxIsAnimating, setLearnBoxIsAnimating] = useState(false);
@@ -107,7 +108,7 @@ export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating
 				<div className="learn-box-buttons-container">
 					{buttons && buttons.map(button => {
 						return (<div className="learn-box-button">
-							 {buttons}
+							 {button}
 						</div>)
 					})}
 				</div>

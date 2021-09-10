@@ -1,14 +1,15 @@
 import React, {useState, useEffect} from 'react'; 
 import LearnBox from './LearnBox.jsx';
 import RefreshButton from './RefreshButton.jsx';
+import GridButton from './GridButton.jsx';
 import {detectTransitions} from './../utils.js';
 import './OutputDisplay.css';
 import './scrollbar.css';
 
 export default function OutputDisplay({title, i, htmlString, cssString}) {
 	const buttons = [
-		<RefreshButton onClick={onRefreshClick}/>
-
+		<RefreshButton onClick={onRefreshClick}/>,
+		<GridButton />
 	];	
 
 	const displayBoxContainerId = `display-box-container-${i}`;
