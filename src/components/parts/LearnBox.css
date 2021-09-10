@@ -88,7 +88,7 @@
 .learn-box .content-container {
 	width: 100%;  
 	overflow: hidden; 
-	transition: height 1s;
+	transition: height 5s;
 	background: red;
 }
 

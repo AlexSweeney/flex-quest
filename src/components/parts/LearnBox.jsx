@@ -20,18 +20,20 @@ export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating
 	const contentContainerId = `content-container-${i}`;
 
 	const [learnBoxIsOpen, setLearnBoxIsOpen] = useState(true);
+	const [learnBoxIsAnimating, setLearnBoxIsAnimating] = useState(false);
+
+	const [contentContainerIsAnimating, setContentContainerIsAnimating] = useState(false);
 	const learnBoxOpenClass = learnBoxIsOpen ? 'learn-box-open' : 'learn-box-closed';
 
-	const [learnBoxIsAnimating, setLearnBoxIsAnimating] = useState(false);
+	
 	const [learnBoxStatus, setLearnBoxStatus] = useState('learn-box-open');
 
-	// const [contentContainerIsAnimating, setContentContainerIsAnimating] = useState(false);
-
-	/*const [learnBoxStatus, setLearnBoxStatus] = useState('learn-box-open');
+	
 	const [contentContainerStatus, setContentContainerStatus] = useState('content-container-open');
-
+	const [contentContainerClass, setContentContainerClass] = useState('content-container-open');
+	/* 
 	const [learnBoxClass, setLearnBoxClass] = useState('learn-box-open');
-	const [contentContainerClass, setContentContainerClass] = useState('content-container-open');*/
+	*/
 	
  	const [openCloseToggleIsOpen, setOpenCloseToggleIsOpen] = useState(false);
 
@@ -42,74 +44,58 @@ export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating
 	// detect transitions
 	useEffect(() => {
 		detectTransition(learnBoxId, 'width', setLearnBoxIsAnimating)
-		// detectTransition(contentContainerId, 'height', setContentContainerIsAnimating)
+		detectTransition(contentContainerId, 'height', setContentContainerIsAnimating)
 	}, [])
 
+	// ======================== Set Status ======================== //
 	// =========== set status learn box 
 	useEffect(() => { 
 		let newStatus;
 
 		if(learnBoxIsAnimating) {
 			newStatus = learnBoxIsOpen ? 'learn-box-opening' : 'learn-box-closing'; 
-		} else if(!learnBoxIsAnimating) {
+		} else {
 			newStatus = learnBoxIsOpen ? 'learn-box-open' : 'learn-box-closed'; 
 		}
 
-		setLearnBoxStatus(newStatus)
-	}, [learnBoxIsAnimating, learnBoxStatus])
-
-	// set status content container
-
-	// set status learn box
-	/*useEffect(() => {
-		let newClass = learnBoxIsOpen ? 'learn-box-open' : 'learn-box-closed';
-		setLearnBoxClass(newClass)
-	}, [learnBoxIsOpen])*/
-
-	// set learn box status 
-	/*useEffect(() => { 
-		let newStatus;
-
-		if(learnBoxIsAnimating) {
-			if(learnBoxIsOpen)  newStatus = 'learn-box-opening';
-			else newStatus = 'learn-box-closing';
-		} else {
-			if(learnBoxIsOpen && learnBoxStatus === 'learn-box-opening') newStatus =  'learn-box-open';
-			else if(!learnBoxIsOpen && learnBoxStatus === 'learn-box-closing') newStatus = 'learn-box-closed';
-		} 
-
 		newStatus && setLearnBoxStatus(newStatus)
-	}, [learnBoxIsAnimating, learnBoxIsOpen, learnBoxStatus])*/
+	}, [learnBoxIsAnimating])
 
-	// set content-container status
-	/*useEffect(() => {
+	// =========== set status content container
+	useEffect(() => {
 		let newStatus;
 
 		if(contentContainerIsAnimating) {
-			if(learnBoxStatus === 'learn-box-closed') {
-				newStatus = 'content-container-closing';
-			} else {
-				newStatus = 'content-container-closed';
-			}
-		} else if(!contentContainerIsAnimating) {
 			if(learnBoxStatus === 'learn-box-open') {
 				newStatus = 'content-container-opening';
-			} else {
+			} 
+
+			if(learnBoxStatus === 'learn-box-closed') {
+				newStatus = 'content-container-closing';
+			}
+		} else {
+			if(learnBoxStatus === 'learn-box-open' 
+				&& contentContainerStatus === 'content-container-opening') {
 				newStatus = 'content-container-open';
+			} 
+
+			if(learnBoxStatus === 'learn-box-closed' 
+				&& contentContainerStatus === 'content-container-closing') {
+				newStatus = 'content-container-closed';
 			}
 		}
 
-		setContentContainerStatus(newStatus)
-	}, [learnBoxStatus, contentContainerIsAnimating])*/
+		newStatus && setContentContainerStatus(newStatus)
+	}, [contentContainerIsAnimating, learnBoxStatus, contentContainerStatus])
 
 	// set open-close-toggle open / closed
-	/*useEffect(() => {
+	useEffect(() => {
 		if(learnBoxStatus === 'learn-box-open') {
 			setOpenCloseToggleIsOpen(false)
 		} else if(learnBoxStatus === 'learn-box-closed') {
 			setOpenCloseToggleIsOpen(true)
 		}
-	}, [learnBoxStatus])*/
+	}, [learnBoxStatus])
 
 	// set animation status
 	/*useEffect(() => { 
@@ -153,37 +139,37 @@ export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating
 		}
 	}, [learnBoxStatus])*/
 	
-
-	// set content container open / closed
-	/*useEffect(() => {
+	// ======================== Set Class ======================== //
+	// content container open / closed
+	useEffect(() => {
 		if(learnBoxStatus === 'learn-box-open') {
 			setContentContainerClass('content-container-open')
 		} else if(learnBoxStatus === 'learn-box-closed') {
 			setContentContainerClass('content-container-closed')
 		}
-	}, [learnBoxStatus])*/
+	}, [learnBoxStatus])
 
 
-	// console logs
+	// ======================== console logs ======================== //
 	// useEffect(() => {
 	// 	console.log('isAnimating', isAnimating)
 	// }, [isAnimating])
 
-	useEffect(() => {
-		console.log('learnBoxIsAnimating', learnBoxIsAnimating)
-	}, [learnBoxIsAnimating])
+	// useEffect(() => {
+	// 	console.log('learnBoxIsAnimating', learnBoxIsAnimating)
+	// }, [learnBoxIsAnimating])
 
-	useEffect(() => {
-		console.log('learnBoxStatus', learnBoxStatus)
-	}, [learnBoxStatus])
+	// useEffect(() => {
+	// 	console.log('learnBoxStatus', learnBoxStatus)
+	// }, [learnBoxStatus])
 
 	// useEffect(() => {
 	// 	console.log('contentContainerIsAnimating', contentContainerIsAnimating)
 	// }, [contentContainerIsAnimating])
 
-	// useEffect(() => {
-	// 	console.log('contentContainerStatus', contentContainerStatus)
-	// }, [contentContainerStatus])
+	useEffect(() => {
+		console.log('contentContainerStatus', contentContainerStatus)
+	}, [contentContainerStatus])
 	
 	return (
 		<div className={`learn-box ${learnBoxOpenClass}`} id={learnBoxId}>
@@ -208,11 +194,11 @@ export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating
 			</div>
 
 			<div className="body">
-				{/*<div className={`content-container ${contentContainerClass}`} id={contentContainerId}>
+				<div className={`content-container ${contentContainerClass}`} id={contentContainerId}>
 					{
-						children && children
+						// children && children
 					}
-				</div>*/}
+				</div>
 			</div>
 		</div>
 	)
