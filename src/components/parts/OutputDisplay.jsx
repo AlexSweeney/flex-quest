@@ -1,3 +1,5 @@
+// fix glitch - drag out refresh scroll bar strobe
+
 import React, {useState, useEffect} from 'react'; 
 import LearnBox from './LearnBox.jsx';
 import RefreshButton from './RefreshButton.jsx';
@@ -8,27 +10,33 @@ import './OutputDisplay.css';
 import './scrollbar.css';
 
 export default function OutputDisplay({title, i, htmlString, cssString}) {
+	// =========================== Vars =========================== //
+	// =============== ids
 	const displayBoxContainerId = `display-box-container-${i}`;
 
+	// =============== state settings
 	const [showGrid, setShowGrid] = useState(false);
+	const [source, setSource] = useState(null);
+
+	// =============== animation status
+	const [displayBoxIsResizing, setDisplayBoxIsResizing] = useState(false);
+	const [animateDisplayResize, setAnimateDisplayResize] = useState(false);
+	 
+	// =============== classes
+	const [displayBoxAnimatingClass, setDisplayBoxAnimatingClass] = useState('');
+	const [displayBoxTransitionClass, setDisplayBoxTransitionClass] = useState('');
+	const [displayBoxMaxSizeClass, setDisplayBoxMaxSizeClass] = useState('');
+	const [displayBoxContainerClass, setDisplayBoxContainerClass] = useState('');
+
+	// =============== props
 	const buttons = [
 		<RefreshButton onClick={onRefreshClick}/>,
 		<GridButton handleClick={onGridClick} showGrid={showGrid} />
 	];	 
 
-	const [source, setSource] = useState(null);
-
-	const [displayBoxContainerClass, setDisplayBoxContainerClass] = useState('');
-	
-	const [displayBoxIsResizing, setDisplayBoxIsResizing] = useState(false);
-	const [animateDisplayResize, setAnimateDisplayResize] = useState(false);
-	 
-	const [displayBoxAnimatingClass, setDisplayBoxAnimatingClass] = useState('');
-	const [displayBoxTransitionClass, setDisplayBoxTransitionClass] = useState('');
-	const [displayBoxMaxSizeClass, setDisplayBoxMaxSizeClass] = useState('');
-	
 	const [isAnimating, setIsAnimating] = useState(false);
 
+	// =========================== Click Handlers =========================== //
 	function onRefreshClick() {
 		if(hasBeenResized('display-box')) setAnimateDisplayResize(true)
 	}
@@ -37,6 +45,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 		setShowGrid(oldVal => !oldVal)
 	} 
 
+	// =========================== Element fns =========================== //
 	function hasBeenResized(id, propertyNames) {
 		const element = document.getElementById(id); 
 
@@ -63,19 +72,20 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	  return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
 	}
 
-	// listen for reszing 
-	useEffect(() => {
-// listen to height
+	// =========================== Detect Transitions =========================== //
+	useEffect(() => { 
 		detectTransitions('display-box', ['width', 'height'], setDisplayBoxIsResizing)
 	}, [])
- 
+ 	
+ 	// =========================== Handle Changes =========================== //
+ 	// =========== set animate display
 	useEffect(() => { 
 		if(!displayBoxIsResizing) {
 			setAnimateDisplayResize(false)
 		} 
 	}, [displayBoxIsResizing])
 
-	// handle display box resize animation
+	// =========== handle animate display
 	useEffect(() => {
 		if(animateDisplayResize) {
 			removeInlineStyle('display-box') 
@@ -85,7 +95,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 		}
 	}, [animateDisplayResize])
 
-	// handle animating on / off
+	// =========== handle learnbox animating on / off
 	useEffect(() => { 
 		if(isAnimating) {
 			setDisplayBoxContainerClass('display-box-container-animating')
@@ -94,11 +104,11 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 		} else {
 			setDisplayBoxContainerClass('')
 			setDisplayBoxAnimatingClass('')
-			// setDisplayBoxMaxSizeClass('')
+			setDisplayBoxMaxSizeClass('')
 		}
 	}, [isAnimating]) 
 
-	// handle updates from code boxes
+	// =========== handle updates from code boxes
   useEffect(() => {  
   	setSource(`
   		<html lang="en">
@@ -112,15 +122,16 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
   		</html>`);
   }, [htmlString, cssString]) 
 
+  // =========================== output =========================== //
 	return (
 		<div className="output-display">
 			<LearnBox title={title} i={i} isAnimating={isAnimating} setIsAnimating={setIsAnimating} buttons={buttons}>
-				{/*<div className={`display-box-container custom-scroll ${displayBoxContainerClass}`} id={displayBoxContainerId}>
+				<div className={`display-box-container custom-scroll ${displayBoxContainerClass}`} id={displayBoxContainerId}>
 					<div className={`display-box ${displayBoxAnimatingClass} ${displayBoxMaxSizeClass} ${displayBoxTransitionClass}`} id="display-box">
 						<GridOverlay showGrid={showGrid}/>
 						<iframe srcdoc={source} className="iframe"/>  
 					</div>
-				</div>*/}
+				</div>
 			</LearnBox>
 		</div>
 	)
