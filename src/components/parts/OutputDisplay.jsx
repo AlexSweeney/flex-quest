@@ -19,8 +19,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	
 	const [displayBoxIsResizing, setDisplayBoxIsResizing] = useState(false);
 	const [animateDisplayResize, setAnimateDisplayResize] = useState(false);
-	
-	const [overflowClass, setOverflowClass] = useState('');
+	 
 	const [displayBoxAnimatingClass, setDisplayBoxAnimatingClass] = useState('');
 	const [displayBoxTransitionClass, setDisplayBoxTransitionClass] = useState('');
 	const [displayBoxMaxSizeClass, setDisplayBoxMaxSizeClass] = useState('');
@@ -62,8 +61,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 		detectTransitions('display-box', ['width', 'height'], setDisplayBoxIsResizing)
 	}, [])
  
-	useEffect(() => {
-		console.log('displayBoxIsResizing', displayBoxIsResizing)
+	useEffect(() => { 
 		if(!displayBoxIsResizing) {
 			setAnimateDisplayResize(false)
 		} 
@@ -73,11 +71,9 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	useEffect(() => {
 		if(animateDisplayResize) {
 			removeInlineStyle('display-box') 
-			setDisplayBoxTransitionClass('display-box-transition')
-			setOverflowClass('overflow-hidden')
+			setDisplayBoxTransitionClass('display-box-transition') 
 		} else { 
-			setDisplayBoxTransitionClass('')
-			setOverflowClass('')
+			setDisplayBoxTransitionClass('') 
 		}
 	}, [animateDisplayResize])
 
@@ -91,6 +87,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 		} else {
 			setDisplayBoxContainerClass('')
 			setDisplayBoxAnimatingClass('')
+			setDisplayBoxMaxSizeClass('')
 		}
 	}, [isAnimating]) 
 
@@ -111,7 +108,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	return (
 		<div className="output-display">
 			<LearnBox title={title} i={i} isAnimating={isAnimating} setIsAnimating={setIsAnimating} buttons={buttons}>
-				<div className={`display-box-container custom-scroll ${displayBoxContainerClass} ${overflowClass}`} id={displayBoxContainerId}>
+				<div className={`display-box-container custom-scroll ${displayBoxContainerClass}`} id={displayBoxContainerId}>
 					<div className={`display-box ${displayBoxAnimatingClass} ${displayBoxMaxSizeClass} ${displayBoxTransitionClass}`} id="display-box">
 						{/*<GridOverlay showGrid={showGrid}/>*/}
 						<iframe srcdoc={source} className="iframe"/>  
