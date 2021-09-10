@@ -82,8 +82,8 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	}, [animateDisplayResize])
 
 	// handle animating on / off
-	/*useEffect(() => {
-		console.log('isAnimating', isAnimating)
+	useEffect(() => {
+		// console.log('isAnimating', isAnimating)
 		if(isAnimating) {
 			setDisplayBoxContainerClass('display-box-container-animating')
 			setDisplayBoxAnimatingClass('display-box-animating')
@@ -92,7 +92,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 			setDisplayBoxContainerClass('')
 			setDisplayBoxAnimatingClass('')
 		}
-	}, [isAnimating, animateDisplayResize]) */
+	}, [isAnimating]) 
 
 	// handle updates from code boxes
   useEffect(() => {  

@@ -12,7 +12,7 @@
 
 import React, {useState, useEffect} from 'react'; 
 import OpenCloseToggle from './OpenCloseToggle/OpenCloseToggle.jsx'
-import {detectTransition} from './../utils.js';
+import {detectTransition, detectTransitions} from './../utils.js';
 import './LearnBox.css';
 
 export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating, children}) {
@@ -36,7 +36,7 @@ export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating
 	// detect learn box animations
 	useEffect(() => {
 		detectTransition(learnBoxId, 'width', setLearnBoxIsAnimating)
-		detectTransition(contentContainerId, 'height', setContentContainerIsAnimating)
+		detectTransitions(contentContainerId, ['width', 'height'], setContentContainerIsAnimating)
 	}, [])
 
 	// set class learn box
@@ -70,12 +70,12 @@ export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating
 	}, [learnBoxStatus])
 
 	// set isAnimating
-	useEffect(() => {
+	useEffect(() => { 
 		if(learnBoxIsAnimating || contentContainerIsAnimating) {
 			setIsAnimating(true)
-		} else if (learnBoxStatus === 'learn-box-open' || learnBoxStatus === 'learn-box-closed') {
+		} else if(!learnBoxIsAnimating && !contentContainerIsAnimating) {
 			setIsAnimating(false)
-		}
+		} 
 	}, [learnBoxIsAnimating, contentContainerIsAnimating])
 	/*useEffect(() => {
 		if(learnBoxStatus === 'learn-box-open') {
