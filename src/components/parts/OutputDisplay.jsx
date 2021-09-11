@@ -1,6 +1,3 @@
-// smaller open close
-// bigger open close
-
 // fix - expand refresh
 // fix - smaller refresh
 // fix -expand open / close
@@ -115,29 +112,30 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 		} 
 	}, [displayBoxIsResizing])
  	
- 	// =========================== Handle Changes =========================== //
+ 	// =========================== Set Classes =========================== //
 	// =========== handle display resize
 	useEffect(() => {
 		if(resizeDisplayBox) {
-			handleDisplayBoxResize()
+			// handleDisplayBoxResize()
 		} else { 
-			resetAfterDisplayBoxResize()
+			// resetAfterDisplayBoxResize()
 		}
 	}, [resizeDisplayBox])
 
-	// =========== handle learnbox animating on / off
+	// =========== handle learn box open / close
 	useEffect(() => { 
-		console.log('learnBoxStatus', learnBoxStatus)
 		if(learnBoxStatus === 'learn-box-closing') {
-			setDisplayBoxClass('display-box-animating-closing')
+			setDisplayBoxClass('display-box-closing')
 		} else if(learnBoxStatus === 'learn-box-opening') {
-			setDisplayBoxClass('display-box-animating-opening')
-		} else if(learnBoxStatus === 'learn-box-open' && !isAnimating) {
-			setDisplayBoxClass('')
+			setDisplayBoxClass('display-box-opening')
+		} else if(learnBoxStatus === 'learn-box-open') {
+			setDisplayBoxClass('display-box-open')
+		}  else if(learnBoxStatus === 'learn-box-closed') { 
+			setDisplayBoxClass('display-box-closed')
 		}
-	}, [learnBoxStatus, isAnimating]) 
+	}, [learnBoxStatus]) 
 
-	// =========== handle updates from code boxes
+	// =========================== Set Classes =========================== //
   useEffect(() => {  
   	setSource(`
   		<html lang="en">
@@ -166,6 +164,11 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
   // useEffect(() => {
   // 	console.log('displayBoxIsResizing', displayBoxIsResizing);
   // }, [displayBoxIsResizing])
+
+  // displayBoxIsResizing
+  useEffect(() => {
+  	console.log('learnBoxStatus', learnBoxStatus);
+  }, [learnBoxStatus])
   
   // =========================== output =========================== //
 	return (
