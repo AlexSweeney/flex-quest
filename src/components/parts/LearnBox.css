@@ -88,15 +88,20 @@
 .learn-box .content-container {
 	width: 100%;   
 	height: 100%;
-	transition: height 3s;  
-	overflow: overlay; 
+	transition: height 6s;  
+	overflow: auto; 
+	background: red;
 }
 
+.learn-box .content-container-opening,
 .learn-box .content-container-open { 
 	height: 100%; 
 }
 
-.learn-box .content-container-opening,
+.learn-box .content-container-closing {
+	height: 0;
+}
+ 
 .learn-box .content-container-closed { 
 	overflow: hidden;
 	height: 0;

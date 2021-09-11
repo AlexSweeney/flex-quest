@@ -2,25 +2,21 @@ export function detectTransition(id, propertyName, onChange) {
 	let numTransitions = 0; 
 
 	let element = document.getElementById(id);
+	if(!element) return;
 
-	if(!element) {
-		console.log('error no element')
-	} else {
-		element.addEventListener('transitionstart', (e) => {
+	element.addEventListener('transitionstart', (e) => { 
+		if(e.propertyName === propertyName && e.srcElement.id === id) { 
+			numTransitions += 1; 
+			if(numTransitions === 1) onChange(true)
+		}
+	})
 
-			if(e.propertyName === propertyName && e.srcElement.id === id) { 
-				numTransitions += 1;
-				if(numTransitions === 1) onChange(true)
-			}
-		})
-
-	 	element.addEventListener('transitionend', (e) => {
-			if(e.propertyName === propertyName && e.srcElement.id === id) {
-				numTransitions -= 1;
-				if(numTransitions === 0) onChange(false)
-			}
-		})
-	}
+ 	element.addEventListener('transitionend', (e) => {
+		if(e.propertyName === propertyName && e.srcElement.id === id) {
+			numTransitions -= 1;
+			if(numTransitions === 0) onChange(false)
+		}
+	}) 
 }
 
 export function detectTransitions(id, propertyNames, onChange) {

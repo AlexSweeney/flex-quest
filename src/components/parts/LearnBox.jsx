@@ -7,7 +7,7 @@ export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating
 	// ======================== Variables ======================== //
 	// =============== Ids
 	const learnBoxId = `learn-box-${i}`;
-	const contentContainerId = `content-container-${i}`;
+	const contentContainerId = `content-container`;
 
 	// =============== States
 	const [learnBoxIsOpen, setLearnBoxIsOpen] = useState(true);
@@ -73,31 +73,25 @@ export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating
 	}, [learnBoxIsAnimating])
 
 	// =========== set status content container
+	// =========== open / close container
 	useEffect(() => {
-		let newStatus;
+		if(learnBoxStatus === 'learn-box-closed') {
+			setContentContainerStatus('content-container-closing')
+		} 
 
-		if(contentContainerIsAnimating) {
-			if(learnBoxStatus === 'learn-box-open') {
-				newStatus = 'content-container-opening';
-			} 
+		if(learnBoxStatus === 'learn-box-open' && contentContainerStatus !== 'content-container-open') {
+			setContentContainerStatus('content-container-opening')
+		} 
+	}, [learnBoxStatus])
 
-			if(learnBoxStatus === 'learn-box-closed') {
-				newStatus = 'content-container-closing';
-			}
-		} else {
-			if(learnBoxStatus === 'learn-box-open' 
-				&& contentContainerStatus === 'content-container-opening') {
-				newStatus = 'content-container-open';
-			} 
-
-			if(learnBoxStatus === 'learn-box-closed' 
-				&& contentContainerStatus === 'content-container-closing') {
-				newStatus = 'content-container-closed';
-			}
+	useEffect(() => {
+		if(!contentContainerIsAnimating && contentContainerStatus === 'content-container-closing') {
+			setContentContainerStatus('content-container-closed')
+		} else if(!contentContainerIsAnimating && contentContainerStatus === 'content-container-opening') {
+			setContentContainerStatus('content-container-open')
 		}
+	}, [contentContainerIsAnimating])
 
-		newStatus && setContentContainerStatus(newStatus)
-	}, [contentContainerIsAnimating, learnBoxStatus, contentContainerStatus])
 
 	// =========== set open-close-toggle open / closed
 	useEffect(() => {
@@ -142,18 +136,18 @@ export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating
 	useEffect(() => {
 		let newClass;
 
-		if(learnBoxStatus === 'learn-box-open') {
+		if(contentContainerStatus === 'content-container-open') {
 			newClass = 'content-container-open';
-		} else if(learnBoxStatus === 'learn-box-opening') {
+		} else if(contentContainerStatus === 'content-container-opening') {
 			newClass = 'content-container-opening'; 
-		} else if(learnBoxStatus === 'learn-box-closed') {
+		} else if(contentContainerStatus === 'content-container-closed') {
 			newClass = 'content-container-closed';
-		} else if(learnBoxStatus === 'learn-box-closing') {
+		} else if(contentContainerStatus === 'content-container-closing') {
 			newClass = 'content-container-closing';
 		}
 
 		setContentContainerClass(newClass)
-	}, [learnBoxStatus])
+	}, [contentContainerStatus])
 
 	// ======================== console logs ======================== //
 	// =========== isAnimating
@@ -204,9 +198,9 @@ export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating
 			</div>
 
 			<div className={`learn-box-body ${learnBoxBodyClass}`}>
-				<div className={`content-container ${contentContainerClass}`} id={'content-container'}>
+				<div className={`content-container ${contentContainerClass}`} id={contentContainerId}>
 					{
-						children && children
+						
 					}
 				</div>
 			</div>
@@ -216,7 +210,45 @@ export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating
 
 {/*
 
+children && children
 
 
+useEffect(() => {
+	// 	let newStatus;
+ 
+	// 	// detect further animations
+
+	// 	/*if(learnBoxStatus === 'learn-box-closed'
+	// 		&& contentContainerStatus === 'content-container-open'
+	// 		&& !contentContainerIsAnimating) {
+	// 		newStatus = 'content-container-closing';
+	// 	} else if(learnBoxStatus === 'learn-box-closed' 
+	// 		&& contentContainerStatus === 'content-container-closing'
+	// 		&& !contentContainerIsAnimating) {
+	// 		newStatus = 'content-container-closed';
+	// 	}   */
+
+	// 	if(contentContainerIsAnimating) {
+	// 		if(learnBoxStatus === 'learn-box-open') {
+	// 			newStatus = 'content-container-opening';
+	// 		} 
+
+	// 		if(learnBoxStatus === 'learn-box-closed') {
+	// 			newStatus = 'content-container-closing';
+	// 		}
+	// 	} else {
+	// 		if(learnBoxStatus === 'learn-box-open' 
+	// 			&& contentContainerStatus === 'content-container-opening') {
+	// 			newStatus = 'content-container-open';
+	// 		} 
+
+	// 		if(learnBoxStatus === 'learn-box-closed' 
+	// 			&& contentContainerStatus === 'content-container-closing') {
+	// 			newStatus = 'content-container-closed';
+	// 		}
+	// 	}
+
+	// 	newStatus && setContentContainerStatus(newStatus)
+	// }, [contentContainerIsAnimating, learnBoxStatus, contentContainerStatus])
 
 */}

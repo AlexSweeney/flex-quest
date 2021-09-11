@@ -1,11 +1,11 @@
 // open close box
-// fresh x 
-// smaller x
-// bigger +> refresh handle then 
+// fresh  - border pause - check learn box content container is animating properly + hiding overflow
+// smaller - scroll showing on content open
+// bigger -  scroll showing on content open
 
 
-// fix - expand refresh
-// fix - smaller refresh 
+// expand refresh x
+// smaller refresh - auto normally, overlay when resizing -> prevent flick + allow access
 
 // fix glitch - drag out refresh scroll bar strobe
 
@@ -71,8 +71,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	}
 
 	function removeInlineStyle(id) {
-		const element = document.getElementById(id);
-		console.log(element.style)
+		const element = document.getElementById(id); 
 		setSavedInlineStyle({width: element.style.width, height: element.style.height})
 		element.style.width = '';
 		element.style.height = '';
@@ -172,9 +171,9 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
   // }, [displayBoxIsResizing])
 
   // learnBoxStatus
-  useEffect(() => {
-  	console.log('learnBoxStatus', learnBoxStatus);
-  }, [learnBoxStatus])
+  // useEffect(() => {
+  // 	console.log('learnBoxStatus', learnBoxStatus);
+  // }, [learnBoxStatus])
   
   // =========================== output =========================== //
 	return (
