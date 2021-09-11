@@ -140,13 +140,19 @@ export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating
 
 	// =========== content container open / closed
 	useEffect(() => {
+		let newClass;
+
 		if(learnBoxStatus === 'learn-box-open') {
-			setContentContainerClass('content-container-open') 
-		} else if(learnBoxStatus === 'learn-box-closing') {
-			setContentContainerClass('content-container-closing') 
+			newClass = 'content-container-open';
+		} else if(learnBoxStatus === 'learn-box-opening') {
+			newClass = 'content-container-opening'; 
 		} else if(learnBoxStatus === 'learn-box-closed') {
-			setContentContainerClass('content-container-closed')
+			newClass = 'content-container-closed';
+		} else if(learnBoxStatus === 'learn-box-closing') {
+			newClass = 'content-container-closing';
 		}
+
+		setContentContainerClass(newClass)
 	}, [learnBoxStatus])
 
 	// ======================== console logs ======================== //

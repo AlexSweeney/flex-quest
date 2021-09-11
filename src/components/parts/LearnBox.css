@@ -89,13 +89,14 @@
 	width: 100%;   
 	height: 100%;
 	transition: height 3s;  
-	overflow: auto;
+	overflow: overlay;
 }
 
 .learn-box .content-container-open { 
 	height: 100%; 
 }
- 
+
+.learn-box .content-container-opening,
 .learn-box .content-container-closed { 
 	overflow: hidden;
 }
