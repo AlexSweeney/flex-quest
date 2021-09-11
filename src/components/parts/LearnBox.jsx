@@ -4,22 +4,28 @@ import {detectTransition, detectTransitions} from './../utils.js';
 import './LearnBox.css';
 
 export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating, children}) {
+	// ======================== Variables ======================== //
+	// =============== Ids
 	const learnBoxId = `learn-box-${i}`;
 	const contentContainerId = `content-container-${i}`;
 
+	// =============== States
 	const [learnBoxIsOpen, setLearnBoxIsOpen] = useState(true);
 	const [learnBoxIsAnimating, setLearnBoxIsAnimating] = useState(false);
 
 	const [contentContainerIsAnimating, setContentContainerIsAnimating] = useState(false);
-	const learnBoxOpenClass = learnBoxIsOpen ? 'learn-box-open' : 'learn-box-closed';
 
-	
+	const [openCloseToggleIsOpen, setOpenCloseToggleIsOpen] = useState(false);
+
+	// =============== Status
 	const [learnBoxStatus, setLearnBoxStatus] = useState('learn-box-open');
 	
 	const [contentContainerStatus, setContentContainerStatus] = useState('content-container-open');
-	const [contentContainerClass, setContentContainerClass] = useState('content-container-open');
 
- 	const [openCloseToggleIsOpen, setOpenCloseToggleIsOpen] = useState(false);
+	// =============== Class
+	const learnBoxOpenClass = learnBoxIsOpen ? 'learn-box-open' : 'learn-box-closed';
+
+	const [contentContainerClass, setContentContainerClass] = useState('content-container-open');
 
  	// ======================== Handle Clicks ======================== //
  	function handleOpenCloseToggleClick() {

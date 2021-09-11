@@ -1,3 +1,9 @@
+// fix - open / close resize
+// fix - expand refresh
+// fix - smaller refresh
+// fix -expand open / close
+// fix - smaller open / close
+
 // fix glitch - drag out refresh scroll bar strobe
 
 import React, {useState, useEffect} from 'react'; 
@@ -19,14 +25,24 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	const [source, setSource] = useState(null);
 
 	// =============== animation status
+	const [resizeDisplayBox, setResizeDisplayBox] = useState(false);
 	const [displayBoxIsResizing, setDisplayBoxIsResizing] = useState(false);
-	const [animateDisplayResize, setAnimateDisplayResize] = useState(false);
+
+	const [isAnimating, setIsAnimating] = useState(false);
 	 
-	// =============== classes
+	// =============== class states
 	const [displayBoxAnimatingClass, setDisplayBoxAnimatingClass] = useState('');
+	const [displayBoxContainerAnimatingClass, setDisplayBoxContainerAnimatingClass] = useState('');
+
+	const [displayBoxResizingClass, setDisplayBoxIsResizingClass] = useState('');
+
 	const [displayBoxTransitionClass, setDisplayBoxTransitionClass] = useState('');
 	const [displayBoxMaxSizeClass, setDisplayBoxMaxSizeClass] = useState('');
-	const [displayBoxContainerClass, setDisplayBoxContainerClass] = useState('');
+	
+	const [showScrollClass, setShowScrollClass] = useState('');
+
+	// =============== classes
+	const displayBoxContainerClass = `display-box-container ${displayBoxContainerAnimatingClass} custom-scroll ${showScrollClass}`;
 
 	// =============== props
 	const buttons = [
@@ -34,16 +50,33 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 		<GridButton handleClick={onGridClick} showGrid={showGrid} />
 	];	 
 
-	const [isAnimating, setIsAnimating] = useState(false);
+	// const learnBoxProps = [title, i, isAnimating, setIsAnimating, buttons];
+
+	// }
 
 	// =========================== Click Handlers =========================== //
 	function onRefreshClick() {
-		if(hasBeenResized('display-box')) setAnimateDisplayResize(true)
+		if(hasBeenResized('display-box')) setResizeDisplayBox(true)
 	}
 
 	function onGridClick() {
 		setShowGrid(oldVal => !oldVal)
 	} 
+
+	// =========================== Event Handlers =========================== //
+	// ============= Resize
+	function handleDisplayBoxResize() {
+		removeInlineStyle('display-box') 
+		setDisplayBoxTransitionClass('display-box-transition')
+		if(elementIsOverflowing('display-box')) setShowScrollClass('show-scroll')
+	}
+
+	function resetAfterDisplayBoxResize() {
+		setDisplayBoxTransitionClass('') 
+		setShowScrollClass('')
+	}
+	
+	// ============= Animate
 
 	// =========================== Element fns =========================== //
 	function hasBeenResized(id, propertyNames) {
@@ -57,54 +90,48 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 		element.style = [];
 	}
 
-	function setMaxSize(id) {
+	function elementIsOverflowing(id) {
 		const element = document.getElementById(id);
 		if(!element) return;
 
-		if(!elementIsOverflowing(element)) { 
-			setDisplayBoxMaxSizeClass('display-box-max-size')
-		} else { 
-			setDisplayBoxMaxSizeClass('')
-		}
-	}
-
-	function elementIsOverflowing(element) {
 	  return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
 	}
 
-	// =========================== Detect Transitions =========================== //
+	// =========================== Detect Changes =========================== //
+	// =========== display box
 	useEffect(() => { 
 		detectTransitions('display-box', ['width', 'height'], setDisplayBoxIsResizing)
 	}, [])
- 	
- 	// =========================== Handle Changes =========================== //
- 	// =========== set animate display
+
 	useEffect(() => { 
+		// set to true with click handler
 		if(!displayBoxIsResizing) {
-			setAnimateDisplayResize(false)
+			setResizeDisplayBox(false)
 		} 
 	}, [displayBoxIsResizing])
-
-	// =========== handle animate display
+ 	
+ 	// =========================== Handle Changes =========================== //
+	// =========== handle display resize
 	useEffect(() => {
-		if(animateDisplayResize) {
-			removeInlineStyle('display-box') 
-			setDisplayBoxTransitionClass('display-box-transition') 
+		if(resizeDisplayBox) {
+			handleDisplayBoxResize()
 		} else { 
-			setDisplayBoxTransitionClass('') 
+			resetAfterDisplayBoxResize()
 		}
-	}, [animateDisplayResize])
+	}, [resizeDisplayBox])
 
 	// =========== handle learnbox animating on / off
 	useEffect(() => { 
 		if(isAnimating) {
-			setDisplayBoxContainerClass('display-box-container-animating')
-			setDisplayBoxAnimatingClass('display-box-animating')
-			setMaxSize(displayBoxContainerId)
+			setDisplayBoxContainerAnimatingClass('display-box-container-animating')
+			if(elementIsOverflowing('display-box-container')) {
+				setDisplayBoxAnimatingClass('display-box-animating-overflow')
+			} else {
+				setDisplayBoxAnimatingClass('display-box-animating')
+			}
 		} else {
-			setDisplayBoxContainerClass('')
+			setDisplayBoxContainerAnimatingClass('')
 			setDisplayBoxAnimatingClass('')
-			setDisplayBoxMaxSizeClass('')
 		}
 	}, [isAnimating]) 
 
@@ -122,12 +149,28 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
   		</html>`);
   }, [htmlString, cssString]) 
 
+  // =========================== console.logs =========================== //
+  // showScrollClass
+  // useEffect(() => {
+  // 	console.log('showScrollClass', showScrollClass);
+  // }, [showScrollClass])
+
+  // displayBoxAnimatingClass 
+  useEffect(() => {
+  	console.log('displayBoxAnimatingClass', displayBoxAnimatingClass);
+  }, [displayBoxAnimatingClass])
+
+  // displayBoxIsResizing
+  // useEffect(() => {
+  // 	console.log('displayBoxIsResizing', displayBoxIsResizing);
+  // }, [displayBoxIsResizing])
+  
   // =========================== output =========================== //
 	return (
 		<div className="output-display">
 			<LearnBox title={title} i={i} isAnimating={isAnimating} setIsAnimating={setIsAnimating} buttons={buttons}>
-				<div className={`display-box-container custom-scroll ${displayBoxContainerClass}`} id={displayBoxContainerId}>
-					<div className={`display-box ${displayBoxAnimatingClass} ${displayBoxMaxSizeClass} ${displayBoxTransitionClass}`} id="display-box">
+				<div className={displayBoxContainerClass} id={displayBoxContainerId}>
+					<div className={`display-box ${displayBoxAnimatingClass}`} id="display-box">
 						<GridOverlay showGrid={showGrid}/>
 						<iframe srcdoc={source} className="iframe"/>  
 					</div>
@@ -138,6 +181,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 }	
 
 /* 
+	${displayBoxMaxSizeClass} ${displayBoxTransitionClass}
 
   // handle Learn box open / close
   /*useEffect(() => {
