@@ -94,15 +94,17 @@
 }
 
 .learn-box .content-container-opening,
+.learn-box .content-container-closing,
+.learn-box .content-container-closed {  
+	overflow: hidden;
+} 
+
+.learn-box .content-container-opening,
 .learn-box .content-container-open { 
 	height: 100%; 
 }
 
-.learn-box .content-container-closing {
-	height: 0;
-}
- 
-.learn-box .content-container-closed { 
-	overflow: hidden;
+.learn-box .content-container-closing,
+.learn-box .content-container-closed {  
 	height: 0;
 } 

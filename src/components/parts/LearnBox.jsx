@@ -58,6 +58,18 @@ export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating
 		detectTransition(contentContainerId, 'height', setContentContainerIsAnimating)
 	}, [])
 
+	// ======================== Trigger Animations ==================== //
+	useEffect(() => {
+		// trigger content container animations when learnBox has finished
+		if(learnBoxStatus === 'learn-box-closed') {
+			setContentContainerStatus('content-container-closing')
+		} 
+
+		if(learnBoxStatus === 'learn-box-open' && contentContainerStatus !== 'content-container-open') {
+			setContentContainerStatus('content-container-opening')
+		} 
+	}, [learnBoxStatus])
+
 	// ======================== Set Status ======================== //
 	// =========== set status learn box 
 	useEffect(() => { 
@@ -72,26 +84,15 @@ export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating
 		newStatus && setLearnBoxStatus(newStatus)
 	}, [learnBoxIsAnimating])
 
-	// =========== set status content container
-	// =========== open / close container
+	// =========== detect status content container 
 	useEffect(() => {
-		if(learnBoxStatus === 'learn-box-closed') {
-			setContentContainerStatus('content-container-closing')
-		} 
-
-		if(learnBoxStatus === 'learn-box-open' && contentContainerStatus !== 'content-container-open') {
-			setContentContainerStatus('content-container-opening')
-		} 
-	}, [learnBoxStatus])
-
-	useEffect(() => {
+		// detect start and end of animations
 		if(!contentContainerIsAnimating && contentContainerStatus === 'content-container-closing') {
 			setContentContainerStatus('content-container-closed')
 		} else if(!contentContainerIsAnimating && contentContainerStatus === 'content-container-opening') {
 			setContentContainerStatus('content-container-open')
 		}
 	}, [contentContainerIsAnimating])
-
 
 	// =========== set open-close-toggle open / closed
 	useEffect(() => {
@@ -200,7 +201,7 @@ export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating
 			<div className={`learn-box-body ${learnBoxBodyClass}`}>
 				<div className={`content-container ${contentContainerClass}`} id={contentContainerId}>
 					{
-						
+						children && children	
 					}
 				</div>
 			</div>
@@ -208,12 +209,11 @@ export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating
 	)
 }
 
-{/*
-
-children && children
 
 
-useEffect(() => {
+
+
+// useEffect(() => {
 	// 	let newStatus;
  
 	// 	// detect further animations
@@ -250,5 +250,3 @@ useEffect(() => {
 
 	// 	newStatus && setContentContainerStatus(newStatus)
 	// }, [contentContainerIsAnimating, learnBoxStatus, contentContainerStatus])
-
-*/}
