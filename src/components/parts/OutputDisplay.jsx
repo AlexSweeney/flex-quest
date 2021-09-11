@@ -79,6 +79,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	}
 
 	function resetAfterDisplayBoxResize() {
+		setDisplayBoxClass('')
 		// setDisplayBoxAnimatingClass('')
 		
 		// setDisplayBoxTransitionClass('') 
@@ -123,7 +124,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 		if(resizeDisplayBox) {
 			handleDisplayBoxResize()
 		} else { 
-			// resetAfterDisplayBoxResize()
+			resetAfterDisplayBoxResize()
 		}
 	}, [resizeDisplayBox])
 
