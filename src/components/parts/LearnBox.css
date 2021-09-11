@@ -83,6 +83,7 @@
 	height: 100%;
 	background: #E8E4E4;
 	overflow: auto; 
+	background: blue;
 }
 
 .learn-box-body-closing,
@@ -94,6 +95,8 @@
 	width: 100%;   
 	height: 100%;
 	transition: height 3s;  
+	background: red;
+	overflow: hidden;
 }
 
 .learn-box .content-container-open { 
@@ -102,7 +105,6 @@
 
 .learn-box .content-container-closed { 
 	height: 0;
-	/*overflow: hidden;*/
 }
 
 /*

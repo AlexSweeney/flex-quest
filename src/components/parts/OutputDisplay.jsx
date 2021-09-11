@@ -1,7 +1,11 @@
+// open close box
+// fresh x 
+// smaller x
+// bigger +> refresh handle then 
+
+
 // fix - expand refresh
-// fix - smaller refresh
-// fix -expand open / close
-// fix - smaller open / close
+// fix - smaller refresh 
 
 // fix glitch - drag out refresh scroll bar strobe
 
@@ -17,7 +21,7 @@ import './scrollbar.css';
 export default function OutputDisplay({title, i, htmlString, cssString}) {
 	// =========================== Vars =========================== //
 	// =============== ids
-	const displayBoxContainerId = `display-box-container-${i}`;
+	// const displayBoxContainerId = `display-box-container-${i}`;
 
 	// =============== state settings
 	const [showGrid, setShowGrid] = useState(false);
@@ -66,7 +70,8 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	// =========================== Event Handlers =========================== //
 	// ============= Resize
 	function handleDisplayBoxResize() {
-		// removeInlineStyle('display-box') 
+		removeInlineStyle('display-box') 
+		setDisplayBoxClass('display-box-resize')
 		// setDisplayBoxAnimatingClass('display-box-transition')
 		
 		// setDisplayBoxTransitionClass('display-box-transition')
@@ -116,7 +121,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	// =========== handle display resize
 	useEffect(() => {
 		if(resizeDisplayBox) {
-			// handleDisplayBoxResize()
+			handleDisplayBoxResize()
 		} else { 
 			// resetAfterDisplayBoxResize()
 		}
@@ -124,14 +129,16 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 
 	// =========== handle learn box open / close
 	useEffect(() => { 
+		const overflow = elementIsOverflowing('content-container') ? 'overflow' : '';
+
 		if(learnBoxStatus === 'learn-box-closing') {
-			setDisplayBoxClass('display-box-closing')
+			setDisplayBoxClass(`display-box-parent-closing-${overflow}`)
 		} else if(learnBoxStatus === 'learn-box-opening') {
-			setDisplayBoxClass('display-box-opening')
+			setDisplayBoxClass('display-box-parent-opening')
 		} else if(learnBoxStatus === 'learn-box-open') {
-			setDisplayBoxClass('display-box-open')
+			setDisplayBoxClass('display-box-parent-open')
 		}  else if(learnBoxStatus === 'learn-box-closed') { 
-			setDisplayBoxClass('display-box-closed')
+			setDisplayBoxClass('display-box-parent-closed')
 		}
 	}, [learnBoxStatus]) 
 

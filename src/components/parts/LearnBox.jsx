@@ -26,7 +26,6 @@ export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating
 	const [learnBoxBodyClass, setLearnBoxBodyClass] = useState('');
 	const [contentContainerClass, setContentContainerClass] = useState('content-container-open');
 
-
  	// ======================== Handle Clicks ======================== //
  	function handleOpenCloseToggleClick() {
 		setLearnBoxIsOpen(oldVal => !oldVal)
@@ -155,9 +154,9 @@ export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating
 	// }, [isAnimating])
 
 	// =========== learnBoxIsAnimating
-	// useEffect(() => {
-	// 	console.log('learnBoxIsAnimating', learnBoxIsAnimating)
-	// }, [learnBoxIsAnimating])
+	useEffect(() => {
+		console.log('learnBoxIsAnimating', learnBoxIsAnimating)
+	}, [learnBoxIsAnimating])
 
 	// =========== learnBoxStatus
 	// useEffect(() => {
@@ -197,7 +196,7 @@ export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating
 			</div>
 
 			<div className={`learn-box-body ${learnBoxBodyClass}`}>
-				<div className={`content-container ${contentContainerClass}`} id={contentContainerId}>
+				<div className={`content-container ${contentContainerClass}`} id={'content-container'}>
 					{
 						children && children
 					}
