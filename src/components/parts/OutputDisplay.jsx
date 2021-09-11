@@ -1,4 +1,6 @@
-// fix - open / close resize
+// smaller open close
+// bigger open close
+
 // fix - expand refresh
 // fix - smaller refresh
 // fix -expand open / close
@@ -56,7 +58,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 
 	// =========================== Click Handlers =========================== //
 	function onRefreshClick() {
-		if(hasBeenResized('display-box')) setResizeDisplayBox(true)
+		if(hasBeenResized('display-box') && !isAnimating) setResizeDisplayBox(true)
 	}
 
 	function onGridClick() {
@@ -67,16 +69,28 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	// ============= Resize
 	function handleDisplayBoxResize() {
 		removeInlineStyle('display-box') 
-		setDisplayBoxTransitionClass('display-box-transition')
-		if(elementIsOverflowing('display-box')) setShowScrollClass('show-scroll')
+		setDisplayBoxAnimatingClass('display-box-transition')
+		// setDisplayBoxTransitionClass('display-box-transition')
+		// if(elementIsOverflowing('display-box')) setShowScrollClass('show-scroll')
 	}
 
 	function resetAfterDisplayBoxResize() {
-		setDisplayBoxTransitionClass('') 
-		setShowScrollClass('')
+		setDisplayBoxAnimatingClass('')
+		// setDisplayBoxTransitionClass('') 
+		// setShowScrollClass('')
 	}
 	
 	// ============= Animate
+	function handleAnimate() {
+		setDisplayBoxContainerAnimatingClass('display-box-container-animating')
+		
+		if(elementIsOverflowing('display-box-container')) {
+			setDisplayBoxAnimatingClass('display-box-animating-overflow')
+		} else {
+			setDisplayBoxAnimatingClass('display-box-animating')
+		}
+	}
+		
 
 	// =========================== Element fns =========================== //
 	function hasBeenResized(id, propertyNames) {
@@ -123,12 +137,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	// =========== handle learnbox animating on / off
 	useEffect(() => { 
 		if(isAnimating) {
-			setDisplayBoxContainerAnimatingClass('display-box-container-animating')
-			if(elementIsOverflowing('display-box-container')) {
-				setDisplayBoxAnimatingClass('display-box-animating-overflow')
-			} else {
-				setDisplayBoxAnimatingClass('display-box-animating')
-			}
+			handleAnimate()
 		} else {
 			setDisplayBoxContainerAnimatingClass('')
 			setDisplayBoxAnimatingClass('')
