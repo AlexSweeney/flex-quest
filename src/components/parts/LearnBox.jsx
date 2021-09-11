@@ -141,7 +141,9 @@ export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating
 	// =========== content container open / closed
 	useEffect(() => {
 		if(learnBoxStatus === 'learn-box-open') {
-			setContentContainerClass('content-container-open')
+			setContentContainerClass('content-container-open') 
+		} else if(learnBoxStatus === 'learn-box-closing') {
+			setContentContainerClass('content-container-closing') 
 		} else if(learnBoxStatus === 'learn-box-closed') {
 			setContentContainerClass('content-container-closed')
 		}
@@ -154,9 +156,9 @@ export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating
 	// }, [isAnimating])
 
 	// =========== learnBoxIsAnimating
-	useEffect(() => {
-		console.log('learnBoxIsAnimating', learnBoxIsAnimating)
-	}, [learnBoxIsAnimating])
+	// useEffect(() => {
+	// 	console.log('learnBoxIsAnimating', learnBoxIsAnimating)
+	// }, [learnBoxIsAnimating])
 
 	// =========== learnBoxStatus
 	// useEffect(() => {

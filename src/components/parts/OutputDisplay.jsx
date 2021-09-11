@@ -26,6 +26,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	// =============== state settings
 	const [showGrid, setShowGrid] = useState(false);
 	const [source, setSource] = useState(null);
+	const [displayBoxInlineStyle, setDisplayBoxInlineStyle] = useState(null);
 
 	// =============== resize status
 	const [resizeDisplayBox, setResizeDisplayBox] = useState(false);
@@ -66,6 +67,12 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	function onGridClick() {
 		setShowGrid(oldVal => !oldVal)
 	} 
+
+	function onOpenCloseToggleClick() {
+		// if overflowing resize then => 
+
+
+	}
 
 	// =========================== Event Handlers =========================== //
 	// ============= Resize
@@ -130,17 +137,22 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 
 	// =========== handle learn box open / close
 	useEffect(() => { 
-		const overflow = elementIsOverflowing('content-container') ? 'overflow' : '';
+		const overflow = elementIsOverflowing('content-container');
 
 		if(learnBoxStatus === 'learn-box-closing') {
-			setDisplayBoxClass(`display-box-parent-closing-${overflow}`)
+			if(overflow) {  
+				setDisplayBoxClass(`display-box-parent-closing-overflow`)
+				removeInlineStyle('display-box') 
+			} else {
+				setDisplayBoxClass(`display-box-parent-closing`)
+			} 
 		} else if(learnBoxStatus === 'learn-box-opening') {
 			setDisplayBoxClass('display-box-parent-opening')
 		} else if(learnBoxStatus === 'learn-box-open') {
 			setDisplayBoxClass('display-box-parent-open')
 		}  else if(learnBoxStatus === 'learn-box-closed') { 
 			setDisplayBoxClass('display-box-parent-closed')
-		}
+		} 
 	}, [learnBoxStatus]) 
 
 	// =========================== Set Classes =========================== //
@@ -173,7 +185,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
   // 	console.log('displayBoxIsResizing', displayBoxIsResizing);
   // }, [displayBoxIsResizing])
 
-  // displayBoxIsResizing
+  // learnBoxStatus
   useEffect(() => {
   	console.log('learnBoxStatus', learnBoxStatus);
   }, [learnBoxStatus])
