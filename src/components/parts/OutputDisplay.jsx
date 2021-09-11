@@ -26,14 +26,16 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	const [showGrid, setShowGrid] = useState(false);
 	const [source, setSource] = useState(null);
 
-	// =============== animation status
+	// =============== resize status
 	const [resizeDisplayBox, setResizeDisplayBox] = useState(false);
 	const [displayBoxIsResizing, setDisplayBoxIsResizing] = useState(false);
 
+	// =============== animation status
 	const [isAnimating, setIsAnimating] = useState(false);
+	const [learnBoxStatus, setLearnBoxStatus] = useState('learn-box-open');
 	 
 	// =============== class states
-	const [displayBoxAnimatingClass, setDisplayBoxAnimatingClass] = useState('');
+	const [displayBoxAnimatingClass, setDisplayBoxAnimatingClass] = useState('display-box-init');
 	const [displayBoxContainerAnimatingClass, setDisplayBoxContainerAnimatingClass] = useState('');
 
 	const [displayBoxResizingClass, setDisplayBoxIsResizingClass] = useState('');
@@ -68,29 +70,45 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	// =========================== Event Handlers =========================== //
 	// ============= Resize
 	function handleDisplayBoxResize() {
-		removeInlineStyle('display-box') 
-		setDisplayBoxAnimatingClass('display-box-transition')
+		// removeInlineStyle('display-box') 
+		// setDisplayBoxAnimatingClass('display-box-transition')
+		
 		// setDisplayBoxTransitionClass('display-box-transition')
 		// if(elementIsOverflowing('display-box')) setShowScrollClass('show-scroll')
 	}
 
 	function resetAfterDisplayBoxResize() {
-		setDisplayBoxAnimatingClass('')
+		// setDisplayBoxAnimatingClass('')
+		
 		// setDisplayBoxTransitionClass('') 
 		// setShowScrollClass('')
 	}
 	
 	// ============= Animate
-	function handleAnimate() {
+	function handleAnimateOpening() {
 		setDisplayBoxContainerAnimatingClass('display-box-container-animating')
 		
-		if(elementIsOverflowing('display-box-container')) {
-			setDisplayBoxAnimatingClass('display-box-animating-overflow')
+		if(elementIsOverflowing(displayBoxContainerId)) {
+			setDisplayBoxAnimatingClass('display-box-animating-overflow-opening')
 		} else {
 			setDisplayBoxAnimatingClass('display-box-animating')
 		}
 	}
+
+	function handleAnimateClosing() {
+		setDisplayBoxContainerAnimatingClass('display-box-container-animating')
 		
+		if(elementIsOverflowing(displayBoxContainerId)) {
+			setDisplayBoxAnimatingClass('display-box-animating-overflow-closing')
+		} else {
+			setDisplayBoxAnimatingClass('display-box-animating')
+		}
+	}
+  
+	function handleAnimateEnd() {
+		setDisplayBoxAnimatingClass('')
+		setDisplayBoxContainerAnimatingClass('') 
+	}	
 
 	// =========================== Element fns =========================== //
 	function hasBeenResized(id, propertyNames) {
@@ -136,13 +154,15 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 
 	// =========== handle learnbox animating on / off
 	useEffect(() => { 
-		if(isAnimating) {
-			handleAnimate()
-		} else {
-			setDisplayBoxContainerAnimatingClass('')
-			setDisplayBoxAnimatingClass('')
+		console.log('learnBoxStatus', learnBoxStatus)
+		if(learnBoxStatus === 'learn-box-closing') {
+			handleAnimateClosing()
+		} else if(learnBoxStatus === 'learn-box-opening') {
+			handleAnimateOpening()
+		} else if(learnBoxStatus === 'learn-box-open' && !isAnimating) {
+			handleAnimateEnd();
 		}
-	}, [isAnimating]) 
+	}, [learnBoxStatus, isAnimating]) 
 
 	// =========== handle updates from code boxes
   useEffect(() => {  
@@ -177,17 +197,20 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
   // =========================== output =========================== //
 	return (
 		<div className="output-display">
-			<LearnBox title={title} i={i} isAnimating={isAnimating} setIsAnimating={setIsAnimating} buttons={buttons}>
-				<div className={displayBoxContainerClass} id={displayBoxContainerId}>
+			<LearnBox title={title} i={i} isAnimating={isAnimating} setIsAnimating={setIsAnimating} buttons={buttons} learnBoxStatus={learnBoxStatus} setLearnBoxStatus={setLearnBoxStatus}>
+				{/*<div className={displayBoxContainerClass} id={displayBoxContainerId}>*/}
 					<div className={`display-box ${displayBoxAnimatingClass}`} id="display-box">
 						<GridOverlay showGrid={showGrid}/>
 						<iframe srcdoc={source} className="iframe"/>  
 					</div>
-				</div>
+				{/*</div>*/}
 			</LearnBox>
 		</div>
 	)
 }	
+
+	{/**/}
+	/**/
 
 /* 
 	${displayBoxMaxSizeClass} ${displayBoxTransitionClass}

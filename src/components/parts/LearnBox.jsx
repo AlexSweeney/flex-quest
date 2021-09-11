@@ -3,7 +3,7 @@ import OpenCloseToggle from './OpenCloseToggle/OpenCloseToggle.jsx'
 import {detectTransition, detectTransitions} from './../utils.js';
 import './LearnBox.css';
 
-export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating, children}) {
+export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating, learnBoxStatus, setLearnBoxStatus, children}) {
 	// ======================== Variables ======================== //
 	// =============== Ids
 	const learnBoxId = `learn-box-${i}`;
@@ -18,8 +18,6 @@ export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating
 	const [openCloseToggleIsOpen, setOpenCloseToggleIsOpen] = useState(false);
 
 	// =============== Status
-	const [learnBoxStatus, setLearnBoxStatus] = useState('learn-box-open');
-	
 	const [contentContainerStatus, setContentContainerStatus] = useState('content-container-open');
 
 	// =============== Class
@@ -183,7 +181,7 @@ export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating
 				</div>
 			</div>
 
-			<div className="body">
+			<div className="learn-box-body">
 				<div className={`content-container ${contentContainerClass}`} id={contentContainerId}>
 					{
 						children && children
@@ -192,4 +190,4 @@ export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating
 			</div>
 		</div>
 	)
-}
+} 

@@ -2,6 +2,7 @@
 .output-display {
 	width: 100%;
 	height: 100%; 
+	overflow: hidden; 
 }
 
 /* =============== Display Box Container =============== */
@@ -9,26 +10,22 @@
 	width: 100%;
 	height: 100%;
 	background: #E8E4E4;
-	overflow: auto;
+	background: red;
+	overflow: hidden;
 }
 
-.output-display .display-box-container-animating {
+/*.output-display .display-box-container-animating {
 	overflow: hidden;
 }
 
 .output-display .display-box-container-resizing {
 	overflow: scroll;
-}
-
-.output-display .show-scroll {
-	
-}
+}*/
 
 /* =============== Display Box =============== */
 .output-display .display-box {
+	width: 100%;
 	height: 100%;
-	width: 100%; 
-	max-width: 200%; 
 	position: relative;
 	resize: both; 
 	overflow: hidden;
@@ -37,8 +34,9 @@
 	z-index: 9000;
 }
 
-.output-display .display-box-transition {
-	transition: width 5s, height 5s; 
+.output-display .display-box-init {
+	height: 100%;
+	width: 100%; 
 }
 
 .output-display .display-box-animating {
@@ -47,7 +45,20 @@
 	max-height: 100%;
 }
 
-.output-display .display-box-animating-overflow {
+.output-display .display-box-animating-overflow-closing {
 	resize: none;
-	
+	max-width: 100%;
+	max-height: 100%;
 } 
+
+.output-display .display-box-animating-overflow-opening {
+	resize: none;
+	max-width: none;
+	max-height: none;
+	width: none;
+	height: none;
+}
+
+.output-display .display-box-transition {
+	transition: width 5s, height 5s; 
+}

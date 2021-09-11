@@ -3,7 +3,7 @@
 	height: 400px;  
 	display: flex;
 	flex-direction: column;
-	transition: 5s width ease-in-out; 
+	transition: 3s width ease-in-out; 
 	margin-right: 30px;
 	overflow: hidden;
 }
@@ -78,17 +78,17 @@
 }
 
 /* =================== Body */
-.learn-box .body {
+.learn-box-body {
 	width: 100%;
 	height: 100%;
 	background: #E8E4E4;
 	overflow: auto; 
+	background: green;
 }
 
 .learn-box .content-container {
-	width: 100%;  
-	overflow: hidden; 
-	transition: height 5s; 
+	width: 100%;   
+	transition: height 3s;  
 }
 
 .learn-box .content-container-open { 
