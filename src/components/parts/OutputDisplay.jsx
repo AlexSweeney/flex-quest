@@ -35,23 +35,22 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	const [learnBoxStatus, setLearnBoxStatus] = useState('learn-box-open');
 	 
 	// =============== class states
-	const [displayBoxAnimatingClass, setDisplayBoxAnimatingClass] = useState('display-box-init');
-	const [displayBoxContainerAnimatingClass, setDisplayBoxContainerAnimatingClass] = useState('');
-
-	const [displayBoxResizingClass, setDisplayBoxIsResizingClass] = useState('');
-
-	const [displayBoxTransitionClass, setDisplayBoxTransitionClass] = useState('');
-	const [displayBoxMaxSizeClass, setDisplayBoxMaxSizeClass] = useState('');
+	const [displayBoxClass, setDisplayBoxClass] = useState('');
+	// const [displayBoxAnimatingClass, setDisplayBoxAnimatingClass] = useState('display-box-init');
+	// const [displayBoxResizingClass, setDisplayBoxIsResizingClass] = useState('');
+	// const [displayBoxContainerAnimatingClass, setDisplayBoxContainerAnimatingClass] = useState('');
+	// const [displayBoxTransitionClass, setDisplayBoxTransitionClass] = useState('');
+	// const [displayBoxMaxSizeClass, setDisplayBoxMaxSizeClass] = useState('');
 	
-	const [showScrollClass, setShowScrollClass] = useState('');
+	// const [showScrollClass, setShowScrollClass] = useState('');
 
 	// =============== classes
-	const displayBoxContainerClass = `display-box-container ${displayBoxContainerAnimatingClass} custom-scroll ${showScrollClass}`;
+	// const displayBoxContainerClass = `display-box-container ${displayBoxContainerAnimatingClass} custom-scroll ${showScrollClass}`;
 
 	// =============== props
 	const buttons = [
-		<RefreshButton onClick={onRefreshClick}/>,
-		<GridButton handleClick={onGridClick} showGrid={showGrid} />
+		<RefreshButton onClick={onRefreshClick} disabled={isAnimating}/>,
+		<GridButton handleClick={onGridClick} showGrid={showGrid} disabled={isAnimating}/>
 	];	 
 
 	// const learnBoxProps = [title, i, isAnimating, setIsAnimating, buttons];
@@ -84,32 +83,6 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 		// setShowScrollClass('')
 	}
 	
-	// ============= Animate
-	function handleAnimateOpening() {
-		setDisplayBoxContainerAnimatingClass('display-box-container-animating')
-		
-		if(elementIsOverflowing(displayBoxContainerId)) {
-			setDisplayBoxAnimatingClass('display-box-animating-overflow-opening')
-		} else {
-			setDisplayBoxAnimatingClass('display-box-animating')
-		}
-	}
-
-	function handleAnimateClosing() {
-		setDisplayBoxContainerAnimatingClass('display-box-container-animating')
-		
-		if(elementIsOverflowing(displayBoxContainerId)) {
-			setDisplayBoxAnimatingClass('display-box-animating-overflow-closing')
-		} else {
-			setDisplayBoxAnimatingClass('display-box-animating')
-		}
-	}
-  
-	function handleAnimateEnd() {
-		setDisplayBoxAnimatingClass('')
-		setDisplayBoxContainerAnimatingClass('') 
-	}	
-
 	// =========================== Element fns =========================== //
 	function hasBeenResized(id, propertyNames) {
 		const element = document.getElementById(id); 
@@ -156,11 +129,11 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	useEffect(() => { 
 		console.log('learnBoxStatus', learnBoxStatus)
 		if(learnBoxStatus === 'learn-box-closing') {
-			handleAnimateClosing()
+			setDisplayBoxClass('display-box-animating-closing')
 		} else if(learnBoxStatus === 'learn-box-opening') {
-			handleAnimateOpening()
+			setDisplayBoxClass('display-box-animating-opening')
 		} else if(learnBoxStatus === 'learn-box-open' && !isAnimating) {
-			handleAnimateEnd();
+			setDisplayBoxClass('')
 		}
 	}, [learnBoxStatus, isAnimating]) 
 
@@ -185,9 +158,9 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
   // }, [showScrollClass])
 
   // displayBoxAnimatingClass 
-  useEffect(() => {
-  	console.log('displayBoxAnimatingClass', displayBoxAnimatingClass);
-  }, [displayBoxAnimatingClass])
+  // useEffect(() => {
+  // 	console.log('displayBoxAnimatingClass', displayBoxAnimatingClass);
+  // }, [displayBoxAnimatingClass])
 
   // displayBoxIsResizing
   // useEffect(() => {
@@ -196,22 +169,21 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
   
   // =========================== output =========================== //
 	return (
-		<div className="output-display">
-			<LearnBox title={title} i={i} isAnimating={isAnimating} setIsAnimating={setIsAnimating} buttons={buttons} learnBoxStatus={learnBoxStatus} setLearnBoxStatus={setLearnBoxStatus}>
-				{/*<div className={displayBoxContainerClass} id={displayBoxContainerId}>*/}
-					<div className={`display-box ${displayBoxAnimatingClass}`} id="display-box">
-						<GridOverlay showGrid={showGrid}/>
-						<iframe srcdoc={source} className="iframe"/>  
-					</div>
-				{/*</div>*/}
-			</LearnBox>
-		</div>
+		<LearnBox title={title} i={i} isAnimating={isAnimating} setIsAnimating={setIsAnimating} buttons={buttons} learnBoxStatus={learnBoxStatus} setLearnBoxStatus={setLearnBoxStatus}>
+			{/*<div className={displayBoxContainerClass} id={displayBoxContainerId}>*/}
+				<div className={`display-box ${displayBoxClass}`} id="display-box">
+					{/*<GridOverlay showGrid={showGrid}/>
+					<iframe srcdoc={source} className="iframe"/>  */}
+				</div>
+			{/*</div>*/}
+		</LearnBox>
 	)
 }	
 
 	{/**/}
 	/**/
-
+/*</div>*/
+	{/*<div className="output-display">*/}
 /* 
 	${displayBoxMaxSizeClass} ${displayBoxTransitionClass}
 
