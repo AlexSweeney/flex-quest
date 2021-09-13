@@ -1,7 +1,8 @@
-// open close box
-// fresh  - border pause - check learn box content container is animating properly + hiding overflow
-// smaller - scroll showing on content open
-// bigger -  scroll showing on content open
+// open close box 
+// refresh smaller - scroll showing on content open
+// refresh bigger -  scroll showing on content open
+
+// refactor => in Learn box -> detect transitions set overflow: overlay auto? 
 
 
 // expand refresh x
@@ -36,6 +37,8 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	 
 	// =============== class states
 	const [displayBoxClass, setDisplayBoxClass] = useState('');
+	const [contentContainerClass, setContentContainerClass] = useState('content-container-open');
+	// const [contentContainerScrollClass, setContentContainerScrollClass] = useState('scroll-auto');
 
 	// =============== props
 	const buttons = [
@@ -55,11 +58,15 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	// =========================== Event Handlers =========================== //
 	// ============= Resize
 	function handleDisplayBoxResize() {
+		setContentContainerClass('content-container-resize')
+		// setContentContainerScrollClass('scroll-overlay')
 		removeInlineStyle('display-box') 
 		setDisplayBoxClass('display-box-resize') 
 	}
 
 	function resetAfterDisplayBoxResize() {
+		setContentContainerClass('content-container-open')
+		// setContentContainerScrollClass('scroll-auto')
 		setDisplayBoxClass('') 
 	}
 	
@@ -68,7 +75,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 		const element = document.getElementById(id); 
 
 		return !(element.style.width === '' && element.style.height === '');
-	}
+	} 
 
 	function removeInlineStyle(id) {
 		const element = document.getElementById(id); 
@@ -177,7 +184,15 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
   
   // =========================== output =========================== //
 	return (
-		<LearnBox title={title} i={i} isAnimating={isAnimating} setIsAnimating={setIsAnimating} buttons={buttons} learnBoxStatus={learnBoxStatus} setLearnBoxStatus={setLearnBoxStatus}>
+		<LearnBox title={title} 
+			i={i} 
+			isAnimating={isAnimating} 
+			setIsAnimating={setIsAnimating} 
+			buttons={buttons} 
+			learnBoxStatus={learnBoxStatus} 
+			setLearnBoxStatus={setLearnBoxStatus}
+			contentContainerClass={contentContainerClass}
+			setContentContainerClass={setContentContainerClass}>
 			<div className={`display-box ${displayBoxClass}`} id="display-box">
 				{/*<GridOverlay showGrid={showGrid}/>
 				<iframe srcdoc={source} className="iframe"/>  */}

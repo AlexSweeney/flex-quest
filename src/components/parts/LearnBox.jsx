@@ -3,7 +3,7 @@ import OpenCloseToggle from './OpenCloseToggle/OpenCloseToggle.jsx'
 import {detectTransition, detectTransitions} from './../utils.js';
 import './LearnBox.css';
 
-export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating, learnBoxStatus, setLearnBoxStatus, children}) {
+export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating, learnBoxStatus, setLearnBoxStatus, contentContainerClass, setContentContainerClass, children}) {
 	// ======================== Variables ======================== //
 	// =============== Ids
 	const learnBoxId = `learn-box-${i}`;
@@ -22,10 +22,8 @@ export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating
 
 	// =============== Class
 	const learnBoxOpenClass = learnBoxIsOpen ? 'learn-box-open' : 'learn-box-closed';
-
 	const [learnBoxBodyClass, setLearnBoxBodyClass] = useState('');
-	const [contentContainerClass, setContentContainerClass] = useState('content-container-open');
-
+	
  	// ======================== Handle Clicks ======================== //
  	function handleOpenCloseToggleClick() {
 		setLearnBoxIsOpen(oldVal => !oldVal)

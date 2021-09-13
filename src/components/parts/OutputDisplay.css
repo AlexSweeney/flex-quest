@@ -57,3 +57,12 @@
 .display-box-resize {
 	transition: width 1500ms, height 1500ms;
 }
+
+/* =============== Misc =============== */
+.scroll-overlay {
+	overflow: overlay;
+}
+
+.scroll-auto {
+	overflow: auto;
+}
