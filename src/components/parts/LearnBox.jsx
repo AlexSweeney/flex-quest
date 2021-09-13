@@ -20,6 +20,7 @@ export default function LearnBox({
 	const [boxIsTransitioning, setBoxIsTransitioning] = useState(!boxIsOpen);
 	// const initLearnBoxStatus = boxIsOpen ? 'learn-box-open' : 'learn-box-closed';
 	const [learnBoxStatus, setLearnBoxStatus] = useState(null);
+	const [isAnimating, setIsAnimating] = useState(false);
 
 	// ======================= Id's ======================= //
 	const learnBoxId = 'learn-box';
@@ -58,9 +59,17 @@ export default function LearnBox({
 	}, [boxIsTransitioning])
 
 	// ============ Animation is Running
-	// useEffect(() => {
+	useEffect(() => {
+		if(learnBoxStatus === 'learn-box-open'
+			|| learnBoxStatus === 'learn-box-closed') {
+			setIsAnimating(false)
+		}
 
-	// }, [learnBoxStatus, bodyStatus])
+		if(learnBoxStatus === 'learn-box-opening'
+			|| learnBoxStatus === 'learn-box-closing') {
+			setIsAnimating(true)
+		}
+	}, [learnBoxStatus])
 
 	// ======================= Trigger Event Handlers ======================= //
 	// ========== Open Close box
@@ -95,11 +104,13 @@ export default function LearnBox({
 					<OpenCloseToggle 	
 						handleClick={handleOpenCloseToggleClick}
 						toggleIsOpen={toggleIsOpen}
+
+						parentIsAnimating={isAnimating}
 					/>
 
 					{/*toggleIsOpen={openCloseToggleIsOpen}
 						handleClick={handleOpenCloseToggleClick}
-						parentIsAnimating={isAnimating}*/}
+						*/}
 				</div>
 			</div>
 

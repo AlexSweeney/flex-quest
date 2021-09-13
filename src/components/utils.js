@@ -5,11 +5,7 @@ export function detectTransition(id, propertyName, onChange) {
 	if(!element) {
 		console.log('Error: detectTransition element not found: id = ', id)
 		return;
-	} 
-
-	if(element) {
-		console.log('detectTransition element found: id = ', id)
-	}
+	}  
 
 	addListeners(id, propertyName, numTransitions, onChange)
 }
@@ -29,9 +25,6 @@ function addListeners(id, propertyName, numTransitions, onChange) {
 		console.log('Error: detectTransition element not found: id = ', id)
 	} else {
 		element.addEventListener('transitionstart', (e) => {
-			console.log('transitionstart id', id)
-			console.log(e)
-			console.log('=========================')
 			if(e.propertyName === propertyName && e.srcElement.id === id) {
 				numTransitions += 1;
 				if(numTransitions === 1) onChange(true)
@@ -39,9 +32,6 @@ function addListeners(id, propertyName, numTransitions, onChange) {
 		})
 
 	 	element.addEventListener('transitionend', (e) => {
-	 		console.log('transitionend id', id)
-	 		console.log(e)
-	 		console.log('=========================')
 			if(e.propertyName === propertyName && e.srcElement.id === id) {
 				numTransitions -= 1;
 				if(numTransitions === 0) onChange(false)

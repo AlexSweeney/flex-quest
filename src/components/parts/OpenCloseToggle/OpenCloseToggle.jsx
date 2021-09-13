@@ -87,9 +87,9 @@ export default function OpenCloseToggle({
 	}, [parentIsAnimating, lineIsAnimating])
 
 	// ================== Console logs ================== //
-	useEffect(() => {
-		console.log('lineIsAnimating', lineIsAnimating)
-	}, [lineIsAnimating])
+	// useEffect(() => {
+	// 	console.log('lineIsAnimating', lineIsAnimating)
+	// }, [lineIsAnimating])
 
 	// ================== Componenet ================== //
 	return (
