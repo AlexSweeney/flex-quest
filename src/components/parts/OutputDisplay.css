@@ -1,31 +1,61 @@
 /* =============== Transitions =============== */
-.display-box-transition,
 .display-box-transition {
-	max-height: 100%;
+	/*transition: max-height 2s ease-in-out;*/
+}
+
+.display-box-resize {
+	/*max-height: 100%;
 	max-width: 100%;
-	transition: height 4s ease-in-out;
+	transition: height 4s ease-in-out;*/
 }
 
 /* =============== Display Box =============== */
 .display-box {
-	width: 100%;
+	width: 100%;  
+	max-width: 100%; 
 	height: 100%;
-
 	background: green;
 
+
 	resize: both;
-	overflow: hidden;
+	overflow: hidden; 
+	transition: max-height 5s ease-in-out;
 }
 
-.display-box-closing,
+.display-box-parent-closing {
+	max-height: 100%;
+}
+
+.display-box-closing, 
 .display-box-closed {
-	height: 0;
+	max-height: 0;
 }
 
-.display-box-opening,
-.display-box-open {
+/*.display-box-parent-open {
 	height: 100%;
 }
+
+.display-box-parent-closing {
+	height: 100%; 
+}
+
+.display-box-parent-closed {
+	max-height: 100%;
+}
+
+.diplay-box-closing {
+	max-height: 0;
+}*/
+/*
+.display-box-closing,
+.display-box-closed {
+	max-height: 0;
+}
+*/
+/*.display-box-opening,
+.display-box-open { 
+	height: 100%; 
+}*/
 
 /*.display-box {
 	/*width: 100%;

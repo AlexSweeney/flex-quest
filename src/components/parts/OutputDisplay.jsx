@@ -1,7 +1,15 @@
 // open close
 // fresh - x 
+
+// smaller - 
+	// height
+	// width
+	// width + height
+
 // bigger  -  
-// smaller -   
+	// height
+	// width
+	// width + height
 
 // refresh
 // fresh -  
@@ -39,7 +47,9 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	 
 	// =============== classes
 	const [displayBoxClass, setDisplayBoxClass] = useState('display-box-open');
+	const [displayBoxParentClass, setDisplayBoxParentClass] = useState('display-box-parent-open');
 	const [displayBoxTransitionClass, setDisplayBoxTransitionClass] = useState('');
+	const [displayBoxResizeClass, setDisplayBoxResizeClass] = useState('');
 	// const [contentContainerClass, setContentContainerClass] = useState('content-container-open');
 	// const [contentContainerScrollClass, setContentContainerScrollClass] = useState('scroll-auto');
 
@@ -57,10 +67,12 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	} 
 
 	function removeInlineStyle(id) {
+		// setDisplayBoxResizeClass('display-box-resize')
+
 		const element = document.getElementById(id); 
 		setSavedInlineStyle({width: element.style.width, height: element.style.height})
 		element.style.width = '';
-		element.style.height = '';
+		element.style.height = ''; 
 	}
 
 	function restoreInlineStyle(id) {
@@ -92,7 +104,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 
 	// =========================== Event Handlers =========================== //
 	function handleDisplayBoxResize() {
-		removeInlineStyle('display-box') 
+		// removeInlineStyle('display-box') 
 		// setContentContainerClass('content-container-resize')
 		
 		// setDisplayBoxClass('display-box-resize') 
@@ -135,11 +147,13 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 		}
 	}, [learnBoxStatus])
 
-	// resize display box to 100%
+	// remove inline style
 	useEffect(() => {
-		// if(learnBoxIsOpen) resetAfterDisplayBoxResize()
-		if(!learnBoxIsOpen) handleDisplayBoxResize()
-	}, [learnBoxIsOpen])
+		if(displayBoxStatus === 'closing') {
+			removeInlineStyle('display-box')
+		}
+	}, [displayBoxStatus])
+
 
 	// =========================== Trigger Handlers =========================== //
 	// =========== display resize
@@ -150,6 +164,12 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	// 		resetAfterDisplayBoxResize()
 	// 	}
 	// }, [resizeDisplayBox])
+
+	// resize display box to 100%
+	useEffect(() => {
+		// if(learnBoxIsOpen) resetAfterDisplayBoxResize()
+		if(!learnBoxIsOpen) handleDisplayBoxResize()
+	}, [learnBoxIsOpen])
 
 	// =========== code change
 	useEffect(() => {  
@@ -175,7 +195,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
   // display box status - open closed
    useEffect(() => {
   	let newStatus;
-  	
+
   	if(!displayBoxIsResizing && !displayBoxIsOpen) {
 			newStatus = 'display-box-closed';
 		}
@@ -187,43 +207,6 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
  		newStatus && setDisplayBoxStatus(newStatus)
   }, [displayBoxIsResizing])
 
-  // display box status - open / closed
- //  useEffect(() => {
- //  	if(displayBoxIsResizing) return
-
- //  	console.log('update status ==================')
- //  	console.log('displayBoxIsOpen', displayBoxIsOpen)
- //  	console.log('displayBoxStatus', displayBoxStatus) 
-	// 	let newStatus;
-
-
-
-	// 	// if(displayBoxIsOpen 
-	// 	// && !displayBoxIsResizing
-	// 	// && displayBoxStatus === 'display-box-opening') {
-	// 	// 	newStatus ='display-box-open';
-	// 	// }
-
-	// 	// if(displayBoxIsOpen 
-	// 	// && !displayBoxIsResizing
-	// 	// && displayBoxStatus === 'display-box-closed') {
-	// 	// 	newStatus = 'display-box-opening';
-	// 	// }
-
-	// 	if(!displayBoxIsOpen 
-	// 		&& displayBoxStatus === 'display-box-closing') {
-	// 		newStatus = 'display-box-closed';
-	// 	}
-
-	// 	if(!displayBoxIsOpen
-	// 		&& displayBoxStatus === 'display-box-open') {
-	// 		newStatus = 'display-box-closing';
-	// 	}
-
-	// 	console.log('newStatus', newStatus)
-	// 	newStatus && setDisplayBoxStatus(newStatus)
-	// }, [displayBoxIsOpen, displayBoxIsResizing, displayBoxStatus])
-	
 	// =========================== Set Classes  =========================== //
 	// =========== display box class
 	useEffect(() => {
@@ -231,7 +214,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 
 		if(displayBoxStatus === 'display-box-open') {
 			newClass = 'display-box-open'
-		}
+		} 
 
 		if(displayBoxStatus === 'display-box-closed') {
 			newClass = 'display-box-closed'
@@ -248,33 +231,59 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 		newClass && setDisplayBoxClass(newClass)
 	}, [displayBoxStatus])
 
+	// =========== display box parent class
+	useEffect(() => {
+		let newClass;
+
+		if(learnBoxStatus === 'learn-box-open') {
+			newClass = 'display-box-parent-open'
+		} 
+
+		if(learnBoxStatus === 'learn-box-closed') {
+			newClass = 'display-box-parent-closed'
+		}
+
+		if(learnBoxStatus === 'learn-box-opening') {
+			newClass = 'display-box-parent-opening'
+		}
+
+		if(learnBoxStatus === 'learn-box-closing') {
+			newClass = 'display-box-parent-closing'
+		}
+
+		newClass && setDisplayBoxParentClass(newClass)
+	}, [learnBoxStatus])
+
 	// display box transition class
 	useEffect(() => {
 		let newClass;
 
 		if(displayBoxStatus === 'display-box-open'
 			|| displayBoxStatus === 'display-box-closed') {
-			newClass = 'display-box-transition'
+			newClass = ''
 		} 
 
-		if(displayBoxStatus === 'display-box-opening'
-			|| displayBoxStatus === 'display-box-closing') {
+		if(learnBoxStatus === 'display-box-opening'
+			|| learnBoxStatus === 'learn-box-closing') {
 			newClass = 'display-box-transition';
 		}
 
 		newClass && setDisplayBoxTransitionClass(newClass)
-	}, [displayBoxStatus])
-
-	
+	}, [learnBoxStatus, displayBoxStatus])
 
   // =========================== console.logs =========================== //
   // =================== Display box
-  // displayBoxStatus
+  // ---- displayBoxStatus
   useEffect(() => {
   	console.log('displayBoxStatus', displayBoxStatus);
   }, [displayBoxStatus])
 
-  // displayBoxIsOpen
+  // ---- displayBoxClass
+  // useEffect(() => {
+  // 	console.log('displayBoxClass', displayBoxClass);
+  // }, [displayBoxClass])
+
+  // ---- displayBoxIsOpen
   // useEffect(() => {
   // 	console.log('displayBoxIsOpen', displayBoxIsOpen);
   // }, [displayBoxIsOpen])
@@ -284,10 +293,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
   // 	console.log('displayBoxIsResizing', displayBoxIsResizing);
   // }, [displayBoxIsResizing])
 
-  // displayBoxClass
-  // useEffect(() => {
-  // 	console.log('displayBoxClass', displayBoxClass);
-  // }, [displayBoxClass])
+ 
 
   // showScrollClass
   // useEffect(() => {
@@ -311,17 +317,30 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
   
   // =========================== output =========================== //
 	return (
-		<LearnBox 
-			title={title} 
-			boxIsOpen={learnBoxIsOpen}
-			handleOpenCloseToggleClick={onOpenCloseToggleClick}
-			buttons={buttons}
-			learnBoxStatus={learnBoxStatus}
-			setLearnBoxStatus={setLearnBoxStatus}
-		>
-			<div className={`display-box ${displayBoxTransitionClass} ${displayBoxClass}`} id="display-box">
+		<div style={{width: '100%'}}>
+			<LearnBox 
+				title={title} 
+				boxIsOpen={learnBoxIsOpen}
+				handleOpenCloseToggleClick={onOpenCloseToggleClick}
+				buttons={buttons}
+				learnBoxStatus={learnBoxStatus}
+				setLearnBoxStatus={setLearnBoxStatus}
+			>	
+				
+				<div className={`
+					display-box 
+					${displayBoxClass}
+					${displayBoxParentClass}
+					${displayBoxTransitionClass} 
+					${displayBoxResizeClass} 
+					`} id="display-box">
+				</div> 
+			</LearnBox>
+			<div>
+				<p>learnBoxStatus: {learnBoxStatus}</p>
+				<p>displayBoxStatus: {displayBoxStatus}</p>
 			</div> 
-		</LearnBox>
+		</div>
 	)
 }	
 

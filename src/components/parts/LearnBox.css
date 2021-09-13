@@ -1,7 +1,7 @@
 /* =================== Transitions =================== */
 .learn-box-open-close-transition,
 .learn-box-open-close-transition {
-	transition: 3s width ease-in-out; 
+	transition: 2s width ease-in-out; 
 }
 
 .scroll-bar-transition {
