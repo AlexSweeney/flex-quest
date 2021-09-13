@@ -58,7 +58,9 @@ export default function LearnBox({
 	}, [boxIsTransitioning])
 
 	// ============ Animation is Running
-	
+	// useEffect(() => {
+
+	// }, [learnBoxStatus, bodyStatus])
 
 	// ======================= Trigger Event Handlers ======================= //
 	// ========== Open Close box

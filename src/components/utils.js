@@ -2,21 +2,16 @@ export function detectTransition(id, propertyName, onChange) {
 	let numTransitions = 0; 
 
 	let element = document.getElementById(id);
-	if(!element) return;
+	if(!element) {
+		console.log('Error: detectTransition element not found: id = ', id)
+		return;
+	} 
 
-	element.addEventListener('transitionstart', (e) => { 
-		if(e.propertyName === propertyName && e.srcElement.id === id) { 
-			numTransitions += 1; 
-			if(numTransitions === 1) onChange(true)
-		}
-	})
+	if(element) {
+		console.log('detectTransition element found: id = ', id)
+	}
 
- 	element.addEventListener('transitionend', (e) => {
-		if(e.propertyName === propertyName && e.srcElement.id === id) {
-			numTransitions -= 1;
-			if(numTransitions === 0) onChange(false)
-		}
-	}) 
+	addListeners(id, propertyName, numTransitions, onChange)
 }
 
 export function detectTransitions(id, propertyNames, onChange) {
@@ -31,9 +26,12 @@ function addListeners(id, propertyName, numTransitions, onChange) {
 	let element = document.getElementById(id);
 
 	if(!element) {
-		console.log('error no element')
+		console.log('Error: detectTransition element not found: id = ', id)
 	} else {
 		element.addEventListener('transitionstart', (e) => {
+			console.log('transitionstart id', id)
+			console.log(e)
+			console.log('=========================')
 			if(e.propertyName === propertyName && e.srcElement.id === id) {
 				numTransitions += 1;
 				if(numTransitions === 1) onChange(true)
@@ -41,6 +39,9 @@ function addListeners(id, propertyName, numTransitions, onChange) {
 		})
 
 	 	element.addEventListener('transitionend', (e) => {
+	 		console.log('transitionend id', id)
+	 		console.log(e)
+	 		console.log('=========================')
 			if(e.propertyName === propertyName && e.srcElement.id === id) {
 				numTransitions -= 1;
 				if(numTransitions === 0) onChange(false)

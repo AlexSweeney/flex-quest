@@ -6,19 +6,23 @@ export default function OpenCloseToggle({
 	toggleIsOpen = false, 
 	parentIsAnimating = false, 
 	handleClick = () => { console.log('no function passed to OpenCloseToggle')}, 
-	i = Math.random()}) { 
+	i = 0}) { 
+	// ================== Ids ================== //
 	const vertLineId = 'vert-line-' + i;
 	const horizLineId = 'horiz-line-' + i;
 	const openCloseToggleId = 'open-close-toggle' + i;
+
+	// ================== Status ================== //
 	const [lineIsAnimating, setLineIsAnimating] = useState(false);
+	const [cursorLocation, setCursorLocation] = useState('');
+	const [cursorStatus, setCursorStatus] = useState(''); 
+	const [isAnimating, setIsAnimating] = useState(false);
+
+	// ================== Classes ================== //
 	const [lineDirectionClass, setLineDirectionClass] = useState(toggleIsOpen ? 'line-open' : 'line-closed');
 	const [lineColorClass, setLineColorClass] = useState('line-out');
 
-	const [cursorLocation, setCursorLocation] = useState('');
-	const [cursorStatus, setCursorStatus] = useState(''); 
-
-	const [isAnimating, setIsAnimating] = useState(false);
-
+	// ================== Event Handlers ================== //
 	function handleDown() {
 		handleClick();
 		setCursorStatus('down'); 
@@ -40,7 +44,13 @@ export default function OpenCloseToggle({
 		}
 	} 
 
-	// change line color
+	// ================== Detect Events ================== //
+	useEffect(() => {
+		detectTransition(vertLineId, 'transform', setLineIsAnimating)
+	}, [])
+
+	// ================== Set Classes ================== //
+	// ========== Line Color Class //
 	useEffect(() => {	
 		// cursor
 		if(cursorLocation === 'over' && cursorStatus === '') {
@@ -50,14 +60,15 @@ export default function OpenCloseToggle({
 		} else if(cursorLocation === 'over' && cursorStatus === 'up') {
 			setLineColorClass('line-up');
 		} else if(cursorStatus === 'down' && cursorLocation === 'over') {
-			setLineColorClass('line-down');
-		// animation
-		} else if(isAnimating && cursorLocation === 'out') {
+			setLineColorClass('line-down'); 
+		}
+
+	 	if(isAnimating && cursorLocation === 'out') {
 			setLineColorClass('line-animating');
 		} 
 	}, [cursorStatus, cursorLocation, isAnimating])
 
-	// change line direction
+	// ========== Line direction class //
 	useEffect(() => {
 		if(toggleIsOpen) {
 			setLineDirectionClass('line-open');
@@ -66,11 +77,7 @@ export default function OpenCloseToggle({
 		} 
 	}, [toggleIsOpen]);
 
-	// detect animation
-	useEffect(() => {
-		detectTransition(vertLineId, 'transform', setLineIsAnimating)
-	}, [])
-
+	// ================== Set Status ================== //
 	useEffect(() => {
 		if(parentIsAnimating || lineIsAnimating) {
 			setIsAnimating(true)
@@ -79,6 +86,12 @@ export default function OpenCloseToggle({
 		}
 	}, [parentIsAnimating, lineIsAnimating])
 
+	// ================== Console logs ================== //
+	useEffect(() => {
+		console.log('lineIsAnimating', lineIsAnimating)
+	}, [lineIsAnimating])
+
+	// ================== Componenet ================== //
 	return (
 		<div className="open-close-toggle" 	
 			id={openCloseToggleId}
