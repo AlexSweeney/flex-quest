@@ -1,3 +1,12 @@
+/* =================== Transitions =================== */
+.learn-box-open-close-transition {
+	transition: 3s width ease-in-out; 
+}
+
+.scroll-bar-transition {
+	transition: 2s width ease-in-out;	
+}
+
 /* =================== Box =================== */
 .learn-box {
 	height: 400px;  
@@ -8,16 +17,14 @@
 	background: #E8E4E4;
 }
 
+.learn-box-opening,
 .learn-box-open {
 	width: 100%;
 }
 
+.learn-box-closing,
 .learn-box-closed {
 	width: 36px;
-}
-
-.learn-box-open-close-transition {
-	transition: 3s width ease-in-out; 
 }
 
 /* =================== Box Header =================== */
@@ -83,14 +90,51 @@
 }
 
 /* =================== Body */
-/*.learn-box-body {
+.learn-box-body {
 	width: 100%;
 	height: 100%;
-	background: #E8E4E4; 
+	/*background: #E8E4E4; */
 	overflow: auto;
+	background: red;
 } 
 
 .learn-box-body-opening,
+.learn-box-body-closing, 
+.learn-box-body-resizing, {
+	overflow: overlay;
+}
+
+/*.learn-box-body-closed {
+	overflow: overlay;
+}*/
+
+.child {
+	width: 5000px;
+	height: 50px;
+	background: blue;
+}
+  
+/* =================== Body Scrollbar */
+.learn-box-body::-webkit-scrollbar { 
+  height: 16px;
+  width: 16px;
+  background: transparent; 
+}
+
+.learn-box-body::-webkit-scrollbar-corner {
+	background: #a7a7a7;
+}
+ 
+.learn-box-body::-webkit-scrollbar-thumb { 
+	background: #a7a7a7;  
+}
+
+.learn-box-body::-webkit-scrollbar-thumb:hover { 
+	background: #d6d1d1;
+}
+ 
+
+/*.learn-box-body-opening,
 .learn-box-body-closing {
 	overflow: overlay;
 }

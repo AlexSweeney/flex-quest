@@ -1,3 +1,8 @@
+// custom scroll bar
+ 
+// add buttons
+// detect resize transitions
+
 import React, {useState, useEffect} from 'react'; 
 import OpenCloseToggle from './OpenCloseToggle/OpenCloseToggle.jsx';
 import {detectTransition, detectTransitions} from './../utils.js';
@@ -15,18 +20,21 @@ export default function LearnBox({
 	,
 	boxIsOpen, 
 	/*learnBoxBodyIsOpen, */
+	
 	// ======================= Status ======================= //
+	const initialBoxStatus = boxIsOpen ? 'learn-box-open' : 'learn-box-closed';
+
 	const [toggleIsOpen, setToggleIsOpen] = useState(!boxIsOpen);
 	const [boxIsTransitioning, setBoxIsTransitioning] = useState(!boxIsOpen);
-	// const initLearnBoxStatus = boxIsOpen ? 'learn-box-open' : 'learn-box-closed';
-	const [learnBoxStatus, setLearnBoxStatus] = useState(null);
+	const [learnBoxStatus, setLearnBoxStatus] = useState(initialBoxStatus);
 	const [isAnimating, setIsAnimating] = useState(false);
 
 	// ======================= Id's ======================= //
 	const learnBoxId = 'learn-box';
 
 	// ======================= Classes ======================= //
-	const learnBoxOpenClass = boxIsOpen ? 'learn-box-open' : 'learn-box-closed';
+	const [learnBoxClass, setLearnBoxClass] = useState(initialBoxStatus);
+	const [learnBoxBodyClass, setLearnBoxBodyClass] = useState(initialBoxStatus);
 
 	// ======================= Event Handlers ======================= //
 	function onBoxOpen() {
@@ -36,6 +44,15 @@ export default function LearnBox({
 	function onBoxClosed() {
 		setToggleIsOpen(true)
 	}
+
+	// ======================= Trigger Events ======================= //
+	useEffect(() => {
+		if(boxIsOpen) {
+			setLearnBoxStatus('learn-box-opening')
+		} else {
+			setLearnBoxStatus('learn-box-closing')
+		}
+	}, [boxIsOpen])
 
 	// ======================= Detect Events ======================= //
 	useEffect(() => {
@@ -71,6 +88,53 @@ export default function LearnBox({
 		}
 	}, [learnBoxStatus])
 
+	// ======================= Update Class => based on learnBoxStatus  ======================= //
+	// ============ Learn box class
+	useEffect(() => {
+		let newStatus;
+
+		if(learnBoxStatus === 'learn-box-open' ) {
+			newStatus = 'learn-box-open';
+		}
+
+		if(learnBoxStatus === 'learn-box-closed' ) {
+			newStatus = 'learn-box-closed';
+		}
+
+		if(learnBoxStatus === 'learn-box-opening' ) {
+			newStatus = 'learn-box-opening';
+		}
+
+		if(learnBoxStatus === 'learn-box-closing' ) {
+			newStatus = 'learn-box-closing';
+		}
+
+		newStatus && setLearnBoxClass(newStatus)
+	}, [learnBoxStatus])
+
+	// ============ Learn box body class
+	useEffect(() => {
+		let newStatus;
+
+		if(learnBoxStatus === 'learn-box-open' ) {
+			newStatus = 'learn-box-body-open';
+		}
+
+		if(learnBoxStatus === 'learn-box-closed' ) {
+			newStatus = 'learn-box-body-closed';
+		}
+
+		if(learnBoxStatus === 'learn-box-opening' ) {
+			newStatus = 'learn-box-body-opening';
+		}
+
+		if(learnBoxStatus === 'learn-box-closing' ) {
+			newStatus = 'learn-box-body-closing';
+		}
+
+		newStatus && setLearnBoxBodyClass(newStatus)
+	}, [learnBoxStatus])
+
 	// ======================= Trigger Event Handlers ======================= //
 	// ========== Open Close box
 	useEffect(() => {
@@ -88,7 +152,7 @@ export default function LearnBox({
 
 	// ======================= Component ======================= //
 	return (
-		<div className={`learn-box learn-box-open-close-transition ${learnBoxOpenClass}`} id={learnBoxId}>
+		<div className={`learn-box learn-box-open-close-transition ${learnBoxClass}`} id={learnBoxId}>
 			<div className="learn-box-header">
 				<div className="learn-box-buttons-container">
 					{buttons && buttons.map(button => {
@@ -104,14 +168,16 @@ export default function LearnBox({
 					<OpenCloseToggle 	
 						handleClick={handleOpenCloseToggleClick}
 						toggleIsOpen={toggleIsOpen}
-
 						parentIsAnimating={isAnimating}
 					/>
-
-					{/*toggleIsOpen={openCloseToggleIsOpen}
-						handleClick={handleOpenCloseToggleClick}
-						*/}
 				</div>
+			</div>
+
+			<div className={`learn-box-body ${learnBoxBodyClass} scroll-bar-transition`}>
+				<div className='child'></div>
+				{/*{
+					children && children	
+				}*/}
 			</div>
 
 			{/*<div className={`learn-box-body ${learnBoxBodyClass}`}>

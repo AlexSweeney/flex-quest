@@ -14,8 +14,7 @@ import RefreshButton from './RefreshButton.jsx';
 import GridButton from './GridButton.jsx';
 import GridOverlay from './GridOverlay.jsx';
 import {detectTransitions} from './../utils.js';
-import './OutputDisplay.css';
-import './scrollbar.css';
+import './OutputDisplay.css'; 
 
 export default function OutputDisplay({title, i, htmlString, cssString}) {
 	// =========================== Vars =========================== // 
