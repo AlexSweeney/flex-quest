@@ -125,9 +125,21 @@ export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating
 		} else if(learnBoxStatus === 'learn-box-closed') {
 			setLearnBoxBodyClass('learn-box-body-closed')
 		} else if(learnBoxStatus === 'learn-box-opening') {
-			setLearnBoxBodyClass('learn-box-opening')
+			setLearnBoxBodyClass('learn-box-body-opening')
 		} else if(learnBoxStatus === 'learn-box-open') {
-			setLearnBoxBodyClass('learn-box-open')
+			setLearnBoxBodyClass('learn-box-body-open')
+		}
+	}, [learnBoxStatus])
+
+	useEffect(() => {
+		if(learnBoxStatus === 'learn-box-closing') {
+			setLearnBoxBodyClass('learn-box-body-closing')
+		} else if(learnBoxStatus === 'learn-box-closed') {
+			setLearnBoxBodyClass('learn-box-body-closed')
+		} else if(learnBoxStatus === 'learn-box-opening') {
+			setLearnBoxBodyClass('learn-box-body-opening')
+		} else if(learnBoxStatus === 'learn-box-open') {
+			setLearnBoxBodyClass('learn-box-body-open')
 		}
 	}, [learnBoxStatus])
 
@@ -206,45 +218,3 @@ export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating
 		</div>
 	)
 }
-
-
-
-
-
-// useEffect(() => {
-	// 	let newStatus;
- 
-	// 	// detect further animations
-
-	// 	/*if(learnBoxStatus === 'learn-box-closed'
-	// 		&& contentContainerStatus === 'content-container-open'
-	// 		&& !contentContainerIsAnimating) {
-	// 		newStatus = 'content-container-closing';
-	// 	} else if(learnBoxStatus === 'learn-box-closed' 
-	// 		&& contentContainerStatus === 'content-container-closing'
-	// 		&& !contentContainerIsAnimating) {
-	// 		newStatus = 'content-container-closed';
-	// 	}   */
-
-	// 	if(contentContainerIsAnimating) {
-	// 		if(learnBoxStatus === 'learn-box-open') {
-	// 			newStatus = 'content-container-opening';
-	// 		} 
-
-	// 		if(learnBoxStatus === 'learn-box-closed') {
-	// 			newStatus = 'content-container-closing';
-	// 		}
-	// 	} else {
-	// 		if(learnBoxStatus === 'learn-box-open' 
-	// 			&& contentContainerStatus === 'content-container-opening') {
-	// 			newStatus = 'content-container-open';
-	// 		} 
-
-	// 		if(learnBoxStatus === 'learn-box-closed' 
-	// 			&& contentContainerStatus === 'content-container-closing') {
-	// 			newStatus = 'content-container-closed';
-	// 		}
-	// 	}
-
-	// 	newStatus && setContentContainerStatus(newStatus)
-	// }, [contentContainerIsAnimating, learnBoxStatus, contentContainerStatus])

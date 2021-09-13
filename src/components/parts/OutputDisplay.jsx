@@ -1,14 +1,12 @@
-// open close box 
-// refresh smaller - scroll showing on content open
-// refresh bigger -  scroll showing on content open
+// open close
+// fresh - x 
+// bigger  - closing glitching, open scroll not open until finished
+// smaller - x 
 
-// refactor => in Learn box -> detect transitions set overflow: overlay auto? 
-
-
-// expand refresh x
-// smaller refresh - auto normally, overlay when resizing -> prevent flick + allow access
-
-// fix glitch - drag out refresh scroll bar strobe
+// refresh
+// fresh - x
+// bigger  - x
+// smaller -x 
 
 import React, {useState, useEffect} from 'react'; 
 import LearnBox from './LearnBox.jsx';
@@ -42,8 +40,8 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 
 	// =============== props
 	const buttons = [
-		<RefreshButton onClick={onRefreshClick} disabled={isAnimating}/>,
-		<GridButton handleClick={onGridClick} showGrid={showGrid} disabled={isAnimating}/>
+		<RefreshButton onClick={onRefreshClick}/>,
+		<GridButton handleClick={onGridClick} showGrid={showGrid}/>
 	];	 
 
 	// =========================== Click Handlers =========================== //
@@ -59,14 +57,12 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	// ============= Resize
 	function handleDisplayBoxResize() {
 		setContentContainerClass('content-container-resize')
-		// setContentContainerScrollClass('scroll-overlay')
 		removeInlineStyle('display-box') 
 		setDisplayBoxClass('display-box-resize') 
 	}
 
 	function resetAfterDisplayBoxResize() {
 		setContentContainerClass('content-container-open')
-		// setContentContainerScrollClass('scroll-auto')
 		setDisplayBoxClass('') 
 	}
 	
@@ -194,55 +190,9 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 			contentContainerClass={contentContainerClass}
 			setContentContainerClass={setContentContainerClass}>
 			<div className={`display-box ${displayBoxClass}`} id="display-box">
-				{/*<GridOverlay showGrid={showGrid}/>
-				<iframe srcdoc={source} className="iframe"/>  */}
+				<GridOverlay showGrid={showGrid}/>
+				<iframe srcdoc={source} className="iframe"/>  
 			</div>
 		</LearnBox>
 	)
 }	
-
-	// const [displayBoxAnimatingClass, setDisplayBoxAnimatingClass] = useState('display-box-init');
-	// const [displayBoxResizingClass, setDisplayBoxIsResizingClass] = useState('');
-	// const [displayBoxContainerAnimatingClass, setDisplayBoxContainerAnimatingClass] = useState('');
-	// const [displayBoxTransitionClass, setDisplayBoxTransitionClass] = useState('');
-	// const [displayBoxMaxSizeClass, setDisplayBoxMaxSizeClass] = useState('');
-	
-	// const [showScrollClass, setShowScrollClass] = useState('');
-
-	// =============== classes
-	// const displayBoxContainerClass = `display-box-container ${displayBoxContainerAnimatingClass} custom-scroll ${showScrollClass}`;
-
-		// const learnBoxProps = [title, i, isAnimating, setIsAnimating, buttons];
-
-	// }
-
-
-	{/**/}
-	/**/
-/*</div>*/
-	{/*<div className="output-display">*/}
-/* 
-	${displayBoxMaxSizeClass} ${displayBoxTransitionClass}
-
-  // handle Learn box open / close
-  /*useEffect(() => {
-  	if(learnBoxStatus === 'learn-box-closing') {
-  		// console.log('closing')
-  		setDisplayBoxContainerClass('display-box-container-closing')
-  	} else if(!displayBoxContainerIsAnimating) {
-  		// console.log('open')
-  		setDisplayBoxContainerClass('display-box-container-open')
-  	}
-  }, [learnBoxStatus, displayBoxContainerIsAnimating])
-
-  useEffect(() => {
-  	console.log('displayBoxContainerIsAnimating', displayBoxContainerIsAnimating)
-  }, [displayBoxContainerIsAnimating])*/
-
-	/*const [displayBoxContainerIsAnimating, setDisplayBoxContainerIsAnimating] = useState(false);
-*/
-
-	// detect display box container transitioning
-	/*useEffect(() => {
-		detectTransitions(displayBoxContainerId, 'height', setDisplayBoxContainerIsAnimating)
-	}, [])*/

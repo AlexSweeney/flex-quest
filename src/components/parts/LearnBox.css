@@ -85,12 +85,15 @@
 	overflow: auto;
 } 
 
+.learn-box-body-opening,
+.learn-box-body-closing {
+	overflow: overlay;
+}
+
 .learn-box .content-container {
 	width: 100%;   
 	height: 100%;
-	transition: height 6s;  
-	/*overflow: auto; */
-	background: red;
+	transition: height 6s;
 }
 
 .learn-box .content-container-resize {
