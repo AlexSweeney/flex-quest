@@ -1,6 +1,9 @@
 /* =============== Transitions =============== */
+.display-box-transition,
 .display-box-transition {
-	transition: height 1s ease-in-out;
+	max-height: 100%;
+	max-width: 100%;
+	transition: height 4s ease-in-out;
 }
 
 /* =============== Display Box =============== */
@@ -10,8 +13,8 @@
 
 	background: green;
 
-	/*resize: both;
-	overflow: hidden;*/
+	resize: both;
+	overflow: hidden;
 }
 
 .display-box-closing,
