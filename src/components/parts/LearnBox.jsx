@@ -13,7 +13,9 @@ export default function LearnBox({
 	buttons = null,
 	title = '',
 	handleOpenCloseToggleClick = null,
-
+	learnBoxStatus,
+	setLearnBoxStatus,
+	children = null,
 }) {
 	/*buttons, 
 	title,
@@ -26,7 +28,7 @@ export default function LearnBox({
 
 	const [toggleIsOpen, setToggleIsOpen] = useState(!boxIsOpen);
 	const [boxIsTransitioning, setBoxIsTransitioning] = useState(!boxIsOpen);
-	const [learnBoxStatus, setLearnBoxStatus] = useState(initialBoxStatus);
+	
 	const [isAnimating, setIsAnimating] = useState(false);
 
 	// ======================= Id's ======================= //
@@ -173,11 +175,10 @@ export default function LearnBox({
 				</div>
 			</div>
 
-			<div className={`learn-box-body ${learnBoxBodyClass} scroll-bar-transition`}>
-				<div className='child'></div>
-				{/*{
+			<div className={`learn-box-body ${learnBoxBodyClass} scroll-bar-transition`}> 
+				{
 					children && children	
-				}*/}
+				}
 			</div>
 
 			{/*<div className={`learn-box-body ${learnBoxBodyClass}`}>
