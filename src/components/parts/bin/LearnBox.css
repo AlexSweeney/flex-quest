@@ -1,11 +1,11 @@
-/* =================== Box =================== */
+/* =================== Box */
 .learn-box {
 	height: 400px;  
 	display: flex;
 	flex-direction: column;
+	transition: 3s width ease-in-out; 
 	margin-right: 30px; 
 	overflow: hidden;
-	background: #E8E4E4;
 }
 
 .learn-box-open {
@@ -16,11 +16,7 @@
 	width: 36px;
 }
 
-.learn-box-open-close-transition {
-	transition: 3s width ease-in-out; 
-}
-
-/* =================== Box Header =================== */
+/* =================== Box Header */
 .learn-box-header {
 	min-height: 40px;
 	width: 100%; 
@@ -30,7 +26,6 @@
 	background: #272727; 
 }
 
-/* =================== Buttons  */
 .learn-box-buttons-container {
 	z-index: 1000;  
   height: 100%;
@@ -50,9 +45,9 @@
 	justify-content: center;
 	align-items: center;
 	margin-left: 6px;
-} 
+}
 
-/* =================== Title */
+/* Title */
 .learn-box .title {
 	flex-grow: 1; 
 	min-width: 0;
@@ -68,7 +63,7 @@
 } 
 
 
-/* =================== Open close toggle */ 
+/* Open close toggle */ 
 .learn-box .open-close-toggle-container {
 	height: 100%; 
 	width: 36px;
@@ -83,7 +78,7 @@
 }
 
 /* =================== Body */
-/*.learn-box-body {
+.learn-box-body {
 	width: 100%;
 	height: 100%;
 	background: #E8E4E4; 
@@ -124,4 +119,4 @@
 .learn-box .content-container-closing,
 .learn-box .content-container-closed {  
 	height: 0;
-} */
+} 

@@ -2,11 +2,14 @@ import React, {useState, useEffect} from 'react';
 import './OpenCloseToggleStyle.css';
 import {detectTransition} from './../../utils.js';
 
-export default function OpenCloseToggle({toggleIsOpen, parentIsAnimating, handleClick, i = Math.random()}) { 
+export default function OpenCloseToggle({
+	toggleIsOpen = false, 
+	parentIsAnimating = false, 
+	handleClick = () => { console.log('no function passed to OpenCloseToggle')}, 
+	i = Math.random()}) { 
 	const vertLineId = 'vert-line-' + i;
 	const horizLineId = 'horiz-line-' + i;
 	const openCloseToggleId = 'open-close-toggle' + i;
-
 	const [lineIsAnimating, setLineIsAnimating] = useState(false);
 	const [lineDirectionClass, setLineDirectionClass] = useState(toggleIsOpen ? 'line-open' : 'line-closed');
 	const [lineColorClass, setLineColorClass] = useState('line-out');

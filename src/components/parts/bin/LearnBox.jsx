@@ -1,125 +1,16 @@
 import React, {useState, useEffect} from 'react'; 
-import OpenCloseToggle from './OpenCloseToggle/OpenCloseToggle.jsx';
+import OpenCloseToggle from './OpenCloseToggle/OpenCloseToggle.jsx'
 import {detectTransition, detectTransitions} from './../utils.js';
 import './LearnBox.css';
 
-export default function LearnBox({
-	boxIsOpen = true,
-	buttons = null,
-	title = '',
-	handleOpenCloseToggleClick = null,
-
-}) {
-	/*buttons, 
-	title,
-	,
-	boxIsOpen, 
-	/*learnBoxBodyIsOpen, */
-	// ======================= Status ======================= //
-	const [toggleIsOpen, setToggleIsOpen] = useState(!boxIsOpen);
-	const [boxIsTransitioning, setBoxIsTransitioning] = useState(!boxIsOpen);
-	// const initLearnBoxStatus = boxIsOpen ? 'learn-box-open' : 'learn-box-closed';
-	const [learnBoxStatus, setLearnBoxStatus] = useState(null);
-
-	// ======================= Id's ======================= //
-	const learnBoxId = 'learn-box';
-
-	// ======================= Classes ======================= //
-	const learnBoxOpenClass = boxIsOpen ? 'learn-box-open' : 'learn-box-closed';
-
-	// ======================= Event Handlers ======================= //
-	function onBoxOpen() {
-		setToggleIsOpen(false)
-	}
-
-	function onBoxClosed() {
-		setToggleIsOpen(true)
-	}
-
-	// ======================= Detect Events ======================= //
-	useEffect(() => {
-		detectTransition(learnBoxId, 'width', setBoxIsTransitioning)
-	}, [])
-
-	// ======================= Update Status ======================= //
-	// ============ Box is transitioning
-	useEffect(() => {
-		let newStatus;
-
-		if(!boxIsTransitioning) {
-			newStatus = boxIsOpen ? 'learn-box-open' : 'learn-box-closed';
-		}	
-
-		if(boxIsTransitioning) {
-			newStatus = boxIsOpen ? 'learn-box-opening' : 'learn-box-closing';
-		}
-
-		newStatus && setLearnBoxStatus(newStatus)
-	}, [boxIsTransitioning])
-
-	// ============ Animation is Running
-	
-
-	// ======================= Trigger Event Handlers ======================= //
-	// ========== Open Close box
-	useEffect(() => {
-		if(learnBoxStatus === 'learn-box-open') {
-			onBoxOpen()
-		}
-
-		if(learnBoxStatus === 'learn-box-closed') {
-			onBoxClosed()
-		}	
-	}, [learnBoxStatus])
-
-	// ======================= Console logs ======================= //
-	// 
-
-	// ======================= Component ======================= //
-	return (
-		<div className={`learn-box learn-box-open-close-transition ${learnBoxOpenClass}`} id={learnBoxId}>
-			<div className="learn-box-header">
-				<div className="learn-box-buttons-container">
-					{buttons && buttons.map(button => {
-						return (<div className="learn-box-button">
-							 {button}
-						</div>)
-					})}
-				</div>
-
-				<div className="title">{title}</div>
-
-				<div className="open-close-toggle-container">
-					<OpenCloseToggle 	
-						handleClick={handleOpenCloseToggleClick}
-						toggleIsOpen={toggleIsOpen}
-					/>
-
-					{/*toggleIsOpen={openCloseToggleIsOpen}
-						handleClick={handleOpenCloseToggleClick}
-						parentIsAnimating={isAnimating}*/}
-				</div>
-			</div>
-
-			{/*<div className={`learn-box-body ${learnBoxBodyClass}`}>
-				<div className={`content-container ${contentContainerClass}`} id={contentContainerId}>
-					{
-						children && children	
-					}
-				</div>
-			</div>*/}
-		</div>
-	)
-}
-
-/*export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating, learnBoxStatus, setLearnBoxStatus, contentContainerClass, setContentContainerClass, children}) {
+export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating, learnBoxStatus, setLearnBoxStatus, contentContainerClass, setContentContainerClass, children}) {
 	// ======================== Variables ======================== //
 	// =============== Ids
 	const learnBoxId = `learn-box-${i}`;
 	const contentContainerId = `content-container`;
 
 	// =============== States
-	const [boxIsOpen, setboxIsOpen] = useState(true);
+	const [learnBoxIsOpen, setLearnBoxIsOpen] = useState(true);
 	const [learnBoxIsAnimating, setLearnBoxIsAnimating] = useState(false);
 
 	const [contentContainerIsAnimating, setContentContainerIsAnimating] = useState(false);
@@ -130,12 +21,12 @@ export default function LearnBox({
 	const [contentContainerStatus, setContentContainerStatus] = useState('content-container-open');
 
 	// =============== Class
-	const learnBoxOpenClass = boxIsOpen ? 'learn-box-open' : 'learn-box-closed';
+	const learnBoxOpenClass = learnBoxIsOpen ? 'learn-box-open' : 'learn-box-closed';
 	const [learnBoxBodyClass, setLearnBoxBodyClass] = useState('');
 	
  	// ======================== Handle Clicks ======================== //
  	function handleOpenCloseToggleClick() {
-		setboxIsOpen(oldVal => !oldVal)
+		setLearnBoxIsOpen(oldVal => !oldVal)
 	}  
 
 	// ======================== Animation detection fns() ======================== //
@@ -183,9 +74,9 @@ export default function LearnBox({
 		let newStatus;
 
 		if(learnBoxIsAnimating) {
-			newStatus = boxIsOpen ? 'learn-box-opening' : 'learn-box-closing'; 
+			newStatus = learnBoxIsOpen ? 'learn-box-opening' : 'learn-box-closing'; 
 		} else {
-			newStatus = boxIsOpen ? 'learn-box-open' : 'learn-box-closed'; 
+			newStatus = learnBoxIsOpen ? 'learn-box-open' : 'learn-box-closed'; 
 		}
 
 		newStatus && setLearnBoxStatus(newStatus)
@@ -314,4 +205,4 @@ export default function LearnBox({
 			</div>
 		</div>
 	)
-}*/
+}

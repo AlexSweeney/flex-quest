@@ -1,6 +1,6 @@
 // open close
 // fresh - x 
-// bigger  - closing glitching, open scroll not open until finished
+// bigger  -  open scroll not open until finished
 // smaller - x 
 
 // refresh
@@ -19,6 +19,8 @@ import './scrollbar.css';
 
 export default function OutputDisplay({title, i, htmlString, cssString}) {
 	// =========================== Vars =========================== // 
+	const [learnBoxIsOpen, setLearnBoxIsOpen] = useState(true);
+
 	// =============== state settings
 	const [showGrid, setShowGrid] = useState(false);
 	const [source, setSource] = useState(null);
@@ -45,6 +47,10 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	];	 
 
 	// =========================== Click Handlers =========================== //
+	function onOpenCloseToggleClick() {
+		setLearnBoxIsOpen(oldVal => !oldVal)
+	}
+
 	function onRefreshClick() {
 		if(hasBeenResized('display-box') && !isAnimating) setResizeDisplayBox(true)
 	}
@@ -180,19 +186,27 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
   
   // =========================== output =========================== //
 	return (
-		<LearnBox title={title} 
-			i={i} 
-			isAnimating={isAnimating} 
-			setIsAnimating={setIsAnimating} 
-			buttons={buttons} 
-			learnBoxStatus={learnBoxStatus} 
-			setLearnBoxStatus={setLearnBoxStatus}
-			contentContainerClass={contentContainerClass}
-			setContentContainerClass={setContentContainerClass}>
-			<div className={`display-box ${displayBoxClass}`} id="display-box">
-				<GridOverlay showGrid={showGrid}/>
-				<iframe srcdoc={source} className="iframe"/>  
-			</div>
+		<LearnBox 
+			title={title} 
+			boxIsOpen={learnBoxIsOpen}
+			handleOpenCloseToggleClick={onOpenCloseToggleClick}
+		>
+
 		</LearnBox>
 	)
 }	
+
+{/*<LearnBox title={title} 
+	i={i} 
+	isAnimating={isAnimating} 
+	setIsAnimating={setIsAnimating} 
+	buttons={buttons} 
+	learnBoxStatus={learnBoxStatus} 
+	setLearnBoxStatus={setLearnBoxStatus}
+	contentContainerClass={contentContainerClass}
+	setContentContainerClass={setContentContainerClass}>
+	<div className={`display-box ${displayBoxClass}`} id="display-box">
+		<GridOverlay showGrid={showGrid}/>
+		<iframe srcdoc={source} className="iframe"/> 
+	</div> 
+</LearnBox> */}
