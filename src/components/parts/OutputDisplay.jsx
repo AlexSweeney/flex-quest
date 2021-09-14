@@ -5,7 +5,11 @@
 
 // bigger  -   
 
-// detect transition ends
+// click open again before finished
+
+// fresh
+// smaller 
+// bigger
 
 // refresh
 // fresh -  
@@ -386,6 +390,8 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 			<div>
 				<p>learnBoxStatus: {learnBoxStatus}</p>
 				<p>displayBoxStatus: {displayBoxStatus}</p>
+				<p>displayBoxHeightClass: {displayBoxHeightClass}</p>
+				<p>displayBoxWidthClass: {displayBoxWidthClass}</p>
 			</div> 
 		</div>
 	)

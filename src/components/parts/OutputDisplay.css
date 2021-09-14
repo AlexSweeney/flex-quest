@@ -19,6 +19,8 @@
  
 	resize: both;
 	overflow: hidden;   
+
+	border: 1em solid pink;
 }
 
 /* ==== Closing */
@@ -58,7 +60,7 @@
 .display-box-parent-closed-width-overflow,
 .display-box-closing-width-overflow,
 .display-box-closed-width-overflow {
-	min-width: 100%;
+	min-width: 100%; 
 	width: 0 !important;
 }
  
@@ -66,7 +68,7 @@
 .display-box-parent-open-width-overflow,
 .display-box-opening-width-overflow,
 .display-box-open-width-overflow {
-	width: none;
+/*	width: none;*/
 	min-width: 100%;
 }
 
