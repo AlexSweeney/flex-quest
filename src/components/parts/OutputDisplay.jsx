@@ -220,81 +220,139 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
   }, [learnBoxIsOpen])
 
 	// =========================== Set Classes  =========================== //
-	// =========== display box class
+	// =========== display box height class
 	useEffect(() => {
-		let newClass;
 		let baseClass;
-		
-		const widthOverflow = learnBoxBodyOverflowStatus.width ? '-overflow' : '';
-		const heightOverflow = learnBoxBodyOverflowStatus.height ? '-overflow' : '';
-
-		if(displayBoxStatus === 'display-box-open') {
-			baseClass = 'display-box-open'
-		} 
-
-		if(displayBoxStatus === 'display-box-closed') {
-			baseClass = 'display-box-closed'
-		}
-
-		if(displayBoxStatus === 'display-box-opening') {
-			baseClass = 'display-box-opening'
-		}
-
-		if(displayBoxStatus === 'display-box-closing') {
-			baseClass = 'display-box-closing'
-		}
-
-		const widthClass = baseClass + '-width' + widthOverflow;
-		const heightClass =  baseClass + '-height' + heightOverflow;
-
-		setDisplayBoxWidthClass(widthClass)
-		setDisplayBoxHeightClass(heightClass)
-	}, [displayBoxStatus, learnBoxBodyOverflowStatus])
-
-	// =========== display box parent class  
-	useEffect(() => {
-		let newClass;
-		let baseClass;
-
-		const widthOverflow = learnBoxBodyOverflowStatus.width ? '-overflow' : '';
-		const heightOverflow = learnBoxBodyOverflowStatus.height ? '-overflow' : '';
-
-		if(learnBoxStatus === 'learn-box-open') {
-			baseClass = 'display-box-parent-open';
-		} 
-
-		if(learnBoxStatus === 'learn-box-closed') {
-			baseClass = 'display-box-parent-closed'; 
-		}
-
-		if(learnBoxStatus === 'learn-box-opening') {
-			baseClass = 'display-box-parent-opening';
-		}
-
-		if(learnBoxStatus === 'learn-box-closing') {
+ 
+		if(learnBoxStatus === 'learn-box-closing'
+			&& displayBoxStatus === 'display-box-open') {
 			baseClass = 'display-box-parent-closing';
 		}
 
-		const widthClass = baseClass + '-width' + widthOverflow;
-		const heightClass =  baseClass + '-height' + heightOverflow;
+		if(learnBoxStatus === 'learn-box-closed'
+			&& displayBoxStatus === 'display-box-open') {
+			baseClass = 'display-box-parent-closed';
+		}
 
-		setDisplayBoxWidthClass(widthClass)
-		setDisplayBoxHeightClass(heightClass)
-	}, [learnBoxStatus, learnBoxBodyOverflowStatus])
+		if(learnBoxStatus === 'learn-box-closed'
+			&& displayBoxStatus === 'display-box-closing') {
+			baseClass = 'display-box-closing';
+		}
+
+		if(learnBoxStatus === 'learn-box-closed'
+			&& displayBoxStatus === 'display-box-closed') {
+			baseClass = 'display-box-closed';
+		}
+
+		if(learnBoxStatus === 'learn-box-opening'
+			&& displayBoxStatus === 'display-box-closed') {
+			baseClass = 'display-box-parent-opening';
+		}
+
+		if(learnBoxStatus === 'learn-box-open'
+			&& displayBoxStatus === 'display-box-closed') {
+			baseClass = 'display-box-parent-open';
+		}
+
+		if(learnBoxStatus === 'learn-box-open'
+			&& displayBoxStatus === 'display-box-opening') {
+			baseClass = 'display-box-opening';
+		}
+
+		if(learnBoxStatus === 'learn-box-open'
+			&& displayBoxStatus === 'display-box-open') {
+			baseClass = 'display-box-open';
+		}
+
+		// const widthOverflow = learnBoxBodyOverflowStatus.width ? '-overflow' : '';
+		
+		
+		// const widthClass = baseClass + '-width' + widthOverflow;
+		// 
+
+		// setDisplayBoxWidthClass(widthClass)
+	 // 
+
+	 const heightOverflow = learnBoxBodyOverflowStatus.height ? '-overflow' : '';
+	 const heightClass =  baseClass + '-height' + heightOverflow;
+
+	 setDisplayBoxHeightClass(heightClass)
+	}, [learnBoxStatus, displayBoxStatus])
+
+	// useEffect(() => {
+	// 	let newClass;
+	// 	let baseClass;
+		
+	// 	const widthOverflow = learnBoxBodyOverflowStatus.width ? '-overflow' : '';
+	// 	const heightOverflow = learnBoxBodyOverflowStatus.height ? '-overflow' : '';
+
+	// 	if(displayBoxStatus === 'display-box-open') {
+	// 		baseClass = 'display-box-open'
+	// 	} 
+
+	// 	if(displayBoxStatus === 'display-box-closed') {
+	// 		baseClass = 'display-box-closed'
+	// 	}
+
+	// 	if(displayBoxStatus === 'display-box-opening') {
+	// 		baseClass = 'display-box-opening'
+	// 	}
+
+	// 	if(displayBoxStatus === 'display-box-closing') {
+	// 		baseClass = 'display-box-closing'
+	// 	}
+
+	// 	const widthClass = baseClass + '-width' + widthOverflow;
+	// 	const heightClass =  baseClass + '-height' + heightOverflow;
+
+	// 	setDisplayBoxWidthClass(widthClass)
+	// 	setDisplayBoxHeightClass(heightClass)
+	// }, [displayBoxStatus, learnBoxBodyOverflowStatus])
+
+	// =========== display box parent class  
+	// useEffect(() => {
+	// 	let newClass;
+	// 	let baseClass;
+
+	// 	const widthOverflow = learnBoxBodyOverflowStatus.width ? '-overflow' : '';
+	// 	const heightOverflow = learnBoxBodyOverflowStatus.height ? '-overflow' : '';
+
+	// 	if(learnBoxStatus === 'learn-box-open') {
+	// 		baseClass = 'display-box-parent-open';
+	// 	} 
+
+	// 	if(learnBoxStatus === 'learn-box-closed') {
+	// 		baseClass = 'display-box-parent-closed'; 
+	// 	}
+
+	// 	if(learnBoxStatus === 'learn-box-opening') {
+	// 		baseClass = 'display-box-parent-opening';
+	// 	}
+
+	// 	if(learnBoxStatus === 'learn-box-closing') {
+	// 		baseClass = 'display-box-parent-closing';
+	// 	}
+
+	// 	const widthClass = baseClass + '-width' + widthOverflow;
+	// 	const heightClass =  baseClass + '-height' + heightOverflow;
+
+	// 	setDisplayBoxWidthClass(widthClass)
+	// 	setDisplayBoxHeightClass(heightClass)
+	// }, [learnBoxStatus, learnBoxBodyOverflowStatus])
 
 	// =========== display box transition class
 	// start on click
-	useEffect(() => { 
-		setDisplayBoxTransitionClass('display-box-transition')
-	}, [learnBoxIsOpen])
+	// useEffect(() => { 
+	// 	setDisplayBoxTransitionClass('display-box-transition')
+	// }, [learnBoxIsOpen])
 
 	// end when display box opens / closes
-	useEffect(() => {
-		if(displayBoxStatus === 'display-box-open' 
-			|| displayBoxStatus === 'display-box-closed') {
-			setDisplayBoxTransitionClass('display-box-no-transition')
-		}
-	}, [displayBoxStatus])
+	// useEffect(() => {
+	// 	if(displayBoxStatus === 'display-box-open' 
+	// 		|| displayBoxStatus === 'display-box-closed') {
+	// 		setDisplayBoxTransitionClass('display-box-no-transition')
+	// 	}
+	// }, [displayBoxStatus])
 
 	// useEffect(() => {
 	// 	let newClass;

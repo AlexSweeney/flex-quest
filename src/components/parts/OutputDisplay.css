@@ -9,7 +9,7 @@
 	width overflow - shrin width
 	*/
 	/*transition: max-height 3s, min-height 3s, height 3s, width 3s;*/
-	transition: max-height 3s;
+	
 	resize: none;
 }
 
@@ -32,6 +32,8 @@
 	overflow: hidden;   
 
 	border: 1em solid pink;
+
+	transition: max-height 3s;
 }
 
 /* ==== Closing */
@@ -53,25 +55,17 @@
 	max-height: 100%; 
 }
 
-.display-box-closing-height {
-	max-height: 0.00000000000001%;
+.display-box-closing-height,
+.display-box-closed-height,
+.display-box-parent-opening-height {
+	max-height: 0.000000000001%;
+} 
+
+.display-box-opening-height {
+	max-height: 100%;
 }
 
-.display-box-closed-height {
-	height: 0;
-}
-
-
-/*
-.display-box-parent-opening-height { 
-	max-height: 0;
-}
- */
-/*.display-box-opening-height {
-	height: 0;
-}
-
-.display-box-open-height {
+/*.display-box-open-height {
 	max-height: none;
 }*/
 

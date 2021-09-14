@@ -19,10 +19,10 @@ export function detectTransition(id, propertyName, onChange) {
 }
 
 export function detectTransitions(id, propertyNames, onChange) {
-	console.log('detectTransitions ===========================')
-	console.log('propertyNames', propertyNames)
+	// console.log('detectTransitions ===========================')
+	// console.log('propertyNames', propertyNames)
 	propertyNames.forEach(propertyName => {
-		console.log('propertyName', propertyName)
+		// console.log('propertyName', propertyName)
 		addListeners(id, propertyName, onChange)
 	})
 }
@@ -36,14 +36,15 @@ function addListeners(id, propertyName, onChange) {
 		return;
 	}  
 
-	console.log('element', element)
+	// console.log('element', element)
 	
 	element.addEventListener('transitionstart', (e) => {
 		
 		if(e.propertyName === propertyName && e.srcElement.id === id) {
-			console.log('==============================================')
-			console.log('transitionstart', id)
-			console.log(e) 
+			// console.log('==============================================')
+			// console.log('start -------------', id)
+			// console.log(propertyName)
+			// console.log(e) 
 			numTransitions += 1;
 			if(numTransitions === 1) onChange(true)
 		}
@@ -51,9 +52,10 @@ function addListeners(id, propertyName, onChange) {
 
  	element.addEventListener('transitionend', (e) => {
 		if(e.propertyName === propertyName && e.srcElement.id === id) {
-			console.log('==============================================')
-			console.log('transitionend', id)
-			console.log(e) 
+			// console.log('==============================================')
+			// console.log('end -------------', id)
+			// console.log(propertyName)
+			// console.log(e) 
 			numTransitions -= 1;
 			if(numTransitions === 0) onChange(false)
 		}
