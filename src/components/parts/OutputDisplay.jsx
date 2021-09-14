@@ -1,5 +1,5 @@
-// fix display box transition class 
-
+ 
+// fix bigger height width jerks closed
 // click open again before finished
 
 // fresh
@@ -16,7 +16,7 @@ import LearnBox from './LearnBox.jsx';
 import RefreshButton from './RefreshButton.jsx';
 import GridButton from './GridButton.jsx';
 import GridOverlay from './GridOverlay.jsx';
-import {detectTransition} from './../utils.js';
+import {detectTransitions} from './../utils.js';
 import './OutputDisplay.css'; 
 
 export default function OutputDisplay({title, i, htmlString, cssString}) {
@@ -30,7 +30,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
  
 	// =============== status
 	// const [resizeDisplayBox, setResizeDisplayBox] = useState(false);
-	const [displayBoxIsResizing, setDisplayBoxIsResizing] = useState(false);
+	const [displayBoxHeightTransitioning, setDisplayBoxHeightTransitioning] = useState(false);
 	// const [hasRemovedInlineStyle, setHasRemovedInlineStyle] = useState(false);
 	const [isAnimating, setIsAnimating] = useState(false);
 
@@ -139,7 +139,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	// =========================== Detect Changes =========================== //
 	// =========== display box resize
 	useEffect(() => { 
-		detectTransition('display-box', 'max-height', setDisplayBoxIsResizing)
+		detectTransitions('display-box', ['max-height', 'min-height', 'height'], setDisplayBoxHeightTransitioning)
 	}, [])
 
 	// =========================== Trigger Changes =========================== //
@@ -203,16 +203,16 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
    useEffect(() => { 
   	let newStatus;
 
-  	if(!displayBoxIsResizing && !displayBoxIsOpen) {
+  	if(!displayBoxHeightTransitioning && !displayBoxIsOpen) {
 			newStatus = 'display-box-closed';
 		}
 
-  	if(!displayBoxIsResizing && displayBoxIsOpen) {
+  	if(!displayBoxHeightTransitioning && displayBoxIsOpen) {
 			newStatus = 'display-box-open';
 		}
 
  		newStatus && setDisplayBoxStatus(newStatus)
-  }, [displayBoxIsResizing])
+  }, [displayBoxHeightTransitioning])
 
   // learn box body overflow status -- make so must be open change to closing = don't reset if close before opened
   useEffect(() => {
@@ -294,12 +294,13 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 		setDisplayBoxTransitionClass('display-box-transition')
 	}, [learnBoxIsOpen])
 
-	// end on transition end
+	// end when display box opens / closes
 	useEffect(() => {
-		if(!displayBoxIsResizing) {
+		if(displayBoxStatus === 'display-box-open' 
+			|| displayBoxStatus === 'display-box-closed') {
 			setDisplayBoxTransitionClass('display-box-no-transition')
 		}
-	}, [displayBoxIsResizing])
+	}, [displayBoxStatus])
 
 	// useEffect(() => {
 	// 	let newClass;
@@ -350,10 +351,10 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
   // 	console.log('displayBoxIsOpen', displayBoxIsOpen);
   // }, [displayBoxIsOpen])
 
-	// displayBoxIsResizing
+	// displayBoxHeightTransitioning
   // useEffect(() => {
-  // 	console.log('displayBoxIsResizing', displayBoxIsResizing);
-  // }, [displayBoxIsResizing])
+  // 	console.log('displayBoxHeightTransitioning', displayBoxHeightTransitioning);
+  // }, [displayBoxHeightTransitioning])
 
  
 
@@ -367,10 +368,10 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
   // 	console.log('displayBoxAnimatingClass', displayBoxAnimatingClass);
   // }, [displayBoxAnimatingClass])
 
-  // displayBoxIsResizing
+  // displayBoxHeightTransitioning
   // useEffect(() => {
-  // 	console.log('displayBoxIsResizing', displayBoxIsResizing);
-  // }, [displayBoxIsResizing])
+  // 	console.log('displayBoxHeightTransitioning', displayBoxHeightTransitioning);
+  // }, [displayBoxHeightTransitioning])
 
   // learnBoxStatus
   // useEffect(() => {
@@ -399,11 +400,11 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 			</LearnBox>
 			<div>
 				<p>displayBoxTransitionClass: {displayBoxTransitionClass}</p>
+				<p>learnBoxIsOpen: {learnBoxIsOpen.toString()}</p>
 				<p>displayBoxStatus: {displayBoxStatus}</p>
+				<p>displayBoxHeightTransitioning: {displayBoxHeightTransitioning.toString()}</p>
 				{/*<p>learnBoxStatus: {learnBoxStatus}</p>
-				
-				<p>displayBoxHeightClass: {displayBoxHeightClass}</p>
-				<p>displayBoxWidthClass: {displayBoxWidthClass}</p>*/}
+				*/}
 			</div> 
 		</div>
 	)
