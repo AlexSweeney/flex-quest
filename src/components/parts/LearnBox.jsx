@@ -151,9 +151,9 @@ export default function LearnBox({
 
 	// ======================= Console logs ======================= //
 	// learnBoxStatus
-	useEffect(() => {
-		console.log('learnBoxStatus', learnBoxStatus)
-	}, [learnBoxStatus])
+	// useEffect(() => {
+	// 	console.log('learnBoxStatus', learnBoxStatus)
+	// }, [learnBoxStatus])
 
 	// ======================= Component ======================= //
 	return (

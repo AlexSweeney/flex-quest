@@ -43,8 +43,8 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	const [learnBoxStatus, setLearnBoxStatus] = useState('learn-box-open');
 	 
 	// =============== classes
-	const [displayBoxClass, setDisplayBoxClass] = useState('display-box-open');
-	const [displayBoxParentClass, setDisplayBoxParentClass] = useState('display-box-parent-open');
+	const [displayBoxWidthClass, setDisplayBoxWidthClass] = useState('display-box-open-width');
+	const [displayBoxHeightClass, setDisplayBoxHeightClass] = useState('display-box-open-height');
 	const [displayBoxTransitionClass, setDisplayBoxTransitionClass] = useState('');
 	const [displayBoxResizeClass, setDisplayBoxResizeClass] = useState('');
 	// const [contentContainerClass, setContentContainerClass] = useState('content-container-open');
@@ -112,7 +112,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	function onGridClick() {
 		setShowGrid(oldVal => !oldVal)
 	} 
- 
+
 	// =========================== Event Handlers =========================== //
 	function handleDisplayBoxResize() {
 		// removeInlineStyle('display-box') 
@@ -256,19 +256,12 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 
 		const widthClass = baseClass + '-width' + widthOverflow;
 		const heightClass =  baseClass + '-height' + heightOverflow;
-		newClass = widthClass + ' ' + heightClass;
 
-		newClass && setDisplayBoxClass(newClass)
+		setDisplayBoxWidthClass(widthClass)
+		setDisplayBoxHeightClass(heightClass)
 	}, [displayBoxStatus, learnBoxBodyOverflowStatus])
 
-	// =========== display box parent class
-	// opening / closed = triggered by click
-	useEffect(() => {
-
-	}, [learnBoxIsOpen])
-
-	// open / closed = triggered by transition end
-
+	// =========== display box parent class  
 	useEffect(() => {
 		let newClass;
 		let baseClass;
@@ -294,9 +287,9 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 
 		const widthClass = baseClass + '-width' + widthOverflow;
 		const heightClass =  baseClass + '-height' + heightOverflow;
-		newClass = widthClass + ' ' + heightClass;
 
-		newClass && setDisplayBoxParentClass(newClass)
+		setDisplayBoxWidthClass(widthClass)
+		setDisplayBoxHeightClass(heightClass)
 	}, [learnBoxStatus, learnBoxBodyOverflowStatus])
 
 	// display box transition class
@@ -323,10 +316,15 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
   // 	console.log('displayBoxStatus', displayBoxStatus);
   // }, [displayBoxStatus])
 
-  // ---- displayBoxClass
-  // useEffect(() => {
-  // 	console.log('displayBoxClass', displayBoxClass);
-  // }, [displayBoxClass])
+  // ---- displayBoxWidthClass
+  useEffect(() => {
+  	console.log('displayBoxWidthClass', displayBoxWidthClass);
+  }, [displayBoxWidthClass])
+
+  // ---- displayBoxWidthClass
+  useEffect(() => {
+  	console.log('displayBoxHeightClass', displayBoxHeightClass);
+  }, [displayBoxHeightClass])
 
   // ---- displayBoxParentClass
   // useEffect(() => {
@@ -378,8 +376,8 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 			>	
 				
 				<div className={`display-box 
-					${displayBoxClass}
-					${displayBoxParentClass}
+					${displayBoxWidthClass}
+					${displayBoxHeightClass}
 					${displayBoxTransitionClass} 
 					${displayBoxResizeClass} 
 					`} id="display-box">

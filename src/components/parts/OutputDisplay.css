@@ -23,36 +23,34 @@
 
 /* ==== Closing */
 /* Width */
-/*.display-box-parent-closing-width,
+.display-box-parent-closing-width,
 .display-box-parent-closed-width,
 .display-box-closing-width,
 .display-box-closed-width,
-.display-box-parent-opening-width, {
+.display-box-parent-opening-width {
 	max-width: 100%;
 }
 
 .display-box-parent-open-width {
 	max-width: none; 
-}*/
+}
 
 /* Height */
-/*.display-box-parent-closing-height {
+.display-box-parent-closing-height {
 	max-height: 100%;
 }
 
 .display-box-closing-height,
-.display-box-closed-height { 
+.display-box-closed-height,
+.display-box-parent-opening-height { 
 	max-height: 0;
+	height: 0;
 }
-
-.display-box-parent-opening-height {
-	max-height: 0;
-}
-
+ 
 .display-box-opening-height,
 .display-box-open-height {
 	max-height: 100%;
-} */
+}
 
 /* ==== Closing overflow */
 /* Width */
@@ -63,12 +61,13 @@
 	min-width: 100%;
 	width: 0 !important;
 }
-
+ 
 .display-box-parent-opening-width-overflow,
 .display-box-parent-open-width-overflow,
 .display-box-opening-width-overflow,
 .display-box-open-width-overflow {
-	min-width: none;
+	width: none;
+	min-width: 100%;
 }
 
 /*
