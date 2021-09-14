@@ -7,7 +7,19 @@ export function detectTransition(id, propertyName, onChange) {
 		return;
 	}  
 
-	addListeners(id, propertyName, numTransitions, onChange)
+	element.addEventListener('transitionstart', (e) => {
+		if(e.propertyName === propertyName && e.srcElement.id === id) {
+			numTransitions += 1;
+			if(numTransitions === 1) onChange(true)
+		}
+	})
+
+ 	element.addEventListener('transitionend', (e) => { 
+		if(e.propertyName === propertyName && e.srcElement.id === id) {
+			numTransitions -= 1;
+			if(numTransitions === 0) onChange(false)
+		}
+	})
 }
 
 export function detectTransitions(id, propertyNames, onChange) {
