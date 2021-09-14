@@ -5,8 +5,11 @@
 	smaller = max-height;
 	overflow-closing = min-height;
 	overflow opening + shrink = height;
+
+	width overflow - shrin width
 	*/
-	transition: max-height 3s, min-height 3s, height 3s;
+	/*transition: max-height 3s, min-height 3s, height 3s, width 3s;*/
+	transition: max-height 3s;
 	resize: none;
 }
 
@@ -50,19 +53,27 @@
 	max-height: 100%; 
 }
 
-.display-box-closing-height,
-.display-box-closed-height,
-.display-box-parent-opening-height { 
-	max-height: 0; 
+.display-box-closing-height {
+	max-height: 0.00000000000001%;
 }
- 
-.display-box-opening-height {
-	max-height: 100%; 
+
+.display-box-closed-height {
+	height: 0;
+}
+
+
+/*
+.display-box-parent-opening-height { 
+	max-height: 0;
+}
+ */
+/*.display-box-opening-height {
+	height: 0;
 }
 
 .display-box-open-height {
 	max-height: none;
-}
+}*/
 
 /* ==== Closing overflow */
 /* Width */
@@ -78,7 +89,7 @@
 .display-box-parent-open-width-overflow,
 .display-box-opening-width-overflow,
 .display-box-open-width-overflow { 
-	/*min-width: 100%;*/
+	min-width: 100%;
 }
 
 /* Height */

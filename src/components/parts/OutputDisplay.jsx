@@ -1,12 +1,4 @@
- 
-// fix not setting to open when smaller open / close
-
-
-// click open again before finished
-
-// fresh
-// smaller 
-// bigger
+// fix - detect display box closed / open
 
 // refresh
 // fresh -  
@@ -141,7 +133,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	// =========================== Detect Changes =========================== //
 	// =========== display box resize
 	useEffect(() => { 
-		detectTransition('display-box', 'max-height', setDisplayBoxHeightTransitioning)
+		detectTransitions('display-box', ['max-height', 'min-height', 'height'], setDisplayBoxHeightTransitioning)
 	}, [])
 
 	// =========================== Trigger Changes =========================== //
@@ -391,7 +383,6 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 				learnBoxStatus={learnBoxStatus}
 				setLearnBoxStatus={setLearnBoxStatus}
 			>	
-				
 				<div className={`display-box 
 					${displayBoxWidthClass}
 					${displayBoxHeightClass}
