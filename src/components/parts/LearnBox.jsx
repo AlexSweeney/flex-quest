@@ -48,6 +48,16 @@ export default function LearnBox({
 	}
 
 	// ======================= Trigger Events ======================= //
+	
+
+	// ======================= Detect Events ======================= //
+	useEffect(() => {
+		detectTransition(learnBoxId, 'width', setBoxIsTransitioning)
+	}, [])
+
+	// ======================= Update Status ======================= //
+	// ============ Learn box status
+	// opening / closing = triggered by clicks
 	useEffect(() => {
 		if(boxIsOpen) {
 			setLearnBoxStatus('learn-box-opening')
@@ -56,23 +66,13 @@ export default function LearnBox({
 		}
 	}, [boxIsOpen])
 
-	// ======================= Detect Events ======================= //
-	useEffect(() => {
-		detectTransition(learnBoxId, 'width', setBoxIsTransitioning)
-	}, [])
-
-	// ======================= Update Status ======================= //
-	// ============ Box is transitioning
+	// open / closed = triggered by transition ends 
 	useEffect(() => {
 		let newStatus;
 
 		if(!boxIsTransitioning) {
 			newStatus = boxIsOpen ? 'learn-box-open' : 'learn-box-closed';
-		}	
-
-		if(boxIsTransitioning) {
-			newStatus = boxIsOpen ? 'learn-box-opening' : 'learn-box-closing';
-		}
+		}	 
 
 		newStatus && setLearnBoxStatus(newStatus)
 	}, [boxIsTransitioning])
@@ -90,7 +90,7 @@ export default function LearnBox({
 		}
 	}, [learnBoxStatus])
 
-	// ======================= Update Class => based on learnBoxStatus  ======================= //
+	// ======================= Update Class ======================= //
 	// ============ Learn box class
 	useEffect(() => {
 		let newStatus;
@@ -150,7 +150,10 @@ export default function LearnBox({
 	}, [learnBoxStatus])
 
 	// ======================= Console logs ======================= //
-	// 
+	// learnBoxStatus
+	useEffect(() => {
+		console.log('learnBoxStatus', learnBoxStatus)
+	}, [learnBoxStatus])
 
 	// ======================= Component ======================= //
 	return (

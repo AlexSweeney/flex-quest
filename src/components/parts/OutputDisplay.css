@@ -2,7 +2,7 @@
 .display-box-transition {
 	/*transition: max-height 2s ease-in-out;*/
 	/*transition: width 3s, height 3s, min-height 6s, min-width 6s;*/
-	transition: max-width 3s, max-height 3s, height 3s;
+	transition: max-width 3s, width 3s, max-height 3s, height 3s;
 }
 
 .display-box-resize {
@@ -23,17 +23,20 @@
 
 /* ==== Closing */
 /* Width */
-.display-box-parent-closing-width {
+/*.display-box-parent-closing-width,
+.display-box-parent-closed-width,
+.display-box-closing-width,
+.display-box-closed-width,
+.display-box-parent-opening-width, {
 	max-width: 100%;
 }
 
-.display-box-closing-width,
-.display-box-closed-width {
-	max-width: 100%; 
-}
+.display-box-parent-open-width {
+	max-width: none; 
+}*/
 
 /* Height */
-.display-box-parent-closing-height {
+/*.display-box-parent-closing-height {
 	max-height: 100%;
 }
 
@@ -49,20 +52,38 @@
 .display-box-opening-height,
 .display-box-open-height {
 	max-height: 100%;
-}
-
-
-/*.display-box-opening-height {
-	height: 0;
-	max-height: none;
-}
-*/
-/*.display-box-open-height {
-	height: 100%;
-}*/
+} */
 
 /* ==== Closing overflow */
-.display-box-parent-closing-height-overflow {
+/* Width */
+.display-box-parent-closing-width-overflow,
+.display-box-parent-closed-width-overflow,
+.display-box-closing-width-overflow,
+.display-box-closed-width-overflow {
+	min-width: 100%;
+	width: 0 !important;
+}
+
+.display-box-parent-opening-width-overflow,
+.display-box-parent-open-width-overflow,
+.display-box-opening-width-overflow,
+.display-box-open-width-overflow {
+	min-width: none;
+}
+
+/*
+
+
+.display-box-closing-width,
+.display-box-parent-opening-width, {
+	max-width: 100%;
+}
+
+.display-box-parent-open-width {
+	max-width: none; 
+}*/
+
+/*.display-box-parent-closing-height-overflow {
 	min-height: 100%;
 	height: 0 !important;
 }
@@ -70,7 +91,7 @@
 .display-box-parent-closing-width-overflow {
 	min-width: 100%;
 	width: 0 !important;
-}
+}*/
 
 
 /*.display-box-closing,

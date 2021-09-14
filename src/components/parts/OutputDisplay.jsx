@@ -5,6 +5,8 @@
 
 // bigger  -   
 
+// detect transition ends
+
 // refresh
 // fresh -  
 // bigger  -  
@@ -110,7 +112,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	function onGridClick() {
 		setShowGrid(oldVal => !oldVal)
 	} 
-
+ 
 	// =========================== Event Handlers =========================== //
 	function handleDisplayBoxResize() {
 		// removeInlineStyle('display-box') 
@@ -260,7 +262,12 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	}, [displayBoxStatus, learnBoxBodyOverflowStatus])
 
 	// =========== display box parent class
-	// set overflow on box open close
+	// opening / closed = triggered by click
+	useEffect(() => {
+
+	}, [learnBoxIsOpen])
+
+	// open / closed = triggered by transition end
 
 	useEffect(() => {
 		let newClass;
@@ -312,14 +319,14 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
   // =========================== console.logs =========================== //
   // =================== Display box
   // ---- displayBoxStatus
-  useEffect(() => {
-  	console.log('displayBoxStatus', displayBoxStatus);
-  }, [displayBoxStatus])
+  // useEffect(() => {
+  // 	console.log('displayBoxStatus', displayBoxStatus);
+  // }, [displayBoxStatus])
 
   // ---- displayBoxClass
-  useEffect(() => {
-  	console.log('displayBoxClass', displayBoxClass);
-  }, [displayBoxClass])
+  // useEffect(() => {
+  // 	console.log('displayBoxClass', displayBoxClass);
+  // }, [displayBoxClass])
 
   // ---- displayBoxParentClass
   // useEffect(() => {
@@ -370,8 +377,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 				setLearnBoxStatus={setLearnBoxStatus}
 			>	
 				
-				<div className={`
-					display-box 
+				<div className={`display-box 
 					${displayBoxClass}
 					${displayBoxParentClass}
 					${displayBoxTransitionClass} 
