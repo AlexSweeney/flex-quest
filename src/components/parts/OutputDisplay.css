@@ -2,7 +2,7 @@
 .display-box-transition {
 	/*transition: max-height 2s ease-in-out;*/
 	/*transition: width 3s, height 3s, min-height 6s, min-width 6s;*/
-	transition: max-width 3s, width 3s, max-height 3s, height 3s;
+	transition: max-width 3s, width 3s, min-height 3s, max-height 3s, height 3s;
 }
 
 .display-box-resize {
@@ -67,10 +67,39 @@
 .display-box-parent-opening-width-overflow,
 .display-box-parent-open-width-overflow,
 .display-box-opening-width-overflow,
-.display-box-open-width-overflow {
-/*	width: none;*/
+.display-box-open-width-overflow { 
 	min-width: 100%;
 }
+
+/* Height */
+.display-box-parent-closing-height-overflow,
+.display-box-parent-closed-height-overflow {
+	min-height: 100%; 
+	height: 0 !important;
+}
+
+.display-box-closing-height-overflow,
+.display-box-closed-height-overflow,
+.display-box-parent-opening-height-overflow { 
+	min-height: 0;  
+	height: 0 !important;
+}
+/* 
+
+.display-box-parent-open-height-overflow,
+.display-box-opening-height-overflow,
+.display-box-open-height-overflow { 
+	min-height: 100%;
+}
+
+*/
+
+
+
+
+
+
+
 
 /*
 
