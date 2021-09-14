@@ -3,6 +3,11 @@
 	/*transition: max-height 2s ease-in-out;*/
 	/*transition: width 3s, height 3s, min-height 6s, min-width 6s;*/
 	transition: max-width 3s, width 3s, min-height 3s, max-height 3s, height 3s;
+	resize: none;
+}
+
+.display-box-no-transition {
+	resize: both;
 }
 
 .display-box-resize {
@@ -16,8 +21,7 @@
 	width: 100%;  
 	height: 100%; 
 	background: green;
- 
-	resize: both;
+  
 	overflow: hidden;   
 
 	border: 1em solid pink;
@@ -49,9 +53,12 @@
 	height: 0;
 }
  
-.display-box-opening-height,
-.display-box-open-height {
+.display-box-opening-height {
 	max-height: 100%;
+}
+
+.display-box-open-height {
+	max-height: none;
 }
 
 /* ==== Closing overflow */

@@ -1,9 +1,4 @@
-// open close
-// fresh -  x
-
-// smaller -  x
-
-// bigger  -   
+// fix display box transition class 
 
 // click open again before finished
 
@@ -33,15 +28,12 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	const [source, setSource] = useState(null);
 	const [savedInlineStyle, setSavedInlineStyle] = useState(null);
  
-	// =============== resize status
+	// =============== status
 	// const [resizeDisplayBox, setResizeDisplayBox] = useState(false);
 	const [displayBoxIsResizing, setDisplayBoxIsResizing] = useState(false);
-	const [hasRemovedInlineStyle, setHasRemovedInlineStyle] = useState(false);
-
-	// =============== animation status
+	// const [hasRemovedInlineStyle, setHasRemovedInlineStyle] = useState(false);
 	const [isAnimating, setIsAnimating] = useState(false);
 
-	// =============== box status
 	const [learnBoxBodyOverflowStatus, setLearnBoxBodyOverflowStatus] = useState({width: false, height: false});
 	const [displayBoxStatus, setDisplayBoxStatus] = useState('display-box-open');
 	const [learnBoxStatus, setLearnBoxStatus] = useState('learn-box-open');
@@ -49,7 +41,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	// =============== classes
 	const [displayBoxWidthClass, setDisplayBoxWidthClass] = useState('display-box-open-width');
 	const [displayBoxHeightClass, setDisplayBoxHeightClass] = useState('display-box-open-height');
-	const [displayBoxTransitionClass, setDisplayBoxTransitionClass] = useState('');
+	const [displayBoxTransitionClass, setDisplayBoxTransitionClass] = useState('display-box-no-transition');
 	const [displayBoxResizeClass, setDisplayBoxResizeClass] = useState('');
 	// const [contentContainerClass, setContentContainerClass] = useState('content-container-open');
 	// const [contentContainerScrollClass, setContentContainerScrollClass] = useState('scroll-auto');
@@ -296,22 +288,35 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 		setDisplayBoxHeightClass(heightClass)
 	}, [learnBoxStatus, learnBoxBodyOverflowStatus])
 
-	// display box transition class
+	// =========== display box transition class
+	// start on click
+	useEffect(() => { 
+		setDisplayBoxTransitionClass('display-box-transition')
+	}, [learnBoxIsOpen])
+
+	// end on transition end
 	useEffect(() => {
-		let newClass;
-
-		if(displayBoxStatus === 'display-box-open'
-			|| displayBoxStatus === 'display-box-closed') {
-			newClass = ''
-		} 
-
-		if(learnBoxStatus === 'display-box-opening'
-			|| learnBoxStatus === 'learn-box-closing') {
-			newClass = 'display-box-transition';
+		if(!displayBoxIsResizing) {
+			setDisplayBoxTransitionClass('display-box-no-transition')
 		}
+	}, [displayBoxIsResizing])
 
-		newClass && setDisplayBoxTransitionClass(newClass)
-	}, [learnBoxStatus, displayBoxStatus])
+	// useEffect(() => {
+	// 	let newClass;
+
+	// 	if(displayBoxStatus === 'display-box-open'
+	// 		|| displayBoxStatus === 'display-box-closed') {
+	// 		newClass = ''
+	// 	} 
+
+	// 	if(learnBoxStatus === 'display-box-opening'
+	// 		|| learnBoxStatus === 'learn-box-closing') {
+	// 		newClass = 'display-box-transition';
+	// 	}
+
+	// 	setDisplayBoxTransitionClass(newClass)
+	// }, [learnBoxStatus, displayBoxStatus])
+
 
   // =========================== console.logs =========================== //
   // =================== Display box
@@ -321,14 +326,19 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
   // }, [displayBoxStatus])
 
   // ---- displayBoxWidthClass
-  useEffect(() => {
-  	console.log('displayBoxWidthClass', displayBoxWidthClass);
-  }, [displayBoxWidthClass])
+  // useEffect(() => {
+  // 	console.log('displayBoxWidthClass', displayBoxWidthClass);
+  // }, [displayBoxWidthClass])
 
   // ---- displayBoxWidthClass
-  useEffect(() => {
-  	console.log('displayBoxHeightClass', displayBoxHeightClass);
-  }, [displayBoxHeightClass])
+  // useEffect(() => {
+  // 	console.log('displayBoxHeightClass', displayBoxHeightClass);
+  // }, [displayBoxHeightClass])
+
+  // ---- displayBoxParentClass
+  // useEffect(() => {
+  // 	console.log('displayBoxParentClass', displayBoxParentClass);
+  // }, [displayBoxParentClass])
 
   // ---- displayBoxParentClass
   // useEffect(() => {
@@ -388,10 +398,12 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 				</div> 
 			</LearnBox>
 			<div>
-				<p>learnBoxStatus: {learnBoxStatus}</p>
+				<p>displayBoxTransitionClass: {displayBoxTransitionClass}</p>
 				<p>displayBoxStatus: {displayBoxStatus}</p>
+				{/*<p>learnBoxStatus: {learnBoxStatus}</p>
+				
 				<p>displayBoxHeightClass: {displayBoxHeightClass}</p>
-				<p>displayBoxWidthClass: {displayBoxWidthClass}</p>
+				<p>displayBoxWidthClass: {displayBoxWidthClass}</p>*/}
 			</div> 
 		</div>
 	)
