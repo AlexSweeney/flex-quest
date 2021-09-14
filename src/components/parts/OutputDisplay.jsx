@@ -402,7 +402,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 			</LearnBox>
 			<div>
 				<p>displayBoxTransitionClass: {displayBoxTransitionClass}</p>
-				<p>learnBoxIsOpen: {learnBoxIsOpen.toString()}</p>
+				<p>displayBoxIsOpen: {displayBoxIsOpen.toString()}</p>
 				<p>displayBoxStatus: {displayBoxStatus}</p>
 				<p>displayBoxHeightTransitioning: {displayBoxHeightTransitioning.toString()}</p>
 				{/*<p>learnBoxStatus: {learnBoxStatus}</p>
