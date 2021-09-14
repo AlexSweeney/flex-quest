@@ -1,16 +1,241 @@
+// custom scroll bar
+ 
+// add buttons
+// detect resize transitions
+
 import React, {useState, useEffect} from 'react'; 
-import OpenCloseToggle from './OpenCloseToggle/OpenCloseToggle.jsx'
+import OpenCloseToggle from './OpenCloseToggle/OpenCloseToggle.jsx';
 import {detectTransition, detectTransitions} from './../utils.js';
 import './LearnBox.css';
 
-export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating, learnBoxStatus, setLearnBoxStatus, contentContainerClass, setContentContainerClass, children}) {
+export default function LearnBox({
+	boxIsOpen = true,
+	buttons = null,
+	title = '',
+	handleOpenCloseToggleClick = null,
+	learnBoxStatus,
+	setLearnBoxStatus,
+	children = null,
+}) {
+	/*buttons, 
+	title,
+	,
+	boxIsOpen, 
+	/*learnBoxBodyIsOpen, */
+	
+	// ======================= Status ======================= // 
+	const [toggleIsOpen, setToggleIsOpen] = useState(!boxIsOpen); 
+	const [isTransitionEnd, setIsTranstionEnd] = useState(false);
+	
+	const [isAnimating, setIsAnimating] = useState(false);
+
+	// ======================= Id's ======================= //
+	const learnBoxId = 'learn-box';
+
+	// ======================= Classes ======================= //
+	const initialBoxStatus = boxIsOpen ? 'learn-box-open' : 'learn-box-closed';
+	const [learnBoxClass, setLearnBoxClass] = useState(initialBoxStatus);
+	const [learnBoxBodyClass, setLearnBoxBodyClass] = useState(initialBoxStatus);
+
+	// ======================= Event Handlers ======================= //
+	function onClickBoxOpen() {
+		setLearnBoxClass('learn-box-open')
+	}
+
+	function onClickBoxClosed() {
+		setLearnBoxClass('learn-box-closed')
+	}
+
+	function onBoxOpen() {
+		console.log('onBoxOpen')
+		setToggleIsOpen(false)
+	}
+
+	function onBoxClosed() {
+		console.log('onBoxClosed')
+		setToggleIsOpen(true)
+	}
+
+	// ======================= Event Handlers ======================= //
+
+	// ======================= Detect Events, Trigger handler ======================= //
+	// start open / close
+	useEffect(() => {
+		if(boxIsOpen) {
+			onClickBoxOpen()
+		} else {
+			onClickBoxClosed()
+		}
+	}, [boxIsOpen])
+
+	// detect transition end
+	useEffect(() => {
+		const element = document.getElementById(learnBoxId);
+
+		element.addEventListener('transitionstart', (e) => {
+			if(e.propertyName === 'width' && e.srcElement.id === learnBoxId) { 
+				setIsTranstionEnd(false)
+			}
+		})
+
+		element.addEventListener('transitionend', (e) => {
+			if(e.propertyName === 'width' && e.srcElement.id === learnBoxId) { 
+				setIsTranstionEnd(true)
+			}
+		})
+	}, [])
+
+	// trigger transtion end function
+	useEffect(() => {
+		if(isTransitionEnd) {
+			if(boxIsOpen) onBoxOpen()
+			if(!boxIsOpen) onBoxClosed()
+			setIsTranstionEnd(false)
+		}
+	}, [boxIsOpen, isTransitionEnd]) 
+
+	// ======================= Update Status ======================= //
+	// ============ Learn box status
+	// opening / closing = triggered by clicks
+	
+
+	// open / closed = triggered by transition ends 
+	// useEffect(() => {
+	// 	let newStatus;
+
+	// 	if(!boxIsTransitioning) {
+	// 		newStatus = boxIsOpen ? 'learn-box-open' : 'learn-box-closed';
+	// 	}	 
+
+	// 	newStatus && setLearnBoxStatus(newStatus)
+	// }, [boxIsTransitioning])
+
+	// ============ Animation is Running
+	// useEffect(() => {
+	// 	if(learnBoxStatus === 'learn-box-open'
+	// 		|| learnBoxStatus === 'learn-box-closed') {
+	// 		setIsAnimating(false)
+	// 	}
+
+	// 	if(learnBoxStatus === 'learn-box-opening'
+	// 		|| learnBoxStatus === 'learn-box-closing') {
+	// 		setIsAnimating(true)
+	// 	}
+	// }, [learnBoxStatus])
+
+	// ======================= Update Class ======================= //
+	// ============ Learn box class
+	// useEffect(() => {
+	// 	let newStatus;
+
+	// 	if(learnBoxStatus === 'learn-box-open' ) {
+	// 		newStatus = 'learn-box-open';
+	// 	}
+
+	// 	if(learnBoxStatus === 'learn-box-closed' ) {
+	// 		newStatus = 'learn-box-closed';
+	// 	}
+
+	// 	if(learnBoxStatus === 'learn-box-opening' ) {
+	// 		newStatus = 'learn-box-opening';
+	// 	}
+
+	// 	if(learnBoxStatus === 'learn-box-closing' ) {
+	// 		newStatus = 'learn-box-closing';
+	// 	}
+
+	// 	newStatus && setLearnBoxClass(newStatus)
+	// }, [learnBoxStatus])
+
+	// ============ Learn box body class
+	// useEffect(() => {
+	// 	let newStatus;
+
+	// 	if(learnBoxStatus === 'learn-box-open' ) {
+	// 		newStatus = 'learn-box-body-open';
+	// 	}
+
+	// 	if(learnBoxStatus === 'learn-box-closed' ) {
+	// 		newStatus = 'learn-box-body-closed';
+	// 	}
+
+	// 	if(learnBoxStatus === 'learn-box-opening' ) {
+	// 		newStatus = 'learn-box-body-opening';
+	// 	}
+
+	// 	if(learnBoxStatus === 'learn-box-closing' ) {
+	// 		newStatus = 'learn-box-body-closing';
+	// 	}
+
+	// 	newStatus && setLearnBoxBodyClass(newStatus)
+	// }, [learnBoxStatus])
+
+	// ======================= Trigger Event Handlers ======================= //
+	// ========== Open Close box
+	// useEffect(() => {
+	// 	if(learnBoxStatus === 'learn-box-open') {
+	// 		onBoxOpen()
+	// 	}
+
+	// 	if(learnBoxStatus === 'learn-box-closed') {
+	// 		onBoxClosed()
+	// 	}	
+	// }, [learnBoxStatus])
+
+	// ======================= Console logs ======================= //
+	// learnBoxStatus
+	// useEffect(() => {
+	// 	console.log('learnBoxStatus', learnBoxStatus)
+	// }, [learnBoxStatus])
+
+	// ======================= Component ======================= //
+	return (
+		<div className={`learn-box learn-box-open-close-transition ${learnBoxClass}`} id={learnBoxId}>
+			<div className="learn-box-header">
+				<div className="learn-box-buttons-container">
+					{buttons && buttons.map(button => {
+						return (<div className="learn-box-button">
+							 {button}
+						</div>)
+					})}
+				</div>
+
+				<div className="title">{title}</div>
+
+				<div className="open-close-toggle-container">
+					<OpenCloseToggle 	
+						handleClick={handleOpenCloseToggleClick}
+						toggleIsOpen={toggleIsOpen}
+						parentIsAnimating={isAnimating}
+					/>
+				</div>
+			</div>
+
+			<div className={`learn-box-body ${learnBoxBodyClass} scroll-bar-transition`} id="learn-box-body"> 
+				{
+					children && children	
+				}
+			</div>
+
+			{/*<div className={`learn-box-body ${learnBoxBodyClass}`}>
+				<div className={`content-container ${contentContainerClass}`} id={contentContainerId}>
+					{
+						children && children	
+					}
+				</div>
+			</div>*/}
+		</div>
+	)
+}
+
+/*export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating, learnBoxStatus, setLearnBoxStatus, contentContainerClass, setContentContainerClass, children}) {
 	// ======================== Variables ======================== //
 	// =============== Ids
 	const learnBoxId = `learn-box-${i}`;
 	const contentContainerId = `content-container`;
 
 	// =============== States
-	const [learnBoxIsOpen, setLearnBoxIsOpen] = useState(true);
+	const [boxIsOpen, setboxIsOpen] = useState(true);
 	const [learnBoxIsAnimating, setLearnBoxIsAnimating] = useState(false);
 
 	const [contentContainerIsAnimating, setContentContainerIsAnimating] = useState(false);
@@ -21,12 +246,12 @@ export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating
 	const [contentContainerStatus, setContentContainerStatus] = useState('content-container-open');
 
 	// =============== Class
-	const learnBoxOpenClass = learnBoxIsOpen ? 'learn-box-open' : 'learn-box-closed';
+	const learnBoxOpenClass = boxIsOpen ? 'learn-box-open' : 'learn-box-closed';
 	const [learnBoxBodyClass, setLearnBoxBodyClass] = useState('');
 	
  	// ======================== Handle Clicks ======================== //
  	function handleOpenCloseToggleClick() {
-		setLearnBoxIsOpen(oldVal => !oldVal)
+		setboxIsOpen(oldVal => !oldVal)
 	}  
 
 	// ======================== Animation detection fns() ======================== //
@@ -74,9 +299,9 @@ export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating
 		let newStatus;
 
 		if(learnBoxIsAnimating) {
-			newStatus = learnBoxIsOpen ? 'learn-box-opening' : 'learn-box-closing'; 
+			newStatus = boxIsOpen ? 'learn-box-opening' : 'learn-box-closing'; 
 		} else {
-			newStatus = learnBoxIsOpen ? 'learn-box-open' : 'learn-box-closed'; 
+			newStatus = boxIsOpen ? 'learn-box-open' : 'learn-box-closed'; 
 		}
 
 		newStatus && setLearnBoxStatus(newStatus)
@@ -205,4 +430,4 @@ export default function LearnBox({buttons, title, i, isAnimating, setIsAnimating
 			</div>
 		</div>
 	)
-}
+}*/

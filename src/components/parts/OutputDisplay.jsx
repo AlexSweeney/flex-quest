@@ -1,4 +1,6 @@
 // fix - detect display box closed / open
+// waiting for status = inconsistent => reformat -> rely on events not status
+
 
 // refresh
 // fresh -  
@@ -438,22 +440,20 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 				boxIsOpen={learnBoxIsOpen}
 				handleOpenCloseToggleClick={onOpenCloseToggleClick}
 				buttons={buttons}
-				learnBoxStatus={learnBoxStatus}
-				setLearnBoxStatus={setLearnBoxStatus}
 			>	
-				<div className={`display-box 
+				{/*<div className={`display-box 
 					${displayBoxWidthClass}
 					${displayBoxHeightClass}
 					${displayBoxTransitionClass} 
 					${displayBoxResizeClass} 
 					`} id="display-box">
-				</div> 
+				</div> */}
 			</LearnBox>
 			<div>
-				<p>displayBoxTransitionClass: {displayBoxTransitionClass}</p>
+				{/*<p>displayBoxTransitionClass: {displayBoxTransitionClass}</p>
 				<p>displayBoxIsOpen: {displayBoxIsOpen.toString()}</p>
 				<p>displayBoxStatus: {displayBoxStatus}</p>
-				<p>displayBoxHeightTransitioning: {displayBoxHeightTransitioning.toString()}</p>
+				<p>displayBoxHeightTransitioning: {displayBoxHeightTransitioning.toString()}</p>*/}
 				{/*<p>learnBoxStatus: {learnBoxStatus}</p>
 				*/}
 			</div> 
