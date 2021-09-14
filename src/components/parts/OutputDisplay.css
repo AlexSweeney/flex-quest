@@ -1,9 +1,11 @@
 /* =============== Transitions =============== */
 .display-box-transition {
-	/*transition: max-height 2s ease-in-out;*/
-	/*transition: width 3s, height 3s, min-height 6s, min-width 6s;*/
-	/*transition: max-width 3s, width 3s, min-height 3s, max-height 3s, height 3s;*/
-	transition: min-height 3s, max-height 3s, height 3s;
+	/* 
+	no touch = max-height;
+	smaller = 
+	overflow = 
+	*/
+	transition: max-height 3s;
 	resize: none;
 }
 
@@ -44,18 +46,18 @@
 
 /* Height */
 .display-box-parent-closing-height {
-	max-height: 100%;
+	max-height: 100%; 
 }
 
 .display-box-closing-height,
 .display-box-closed-height,
 .display-box-parent-opening-height { 
 	max-height: 0;
-	height: 0;
+	height: 0; 
 }
  
 .display-box-opening-height {
-	max-height: 100%;
+	max-height: 100%; 
 }
 
 .display-box-open-height {
@@ -76,7 +78,7 @@
 .display-box-parent-open-width-overflow,
 .display-box-opening-width-overflow,
 .display-box-open-width-overflow { 
-	min-width: 100%;
+	/*min-width: 100%;*/
 }
 
 /* Height */

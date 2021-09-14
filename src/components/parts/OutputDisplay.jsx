@@ -1,5 +1,7 @@
  
-// fix bigger height width jerks closed
+// fix not setting to open when smaller open / close
+
+
 // click open again before finished
 
 // fresh
@@ -16,7 +18,7 @@ import LearnBox from './LearnBox.jsx';
 import RefreshButton from './RefreshButton.jsx';
 import GridButton from './GridButton.jsx';
 import GridOverlay from './GridOverlay.jsx';
-import {detectTransitions} from './../utils.js';
+import {detectTransition, detectTransitions} from './../utils.js';
 import './OutputDisplay.css'; 
 
 export default function OutputDisplay({title, i, htmlString, cssString}) {
@@ -139,7 +141,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	// =========================== Detect Changes =========================== //
 	// =========== display box resize
 	useEffect(() => { 
-		detectTransitions('display-box', ['max-height', 'min-height', 'height'], setDisplayBoxHeightTransitioning)
+		detectTransition('display-box', 'max-height', setDisplayBoxHeightTransitioning)
 	}, [])
 
 	// =========================== Trigger Changes =========================== //

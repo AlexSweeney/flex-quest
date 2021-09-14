@@ -1,6 +1,4 @@
 export function detectTransition(id, propertyName, onChange) {
-	let numTransitions = 0; 
-
 	let element = document.getElementById(id);
 	if(!element) {
 		console.log('Error: detectTransition element not found: id = ', id)
@@ -9,15 +7,13 @@ export function detectTransition(id, propertyName, onChange) {
 
 	element.addEventListener('transitionstart', (e) => {
 		if(e.propertyName === propertyName && e.srcElement.id === id) {
-			numTransitions += 1;
-			if(numTransitions === 1) onChange(true)
+			onChange(true)
 		}
 	})
 
  	element.addEventListener('transitionend', (e) => { 
 		if(e.propertyName === propertyName && e.srcElement.id === id) {
-			numTransitions -= 1;
-			if(numTransitions === 0) onChange(false)
+			onChange(false)
 		}
 	})
 }
