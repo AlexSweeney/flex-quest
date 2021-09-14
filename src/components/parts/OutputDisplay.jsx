@@ -1,15 +1,9 @@
 // open close
-// fresh - x 
+// fresh -  x
 
-// smaller - 
-	// height
-	// width
-	// width + height
+// smaller -  x
 
-// bigger  -  
-	// height
-	// width
-	// width + height
+// bigger  -   
 
 // refresh
 // fresh -  
@@ -60,33 +54,47 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	];	 
 
 	// =========================== Element fns =========================== //
-	function hasBeenResized(id, propertyNames) {
+	/*function hasBeenResized(id, propertyNames) {
 		const element = document.getElementById(id); 
 
 		return !(element.style.width === '' && element.style.height === '');
-	} 
+	} */
 
-	function removeInlineStyle(id) {
+	/*function removeInlineStyle(id) {
 		// setDisplayBoxResizeClass('display-box-resize')
 
 		const element = document.getElementById(id); 
 		setSavedInlineStyle({width: element.style.width, height: element.style.height})
 		element.style.width = '';
 		element.style.height = ''; 
-	}
+	}*/
 
-	function restoreInlineStyle(id) {
+	/*function restoreInlineStyle(id) {
 		const element = document.getElementById(id);
 		element.style.width = savedInlineStyle.width;
 		element.style.height = savedInlineStyle.height;
 		setSavedInlineStyle(null)
-	}
+	}*/
 
-	function elementIsOverflowing(id) {
+	// function elementIsOverflowing(id) {
+	// 	const element = document.getElementById(id);
+	// 	if(!element) return;
+
+	//   return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
+	// }
+
+	function elementWidthIsOverflowing(id) {
 		const element = document.getElementById(id);
 		if(!element) return;
 
-	  return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
+	  return element.scrollWidth > element.clientWidth;
+	}
+
+	function elementHeightIsOverflowing(id) {
+		const element = document.getElementById(id);
+		if(!element) return;
+
+	  return element.scrollHeight > element.clientHeight;
 	}
 
 	// =========================== Click Handlers =========================== //
@@ -148,11 +156,11 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	}, [learnBoxStatus])
 
 	// remove inline style
-	useEffect(() => {
+	/*useEffect(() => {
 		if(displayBoxStatus === 'closing') {
 			removeInlineStyle('display-box')
 		}
-	}, [displayBoxStatus])
+	}, [displayBoxStatus])*/
 
 
 	// =========================== Trigger Handlers =========================== //
@@ -234,21 +242,27 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	// =========== display box parent class
 	useEffect(() => {
 		let newClass;
+		const widthOverflow = elementWidthIsOverflowing('learn-box-body') ? '-overflow' : '';
+		const heightOverflow = elementHeightIsOverflowing('learn-box-body') ? '-overflow' : '';
 
 		if(learnBoxStatus === 'learn-box-open') {
-			newClass = 'display-box-parent-open'
+			newClass = 'display-box-parent-open';
 		} 
 
 		if(learnBoxStatus === 'learn-box-closed') {
-			newClass = 'display-box-parent-closed'
+			const widthClass = 'display-box-parent-closed-width' + widthOverflow;
+			const heightClass = 'display-box-parent-closed-height' + heightOverflow;
+			newClass = widthClass + ' ' + heightClass;
 		}
 
 		if(learnBoxStatus === 'learn-box-opening') {
-			newClass = 'display-box-parent-opening'
+			newClass = 'display-box-parent-opening';
 		}
 
 		if(learnBoxStatus === 'learn-box-closing') {
-			newClass = 'display-box-parent-closing'
+			const widthClass = 'display-box-parent-closing-width' + widthOverflow;
+			const heightClass = 'display-box-parent-closing-height' + heightOverflow;
+			newClass = widthClass + ' ' + heightClass;
 		}
 
 		newClass && setDisplayBoxParentClass(newClass)

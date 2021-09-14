@@ -175,7 +175,7 @@ export default function LearnBox({
 				</div>
 			</div>
 
-			<div className={`learn-box-body ${learnBoxBodyClass} scroll-bar-transition`}> 
+			<div className={`learn-box-body ${learnBoxBodyClass} scroll-bar-transition`} id="learn-box-body"> 
 				{
 					children && children	
 				}

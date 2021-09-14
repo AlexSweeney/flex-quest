@@ -1,7 +1,6 @@
 /* =================== Transitions =================== */
-.learn-box-open-close-transition,
 .learn-box-open-close-transition {
-	transition: 2s width ease-in-out; 
+	transition: 3s width ease-in-out; 
 }
 
 .scroll-bar-transition {
@@ -102,7 +101,7 @@
 .learn-box-body-opening,
 .learn-box-body-closing, 
 .learn-box-body-resizing, {
-	overflow: overlay;
+	overflow: auto;
 }
 
 /*.learn-box-body-closed {

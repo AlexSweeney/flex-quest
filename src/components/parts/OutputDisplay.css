@@ -1,6 +1,7 @@
 /* =============== Transitions =============== */
 .display-box-transition {
 	/*transition: max-height 2s ease-in-out;*/
+	transition: width 3s ease-in-out, height 3s ease-in-out;
 }
 
 .display-box-resize {
@@ -11,24 +12,45 @@
 
 /* =============== Display Box =============== */
 .display-box {
-	width: 100%;  
-	max-width: 100%; 
+	width: 100%; 
+	max-width: 100%;   
 	height: 100%;
 	background: green;
 
 
 	resize: both;
 	overflow: hidden; 
-	transition: max-height 5s ease-in-out;
+/*	transition: max-height 5s ease-in-out, max-width 2s ease-in-out;*/
+	
 }
 
-.display-box-parent-closing {
+.display-box-parent-closing-width {
+	max-width: 100%;
+}
+
+.display-box-parent-closing-height {
 	max-height: 100%;
 }
 
-.display-box-closing, 
+.display-box-parent-closing-height-overflow,
+.display-box-parent-closed-height-overflow {
+	min-height: 100%;
+	height: 0 !important;
+}
+
+/* {
+	height: 100% !important;;
+}*/
+
+.display-box-parent-closing-width-overflow {
+	min-width: 100%;
+	width: 0 !important;
+}
+
+.display-box-closing,
 .display-box-closed {
-	max-height: 0;
+	/*height: 0 !important;*/
+	width: 100%;
 }
 
 /*.display-box-parent-open {
