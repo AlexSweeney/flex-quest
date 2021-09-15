@@ -18,15 +18,14 @@ export default function LearnBox({
 	const learnBoxId = id;
 
 	// ======================= Classes ======================= //
-	const initialBoxStatus = boxIsOpen ? 'learn-box-open' : 'learn-box-closed';
-	const [learnBoxClass, setLearnBoxClass] = useState(initialBoxStatus);
-	const [learnBoxBodyClass, setLearnBoxBodyClass] = useState(initialBoxStatus);
+	const [learnBoxClass, setLearnBoxClass] = useState('learn-box-open');
+	const [learnBoxBodyClass, setLearnBoxBodyClass] = useState('learn-box-body-open');
 
 	// ======================= Status ======================= // 
 	const [toggleIsOpen, setToggleIsOpen] = useState(!boxIsOpen); 
 	const [toggleClicked, setToggleClicked] = useState(false);
 
-	const [isTransitionEnd, setIsTranstionEnd] = useState(false);
+	const [widthTransitionFinished, setWidthTransitionFinished] = useState(false);
 	const [isAnimating, setIsAnimating] = useState(false);
 
 	// ======================= Event Handlers ======================= //
@@ -35,25 +34,10 @@ export default function LearnBox({
 		setToggleClicked(true)
 	}
 
-	function onClickBoxOpen() {
-		console.log('click box open')
-		setLearnBoxClass('learn-box-open')
-		setLearnBoxBodyClass('learn-box-body-open')
-		setIsAnimating(true)
-		setLearnBoxStatus('learn-box-opening')
-	}
-
-	function onClickBoxClosed() {
+	function onBoxClosing() {
 		setLearnBoxClass('learn-box-closed')
 		setLearnBoxBodyClass('learn-box-body-closed')
 		setIsAnimating(true)
-		setLearnBoxStatus('learn-box-closing')
-	}
-
-	function onBoxOpen() {
-		setToggleIsOpen(false)
-		setIsAnimating(false)
-		setLearnBoxStatus('learn-box-open')
 	}
 
 	function onBoxClosed() {
@@ -62,47 +46,68 @@ export default function LearnBox({
 		setLearnBoxStatus('learn-box-closed')
 	}
 
-	// ======================= Detect Events ======================= //
+	function onBoxOpening() { 
+		setLearnBoxClass('learn-box-open')
+		setLearnBoxBodyClass('learn-box-body-open')
+		setIsAnimating(true)
+	}
+
+	function onBoxOpen() {
+		setToggleIsOpen(false)
+		setIsAnimating(false)
+		setLearnBoxStatus('learn-box-open')
+	}
+
+	// ======================= Set Status ======================= //
 	// =========== start open / close
 	useEffect(() => {
 		if(toggleClicked) {
-			if(boxIsOpen) onClickBoxOpen()
-			if(!boxIsOpen) onClickBoxClosed()
+			if(boxIsOpen) setLearnBoxStatus('learn-box-opening')
+			if(!boxIsOpen) setLearnBoxStatus('learn-box-closing') 
 
 			setToggleClicked(false)
 		}
 	}, [boxIsOpen, toggleClicked])
 
-	// =========== detect transition end
+	// =========== detect width changing
 	useEffect(() => {
 		const element = document.getElementById(learnBoxId);
 
 		element.addEventListener('transitionstart', (e) => {
 			if(e.propertyName === 'width' && e.srcElement.id === learnBoxId) { 
-				setIsTranstionEnd(false)
+				setWidthTransitionFinished(false)
 			}
 		})
 
 		element.addEventListener('transitionend', (e) => {
 			if(e.propertyName === 'width' && e.srcElement.id === learnBoxId) { 
-				setIsTranstionEnd(true)
+				setWidthTransitionFinished(true)
 			}
 		})
 	}, [])
 
-	// =========== trigger transtion end function
+	// =========== listen for open and close
 	useEffect(() => {
-		if(isTransitionEnd) {
-			if(boxIsOpen) onBoxOpen()
-			if(!boxIsOpen) onBoxClosed()
-			setIsTranstionEnd(false)
-		}
-	}, [boxIsOpen, isTransitionEnd]) 
+		if(widthTransitionFinished) {
+			if(boxIsOpen) setLearnBoxStatus('learn-box-open')
+			if(!boxIsOpen) setLearnBoxStatus('learn-box-closed')
+
+			setWidthTransitionFinished(false)
+		} 
+	}, [widthTransitionFinished, boxIsOpen]) 
+
+	// ======================= Trigger Functions ======================= //
+	useEffect(() => {
+		if(learnBoxStatus === 'learn-box-open') onBoxOpen()
+		if(learnBoxStatus === 'learn-box-opening') onBoxOpening()
+		if(learnBoxStatus === 'learn-box-closed') onBoxClosed()
+		if(learnBoxStatus === 'learn-box-closing') onBoxClosing()
+	}, [learnBoxStatus])
 
 	// ======================= Console logs ======================= // 
-	// useEffect(() => {
-	// 	console.log('learnBoxStatus', learnBoxStatus)
-	// }, [learnBoxStatus])
+	useEffect(() => {
+		console.log('learnBoxStatus', learnBoxStatus)
+	}, [learnBoxStatus])
 
 	// ======================= Component ======================= //
 	return (

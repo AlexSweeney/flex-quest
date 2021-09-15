@@ -3,8 +3,8 @@
 
 // open close
 // fresh x
-// smaller
-// bigger
+// smaller - height x width x
+// bigger - height width
 
 // refresh
 // fresh -  
@@ -25,7 +25,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	 
 	// =============== state
 	const [learnBoxIsOpen, setLearnBoxIsOpen] = useState(true); 
-	const [displayBoxIsOpen, setDisplayBoxIsOpen] = useState(true);
+	// const [displayBoxIsOpen, setDisplayBoxIsOpen] = useState(true);
 	const [showGrid, setShowGrid] = useState(false);
 	const [source, setSource] = useState(null);
 	const [savedInlineStyle, setSavedInlineStyle] = useState(null);
@@ -42,6 +42,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	// const [displayBoxWidthClass, setDisplayBoxWidthClass] = useState('display-box-open-width');
 	// const [displayBoxHeightClass, setDisplayBoxHeightClass] = useState('display-box-open-height');
 	const [displayBoxClass, setDisplayBoxClass] = useState('display-box-open');
+	const [displayBoxOverflowClass, setDisplayBoxOverflowClass] = useState('');
 	const [isDisplayBoxTransitionEnd, setIsDisplayBoxTransitionEnd] = useState(false);
 
 	// const [displayBoxTransitionClass, setDisplayBoxTransitionClass] = useState('display-box-no-transition');
@@ -87,19 +88,25 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	} 
 
 	function onLearnBoxClosing() {
-		setDisplayBoxClass('display-box-closing-x')
+		const heightOverflow = elementHeightIsOverflowing('learn-box-body');
+		const overflowClass = heightOverflow ? 'display-box-height-overflow' : '';
+		console.log('heightOverflow', heightOverflow)
+		setDisplayBoxOverflowClass(overflowClass)
+
+		setDisplayBoxClass('display-box-closing display-box-closing-x')
 	}
 
 	function onLearnBoxOpening() {
-		setDisplayBoxClass('display-box-opening-x')
+		setDisplayBoxClass('display-box-opening display-box-opening-x')
 	}
 
 	function onLearnBoxClosed() {
-		setDisplayBoxClass('display-box-closing-y')
+		setDisplayBoxOverflowClass('')
+		setDisplayBoxClass(`display-box-closing display-box-closing-y`)
 	}
 
 	function onLearnBoxOpen() {
-		setDisplayBoxClass('display-box-opening-y')
+		setDisplayBoxClass('display-box-opening display-box-opening-y')
 	}
 
 	function onDisplayBoxOpen() {
@@ -121,32 +128,40 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 
 	// ============== Display Box
 	useEffect(() => {
-		const element = document.getElementById('display-box')
+		
+		
+	}, [learnBoxStatus])
+	// useEffect(() => {
+	// 	const element = document.getElementById('display-box')
+	// 	// false trigger = resize 
+	// 	element.addEventListener('transitionstart', (e) => {
+	// 		if(e.propertyName === 'height') { 
+	// 			console.log('height start')
+	// 			setIsDisplayBoxTransitionEnd(false)
+	// 		}
+	// 	})
 
-		element.addEventListener('transitionstart', (e) => {
-			if(e.propertyName === 'width' && e.srcElement.id === learnBoxId) { 
-				setIsDisplayBoxTransitionEnd(false)
-			}
-		})
-
-		element.addEventListener('transitionend', (e) => {
-			if(e.propertyName === 'width' && e.srcElement.id === learnBoxId) { 
-				setIsDisplayBoxTransitionEnd(true)
-			}
-		})
-	}, [])
+	// 	element.addEventListener('transitionend', (e) => {
+	// 		if(e.propertyName === 'height') { 
+	// 			console.log('height end')
+	// 			console.log(e)
+	// 			setIsDisplayBoxTransitionEnd(true)
+	// 		}
+	// 	})
+	// }, [])
 
 	useEffect(() => {
 		if(isDisplayBoxTransitionEnd) {
-			if(learnBoxIsOpen) setDisplayBoxIsOpen(true)
-			if(!learnBoxIsOpen) setDisplayBoxIsOpen(false)
+			if(learnBoxIsOpen) onDisplayBoxOpen()
+			if(!learnBoxIsOpen) onDisplayBoxClosed()
+
+			setIsDisplayBoxTransitionEnd(false)
 		}
 	}, [isDisplayBoxTransitionEnd, learnBoxIsOpen])
 
 	useEffect(() => {
-		if(displayBoxIsOpen) onDisplayBoxOpen()
-		if(!displayBoxIsOpen) onDisplayBoxClosed()
-	}, [displayBoxIsOpen])
+		onDisplayBoxOpen()
+	}, [])
 
 
 	// =========================== Event Handlers =========================== //
@@ -188,8 +203,10 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 				learnBoxStatus={learnBoxStatus}
 				setLearnBoxStatus={setLearnBoxStatus}
 			>	
-				<div className={`display-box ${displayBoxClass}
-					`} id="display-box">
+				<div className={`display-box 
+					${displayBoxClass} 
+					${displayBoxOverflowClass}`} id="display-box">
+				}
 				}
 				</div>
 				{/*<div className={`display-box 

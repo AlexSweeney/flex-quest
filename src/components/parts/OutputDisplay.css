@@ -25,45 +25,50 @@
 
 /* =============== Display Box =============== */
 .display-box {
-	width: 100%;  
+	width: 100%;   
 
 	background: green;
   
  	resize: both;
 	overflow: hidden;   
 	border: 1em solid pink;
-
 	transition: height 3s;
 }
 
 .display-box-open {
 	resize: both;
-	height: 100%;
-} 
+	transition: none;
+}
 
+.display-box-closing-x,
+.display-box-opening,
+.display-box-open {
+	height: 100%;
+}
+
+.display-box-height-overflow {
+	height: 100% !important;
+}
+
+.display-box-opening,
+.display-box-closing,
 .display-box-closed {
 	resize: none;
-	height: 0;
+	max-width: 100%;
 }
 
-.display-box-closing-x {
-	height: 100%;
-	resize: none;
-}
-
+.display-box-closing-y,
+.display-box-closed,
 .display-box-opening-x {
-	height: 0;
-	resize: none;
+	height: 0 !important; /* override inline style */
 }
 
-.display-box-closing-y {
-	height: 0;
-	resize: none;
-}
-
+.display-box-closing-x,
+.display-box-closing-y,
+.display-box-closed,
+.display-box-opening-x,
 .display-box-opening-y {
-	height: 100%;
-	resize: none;
+
 }
 
 /* ==== Closing */

@@ -95,6 +95,7 @@
 	height: 100%;
 	/*background: #E8E4E4; */ 
 	/*background: red;*/
+	overflow: auto;
 } 
 
 .learn-box-body-open {
