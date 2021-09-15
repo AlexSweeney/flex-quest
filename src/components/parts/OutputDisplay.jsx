@@ -148,19 +148,17 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 
 	useEffect(() => {
 		if(displayBoxHeightTransitionFinished) {
-			if(learnBoxStatus === 'learn-box-closed' 
-				&& displayBoxStatus === 'display-box-closing') {
+			if(displayBoxStatus === 'display-box-closing') {
 				setDisplayBoxStatus('display-box-closed')
 			}
 
-			if(learnBoxStatus === 'learn-box-open' 
-				&& displayBoxStatus === 'display-box-opening') {
+			if(displayBoxStatus === 'display-box-opening') {
 				setDisplayBoxStatus('display-box-open')
 			}
 
 			setDisplayBoxHeightTransitionFinished(false)
 		}
-	}, [displayBoxHeightTransitionFinished, learnBoxStatus, displayBoxStatus])
+	}, [displayBoxHeightTransitionFinished, displayBoxStatus])
 
 	// =========================== Trigger Handlers =========================== //
 	// ============== Learn Box
@@ -173,11 +171,9 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 
 	// ============== Dispalay Box
 	useEffect(() => {
-		if(learnBoxStatus === 'learn-box-open') onLearnBoxOpen()
-		if(learnBoxStatus === 'learn-box-opening') onLearnBoxOpening()
-		if(learnBoxStatus === 'learn-box-closed') onLearnBoxClosed()
-		if(learnBoxStatus === 'learn-box-closing') onLearnBoxClosing()
-	}, [learnBoxStatus])
+		if(displayBoxStatus === 'display-box-open') onDisplayBoxOpen()
+		if(displayBoxStatus === 'display-box-closed') onDisplayBoxClosed()
+	}, [displayBoxStatus])
 
 	// =========================== Event Handlers =========================== //
 	function handleDisplayBoxResize() {
