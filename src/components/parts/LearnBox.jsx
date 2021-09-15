@@ -100,9 +100,9 @@ export default function LearnBox({
 	}, [boxIsOpen, isTransitionEnd]) 
 
 	// ======================= Console logs ======================= // 
-	useEffect(() => {
-		console.log('learnBoxStatus', learnBoxStatus)
-	}, [learnBoxStatus])
+	// useEffect(() => {
+	// 	console.log('learnBoxStatus', learnBoxStatus)
+	// }, [learnBoxStatus])
 
 	// ======================= Component ======================= //
 	return (

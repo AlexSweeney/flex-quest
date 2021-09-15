@@ -38,10 +38,12 @@
 
 .display-box-open {
 	resize: both;
-}
+	height: 100%;
+} 
 
 .display-box-closed {
 	resize: none;
+	height: 0;
 }
 
 .display-box-closing-x {

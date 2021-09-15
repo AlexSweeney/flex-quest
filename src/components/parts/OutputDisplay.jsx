@@ -24,8 +24,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	const learnBoxId = 'learn-box';
 	 
 	// =============== state
-	const [learnBoxIsOpen, setLearnBoxIsOpen] = useState(true);
-
+	const [learnBoxIsOpen, setLearnBoxIsOpen] = useState(true); 
 	const [displayBoxIsOpen, setDisplayBoxIsOpen] = useState(true);
 	const [showGrid, setShowGrid] = useState(false);
 	const [source, setSource] = useState(null);
@@ -34,12 +33,8 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	// =============== status
 	const [isLearnBoxTranstionEnd, setIsLearnBoxTranstionEnd] = useState(false);
 
-	// const [resizeDisplayBox, setResizeDisplayBox] = useState(false);
 	const [displayBoxHeightTransitioning, setDisplayBoxHeightTransitioning] = useState(false);
-	// const [hasRemovedInlineStyle, setHasRemovedInlineStyle] = useState(false);
-	const [isAnimating, setIsAnimating] = useState(false);
 
-	const [learnBoxBodyOverflowStatus, setLearnBoxBodyOverflowStatus] = useState({width: false, height: false});
 	const [displayBoxStatus, setDisplayBoxStatus] = useState('display-box-open');
 	const [learnBoxStatus, setLearnBoxStatus] = useState('learn-box-open');
 	 
@@ -77,9 +72,10 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	}
 
 	// =========================== Event Handlers =========================== //
+	const test = 'pass';
 	function onOpenCloseToggleClick() {
-		console.log('toggle click')
 		setLearnBoxIsOpen(oldVal => !oldVal) 
+		
 	}
 
 	function onRefreshClick() {
@@ -115,15 +111,15 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	}
 
 	// =========================== Event Listeners =========================== //
+	// ============== Learn Box
 	useEffect(() => {
-		console.log('learnBoxStatus', learnBoxStatus)
-
 		if(learnBoxStatus === 'learn-box-open') onLearnBoxOpen()
 		if(learnBoxStatus === 'learn-box-opening') onLearnBoxOpening()
 		if(learnBoxStatus === 'learn-box-closed') onLearnBoxClosed()
 		if(learnBoxStatus === 'learn-box-closing') onLearnBoxClosing()
 	}, [learnBoxStatus])
 
+	// ============== Display Box
 	useEffect(() => {
 		const element = document.getElementById('display-box')
 
@@ -142,10 +138,16 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 
 	useEffect(() => {
 		if(isDisplayBoxTransitionEnd) {
-			if(learnBoxIsOpen) onDisplayBoxOpen()
-			if(!learnBoxIsOpen) onDisplayBoxClosed()
+			if(learnBoxIsOpen) setDisplayBoxIsOpen(true)
+			if(!learnBoxIsOpen) setDisplayBoxIsOpen(false)
 		}
 	}, [isDisplayBoxTransitionEnd, learnBoxIsOpen])
+
+	useEffect(() => {
+		if(displayBoxIsOpen) onDisplayBoxOpen()
+		if(!displayBoxIsOpen) onDisplayBoxClosed()
+	}, [displayBoxIsOpen])
+
 
 	// =========================== Event Handlers =========================== //
 	function handleDisplayBoxResize() {
