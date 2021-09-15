@@ -24,20 +24,19 @@
 }
 
 /* =============== Display Box =============== */
-.display-box {
-	width: 100%;   
-
+.display-box { 
 	background: green;
   
- 	resize: both;
+ 	resize: none;
 	overflow: hidden;   
 	border: 1em solid pink;
-	transition: height 3s;
+	transition: height 2s, width 2s;
 }
 
 .display-box-open {
 	resize: both;
 	transition: none;
+	width: 100%;  
 }
 
 .display-box-closing-x,
@@ -46,14 +45,24 @@
 	height: 100%;
 }
 
-.display-box-height-overflow {
+.display-box-height-overflow.display-box-closing-x {
 	height: 100% !important;
+}
+
+.display-box-width-overflow.display-box-closing-x { 
+	width: 100% !important;
+	max-width: none;
+}
+
+.display-box-width-overflow.display-box-opening-x,
+.display-box-width-overflow.display-box-opening-y { 
+	max-width: none !important;
+	width: none;
 }
 
 .display-box-opening,
 .display-box-closing,
-.display-box-closed {
-	resize: none;
+.display-box-closed { 
 	max-width: 100%;
 }
 

@@ -1,6 +1,6 @@
 /* =================== Transitions =================== */
 .learn-box-open-close-transition {
-	transition: 3s width ease-in-out; 
+	transition: 2s width ease-in-out; 
 }
 
 .scroll-bar-transition {
@@ -19,12 +19,10 @@
 
 .learn-box-open {
 	width: 100%;
-	overflow: hidden;
 }
 
 .learn-box-closed {
 	width: 36px;
-	overflow: hidden;
 }
 
 /* =================== Box Header =================== */
@@ -99,11 +97,11 @@
 } 
 
 .learn-box-body-open {
-	overflow: auto;
+	/*overflow: auto;*/
 }
 
 .learn-box-body-closed {
-	overflow: hidden;
+	/*overflow: hidden;*/
 }
 
 /* =================== Body Scrollbar */

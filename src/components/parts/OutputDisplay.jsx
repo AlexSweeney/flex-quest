@@ -72,6 +72,22 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	  return element.scrollHeight > element.clientHeight;
 	}
 
+	function getOverflowClass(id) {
+		const heightOverflow = elementHeightIsOverflowing(id);
+		const heightOverflowClass = heightOverflow ? 'display-box-height-overflow' : '';
+
+		const widthOverflow = elementWidthIsOverflowing(id);
+		const widthOverflowClass = widthOverflow ? 'display-box-width-overflow' : '';
+
+		if(heightOverflow && widthOverflow) {
+			return heightOverflowClass + ' ' + widthOverflowClass;
+		}
+
+		if(heightOverflow) return heightOverflowClass;
+		if(widthOverflow) return widthOverflowClass
+		return '';
+	}
+
 	// =========================== Event Handlers =========================== //
 	function onOpenCloseToggleClick() {
 		setLearnBoxIsOpen(oldVal => !oldVal)
@@ -86,10 +102,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	} 
 
 	function onLearnBoxClosing() {
-		const heightOverflow = elementHeightIsOverflowing('learn-box-body');
-		const overflowClass = heightOverflow ? 'display-box-height-overflow' : '';
-		setDisplayBoxOverflowClass(overflowClass)
-
+		setDisplayBoxOverflowClass(getOverflowClass('learn-box-body'))
 		setDisplayBoxClass('display-box-closing display-box-closing-x')
 	}
 
@@ -98,7 +111,6 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	}
 
 	function onLearnBoxClosed() {
-		setDisplayBoxOverflowClass('')
 		setDisplayBoxClass(`display-box-closing display-box-closing-y`)
 	}
 
@@ -107,6 +119,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	}
 
 	function onDisplayBoxOpen() {
+		setDisplayBoxOverflowClass('')
 		setDisplayBoxClass('display-box-open')
 	}
 
@@ -236,7 +249,8 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 				
 				<p>learnBoxStatus: {learnBoxStatus}</p>
 				<p>displayBoxStatus: {displayBoxStatus}</p>
-				
+				<p>displayBoxClass: {displayBoxClass}</p>
+				<p>displayBoxOverflowClass: {displayBoxOverflowClass}</p>
 			</div> 
 		</div>
 	)
