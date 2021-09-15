@@ -1,28 +1,3 @@
-/* =============== Transitions =============== */
-.display-box-transition {
-	/* 
-	no touch = max-height;
-	smaller = max-height;
-	overflow-closing = min-height;
-	overflow opening + shrink = height;
-
-	width overflow - shrin width
-	*/
-	/*transition: max-height 3s, min-height 3s, height 3s, width 3s;*/
-	
-	resize: none;
-}
-
-.display-box-no-transition {
-	resize: both;
-}
-
-.display-box-resize {
-	/*max-height: 100%;
-	max-width: 100%;
-	transition: height 4s ease-in-out;*/
-}
-
 /* =============== Display Box =============== */
 .display-box { 
 	background: green;
@@ -79,4 +54,11 @@
 .display-box-closed,
 .display-box-opening-x {
 	height: 0 !important; 
+}
+
+/* =============== iFrame =============== */
+.iFrame {
+	width: 100%;
+	height: 100%;
+	background: lightsteelblue;
 }

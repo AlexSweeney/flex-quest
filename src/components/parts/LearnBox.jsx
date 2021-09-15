@@ -11,7 +11,7 @@ export default function LearnBox({
 	handleOpenCloseToggleClick = null,
 	learnBoxStatus,
 	setLearnBoxStatus,
-	displayBoxResizeStatus,
+	resizeStatus = null,
 	children = null,
 }) {
 	
@@ -114,18 +114,18 @@ export default function LearnBox({
 	}, [learnBoxStatus])
 
 	useEffect(() => {
-		if(displayBoxResizeStatus === 'display-box-resizing') onRefreshStart()
-		if(displayBoxResizeStatus === 'display-box-resize-finished') onRefreshEnd() 
-	}, [displayBoxResizeStatus])
+		if(resizeStatus === 'display-box-resizing') onRefreshStart()
+		if(resizeStatus === 'display-box-resize-finished') onRefreshEnd() 
+	}, [resizeStatus])
 
 	// ======================= Console logs ======================= // 
 	// useEffect(() => {
 	// 	console.log('learnBoxStatus', learnBoxStatus)
 	// }, [learnBoxStatus])
 
-	useEffect(() => {
-		console.log('displayBoxResizeStatus', displayBoxResizeStatus)
-	}, [displayBoxResizeStatus])
+	// useEffect(() => {
+	// 	console.log('resizeStatus', resizeStatus)
+	// }, [resizeStatus])
 
 	// ======================= Component ======================= //
 	return (
