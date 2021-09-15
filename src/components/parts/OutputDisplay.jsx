@@ -44,8 +44,11 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	const [displayBoxClass, setDisplayBoxClass] = useState('display-box-open');
 	const [displayBoxRefreshClass, setDisplayBoxRefreshClass] = useState('');
 	const [displayBoxOverflowClass, setDisplayBoxOverflowClass] = useState('');
-	const [displayBoxIsResizing, setDisplayBoxIsResizing] = useState(false);
-	const [numActiveTransitions, setNumActiveTransitions] = useState(0);
+	const [displayBoxResizeStatus, setDisplayBoxResizeStatus] = useState('');
+	
+	const [numTransitionStarts, setNumTransitionStarts] = useState(0);
+	const [numTransitionEnds, setNumTransitionEnds] = useState(0);
+	
 	const [displayBoxHeightTransitionFinished, setDisplayBoxHeightTransitionFinished] = useState(false);
 
 	// const [displayBoxTransitionClass, setDisplayBoxTransitionClass] = useState('display-box-no-transition');
@@ -97,30 +100,34 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	}
 
 	function handleTransitionStartWidth(e) {
-		if(e.propertyName === 'width' && e.srcElement.id === 'display-box') {
-			setDisplayBoxIsResizing(true)
-			setNumActiveTransitions(oldVal => oldVal + 1)
+		if(e.propertyName === 'width' 
+			&& e.srcElement.id === 'display-box'
+			&& displayBoxResizeStatus === 'display-box-resizing') {
+			setNumTransitionStarts(oldVal => oldVal + 1)
 		}
 	}
 
 	function handleTransitionStartHeight(e) {
-		if(e.propertyName === 'height' && e.srcElement.id === 'display-box') {
-			setDisplayBoxIsResizing(true)
-			setNumActiveTransitions(oldVal => oldVal + 1)
+		if(e.propertyName === 'height' 
+			&& e.srcElement.id === 'display-box'
+			&& displayBoxResizeStatus === 'display-box-resizing') {
+			setNumTransitionStarts(oldVal => oldVal + 1)
 		}
 	}
 
 	function handleTransitionEndWidth(e) {
-		if(e.propertyName === 'width' && e.srcElement.id === 'display-box') {
-			if(numActiveTransitions === 0) setDisplayBoxIsResizing(false)
-			setNumActiveTransitions(oldVal => oldVal - 1)
+		if(e.propertyName === 'width' 
+			&& e.srcElement.id === 'display-box'
+			&& displayBoxResizeStatus === 'display-box-resizing') {
+			setNumTransitionEnds(oldVal => oldVal + 1)
 		}
 	}
 
 	function handleTransitionEndHeight(e) {
-		if(e.propertyName === 'height' && e.srcElement.id === 'display-box') {
-			if(numActiveTransitions === 0) setDisplayBoxIsResizing(false)
-			setNumActiveTransitions(oldVal => oldVal - 1)
+		if(e.propertyName === 'height' 
+			&& e.srcElement.id === 'display-box'
+			&& displayBoxResizeStatus === 'display-box-resizing') {
+			setNumTransitionEnds(oldVal => oldVal + 1)
 		}
 	}
 
@@ -135,8 +142,9 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	}
 
 	function removeRefreshListeners() {
+		console.log('removeRefreshListeners ==========')
 		const displayBoxElement = document.getElementById('display-box');
-
+		
 		displayBoxElement.removeEventListener('transitionstart', handleTransitionStartWidth)
 		displayBoxElement.removeEventListener('transitionstart', handleTransitionStartHeight)
 
@@ -163,18 +171,22 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	}
 
 	function onRefreshClick() {
-		if(learnBoxStatus === 'learn-box-open') setDisplayBoxIsResizing(true)
+		if(learnBoxStatus === 'learn-box-open') setDisplayBoxResizeStatus('display-box-resizing')
 	}
 
 	function onRefreshStart() {
+		console.log('onRefreshStart ============')
 		setDisplayBoxRefreshClass('display-box-refresh')
 		addRefreshListeners()
 		removeInlineSize('display-box') 
 	}
 
 	function onRefreshEnd() {
+		console.log('onRefresh end ============') 
 		setDisplayBoxRefreshClass('')
 		removeRefreshListeners()
+		setNumTransitionStarts(0)
+		setNumTransitionEnds(0)
 	}
 
 	function onGridClick() {
@@ -252,6 +264,17 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 		}
 	}, [displayBoxHeightTransitionFinished, displayBoxStatus])
 
+	// ============= refresh end
+	useEffect(() => {
+		console.log('numTransitionStarts', numTransitionStarts)
+		console.log('numTransitionEnds', numTransitionEnds)
+		if(displayBoxResizeStatus === 'display-box-resizing' 
+			&& numTransitionStarts > 0
+			&& numTransitionStarts === numTransitionEnds) {
+			setDisplayBoxResizeStatus('display-box-resize-finished')
+		}
+	}, [numTransitionStarts, numTransitionEnds, displayBoxResizeStatus])
+
 
 	// =========================== Trigger Handler Fns =========================== //
 	// ============== Learn Box
@@ -271,9 +294,9 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 
 	// ============== Refresh 
 	useEffect(() => {
-		if(displayBoxIsResizing) onRefreshStart()
-		if(!displayBoxIsResizing) onRefreshEnd()
-	}, [displayBoxIsResizing])
+		if(displayBoxResizeStatus === 'display-box-resizing') onRefreshStart()
+		if(displayBoxResizeStatus === 'display-box-resize-finished') onRefreshEnd()
+	}, [displayBoxResizeStatus])
 
   // =========================== output =========================== //
 	return (
@@ -306,8 +329,9 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 				<p>displayBoxStatus: {displayBoxStatus}</p>
 				<p>displayBoxClass: {displayBoxClass}</p>
 				<p>displayBoxOverflowClass: {displayBoxOverflowClass}</p>*/}
-				<p>numActiveTransitions: {numActiveTransitions}</p>
-
+				<p>numTransitionStarts: {numTransitionStarts}</p>
+				<p>numTransitionEnds: {numTransitionEnds}</p>
+				 
 			</div> 
 		</div>
 	)
