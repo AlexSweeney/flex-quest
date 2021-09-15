@@ -42,7 +42,10 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	// const [displayBoxWidthClass, setDisplayBoxWidthClass] = useState('display-box-open-width');
 	// const [displayBoxHeightClass, setDisplayBoxHeightClass] = useState('display-box-open-height');
 	const [displayBoxClass, setDisplayBoxClass] = useState('display-box-open');
+	const [displayBoxRefreshClass, setDisplayBoxRefreshClass] = useState('');
 	const [displayBoxOverflowClass, setDisplayBoxOverflowClass] = useState('');
+	const [displayBoxIsResizing, setDisplayBoxIsResizing] = useState(false);
+	const [numActiveTransitions, setNumActiveTransitions] = useState(0);
 	const [displayBoxHeightTransitionFinished, setDisplayBoxHeightTransitionFinished] = useState(false);
 
 	// const [displayBoxTransitionClass, setDisplayBoxTransitionClass] = useState('display-box-no-transition');
@@ -57,6 +60,11 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	];	 
 
 	// =========================== Element fns =========================== // 
+	function removeInlineSize(id) { 
+		const element = document.getElementById(id);  
+		element.style.width = '';
+		element.style.height = ''; 
+	}
 
 	function elementWidthIsOverflowing(id) {
 		const element = document.getElementById(id);
@@ -88,13 +96,85 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 		return '';
 	}
 
+	function handleTransitionStartWidth(e) {
+		if(e.propertyName === 'width' && e.srcElement.id === 'display-box') {
+			setDisplayBoxIsResizing(true)
+			setNumActiveTransitions(oldVal => oldVal + 1)
+		}
+	}
+
+	function handleTransitionStartHeight(e) {
+		if(e.propertyName === 'height' && e.srcElement.id === 'display-box') {
+			setDisplayBoxIsResizing(true)
+			setNumActiveTransitions(oldVal => oldVal + 1)
+		}
+	}
+
+	function handleTransitionEndWidth(e) {
+		if(e.propertyName === 'width' && e.srcElement.id === 'display-box') {
+			if(numActiveTransitions === 0) setDisplayBoxIsResizing(false)
+			setNumActiveTransitions(oldVal => oldVal - 1)
+		}
+	}
+
+	function handleTransitionEndHeight(e) {
+		if(e.propertyName === 'height' && e.srcElement.id === 'display-box') {
+			if(numActiveTransitions === 0) setDisplayBoxIsResizing(false)
+			setNumActiveTransitions(oldVal => oldVal - 1)
+		}
+	}
+
+	function addRefreshListeners() {
+		const displayBoxElement = document.getElementById('display-box');
+		 
+		displayBoxElement.addEventListener('transitionstart', handleTransitionStartWidth)
+		displayBoxElement.addEventListener('transitionstart', handleTransitionStartHeight)
+
+		displayBoxElement.addEventListener('transitionend', handleTransitionEndWidth)
+		displayBoxElement.addEventListener('transitionend', handleTransitionEndHeight)
+	}
+
+	function removeRefreshListeners() {
+		const displayBoxElement = document.getElementById('display-box');
+
+		displayBoxElement.removeEventListener('transitionstart', handleTransitionStartWidth)
+		displayBoxElement.removeEventListener('transitionstart', handleTransitionStartHeight)
+
+		displayBoxElement.removeEventListener('transitionend', handleTransitionEndWidth)
+		displayBoxElement.removeEventListener('transitionend', handleTransitionEndHeight)
+	}
+
 	// =========================== Event Handlers =========================== //
+	function handleCodeInput() {
+		setSource(`
+  		<html lang="en">
+  		<head>
+  			<style>
+  				body { padding: 0; margin: 0; overflow: hidden; }
+  				${cssString}
+  			</style>
+  		</head>
+  		<body>${htmlString}</body>
+  		</html>`);
+	}
+
 	function onOpenCloseToggleClick() {
 		setLearnBoxIsOpen(oldVal => !oldVal)
 	}
 
 	function onRefreshClick() {
-		// if(hasBeenResized('display-box') && !isAnimating) setResizeDisplayBox(true)
+		if(learnBoxStatus === 'learn-box-open') setDisplayBoxIsResizing(true)
+	}
+
+	function onRefreshStart() {
+		setDisplayBoxRefreshClass('display-box-refresh')
+		addRefreshListeners()
+		removeInlineSize('display-box') 
+	}
+
+	function onRefreshEnd() {
+		setDisplayBoxRefreshClass('')
+		removeRefreshListeners()
 	}
 
 	function onGridClick() {
@@ -126,9 +206,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	function onDisplayBoxClosed() {
 		setDisplayBoxClass('display-box-closed')
 	}
-
-	// =========================== EventListener Fns =========================== //
-
+ 
 	// =========================== Set Status =========================== //
 	// ============== Display Box
 	useEffect(() => {
@@ -143,6 +221,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 		}
 	}, [learnBoxStatus, displayBoxStatus])
 
+	// open close
 	useEffect(() => {
 		const displayBoxElement = document.getElementById('display-box')
 
@@ -173,7 +252,8 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 		}
 	}, [displayBoxHeightTransitionFinished, displayBoxStatus])
 
-	// =========================== Trigger Handlers =========================== //
+
+	// =========================== Trigger Handler Fns =========================== //
 	// ============== Learn Box
 	useEffect(() => {
 		if(learnBoxStatus === 'learn-box-open') onLearnBoxOpen()
@@ -188,33 +268,12 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 		if(displayBoxStatus === 'display-box-closed') onDisplayBoxClosed()
 	}, [displayBoxStatus])
 
-	// =========================== Event Handlers =========================== //
-	function handleDisplayBoxResize() {
-		// removeInlineStyle('display-box') 
-		// setContentContainerClass('content-container-resize')
-		
-		// setDisplayBoxClass('display-box-resize') 
-	}
 
-	function resetAfterDisplayBoxResize() {
-		// setContentContainerClass('content-container-open')
-		// setDisplayBoxClass('') 
-	}
-
-	// ============= Input
-	function handleCodeInput() {
-		setSource(`
-  		<html lang="en">
-  		<head>
-  			<style>
-  				body { padding: 0; margin: 0; overflow: hidden; }
-  				${cssString}
-  			</style>
-  		</head>
-  		<body>${htmlString}</body>
-  		</html>`);
-	}
-
+	// ============== Refresh 
+	useEffect(() => {
+		if(displayBoxIsResizing) onRefreshStart()
+		if(!displayBoxIsResizing) onRefreshEnd()
+	}, [displayBoxIsResizing])
 
   // =========================== output =========================== //
 	return (
@@ -229,7 +288,8 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 			>	
 				<div className={`display-box 
 					${displayBoxClass} 
-					${displayBoxOverflowClass}`} id="display-box">
+					${displayBoxOverflowClass}
+					${displayBoxRefreshClass}`} id="display-box">
 				}
 				}
 				</div>
@@ -241,16 +301,13 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 					`} id="display-box">
 				</div> */}
 			</LearnBox>
-			<div>
-				{/*<p>displayBoxTransitionClass: {displayBoxTransitionClass}</p>
-				<p>displayBoxIsOpen: {displayBoxIsOpen.toString()}</p>
-				<p>displayBoxStatus: {displayBoxStatus}</p>
-				<p>displayBoxHeightTransitioning: {displayBoxHeightTransitioning.toString()}</p>*/}
-				
-				<p>learnBoxStatus: {learnBoxStatus}</p>
+			<div> 
+				{/*<p>learnBoxStatus: {learnBoxStatus}</p>
 				<p>displayBoxStatus: {displayBoxStatus}</p>
 				<p>displayBoxClass: {displayBoxClass}</p>
-				<p>displayBoxOverflowClass: {displayBoxOverflowClass}</p>
+				<p>displayBoxOverflowClass: {displayBoxOverflowClass}</p>*/}
+				<p>numActiveTransitions: {numActiveTransitions}</p>
+
 			</div> 
 		</div>
 	)
@@ -263,14 +320,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 		return !(element.style.width === '' && element.style.height === '');
 	} */
 
-	/*function removeInlineStyle(id) {
-		// setDisplayBoxResizeClass('display-box-resize')
-
-		const element = document.getElementById(id); 
-		setSavedInlineStyle({width: element.style.width, height: element.style.height})
-		element.style.width = '';
-		element.style.height = ''; 
-	}*/
+	/**/
 
 	/*function restoreInlineStyle(id) {
 		const element = document.getElementById(id);

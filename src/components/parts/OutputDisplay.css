@@ -33,10 +33,19 @@
 	transition: height 2s, width 2s;
 }
 
+.display-box-open.display-box-refresh { 
+	width: 100%; 
+	height: 100%;
+	resize: none;
+	background: yellow;
+	transition: height 2s, width 2s;
+}
+
 .display-box-open {
 	resize: both;
 	transition: none;
 	width: 100%;  
+	background: red;
 }
 
 .display-box-closing-x,
@@ -69,89 +78,5 @@
 .display-box-closing-y,
 .display-box-closed,
 .display-box-opening-x {
-	height: 0 !important; /* override inline style */
-}
-
-.display-box-closing-x,
-.display-box-closing-y,
-.display-box-closed,
-.display-box-opening-x,
-.display-box-opening-y {
-
-}
-
-/* ==== Closing */
-/* Width */
-/*.display-box-parent-closing-width,
-.display-box-parent-closed-width,
-.display-box-closing-width,
-.display-box-closed-width,
-.display-box-parent-opening-width {
-	max-width: 100%;
-}
-
-.display-box-parent-open-width {
-	max-width: none; 
-}
-
- Height 
-.display-box-parent-closing-height {
-	max-height: 100%; 
-}
-
-.display-box-closing-height,
-.display-box-closed-height,
-.display-box-parent-opening-height {
-	max-height: 0.000000000001%;
-} 
-
-.display-box-opening-height {
-	max-height: 100%;
-}
-*/
-/*.display-box-open-height {
-	max-height: none;
-}*/
-
-/* ==== Closing overflow */
-/* Width */
-/*.display-box-parent-closing-width-overflow,
-.display-box-parent-closed-width-overflow,
-.display-box-closing-width-overflow,
-.display-box-closed-width-overflow {
-	min-width: 100%; 
-	width: 0 !important;
-}
- 
-.display-box-parent-opening-width-overflow,
-.display-box-parent-open-width-overflow,
-.display-box-opening-width-overflow,
-.display-box-open-width-overflow { 
-	min-width: 100%;
-}
-
-/* Height */
-/*.display-box-parent-closing-height-overflow,
-.display-box-parent-closed-height-overflow {
-	min-height: 100%; 
-	height: 0 !important;
-}
-
-.display-box-closing-height-overflow,
-.display-box-closed-height-overflow,
-.display-box-parent-opening-height-overflow { 
-	min-height:  0;  
 	height: 0 !important; 
 }
- 
-.display-box-parent-open-height-overflow,
-.display-box-opening-height-overflow {
-	min-height: none;	
-}
-
-.display-box-open-height-overflow { 
-	min-height: none;
-}*/
-
-
-
