@@ -1,15 +1,5 @@
-// fix - detect display box closed / open
-// waiting for status = inconsistent => reformat -> rely on events not status
-
-// open close
-// fresh x
-// smaller - height x width x
-// bigger - height width
-
-// refresh
-// fresh -  
-// bigger  -  
-// smaller - 
+// fix -  listeners only add and remove at right time 
+// style refresh smaller - scroll flicker
 
 import React, {useState, useEffect} from 'react'; 
 import LearnBox from './LearnBox.jsx';
@@ -138,6 +128,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	}
 
 	function addRefreshListeners() {
+		console.log('addRefreshListeners ================')
 		const displayBoxElement = document.getElementById('display-box');
 		 
 		displayBoxElement.addEventListener('transitionstart', handleTransitionStartWidth)
@@ -147,8 +138,8 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 		displayBoxElement.addEventListener('transitionend', handleTransitionEndHeight)
 	}
 
-	function removeRefreshListeners() {
-		console.log('removeRefreshListeners ==========')
+	function removeRefreshListeners() { 
+		console.log('removeRefreshListeners <=================>')
 		const displayBoxElement = document.getElementById('display-box');
 		
 		displayBoxElement.removeEventListener('transitionstart', handleTransitionStartWidth)
@@ -180,19 +171,17 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 		if(learnBoxStatus === 'learn-box-open' && userHasChangedSize('display-box')) setDisplayBoxResizeStatus('display-box-resizing')
 	}
 
-	function onRefreshStart() {
-		console.log('onRefreshStart ============')
-		setDisplayBoxRefreshClass('display-box-refresh')
+	function onRefreshStart() { 
 		addRefreshListeners()
+		setDisplayBoxRefreshClass('display-box-refresh') 
 		removeInlineSize('display-box') 
 	}
 
-	function onRefreshEnd() {
-		console.log('onRefresh end ============') 
-		setDisplayBoxRefreshClass('')
+	function onRefreshEnd() { 
 		removeRefreshListeners()
 		setNumTransitionStarts(0)
 		setNumTransitionEnds(0)
+		setDisplayBoxRefreshClass('') 
 	}
 
 	function onGridClick() {
@@ -224,7 +213,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	function onDisplayBoxClosed() {
 		setDisplayBoxClass('display-box-closed')
 	}
- 
+  
 	// =========================== Set Status =========================== //
 	// ============== Display Box
 	useEffect(() => {
@@ -272,8 +261,6 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 
 	// ============= refresh end
 	useEffect(() => {
-		console.log('numTransitionStarts', numTransitionStarts)
-		console.log('numTransitionEnds', numTransitionEnds)
 		if(displayBoxResizeStatus === 'display-box-resizing' 
 			&& numTransitionStarts > 0
 			&& numTransitionStarts === numTransitionEnds) {
@@ -301,7 +288,8 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	// ============== Refresh 
 	useEffect(() => {
 		if(displayBoxResizeStatus === 'display-box-resizing') onRefreshStart()
-		if(displayBoxResizeStatus === 'display-box-resize-finished') onRefreshEnd()
+
+		return () => { onRefreshEnd() } 
 	}, [displayBoxResizeStatus])
 
   // =========================== output =========================== //
