@@ -83,6 +83,12 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	  return element.scrollHeight > element.clientHeight;
 	}
 
+	function userHasChangedSize(id) {
+		const element = document.getElementById(id); 
+
+		return !(element.style.width === '' && element.style.height === '');
+	}
+
 	function getOverflowClass(id) {
 		const heightOverflow = elementHeightIsOverflowing(id);
 		const heightOverflowClass = heightOverflow ? 'display-box-height-overflow' : '';
@@ -171,7 +177,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	}
 
 	function onRefreshClick() {
-		if(learnBoxStatus === 'learn-box-open') setDisplayBoxResizeStatus('display-box-resizing')
+		if(learnBoxStatus === 'learn-box-open' && userHasChangedSize('display-box')) setDisplayBoxResizeStatus('display-box-resizing')
 	}
 
 	function onRefreshStart() {
@@ -313,16 +319,8 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 					${displayBoxClass} 
 					${displayBoxOverflowClass}
 					${displayBoxRefreshClass}`} id="display-box">
-				}
-				}
-				</div>
-				{/*<div className={`display-box 
-					${displayBoxWidthClass}
-					${displayBoxHeightClass}
-					${displayBoxTransitionClass} 
-					${displayBoxResizeClass} 
-					`} id="display-box">
-				</div> */}
+					<iframe src={source}></iframe>
+				</div> 
 			</LearnBox>
 			<div> 
 				{/*<p>learnBoxStatus: {learnBoxStatus}</p>
@@ -338,11 +336,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 }	 
 
 // =========================== Element fns =========================== //
-	/*function hasBeenResized(id, propertyNames) {
-		const element = document.getElementById(id); 
-
-		return !(element.style.width === '' && element.style.height === '');
-	} */
+	/* */
 
 	/**/
 
