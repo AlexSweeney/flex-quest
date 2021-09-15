@@ -7,12 +7,15 @@ export default function LearnBox({
 	boxIsOpen = true,
 	buttons = null,
 	title = '',
+	id = 'learn-box',
 	handleOpenCloseToggleClick = null,
+	learnBoxStatus,
+	setLearnBoxStatus,
 	children = null,
 }) {
 	
 	// ======================= Id's ======================= //
-	const learnBoxId = 'learn-box';
+	const learnBoxId = id;
 
 	// ======================= Classes ======================= //
 	const initialBoxStatus = boxIsOpen ? 'learn-box-open' : 'learn-box-closed';
@@ -29,25 +32,29 @@ export default function LearnBox({
 		setLearnBoxClass('learn-box-open')
 		setLearnBoxBodyClass('learn-box-body-open')
 		setIsAnimating(true)
+		setLearnBoxStatus('learn-box-opening')
 	}
 
 	function onClickBoxClosed() {
 		setLearnBoxClass('learn-box-closed')
 		setLearnBoxBodyClass('learn-box-body-closed')
 		setIsAnimating(true)
+		setLearnBoxStatus('learn-box-closing')
 	}
 
 	function onBoxOpen() {
 		setToggleIsOpen(false)
 		setIsAnimating(false)
+		setLearnBoxStatus('learn-box-open')
 	}
 
 	function onBoxClosed() {
 		setToggleIsOpen(true)
 		setIsAnimating(false)
+		setLearnBoxStatus('learn-box-closed')
 	}
 
-	// ======================= Detect Events, Trigger handler ======================= //
+	// ======================= Detect Events ======================= //
 	// =========== start open / close
 	useEffect(() => {
 		if(boxIsOpen) {
@@ -87,7 +94,7 @@ export default function LearnBox({
 
 	// ======================= Component ======================= //
 	return (
-		<div className={`learn-box learn-box-open-close-transition ${learnBoxClass}`} id={learnBoxId}>
+		<div className={`learn-box learn-box-open-close-transition ${learnBoxClass}`} id={id}>
 			<div className="learn-box-header">
 				<div className="learn-box-buttons-container">
 					{buttons && buttons.map(button => {

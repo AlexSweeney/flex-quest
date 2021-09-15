@@ -26,19 +26,47 @@
 /* =============== Display Box =============== */
 .display-box {
 	width: 100%;  
-	height: 100%; 
+
 	background: green;
   
+ 	resize: both;
 	overflow: hidden;   
-
 	border: 1em solid pink;
 
-	transition: max-height 3s;
+	transition: height 3s;
+}
+
+.display-box-open {
+	resize: both;
+}
+
+.display-box-closed {
+	resize: none;
+}
+
+.display-box-closing-x {
+	height: 100%;
+	resize: none;
+}
+
+.display-box-opening-x {
+	height: 0;
+	resize: none;
+}
+
+.display-box-closing-y {
+	height: 0;
+	resize: none;
+}
+
+.display-box-opening-y {
+	height: 100%;
+	resize: none;
 }
 
 /* ==== Closing */
 /* Width */
-.display-box-parent-closing-width,
+/*.display-box-parent-closing-width,
 .display-box-parent-closed-width,
 .display-box-closing-width,
 .display-box-closed-width,
@@ -50,7 +78,7 @@
 	max-width: none; 
 }
 
-/* Height */
+ Height 
 .display-box-parent-closing-height {
 	max-height: 100%; 
 }
@@ -64,14 +92,14 @@
 .display-box-opening-height {
 	max-height: 100%;
 }
-
+*/
 /*.display-box-open-height {
 	max-height: none;
 }*/
 
 /* ==== Closing overflow */
 /* Width */
-.display-box-parent-closing-width-overflow,
+/*.display-box-parent-closing-width-overflow,
 .display-box-parent-closed-width-overflow,
 .display-box-closing-width-overflow,
 .display-box-closed-width-overflow {
@@ -87,7 +115,7 @@
 }
 
 /* Height */
-.display-box-parent-closing-height-overflow,
+/*.display-box-parent-closing-height-overflow,
 .display-box-parent-closed-height-overflow {
 	min-height: 100%; 
 	height: 0 !important;
@@ -107,7 +135,7 @@
 
 .display-box-open-height-overflow { 
 	min-height: none;
-}
+}*/
 
 
 
