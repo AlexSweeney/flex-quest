@@ -24,11 +24,19 @@ export default function LearnBox({
 
 	// ======================= Status ======================= // 
 	const [toggleIsOpen, setToggleIsOpen] = useState(!boxIsOpen); 
+	const [toggleClicked, setToggleClicked] = useState(false);
+
 	const [isTransitionEnd, setIsTranstionEnd] = useState(false);
 	const [isAnimating, setIsAnimating] = useState(false);
 
 	// ======================= Event Handlers ======================= //
+	function clickOpenCloseToggle() {
+		handleOpenCloseToggleClick()
+		setToggleClicked(true)
+	}
+
 	function onClickBoxOpen() {
+		console.log('click box open')
 		setLearnBoxClass('learn-box-open')
 		setLearnBoxBodyClass('learn-box-body-open')
 		setIsAnimating(true)
@@ -57,12 +65,13 @@ export default function LearnBox({
 	// ======================= Detect Events ======================= //
 	// =========== start open / close
 	useEffect(() => {
-		if(boxIsOpen) {
-			onClickBoxOpen()
-		} else {
-			onClickBoxClosed()
+		if(toggleClicked) {
+			if(boxIsOpen) onClickBoxOpen()
+			if(!boxIsOpen) onClickBoxClosed()
+
+			setToggleClicked(false)
 		}
-	}, [boxIsOpen])
+	}, [boxIsOpen, toggleClicked])
 
 	// =========== detect transition end
 	useEffect(() => {
@@ -91,6 +100,9 @@ export default function LearnBox({
 	}, [boxIsOpen, isTransitionEnd]) 
 
 	// ======================= Console logs ======================= // 
+	useEffect(() => {
+		console.log('learnBoxStatus', learnBoxStatus)
+	}, [learnBoxStatus])
 
 	// ======================= Component ======================= //
 	return (
@@ -108,7 +120,7 @@ export default function LearnBox({
 
 				<div className="open-close-toggle-container">
 					<OpenCloseToggle 	
-						handleClick={handleOpenCloseToggleClick}
+						handleClick={clickOpenCloseToggle}
 						toggleIsOpen={toggleIsOpen}
 						parentIsAnimating={isAnimating}
 					/>
