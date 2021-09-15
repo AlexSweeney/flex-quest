@@ -29,8 +29,6 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	const [learnBoxStatus, setLearnBoxStatus] = useState('learn-box-open');
 	 
 	// =============== classes
-	// const [displayBoxWidthClass, setDisplayBoxWidthClass] = useState('display-box-open-width');
-	// const [displayBoxHeightClass, setDisplayBoxHeightClass] = useState('display-box-open-height');
 	const [displayBoxClass, setDisplayBoxClass] = useState('display-box-open');
 	const [displayBoxRefreshClass, setDisplayBoxRefreshClass] = useState('');
 	const [displayBoxOverflowClass, setDisplayBoxOverflowClass] = useState('');
@@ -40,11 +38,6 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	const [numTransitionEnds, setNumTransitionEnds] = useState(0);
 	
 	const [displayBoxHeightTransitionFinished, setDisplayBoxHeightTransitionFinished] = useState(false);
-
-	// const [displayBoxTransitionClass, setDisplayBoxTransitionClass] = useState('display-box-no-transition');
-	// const [displayBoxResizeClass, setDisplayBoxResizeClass] = useState('');
-	// const [contentContainerClass, setContentContainerClass] = useState('content-container-open');
-	// const [contentContainerScrollClass, setContentContainerScrollClass] = useState('scroll-auto');
 
 	// =============== props
 	const buttons = [
@@ -128,7 +121,6 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	}
 
 	function addRefreshListeners() {
-		console.log('addRefreshListeners ================')
 		const displayBoxElement = document.getElementById('display-box');
 		 
 		displayBoxElement.addEventListener('transitionstart', handleTransitionStartWidth)
@@ -139,7 +131,6 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	}
 
 	function removeRefreshListeners() { 
-		console.log('removeRefreshListeners <=================>')
 		const displayBoxElement = document.getElementById('display-box');
 		
 		displayBoxElement.removeEventListener('transitionstart', handleTransitionStartWidth)
@@ -284,7 +275,6 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 		if(displayBoxStatus === 'display-box-closed') onDisplayBoxClosed()
 	}, [displayBoxStatus])
 
-
 	// ============== Refresh 
 	useEffect(() => {
 		if(displayBoxResizeStatus === 'display-box-resizing') onRefreshStart()
@@ -302,6 +292,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 				buttons={buttons}
 				learnBoxStatus={learnBoxStatus}
 				setLearnBoxStatus={setLearnBoxStatus}
+				displayBoxResizeStatus={displayBoxResizeStatus}
 			>	
 				<div className={`display-box 
 					${displayBoxClass} 

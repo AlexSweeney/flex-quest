@@ -11,6 +11,7 @@ export default function LearnBox({
 	handleOpenCloseToggleClick = null,
 	learnBoxStatus,
 	setLearnBoxStatus,
+	displayBoxResizeStatus,
 	children = null,
 }) {
 	
@@ -19,7 +20,7 @@ export default function LearnBox({
 
 	// ======================= Classes ======================= //
 	const [learnBoxClass, setLearnBoxClass] = useState('learn-box-open');
-	const [learnBoxBodyClass, setLearnBoxBodyClass] = useState('learn-box-body-open');
+	const [learnBoxBodyClass, setLearnBoxBodyClass] = useState('');
 
 	// ======================= Status ======================= // 
 	const [toggleIsOpen, setToggleIsOpen] = useState(!boxIsOpen); 
@@ -56,6 +57,14 @@ export default function LearnBox({
 		setToggleIsOpen(false)
 		setIsAnimating(false)
 		setLearnBoxStatus('learn-box-open')
+	}
+
+	function onRefreshStart() {
+		setLearnBoxBodyClass('learn-box-body-refresh')
+	}
+
+	function onRefreshEnd() {
+		setLearnBoxBodyClass('')
 	}
 
 	// ======================= Set Status ======================= //
@@ -104,10 +113,19 @@ export default function LearnBox({
 		if(learnBoxStatus === 'learn-box-closing') onBoxClosing()
 	}, [learnBoxStatus])
 
-	// ======================= Console logs ======================= // 
 	useEffect(() => {
-		console.log('learnBoxStatus', learnBoxStatus)
-	}, [learnBoxStatus])
+		if(displayBoxResizeStatus === 'display-box-resizing') onRefreshStart()
+		if(displayBoxResizeStatus === 'display-box-resize-finished') onRefreshEnd() 
+	}, [displayBoxResizeStatus])
+
+	// ======================= Console logs ======================= // 
+	// useEffect(() => {
+	// 	console.log('learnBoxStatus', learnBoxStatus)
+	// }, [learnBoxStatus])
+
+	useEffect(() => {
+		console.log('displayBoxResizeStatus', displayBoxResizeStatus)
+	}, [displayBoxResizeStatus])
 
 	// ======================= Component ======================= //
 	return (
@@ -132,7 +150,7 @@ export default function LearnBox({
 				</div>
 			</div>
 
-			<div className={`learn-box-body scroll-bar-transition`} id="learn-box-body"> 
+			<div className={`learn-box-body ${learnBoxBodyClass}`} id="learn-box-body"> 
 				{
 					children && children	
 				}

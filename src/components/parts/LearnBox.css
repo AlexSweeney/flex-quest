@@ -3,9 +3,9 @@
 	transition: 2s width ease-in-out; 
 }
 
-.scroll-bar-transition {
+/*.scroll-bar-transition {
 	transition: 2s width ease-in-out;	
-}
+}*/
 
 /* =================== Box =================== */
 .learn-box {
@@ -96,12 +96,8 @@
 	overflow: auto;
 } 
 
-.learn-box-body-open {
-	/*overflow: auto;*/
-}
-
-.learn-box-body-closed {
-	/*overflow: hidden;*/
+.learn-box-body-refresh {
+	overflow: overlay;
 }
 
 /* =================== Body Scrollbar */
