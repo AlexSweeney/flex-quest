@@ -1,5 +1,4 @@
-// refresh button colors
-// revert colors 
+// refresh button colors 
 
 import React, {useState, useEffect} from 'react'; 
 import LearnBox from './LearnBox.jsx';
