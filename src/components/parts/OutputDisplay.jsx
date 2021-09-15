@@ -43,7 +43,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	// const [displayBoxHeightClass, setDisplayBoxHeightClass] = useState('display-box-open-height');
 	const [displayBoxClass, setDisplayBoxClass] = useState('display-box-open');
 	const [displayBoxOverflowClass, setDisplayBoxOverflowClass] = useState('');
-	const [isDisplayBoxTransitionEnd, setIsDisplayBoxTransitionEnd] = useState(false);
+	const [displayBoxHeightTransitionFinished, setDisplayBoxHeightTransitionFinished] = useState(false);
 
 	// const [displayBoxTransitionClass, setDisplayBoxTransitionClass] = useState('display-box-no-transition');
 	// const [displayBoxResizeClass, setDisplayBoxResizeClass] = useState('');
@@ -73,10 +73,8 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	}
 
 	// =========================== Event Handlers =========================== //
-	const test = 'pass';
 	function onOpenCloseToggleClick() {
-		setLearnBoxIsOpen(oldVal => !oldVal) 
-		
+		setLearnBoxIsOpen(oldVal => !oldVal)
 	}
 
 	function onRefreshClick() {
@@ -90,7 +88,6 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	function onLearnBoxClosing() {
 		const heightOverflow = elementHeightIsOverflowing('learn-box-body');
 		const overflowClass = heightOverflow ? 'display-box-height-overflow' : '';
-		console.log('heightOverflow', heightOverflow)
 		setDisplayBoxOverflowClass(overflowClass)
 
 		setDisplayBoxClass('display-box-closing display-box-closing-x')
@@ -117,7 +114,55 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 		setDisplayBoxClass('display-box-closed')
 	}
 
-	// =========================== Event Listeners =========================== //
+	// =========================== EventListener Fns =========================== //
+
+	// =========================== Set Status =========================== //
+	// ============== Display Box
+	useEffect(() => {
+		if(learnBoxStatus === 'learn-box-closed'
+			&& displayBoxStatus === 'display-box-open') {
+			setDisplayBoxStatus('display-box-closing')
+		}
+
+		if(learnBoxStatus === 'learn-box-open'
+			&& displayBoxStatus === 'display-box-closed') {
+			setDisplayBoxStatus('display-box-opening')
+		}
+	}, [learnBoxStatus, displayBoxStatus])
+
+	useEffect(() => {
+		const displayBoxElement = document.getElementById('display-box')
+
+		displayBoxElement.addEventListener('transitionstart', (e) => {
+			if(e.propertyName === 'height' && e.srcElement.id === 'display-box') { 
+				setDisplayBoxHeightTransitionFinished(false)
+			}
+		})
+
+		displayBoxElement.addEventListener('transitionend', (e) => {
+			if(e.propertyName === 'height' && e.srcElement.id === 'display-box') { 
+				setDisplayBoxHeightTransitionFinished(true)
+			}
+		})
+	})
+
+	useEffect(() => {
+		if(displayBoxHeightTransitionFinished) {
+			if(learnBoxStatus === 'learn-box-closed' 
+				&& displayBoxStatus === 'display-box-closing') {
+				setDisplayBoxStatus('display-box-closed')
+			}
+
+			if(learnBoxStatus === 'learn-box-open' 
+				&& displayBoxStatus === 'display-box-opening') {
+				setDisplayBoxStatus('display-box-open')
+			}
+
+			setDisplayBoxHeightTransitionFinished(false)
+		}
+	}, [displayBoxHeightTransitionFinished, learnBoxStatus, displayBoxStatus])
+
+	// =========================== Trigger Handlers =========================== //
 	// ============== Learn Box
 	useEffect(() => {
 		if(learnBoxStatus === 'learn-box-open') onLearnBoxOpen()
@@ -126,43 +171,13 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 		if(learnBoxStatus === 'learn-box-closing') onLearnBoxClosing()
 	}, [learnBoxStatus])
 
-	// ============== Display Box
+	// ============== Dispalay Box
 	useEffect(() => {
-		
-		
+		if(learnBoxStatus === 'learn-box-open') onLearnBoxOpen()
+		if(learnBoxStatus === 'learn-box-opening') onLearnBoxOpening()
+		if(learnBoxStatus === 'learn-box-closed') onLearnBoxClosed()
+		if(learnBoxStatus === 'learn-box-closing') onLearnBoxClosing()
 	}, [learnBoxStatus])
-	// useEffect(() => {
-	// 	const element = document.getElementById('display-box')
-	// 	// false trigger = resize 
-	// 	element.addEventListener('transitionstart', (e) => {
-	// 		if(e.propertyName === 'height') { 
-	// 			console.log('height start')
-	// 			setIsDisplayBoxTransitionEnd(false)
-	// 		}
-	// 	})
-
-	// 	element.addEventListener('transitionend', (e) => {
-	// 		if(e.propertyName === 'height') { 
-	// 			console.log('height end')
-	// 			console.log(e)
-	// 			setIsDisplayBoxTransitionEnd(true)
-	// 		}
-	// 	})
-	// }, [])
-
-	useEffect(() => {
-		if(isDisplayBoxTransitionEnd) {
-			if(learnBoxIsOpen) onDisplayBoxOpen()
-			if(!learnBoxIsOpen) onDisplayBoxClosed()
-
-			setIsDisplayBoxTransitionEnd(false)
-		}
-	}, [isDisplayBoxTransitionEnd, learnBoxIsOpen])
-
-	useEffect(() => {
-		onDisplayBoxOpen()
-	}, [])
-
 
 	// =========================== Event Handlers =========================== //
 	function handleDisplayBoxResize() {
@@ -222,8 +237,10 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 				<p>displayBoxIsOpen: {displayBoxIsOpen.toString()}</p>
 				<p>displayBoxStatus: {displayBoxStatus}</p>
 				<p>displayBoxHeightTransitioning: {displayBoxHeightTransitioning.toString()}</p>*/}
-				{/*<p>learnBoxStatus: {learnBoxStatus}</p>
-				*/}
+				
+				<p>learnBoxStatus: {learnBoxStatus}</p>
+				<p>displayBoxStatus: {displayBoxStatus}</p>
+				
 			</div> 
 		</div>
 	)
