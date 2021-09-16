@@ -2,11 +2,19 @@
 
 import React, {useState, useEffect} from 'react'; 
 import LearnBox from './LearnBox.jsx';
-import RefreshButton from './RefreshButton.jsx';
+
 import {detectTransition, detectTransitions} from './../utils.js';
 import './OutputDisplay.css'; 
 
-export default function LearnBoxTwo({title, i, buttons, children}) {
+export default function LearnBoxTwo({
+	title, 
+	i, 
+	buttons, 
+	learnBoxStatus,
+	setLearnBoxStatus, 
+	displayBoxResizeStatus = '',
+	displayBoxRefreshClass = '',
+	children}) {
 	// =========================== Vars =========================== //
 	const learnBoxId = 'learn-box';
 	 
@@ -15,29 +23,17 @@ export default function LearnBoxTwo({title, i, buttons, children}) {
 
 	// =============== status
 	const [isLearnBoxTranstionEnd, setIsLearnBoxTranstionEnd] = useState(false);
-	const [displayBoxHeightTransitioning, setDisplayBoxHeightTransitioning] = useState(false);
-
+	const [displayBoxHeightTransitioning, setDisplayBoxHeightTransitioning] = useState(false); 
 	const [displayBoxStatus, setDisplayBoxStatus] = useState('display-box-open');
-	const [learnBoxStatus, setLearnBoxStatus] = useState('learn-box-open');
-	 
+	
 	// =============== classes
 	const [displayBoxClass, setDisplayBoxClass] = useState('display-box-open');
-	const [displayBoxRefreshClass, setDisplayBoxRefreshClass] = useState('');
+	
 	const [displayBoxOverflowClass, setDisplayBoxOverflowClass] = useState('');
-	const [displayBoxResizeStatus, setDisplayBoxResizeStatus] = useState('');
-	
-	const [numTransitionStarts, setNumTransitionStarts] = useState(0);
-	const [numTransitionEnds, setNumTransitionEnds] = useState(0);
-	
 	const [displayBoxHeightTransitionFinished, setDisplayBoxHeightTransitionFinished] = useState(false);
 
 	// =========================== Element fns =========================== // 
-	function removeInlineSize(id) { 
-		const element = document.getElementById(id);  
-		element.style.width = '';
-		element.style.height = ''; 
-	}
-
+	
 	function elementWidthIsOverflowing(id) {
 		const element = document.getElementById(id);
 		if(!element) return;
@@ -50,12 +46,6 @@ export default function LearnBoxTwo({title, i, buttons, children}) {
 		if(!element) return;
 
 	  return element.scrollHeight > element.clientHeight;
-	}
-
-	function userHasChangedSize(id) {
-		const element = document.getElementById(id); 
-
-		return !(element.style.width === '' && element.style.height === '');
 	}
 
 	function getOverflowClass(id) {
@@ -74,78 +64,9 @@ export default function LearnBoxTwo({title, i, buttons, children}) {
 		return '';
 	}
 
-	function handleTransitionStartWidth(e) {
-		if(e.propertyName === 'width' 
-			&& e.srcElement.id === 'display-box'
-			&& displayBoxResizeStatus === 'display-box-resizing') {
-			setNumTransitionStarts(oldVal => oldVal + 1)
-		}
-	}
-
-	function handleTransitionStartHeight(e) {
-		if(e.propertyName === 'height' 
-			&& e.srcElement.id === 'display-box'
-			&& displayBoxResizeStatus === 'display-box-resizing') {
-			setNumTransitionStarts(oldVal => oldVal + 1)
-		}
-	}
-
-	function handleTransitionEndWidth(e) {
-		if(e.propertyName === 'width' 
-			&& e.srcElement.id === 'display-box'
-			&& displayBoxResizeStatus === 'display-box-resizing') {
-			setNumTransitionEnds(oldVal => oldVal + 1)
-		}
-	}
-
-	function handleTransitionEndHeight(e) {
-		if(e.propertyName === 'height' 
-			&& e.srcElement.id === 'display-box'
-			&& displayBoxResizeStatus === 'display-box-resizing') {
-			setNumTransitionEnds(oldVal => oldVal + 1)
-		}
-	}
-
-	function addRefreshListeners() {
-		const displayBoxElement = document.getElementById('display-box');
-		 
-		displayBoxElement.addEventListener('transitionstart', handleTransitionStartWidth)
-		displayBoxElement.addEventListener('transitionstart', handleTransitionStartHeight)
-
-		displayBoxElement.addEventListener('transitionend', handleTransitionEndWidth)
-		displayBoxElement.addEventListener('transitionend', handleTransitionEndHeight)
-	}
-
-	function removeRefreshListeners() { 
-		const displayBoxElement = document.getElementById('display-box');
-		
-		displayBoxElement.removeEventListener('transitionstart', handleTransitionStartWidth)
-		displayBoxElement.removeEventListener('transitionstart', handleTransitionStartHeight)
-
-		displayBoxElement.removeEventListener('transitionend', handleTransitionEndWidth)
-		displayBoxElement.removeEventListener('transitionend', handleTransitionEndHeight)
-	}
-
 	// =========================== Event Handlers =========================== //
 	function onOpenCloseToggleClick() {
 		setLearnBoxIsOpen(oldVal => !oldVal)
-	}
-
-	function onRefreshClick() {
-		if(learnBoxStatus === 'learn-box-open' && userHasChangedSize('display-box')) setDisplayBoxResizeStatus('display-box-resizing')
-	}
-
-	function onRefreshStart() { 
-		addRefreshListeners()
-		setDisplayBoxRefreshClass('display-box-refresh') 
-		removeInlineSize('display-box') 
-	}
-
-	function onRefreshEnd() { 
-		removeRefreshListeners()
-		setNumTransitionStarts(0)
-		setNumTransitionEnds(0)
-		setDisplayBoxRefreshClass('') 
 	}
 
 	function onLearnBoxClosing() {
@@ -219,16 +140,6 @@ export default function LearnBoxTwo({title, i, buttons, children}) {
 		}
 	}, [displayBoxHeightTransitionFinished, displayBoxStatus])
 
-	// ============= refresh end
-	useEffect(() => {
-		if(displayBoxResizeStatus === 'display-box-resizing' 
-			&& numTransitionStarts > 0
-			&& numTransitionStarts === numTransitionEnds) {
-			setDisplayBoxResizeStatus('display-box-resize-finished')
-		}
-	}, [numTransitionStarts, numTransitionEnds, displayBoxResizeStatus])
-
-
 	// =========================== Trigger Handler Fns =========================== //
 	// ============== Learn Box
 	useEffect(() => {
@@ -243,12 +154,6 @@ export default function LearnBoxTwo({title, i, buttons, children}) {
 		if(displayBoxStatus === 'display-box-open') onDisplayBoxOpen()
 		if(displayBoxStatus === 'display-box-closed') onDisplayBoxClosed()
 	}, [displayBoxStatus])
-
-	// ============== Refresh 
-	useEffect(() => {
-		if(displayBoxResizeStatus === 'display-box-resizing') onRefreshStart()
-		return () => { onRefreshEnd() } 
-	}, [displayBoxResizeStatus])
 
   // =========================== output =========================== //
 	return (

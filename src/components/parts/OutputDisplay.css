@@ -17,6 +17,8 @@
 }
 
 .display-box-open {
+	min-width: 28px;
+  min-height: 28px;
 	resize: both;
 	transition: none;
 	width: 100%;  
