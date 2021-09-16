@@ -3,70 +3,108 @@ import RefreshIcon from '@material-ui/icons/Refresh';
 import './RefreshButton.css';
 
 export default function RefreshButton({onClick}) {
-	const [rotateNum, setRotateNum] = useState(0);
-	const [refreshClass, setRefreshClass] = useState('refresh-button');
-	const [isDown, setIsDown] = useState(false);
-	const [isOver, setIsOver] = useState(false);
-	const [isAnimating, setIsAnimating] = useState(false); 
-	const [oldTimer, setOldTimer] = useState(null);
-
+	// ====================== State ====================== //
+	const [rotateNum, setRotateNum] = useState(0);  
 	const iconStyle = {
 		'transform': `rotate(${rotateNum}deg)`,
 		'transition': 'transform 1000ms',
+	} 
+
+	// ====================== Status ====================== //
+	const [cursorIsOver, setCursorIsOver] = useState(false);
+	const [cursorIsDown, setCursorIsDown] = useState(false);
+	const [isAnimating, setIsAnimating] = useState(false); 
+
+	// ====================== Class ====================== //
+	const [refreshColorClass, setRefreshColorClass] = useState('refresh-button'); 
+
+	// ====================== Event Handlers ====================== //
+	function handleMouseOver() {  
+		setCursorIsOver(true)
 	}
 
-	function handleMouseOver() {
-		setIsOver(true);
-	}
-
-	function handleMouseOut() {
-		setIsOver(false);
-		setIsDown(false);
+	function handleMouseOut(e) {
+		setCursorIsOver(false)
+		setCursorIsDown(false)
 	}
 
 	function handleMouseDown() {
-		onClick();
-		setIsDown(true);
-		setRotateNum(oldVal => oldVal + 360);
-
-		setIsAnimating(true);
-		turnAnimationOff();
-		
+		onClick()
+		setCursorIsDown(true)
+		setIsAnimating(true)
+		setRotateNum(oldVal => oldVal + 360)
 	}
 
 	function handleMouseUp() {
-		setIsDown(false);
+		setCursorIsDown(false)
+	} 
+
+	// ====================== Event Listeners Fns ====================== //
+	function handleTransitionEnd(e) {
+		if(e.propertyName === 'transform') {
+			setIsAnimating(false)
+		}
 	}
 
-	function turnAnimationOff() {
-		clearTimeout(oldTimer);
-
-		const timer = setTimeout(() => {
-      setIsAnimating(false);
-		}, 1000);
-
-		setOldTimer(timer);
-	}
-
-	useEffect(() => {  
-		let newClass = 'refresh-button';
-
-		if(isDown || isAnimating && !isOver) {
-			newClass += ' refresh-button-down';
-		} else if(isOver && !isDown && !isAnimating) {
-			newClass += ' refresh-button-over';
+	// ====================== Listen for Animation End ====================== //
+	useEffect(() => {
+		if(cursorIsDown) {
+			const cursorElement = document.getElementById('refresh-icon');
+			cursorElement.addEventListener('transitionend', handleTransitionEnd)
 		}
 
-		setRefreshClass(newClass);
-	}, [isDown, isOver, isAnimating]) 
+		return () => {
+			const cursorElement = document.getElementById('refresh-icon');
+			cursorElement.removeEventListener('transitionend', handleTransitionEnd)
+		}
+	}, [isAnimating])
 
+	// ====================== Set Color Class ====================== //
+	useEffect(() => {  
+		let newClass;
+
+		if(cursorIsOver) {
+			if(cursorIsDown) newClass = 'refresh-button-down';
+			else newClass = 'refresh-button-over';
+		}
+
+		if(!cursorIsOver) {
+			if(isAnimating) newClass = 'refresh-button-down';
+			else newClass = '';
+		} 
+
+		setRefreshColorClass(newClass);
+	}, [cursorIsDown, cursorIsOver, isAnimating]) 
+
+	// ====================== Console logs ====================== //
+	// useEffect(() => {
+	// 	console.log('cursorIsOver', cursorIsOver)
+	// }, [cursorIsOver])
+
+	// useEffect(() => {
+	// 	console.log('cursorIsDown', cursorIsDown)
+	// }, [cursorIsDown])
+
+	// useEffect(() => {
+	// 	console.log('isAnimating', isAnimating)
+	// }, [isAnimating])
+
+	// ====================== Output ====================== //
 	return ( 
-		<div className={`${refreshClass}`}
+		<div className={`refresh-button ${refreshColorClass}`}
+			id="refresh-button"
 			onMouseOver={handleMouseOver}
 			onMouseOut={handleMouseOut}
 			onMouseDown={handleMouseDown}
-			onMouseUp={handleMouseUp}>
-			<RefreshIcon className="refresh-icon" style={iconStyle} fontSize="inherit"/>
-		</div>
+			onMouseUp={handleMouseUp}
+			>
+			<RefreshIcon 
+				className="refresh-icon" 
+				id="refresh-icon" 
+				style={iconStyle} 
+				fontSize="inherit" 
+			/>
+		</div> 
 	)
 }
+ 
