@@ -2,13 +2,10 @@
 	width: 100%;
 	height: 100%;
 	font-size: 1.1em; 
-	/*transition: color 500ms ease-in-out;*/
+	
 	display: flex;
 	justify-content: center;
-	align-items: center;
-
-/*	background: purple;
-	border: 2px solid red;*/
+	align-items: center; 
 }
 
 .refresh-button:hover {
@@ -16,13 +13,17 @@
 }
 
 .refresh-button-down {
-	/*color: #495fda;*/
-	color: red;
+	color: #495fda; 
 }
 
 .refresh-button-over {
-	/*color:  #2196f3;*/
-	color: green;
+	color:  #2196f3;
+	transition: color 400ms;
+}
+
+.refresh-button-out { 
+	color: #272727;
+	transition: color 1000ms;
 }
 
 .refresh-icon {

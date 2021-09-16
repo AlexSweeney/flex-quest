@@ -70,7 +70,7 @@ export default function RefreshButton({onClick}) {
 
 		if(!cursorIsOver) {
 			if(isAnimating) newClass = 'refresh-button-down';
-			else newClass = '';
+			else newClass = 'refresh-button-out';
 		} 
 
 		setRefreshColorClass(newClass);
