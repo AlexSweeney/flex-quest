@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import GridOnIcon from '@material-ui/icons/GridOn';
 import './GridButton.css';
 
-export default function GridButton({handleClick, gridStatus, setGridStatus}) {
+export default function GridButton({handleClick, gridStatus, setGridStatus, setShowGrid}) {
 	// ====================  Status ========================= //
 	const [isOver, setIsOver] = useState(false);
 	const [isDown, setIsDown] = useState(false);
@@ -42,6 +42,11 @@ export default function GridButton({handleClick, gridStatus, setGridStatus}) {
 
 	}, [isOver, isDown, isSelected])
 
+
+	useEffect(() => {
+		setShowGrid(isSelected)
+	}, [isSelected])
+
 	// ====================  Update Class ========================= //
 	useEffect(() => {
 		let newClass;
@@ -53,6 +58,8 @@ export default function GridButton({handleClick, gridStatus, setGridStatus}) {
 
 		setGridStatusClass(newClass)
 	}, [gridStatus])
+
+
 
 	// ====================  Console.logs ========================= //
 	useEffect(() => {
