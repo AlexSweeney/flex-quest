@@ -59,8 +59,6 @@ export default function GridButton({handleClick, gridStatus, setGridStatus, setS
 		setGridStatusClass(newClass)
 	}, [gridStatus])
 
-
-
 	// ====================  Console.logs ========================= //
 	useEffect(() => {
 		console.log('gridStatus', gridStatus)
@@ -77,8 +75,3 @@ export default function GridButton({handleClick, gridStatus, setGridStatus, setS
 		</div>
 	)
 }
-/*
-<div onMouseDown={handleClick} 
-			className={showGrid ? "grid-button grid-button-selected" : "grid-button"}>
-			<GridOnIcon className="grid-icon" fontSize="inherit"/>
-		</div>*/
