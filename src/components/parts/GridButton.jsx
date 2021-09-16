@@ -60,9 +60,9 @@ export default function GridButton({handleClick, gridStatus, setGridStatus, setS
 	}, [gridStatus])
 
 	// ====================  Console.logs ========================= //
-	useEffect(() => {
-		console.log('gridStatus', gridStatus)
-	}, [gridStatus])
+	// useEffect(() => {
+	// 	console.log('gridStatus', gridStatus)
+	// }, [gridStatus])
 
 	// ====================  Output ========================= //
 	return (

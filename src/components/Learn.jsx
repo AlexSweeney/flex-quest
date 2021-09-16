@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import LearnBox from './parts/LearnBox.jsx'; 
-import OutputDisplay from './parts/OutputDisplay.jsx'; 
+/*import OutputDisplay from './parts/OutputDisplay.jsx'; */
+import DisplayBoxTwo from './DisplayBoxTwo.jsx';
 // import OpenCloseBox from './parts/OpenCloseBox/OpenCloseBox.jsx';
 import CodeBox from './CodeBox.jsx';  
 
@@ -238,7 +239,7 @@ export default function Learn() {
 			<CodeBox title="style.css" value={cssString} handleChange={handleCssChange} handleRefresh={handleCssRefresh} fade={fadeStyle}/> */}
 
 			{/*<DisplayBox title="display" htmlString={displayHtml} cssString={displayCss}/> */}
-			<OutputDisplay title="display" htmlString={displayHtml} cssString={displayCss} i="4" />
+			<DisplayBoxTwo title="display" htmlString={displayHtml} cssString={displayCss} i="4" />
 		</section>
 	)
 }

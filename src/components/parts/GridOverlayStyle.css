@@ -30,8 +30,8 @@
 	transition: border-color 1000ms ease-in-out;	
 }
 
-.grid-line-vert.grid-line-out,
-.grid-line-horiz.grid-line-out  { 
+.grid-line-horiz.grid-line-out,
+.grid-line-vert.grid-line-out  { 
 	border-color: #272727; 
 	transition: border-color 1000ms ease-in-out;	
 } 
