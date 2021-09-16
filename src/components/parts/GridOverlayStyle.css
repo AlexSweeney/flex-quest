@@ -10,6 +10,7 @@
 	border: 2px solid #2196f3;
 	transition: opacity 500ms ease-in-out;
 	position: relative;
+	background: white;
 }
 
 .grid-container-show {
@@ -18,27 +19,43 @@
 
 .grid-container-hide {
 	opacity: 0;
+} 
+
+.grid-line-vert.grid-line-over {
+	border-bottom: 2px solid green;
 }
 
-.grid-line {
-	border: 2px solid grey;
+.grid-line-horiz.grid-line-over {
+	border-right: 2px solid green;
 }
 
-.grid-line-over {
-	border: 2px solid green;
+.grid-line-vert.grid-line-down {
+	border-bottom: 2px solid red;
 }
 
-.grid-line-down {
-	border: 2px solid red;
+.grid-line-horiz.grid-line-down {
+	border-right: 2px solid red;
 }
 
-.grid-line-out {
-	border: 2px solid pink; 
+.grid-line-vert.grid-line-out {
+	border-bottom: 2px solid pink; 
+}
+
+.grid-line-horiz.grid-line-out {
+	border-right: 2px solid pink; 
+}
+
+.grid-line-vert.grid-line-selected {
+	border-bottom: 2px solid yellow; 
+}
+
+.grid-line-horiz.grid-line-selected {
+	border-right: 2px solid yellow; 
 }
 
 .grid-line-vert {
 	/*border-bottom: 2px solid #2196f3;*/
-	border-bottom: 2px solid;
+	/*border-bottom: 2px solid;*/
 	height: 10%;
 	width: 100%;
 }

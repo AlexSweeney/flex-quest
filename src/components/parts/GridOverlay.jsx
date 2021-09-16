@@ -7,16 +7,16 @@ export default function GridOverlay({showGrid, gridStatus}) {
 	const [gridColorClass, setGridColorClass] = useState('grid-line-over');
 
 	useEffect(() => { 
-		if(showGrid) setShowGridClass('grid-container-show')
-		if(!showGrid) setShowGridClass('grid-container-hide') 
-	}, [showGrid])
+		if(showGrid || gridStatus === 'grid-over') setShowGridClass('grid-container-show')
+		if(!showGrid && gridStatus !== 'grid-over') setShowGridClass('grid-container-hide') 
+	}, [showGrid, gridStatus])
 
 	useEffect(() => { 
-		// if(gridStatus === 'grid-over') setGridColorClass('grid-line-over')
-		// if(gridStatus === 'grid-down') setGridColorClass('grid-line-down') 
-		// if(gridStatus === 'grid-selected') setGridColorClass('grid-line-selected') 
-		// if(gridStatus === 'grid-out') setGridColorClass('grid-line-out') 
-	}, [gridColorClass])
+		if(gridStatus === 'grid-over') setGridColorClass('grid-line-over')
+		if(gridStatus === 'grid-down') setGridColorClass('grid-line-down') 
+		if(gridStatus === 'grid-selected') setGridColorClass('grid-line-selected') 
+		if(gridStatus === 'grid-out') setGridColorClass('grid-line-out') 
+	}, [gridStatus])
 
 	useEffect(() => {
 		console.log('gridStatus', gridStatus)
@@ -30,22 +30,21 @@ export default function GridOverlay({showGrid, gridStatus}) {
 		return <div className={`grid-line grid-line-vert ${gridColorClass}`}></div>
 	}
 
+	function HorizLine({num}) {
+		const leftValue = num * (100 / numLines) + '%';
+		return <div className={`grid-line-horiz ${gridColorClass}`} style={{left: leftValue}}></div>
+	}
+
 	return (
 		<div className="grid-overlay">
 			<div className={`grid-container ${showGridClass}`}>
-				{Array(numLines).map(() => {
+				{[...Array(numLines).keys()].map(() => {
 					return <VertLine/>
-				})}
-				<div className={`grid-line grid-line-vert ${gridColorClass}`}></div>
-				<VertLine/>
-				<VertLine/>
-				<VertLine/>
-				<VertLine/>
-				<VertLine/>
-				<VertLine/>
-				<VertLine/>
-				<VertLine/>
-				<VertLine/>
+				})} 
+
+				{[...Array(numLines).keys()].map((i) => {
+					return <HorizLine num={i}/>
+				})} 
 
 				{/*<div className="grid-line-horiz" style={{left: "0"}}></div>
 				<div className="grid-line-horiz" style={{left: "10%"}}></div>
