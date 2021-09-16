@@ -6,19 +6,28 @@
   justify-content: center;
   align-items: center;
   font-size: 1em; 
-  transition: color 500ms ease-in-out;
 }
 
-.grid-button:hover {
+.grid-button-over {
 	color: #2196f3; 
 	cursor: pointer;
+	transition: color 400ms ease-in-out;
 }
 
-.grid-button:active {
+.grid-button-down {
 	color: #3f51b5; 
+	cursor: pointer;
 }
  
 .grid-button-selected {
 	color: #495fda; 
 }
 
+.grid-button-out {
+	transition: color 1000ms ease-in-out;
+	color: #272727;
+}
+
+.grid-icon {
+	z-index: -1;
+}
