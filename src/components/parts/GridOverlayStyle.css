@@ -6,12 +6,14 @@
 
 .grid-line-horiz {
 	border-bottom: 2px solid;
+	border-color: #272727;
 	height: 10%;
 	width: 100%;
 }
 
 .grid-line-vert {
 	border-right: 2px solid;
+	border-color: #272727;
 	height: 100%;
 	width: 10%;
 	position: absolute;

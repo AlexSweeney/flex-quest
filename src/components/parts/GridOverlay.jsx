@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react'; 
 import './GridOverlayStyle.css';
 
-export default function GridOverlay({showGrid, gridStatus}) {
+export default function GridOverlay({gridStatus, showGrid}) {   
 	const numLines = 10;
 	const showOnHover = true;
 	const showOnOffHover = false;
-	const [gridColorClass, setGridColorClass] = useState('grid-line-over');
+	const [gridColorClass, setGridColorClass] = useState(''); 
 
 	useEffect(() => { 
 		if(showOnOffHover || !showOnOffHover && showGrid) {
@@ -18,7 +18,7 @@ export default function GridOverlay({showGrid, gridStatus}) {
 		if(!showOnOffHover && !showGrid) {
 			setGridColorClass('grid-line-out') 
 		}
-	}, [gridStatus, showGrid]) 
+	}, [gridStatus, showGrid])  
 
 	return (
 		<div className="grid-overlay">
