@@ -20,7 +20,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
  
 	// =============== status
 	const [isLearnBoxTranstionEnd, setIsLearnBoxTranstionEnd] = useState(false);
-
+	const [gridStatus, setGridStatus] = useState('');
 	const [displayBoxHeightTransitioning, setDisplayBoxHeightTransitioning] = useState(false);
 
 	const [displayBoxStatus, setDisplayBoxStatus] = useState('display-box-open');
@@ -40,7 +40,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 	// =============== props
 	const buttons = [
 		<RefreshButton onClick={onRefreshClick}/>,
-		<GridButton handleClick={onGridClick} showGrid={showGrid}/>
+		<GridButton handleClick={onGridClick} gridStatus={gridStatus} setGridStatus={setGridStatus}/>
 	];	 
 
 	// =========================== Element fns =========================== // 
@@ -301,7 +301,7 @@ export default function OutputDisplay({title, i, htmlString, cssString}) {
 					${displayBoxClass} 
 					${displayBoxOverflowClass}
 					${displayBoxRefreshClass}`} id="display-box">
-					<GridOverlay showGrid={showGrid}/>
+					<GridOverlay gridStatus={gridStatus}/>
 					<iframe srcdoc={source} className="iframe"/> 
 				</div> 
 			</LearnBox>

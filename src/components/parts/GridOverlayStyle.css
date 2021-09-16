@@ -8,23 +8,44 @@
 	width: 100%;
 	height: 100%;
 	border: 2px solid #2196f3;
-	opacity: 0.5; 
 	transition: opacity 500ms ease-in-out;
 	position: relative;
+}
+
+.grid-container-show {
+	opacity: 1; 	
 }
 
 .grid-container-hide {
 	opacity: 0;
 }
 
+.grid-line {
+	border: 2px solid grey;
+}
+
+.grid-line-over {
+	border: 2px solid green;
+}
+
+.grid-line-down {
+	border: 2px solid red;
+}
+
+.grid-line-out {
+	border: 2px solid pink; 
+}
+
 .grid-line-vert {
-	border-bottom: 2px solid #2196f3;
+	/*border-bottom: 2px solid #2196f3;*/
+	border-bottom: 2px solid;
 	height: 10%;
 	width: 100%;
 }
 
 .grid-line-horiz {
-	border-right: 2px solid #2196f3;
+	/*border-right: 2px solid #2196f3;*/
+	border-bottom: 2px solid;
 	height: 100%;
 	width: 10%;
 	position: absolute;
