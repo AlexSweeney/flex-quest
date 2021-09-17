@@ -1,12 +1,8 @@
-// refresh button colors 
-
 import React, {useState, useEffect} from 'react'; 
-import LearnBox from './LearnBox.jsx';
+import OpenCloseBox2 from './../OpenCloseBox/OpenCloseBox2.jsx'; 
+import './LearnBox.css'; 
 
-import {detectTransition, detectTransitions} from './../utils.js';
-import './OutputDisplay.css'; 
-
-export default function LearnBoxTwo({
+export default function LearnBox({
 	title, 
 	i, 
 	buttons, 
@@ -157,7 +153,7 @@ export default function LearnBoxTwo({
 
   // =========================== output =========================== //
 	return (
-		<LearnBox 
+		<OpenCloseBox2 
 			title={title} 
 			boxIsOpen={learnBoxIsOpen}
 			handleOpenCloseToggleClick={onOpenCloseToggleClick}
@@ -172,6 +168,6 @@ export default function LearnBoxTwo({
 				${displayBoxRefreshClass}`} id="display-box">
 				{children}
 			</div>
-		</LearnBox>
+		</OpenCloseBox2>
 	)
 }	 

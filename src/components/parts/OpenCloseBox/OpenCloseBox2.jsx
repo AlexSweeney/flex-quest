@@ -1,9 +1,8 @@
 import React, {useState, useEffect} from 'react'; 
-import OpenCloseToggle from './OpenCloseToggle/OpenCloseToggle.jsx';
-import {detectTransition, detectTransitions} from './../utils.js';
-import './LearnBox.css';
+import OpenCloseToggle from './../OpenCloseToggle/OpenCloseToggle.jsx'; 
+import './OpenCloseBox2.css';
 
-export default function LearnBox({
+export default function OpenCloseBox2({
 	boxIsOpen = true,
 	buttons = null,
 	title = '',
