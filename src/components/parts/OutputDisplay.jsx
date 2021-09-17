@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'; 
 import LearnBox from './LearnBox/LearnBox.jsx';
-import RefreshButton from './RefreshButton/RefreshButton.jsx';
+import RefreshButton from './Buttons/RefreshButton/RefreshButton.jsx';
 import GridButton from './Buttons/GridButton/GridButton.jsx';
 import GridOverlay from './Buttons/GridButton/GridOverlay.jsx';
 import './OutputDisplay.css';

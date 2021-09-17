@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import Button from './../Button.jsx';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import './RefreshButton.css';
 
@@ -91,20 +92,22 @@ export default function RefreshButton({onClick}) {
 
 	// ====================== Output ====================== //
 	return ( 
-		<div className={`refresh-button ${refreshColorClass}`}
-			id="refresh-button"
-			onMouseOver={handleMouseOver}
-			onMouseOut={handleMouseOut}
-			onMouseDown={handleMouseDown}
-			onMouseUp={handleMouseUp}
-			>
-			<RefreshIcon 
-				className="refresh-icon" 
-				id="refresh-icon" 
-				style={iconStyle} 
-				fontSize="inherit" 
-			/>
-		</div> 
+		<Button>
+			<div className={`refresh-button ${refreshColorClass}`}
+				id="refresh-button"
+				onMouseOver={handleMouseOver}
+				onMouseOut={handleMouseOut}
+				onMouseDown={handleMouseDown}
+				onMouseUp={handleMouseUp}
+				>
+				<RefreshIcon 
+					className="refresh-icon" 
+					id="refresh-icon" 
+					style={iconStyle} 
+					fontSize="inherit" 
+				/>
+			</div> 
+		</Button>
 	)
 }
  

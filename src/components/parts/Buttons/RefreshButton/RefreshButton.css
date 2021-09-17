@@ -6,6 +6,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center; 
+	z-index: 1;
 }
 
 .refresh-button:hover {
@@ -27,6 +28,6 @@
 }
 
 .refresh-icon {
-	z-index: -1;
+	
 	transition: 1s transform; 
 }
