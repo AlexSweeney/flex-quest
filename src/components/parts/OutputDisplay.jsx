@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'; 
-import LearnBox from './LearnBox/LearnBox.jsx';
+import OpenCloseBox from './OpenCloseBox/OpenCloseBox.jsx';
 import RefreshButton from './Buttons/RefreshButton/RefreshButton.jsx';
 import GridButton from './Buttons/GridButton/GridButton.jsx';
 import GridOverlay from './Buttons/GridButton/GridOverlay.jsx';
@@ -32,7 +32,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	const [numTransitionEnds, setNumTransitionEnds] = useState(0);
 
 	// ====== Open Close //
-	const [learnBoxStatus, setLearnBoxStatus] = useState('learn-box-open');
+	const [openCloseBoxStatus, setOpenCloseBoxStatus] = useState('learn-box-open');
 
 	// ================ Class========================= //
 	const [outputDisplayClass, setOutputDisplayClass] = useState('output-display-open');
@@ -55,8 +55,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	} 
 
 	function onRefreshClick() {
-		console.log('click refresh')
-		if(learnBoxStatus === 'learn-box-open' && userHasChangedSize('output-display')) {
+		if(openCloseBoxStatus === 'learn-box-open' && userHasChangedSize('output-display')) {
 		 setOutputDisplayResizeStatus('output-display-resizing')
 		}
 	}
@@ -176,22 +175,23 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 
   // ============== Set Class ==================== // 
   useEffect(() => {
-  	if(learnBoxStatus === 'learn-box-open') setOutputDisplayClass('output-display-open')
+  	if(openCloseBoxStatus === 'learn-box-open') setOutputDisplayClass('output-display-open')
   	else setOutputDisplayClass('')
-  }, [learnBoxStatus])
+  }, [openCloseBoxStatus])
 
 	// ============== Output ============================== //
 	return ( 
-		<div>
-			{buttons.map((button) => <div className="button"> {button} </div>)}
-			
-			<div className="container"> 
-				<div className={`output-display ${outputDisplayClass} ${outputDisplayResizeClass}`} id="output-display">
-					<GridOverlay gridStatus={gridStatus} showGrid={showGrid}/>
-					<iframe srcDoc={source} className="iFrame"/> 
-				</div> 
-			</div> 
-		</div>
+		<OpenCloseBox 
+			title={title} 
+			i={i}
+			buttons={buttons} 
+			openCloseBoxStatus={openCloseBoxStatus} 
+			setOpenCloseBoxStatus={setOpenCloseBoxStatus}> 
+			<div className={`output-display ${outputDisplayClass} ${outputDisplayResizeClass}`} id="output-display">
+				<GridOverlay gridStatus={gridStatus} showGrid={showGrid}/>
+				<iframe srcDoc={source} className="iFrame"/> 
+			</div>  
+		</OpenCloseBox>
 	)
 }
 /*
@@ -199,8 +199,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 			title={title} 
 			i={i}
 			buttons={buttons} 
-			learnBoxStatus={learnBoxStatus} 
-			setLearnBoxStatus={setLearnBoxStatus}
-			displayBoxResizeStatus={displayBoxResizeStatus}
-			displayBoxRefreshClass={displayBoxRefreshClass}>
-</LearnBox>*/
+			openCloseBoxStatus={openCloseBoxStatus} 
+			setOpenCloseBoxStatus={setOpenCloseBoxStatus}> 
+				</LearnBox>
+*/

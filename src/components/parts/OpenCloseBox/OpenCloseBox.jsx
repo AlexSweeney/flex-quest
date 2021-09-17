@@ -1,9 +1,16 @@
 import React, {useState, useEffect} from 'react'; 
 import OpenCloseToggle from './../OpenCloseToggle/OpenCloseToggle.jsx'; 
-import './OpenCloseBox2.css';
+import './OpenCloseBox.css';
 
-export default function OpenCloseBox2({
+export default function OpenCloseBox({
+	title = '',
+	buttons = [],
 	boxIsOpen = true,
+	resizeStatus = '',
+	children
+}) {
+	/*
+		boxIsOpen = true,
 	buttons = null,
 	title = '',
 	id = 'learn-box',
@@ -12,98 +19,107 @@ export default function OpenCloseBox2({
 	setLearnBoxStatus,
 	resizeStatus = null,
 	children = null,
-}) {
+	
+	*/
+
 	/* 
-		show title 
-		show buttons
+		show title  
+		show buttons 
 		open and close on press toggle
+
+		animate 
+			close - x then y
+			open - x then y
 	*/
 	
 	// ======================= Id's ======================= //
-	const learnBoxId = id;
+	const boxId = 'box';
+	const id = 'box';
 
 	// ======================= Classes ======================= //
-	const [learnBoxClass, setLearnBoxClass] = useState('learn-box-open');
-	const [learnBoxBodyClass, setLearnBoxBodyClass] = useState('');
+	const [boxOpenClass, setBoxOpenClass] = useState('box-open');
+	const [boxBodyClass, setBoxBodyClass] = useState('');
 
 	// ======================= Status ======================= // 
+	const [boxOpenStatus, setBoxOpenStatus] = useState(true);
+
 	const [toggleIsOpen, setToggleIsOpen] = useState(!boxIsOpen); 
 	const [toggleClicked, setToggleClicked] = useState(false);
 
 	const [widthTransitionFinished, setWidthTransitionFinished] = useState(false);
+	const [heightTransitionFinished, setHeightTransitionFinished] = useState(false);
 	const [isAnimating, setIsAnimating] = useState(false);
 
 	// ======================= Event Handlers ======================= //
 	function clickOpenCloseToggle() {
-		handleOpenCloseToggleClick()
 		setToggleClicked(true)
 	}
 
 	function onBoxClosing() {
-		setLearnBoxClass('learn-box-closed')
-		setLearnBoxBodyClass('learn-box-body-closed')
+		setBoxOpenClass('box-closed')
+		setBoxBodyClass('box-body-closed')
 		setIsAnimating(true)
 	}
 
 	function onBoxClosed() {
 		setToggleIsOpen(true)
 		setIsAnimating(false)
-		setLearnBoxStatus('learn-box-closed')
+		setBoxOpenClass('box-closed')
 	}
 
 	function onBoxOpening() { 
-		setLearnBoxClass('learn-box-open')
-		setLearnBoxBodyClass('learn-box-body-open')
+		setBoxOpenClass('box-open')
+		setBoxBodyClass('box-body-open')
 		setIsAnimating(true)
 	}
 
 	function onBoxOpen() {
 		setToggleIsOpen(false)
 		setIsAnimating(false)
-		setLearnBoxStatus('learn-box-open')
+		setBoxOpenStatus('box-open')
 	}
 
 	function onRefreshStart() {
-		setLearnBoxBodyClass('learn-box-body-refresh')
+		setBoxBodyClass('box-body-refresh')
 	}
 
 	function onRefreshEnd() {
-		setLearnBoxBodyClass('')
+		setBoxBodyClass('')
 	}
 
-	// ======================= Set Status ======================= //
-	// =========== start open / close
+	// ======================= Detect Transitions ======================= //
 	useEffect(() => {
-		if(toggleClicked) {
-			if(boxIsOpen) setLearnBoxStatus('learn-box-opening')
-			if(!boxIsOpen) setLearnBoxStatus('learn-box-closing') 
-
-			setToggleClicked(false)
-		}
-	}, [boxIsOpen, toggleClicked])
-
-	// =========== detect width changing
-	useEffect(() => {
-		const element = document.getElementById(learnBoxId);
+		const element = document.getElementById(boxId);
 
 		element.addEventListener('transitionstart', (e) => {
-			if(e.propertyName === 'width' && e.srcElement.id === learnBoxId) { 
+			if(e.propertyName === 'width' && e.srcElement.id === boxId) { 
 				setWidthTransitionFinished(false)
 			}
 		})
 
 		element.addEventListener('transitionend', (e) => {
-			if(e.propertyName === 'width' && e.srcElement.id === learnBoxId) { 
+			if(e.propertyName === 'width' && e.srcElement.id === boxId) { 
 				setWidthTransitionFinished(true)
 			}
 		})
 	}, [])
 
+	// ======================= Set Status ======================= //
+	// =========== start open / close
+	useEffect(() => {
+		if(toggleClicked) {
+			if(boxIsOpen) setBoxOpenStatus('box-opening')
+			if(!boxIsOpen) setBoxOpenStatus('box-closing') 
+
+			setToggleClicked(false)
+		}
+	}, [boxIsOpen, toggleClicked])
+
 	// =========== listen for open and close
 	useEffect(() => {
 		if(widthTransitionFinished) {
-			if(boxIsOpen) setLearnBoxStatus('learn-box-open')
-			if(!boxIsOpen) setLearnBoxStatus('learn-box-closed')
+			if(boxIsOpen) setBoxOpenStatus('box-open')
+			if(!boxIsOpen) setBoxOpenStatus('box-closed')
 
 			setWidthTransitionFinished(false)
 		} 
@@ -111,11 +127,11 @@ export default function OpenCloseBox2({
 
 	// ======================= Trigger Functions ======================= //
 	useEffect(() => {
-		if(learnBoxStatus === 'learn-box-open') onBoxOpen()
-		if(learnBoxStatus === 'learn-box-opening') onBoxOpening()
-		if(learnBoxStatus === 'learn-box-closed') onBoxClosed()
-		if(learnBoxStatus === 'learn-box-closing') onBoxClosing()
-	}, [learnBoxStatus])
+		if(boxOpenStatus === 'box-open') onBoxOpen()
+		if(boxOpenStatus === 'box-opening') onBoxOpening()
+		if(boxOpenStatus === 'box-closed') onBoxClosed()
+		if(boxOpenStatus === 'box-closing') onBoxClosing()
+	}, [boxOpenStatus])
 
 	useEffect(() => {
 		if(resizeStatus === 'display-box-resizing') onRefreshStart()
@@ -124,8 +140,8 @@ export default function OpenCloseBox2({
 
 	// ======================= Console logs ======================= // 
 	// useEffect(() => {
-	// 	console.log('learnBoxStatus', learnBoxStatus)
-	// }, [learnBoxStatus])
+	// 	console.log('boxOpenStatus', boxOpenStatus)
+	// }, [boxOpenStatus])
 
 	// useEffect(() => {
 	// 	console.log('resizeStatus', resizeStatus)
@@ -133,9 +149,9 @@ export default function OpenCloseBox2({
 
 	// ======================= Component ======================= //
 	return (
-		<div className={`learn-box learn-box-open-close-transition ${learnBoxClass}`} id={id}>
-			<div className="learn-box-header">
-				<div className="learn-box-buttons-container">
+		<div className={`box box-open-close-transition ${boxOpenClass}`} id={id}>
+			<div className="box-header">
+				<div className="box-buttons-container">
 					{buttons && buttons.map(button => {
 						return button
 					})}
@@ -152,7 +168,7 @@ export default function OpenCloseBox2({
 				</div>
 			</div>
 
-			<div className={`learn-box-body ${learnBoxBodyClass}`} id="learn-box-body"> 
+			<div className={`box-body ${boxBodyClass}`} id="box-body"> 
 				{
 					children && children	
 				}

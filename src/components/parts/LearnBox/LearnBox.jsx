@@ -8,12 +8,14 @@ export default function LearnBox({
 	buttons, 
 	learnBoxStatus,
 	setLearnBoxStatus, 
-	displayBoxResizeStatus = '',
-	displayBoxRefreshClass = '',
+	
 	children}) {
 	/* 
 		show children
 		animate children open close on open / close toggle press
+
+		displayBoxResizeStatus = '',
+	displayBoxRefreshClass = '',
 	*/
 
 	// =========================== Vars =========================== //
@@ -165,14 +167,13 @@ export default function LearnBox({
 			buttons={buttons}
 			learnBoxStatus={learnBoxStatus}
 			setLearnBoxStatus={setLearnBoxStatus}
-			resizeStatus={displayBoxResizeStatus}
 		>	
 			<div className={`display-box 
 				${displayBoxClass} 
-				${displayBoxOverflowClass}
-				${displayBoxRefreshClass}`} id="display-box">
-	 
-			</div>
+				${displayBoxOverflowClass}`} id="display-box">
+	 		</div>
 		</OpenCloseBox2>
 	)
 }	 
+
+/* resizeStatus={displayBoxResizeStatus} */
