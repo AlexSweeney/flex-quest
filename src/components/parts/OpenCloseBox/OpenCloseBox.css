@@ -17,12 +17,10 @@
 	background: #E8E4E4;
 }
 
-.box-opening,
 .box-open {
 	width: 100%;
 }
 
-.box-closing,
 .box-closed {
 	width: 36px;
 }
@@ -74,7 +72,6 @@
 	cursor: default;
 } 
 
-
 /* =================== Open close toggle */ 
 .box .open-close-toggle-container {
 	height: 100%; 
@@ -102,6 +99,20 @@
 }
 
 /* =================== Content Container */
+.content-container {
+	width: 100%; 
+	background: pink;
+	transition: height 2s;
+}
+
+.content-container-closed {
+	height: 0;
+	overflow: hidden;
+}
+
+.content-container-open {
+	height: 100%;
+}
 
 /* =================== Body Scrollbar */
 .box-body::-webkit-scrollbar { 
