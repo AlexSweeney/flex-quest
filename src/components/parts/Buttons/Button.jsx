@@ -1,9 +1,9 @@
 import React from 'react';
+import './Button.css';
 
 export default function Button({children}) {
-	console.log(children)
 	return (
-		<div className="learn-box-button">
+		<div className="box-button">
 			{children}
 		</div>
 	)

@@ -152,9 +152,7 @@ export default function OpenCloseBox({
 		<div className={`box box-open-close-transition ${boxOpenClass}`} id={id}>
 			<div className="box-header">
 				<div className="box-buttons-container">
-					{buttons && buttons.map(button => {
-						return button
-					})}
+					{buttons.map(button => button)}
 				</div>
 
 				<div className="title">{title}</div>
