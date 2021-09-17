@@ -11,9 +11,9 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		Not resizable when learn box is changing size
 		Displays output of html and css string
 		Updates when html or css string changed
-
-		handle refresh button press
+		
 		handle grid button press
+		handle refresh button press
 	*/
 
 	// ================ State ========================= //
@@ -25,8 +25,9 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	const [source, setSource] = useState(null);
 
 	// ====== Refresh //
-	const [displayBoxResizeStatus, setDisplayBoxResizeStatus] = useState('');
-	const [displayBoxRefreshClass, setDisplayBoxRefreshClass] = useState('');
+	const [outputDisplayResizeStatus, setOutputDisplayResizeStatus] = useState('');
+	
+	// const [displayBoxRefreshClass, setDisplayBoxRefreshClass] = useState('');
 	const [numTransitionStarts, setNumTransitionStarts] = useState(0);
 	const [numTransitionEnds, setNumTransitionEnds] = useState(0);
 
@@ -35,6 +36,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 
 	// ================ Class========================= //
 	const [outputDisplayClass, setOutputDisplayClass] = useState('output-display-open');
+	const [outputDisplayResizeClass, setOutputDisplayResizeClass] = useState('');
 
 	// ================ Buttons ===================== //
 	const buttons = [
@@ -49,28 +51,28 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 
 	// ================ Click Handlers ===================== //
 	function onGridClick() {
-		console.log('click grid')
 		setShowGrid(oldVal => !oldVal)
 	} 
 
 	function onRefreshClick() {
-		if(learnBoxStatus === 'learn-box-open' && userHasChangedSize('display-box')) {
-		 setDisplayBoxResizeStatus('display-box-resizing')
+		console.log('click refresh')
+		if(learnBoxStatus === 'learn-box-open' && userHasChangedSize('output-display')) {
+		 setOutputDisplayResizeStatus('output-display-resizing')
 		}
 	}
 
 	// ================ Event Handlers ===================== //
 	function onRefreshStart() { 
 		addRefreshListeners()
-		setDisplayBoxRefreshClass('display-box-refresh') 
-		removeInlineSize('display-box') 
+		setOutputDisplayResizeClass('output-display-refresh') 
+		removeInlineSize('output-display') 
 	}
 
 	function onRefreshEnd() { 
 		removeRefreshListeners()
 		setNumTransitionStarts(0)
 		setNumTransitionEnds(0)
-		setDisplayBoxRefreshClass('') 
+		setOutputDisplayResizeClass('') 
 	}
 
 	function onCodeChange() {
@@ -89,54 +91,54 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	// ================ Helper Fns ===================== //
 	function handleTransitionStartWidth(e) {
 		if(e.propertyName === 'width' 
-			&& e.srcElement.id === 'display-box'
-			&& displayBoxResizeStatus === 'display-box-resizing') {
+			&& e.srcElement.id === 'output-display'
+			&& outputDisplayResizeStatus === 'output-display-resizing') {
 			setNumTransitionStarts(oldVal => oldVal + 1)
 		}
 	}
 
 	function handleTransitionStartHeight(e) {
 		if(e.propertyName === 'height' 
-			&& e.srcElement.id === 'display-box'
-			&& displayBoxResizeStatus === 'display-box-resizing') {
+			&& e.srcElement.id === 'output-display'
+			&& outputDisplayResizeStatus === 'output-display-resizing') {
 			setNumTransitionStarts(oldVal => oldVal + 1)
 		}
 	}
 
 	function handleTransitionEndWidth(e) {
 		if(e.propertyName === 'width' 
-			&& e.srcElement.id === 'display-box'
-			&& displayBoxResizeStatus === 'display-box-resizing') {
+			&& e.srcElement.id === 'output-display'
+			&& outputDisplayResizeStatus === 'output-display-resizing') {
 			setNumTransitionEnds(oldVal => oldVal + 1)
 		}
 	}
 
 	function handleTransitionEndHeight(e) {
 		if(e.propertyName === 'height' 
-			&& e.srcElement.id === 'display-box'
-			&& displayBoxResizeStatus === 'display-box-resizing') {
+			&& e.srcElement.id === 'output-display'
+			&& outputDisplayResizeStatus === 'output-display-resizing') {
 			setNumTransitionEnds(oldVal => oldVal + 1)
 		}
 	}
 
 	function addRefreshListeners() {
-		const displayBoxElement = document.getElementById('display-box');
+		const outputDisplayElement = document.getElementById('output-display');
 		 
-		displayBoxElement.addEventListener('transitionstart', handleTransitionStartWidth)
-		displayBoxElement.addEventListener('transitionstart', handleTransitionStartHeight)
+		outputDisplayElement.addEventListener('transitionstart', handleTransitionStartWidth)
+		outputDisplayElement.addEventListener('transitionstart', handleTransitionStartHeight)
 
-		displayBoxElement.addEventListener('transitionend', handleTransitionEndWidth)
-		displayBoxElement.addEventListener('transitionend', handleTransitionEndHeight)
+		outputDisplayElement.addEventListener('transitionend', handleTransitionEndWidth)
+		outputDisplayElement.addEventListener('transitionend', handleTransitionEndHeight)
 	}
 
 	function removeRefreshListeners() { 
-		const displayBoxElement = document.getElementById('display-box');
+		const outputDisplayElement = document.getElementById('output-display');
 		
-		displayBoxElement.removeEventListener('transitionstart', handleTransitionStartWidth)
-		displayBoxElement.removeEventListener('transitionstart', handleTransitionStartHeight)
+		outputDisplayElement.removeEventListener('transitionstart', handleTransitionStartWidth)
+		outputDisplayElement.removeEventListener('transitionstart', handleTransitionStartHeight)
 
-		displayBoxElement.removeEventListener('transitionend', handleTransitionEndWidth)
-		displayBoxElement.removeEventListener('transitionend', handleTransitionEndHeight)
+		outputDisplayElement.removeEventListener('transitionend', handleTransitionEndWidth)
+		outputDisplayElement.removeEventListener('transitionend', handleTransitionEndHeight)
 	}
 
 	function userHasChangedSize(id) {
@@ -154,9 +156,9 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	// ============== Trigger Event Handlers ==================== // 
 	// ======== Refresh //
 	useEffect(() => {
-		if(displayBoxResizeStatus === 'display-box-resizing') onRefreshStart()
+		if(outputDisplayResizeStatus === 'output-display-resizing') onRefreshStart()
 		return () => { onRefreshEnd() } 
-	}, [displayBoxResizeStatus])
+	}, [outputDisplayResizeStatus])
 
 	// ======== Code Input //
 	useEffect(() => {  
@@ -165,12 +167,12 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 
   // ============== Set Status ==================== // 
 	useEffect(() => {
-		if(displayBoxResizeStatus === 'display-box-resizing' 
+		if(outputDisplayResizeStatus === 'output-display-resizing' 
 			&& numTransitionStarts > 0
 			&& numTransitionStarts === numTransitionEnds) {
-			setDisplayBoxResizeStatus('display-box-resize-finished')
+			setOutputDisplayResizeStatus('output-display-resize-finished')
 		}
-	}, [numTransitionStarts, numTransitionEnds, displayBoxResizeStatus])
+	}, [numTransitionStarts, numTransitionEnds, outputDisplayResizeStatus])
 
   // ============== Set Class ==================== // 
   useEffect(() => {
@@ -180,11 +182,14 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 
 	// ============== Output ============================== //
 	return ( 
-		<div className="container">
+		<div>
 			{buttons.map((button) => <div className="button"> {button} </div>)}
-			<div className={`output-display ${outputDisplayClass}`}>
-				<GridOverlay gridStatus={gridStatus} showGrid={showGrid}/>
-				<iframe srcDoc={source} className="iFrame"/> 
+			
+			<div className="container"> 
+				<div className={`output-display ${outputDisplayClass} ${outputDisplayResizeClass}`} id="output-display">
+					<GridOverlay gridStatus={gridStatus} showGrid={showGrid}/>
+					<iframe srcDoc={source} className="iFrame"/> 
+				</div> 
 			</div> 
 		</div>
 	)
