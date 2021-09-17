@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react'; 
 import LearnBox from './LearnBox/LearnBox.jsx';
 import RefreshButton from './RefreshButton/RefreshButton.jsx';
-import GridButton from './GridButton/GridButton.jsx';
-import GridOverlay from './GridButton/GridOverlay.jsx';
+import GridButton from './Buttons/GridButton/GridButton.jsx';
+import GridOverlay from './Buttons/GridButton/GridOverlay.jsx';
 import './OutputDisplay.css';
 
 export default function OutputDisplay({title, htmlString, cssString, i}) {
@@ -11,6 +11,9 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		Not resizable when learn box is changing size
 		Displays output of html and css string
 		Updates when html or css string changed
+
+		handle refresh button press
+		handle grid button press
 	*/
 
 	// ================ State ========================= //
@@ -46,6 +49,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 
 	// ================ Click Handlers ===================== //
 	function onGridClick() {
+		console.log('click grid')
 		setShowGrid(oldVal => !oldVal)
 	} 
 
@@ -176,18 +180,22 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 
 	// ============== Output ============================== //
 	return ( 
-		<div className={`output-display ${outputDisplayClass}`}>
-			<GridOverlay gridStatus={gridStatus} showGrid={showGrid}/>
-			<iframe srcdoc={source} className="iFrame"/> 
-		</div> 
+		<div className="container">
+			{buttons.map((button) => <div className="button"> {button} </div>)}
+			<div className={`output-display ${outputDisplayClass}`}>
+				<GridOverlay gridStatus={gridStatus} showGrid={showGrid}/>
+				<iframe srcDoc={source} className="iFrame"/> 
+			</div> 
+		</div>
 	)
 }
-{/*<LearnBox 
+/*
+<LearnBox 
 			title={title} 
 			i={i}
 			buttons={buttons} 
 			learnBoxStatus={learnBoxStatus} 
 			setLearnBoxStatus={setLearnBoxStatus}
 			displayBoxResizeStatus={displayBoxResizeStatus}
-			displayBoxRefreshClass={displayBoxRefreshClass}>*/}
-			/*</LearnBox>*/
+			displayBoxRefreshClass={displayBoxRefreshClass}>
+</LearnBox>*/

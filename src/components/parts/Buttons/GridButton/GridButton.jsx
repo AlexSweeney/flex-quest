@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import Button from './../Button.jsx';
 import GridOnIcon from '@material-ui/icons/GridOn';
 import './GridButton.css';
 
@@ -65,13 +66,26 @@ export default function GridButton({handleClick, gridStatus, setGridStatus, setS
 	// }, [gridStatus])
 
 	// ====================  Output ========================= //
-	return (
-		<div onMouseOver={handleMouseOver}
-			onMouseOut={handleMouseOut}
-			onMouseDown={handleMouseDown} 
-			onMouseUp={handleMouseUp}
-			className={`grid-button ${gridStatusClass}`}>
-			<GridOnIcon className="grid-icon" fontSize="inherit"/>
-		</div>
+	return ( 
+		<Button>
+			<div onMouseOver={handleMouseOver}
+					onMouseOut={handleMouseOut}
+					onMouseDown={handleMouseDown} 
+					onMouseUp={handleMouseUp}
+					className={`grid-button ${gridStatusClass}`}>
+				<GridOnIcon className="grid-icon" fontSize="inherit"/>
+			</div>
+		</Button>
 	)
 }
+/*
+<Button>
+			<div onMouseOver={handleMouseOver}
+				onMouseOut={handleMouseOut}
+				onMouseDown={handleMouseDown} 
+				onMouseUp={handleMouseUp}
+				className={`grid-button ${gridStatusClass}`}>
+				<GridOnIcon className="grid-icon" fontSize="inherit"/>
+			</div>
+		</Button>
+*/

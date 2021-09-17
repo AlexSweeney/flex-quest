@@ -11,6 +11,11 @@ export default function LearnBox({
 	displayBoxResizeStatus = '',
 	displayBoxRefreshClass = '',
 	children}) {
+	/* 
+		show children
+		animate children open close on open / close toggle press
+	*/
+
 	// =========================== Vars =========================== //
 	const learnBoxId = 'learn-box';
 	 
@@ -166,7 +171,7 @@ export default function LearnBox({
 				${displayBoxClass} 
 				${displayBoxOverflowClass}
 				${displayBoxRefreshClass}`} id="display-box">
-				{children}
+	 
 			</div>
 		</OpenCloseBox2>
 	)

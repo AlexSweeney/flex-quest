@@ -1,3 +1,16 @@
+.container {
+	width: 90vw;
+	height: 75vh;
+	border: 2px solid black;
+	overflow: auto;
+}
+
+.buton {
+	width: 20px;
+	height: 20px;
+	background: red;
+}
+
 .output-display {
 	min-width: 12px;
   min-height: 12px;

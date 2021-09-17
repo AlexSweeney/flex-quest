@@ -5,7 +5,8 @@
 	display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1em; 
+  font-size: 1em;  
+  z-index: 1;
 }
 
 .grid-button-over {
@@ -29,5 +30,5 @@
 }
 
 .grid-icon {
-	z-index: -1;
+	z-index: 0;
 }
