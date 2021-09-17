@@ -4,8 +4,7 @@ import './OpenCloseBox.css';
 
 export default function OpenCloseBox({
 	title = '',
-	buttons = [],
-	boxIsOpen = true,
+	buttons = [], 
 	resizeStatus = '',
 	children
 }) {
@@ -23,8 +22,8 @@ export default function OpenCloseBox({
 	*/
 
 	/* 
-		show title  
-		show buttons 
+		show title   	x
+		show buttons  x
 		open and close on press toggle
 
 		animate 
@@ -41,7 +40,8 @@ export default function OpenCloseBox({
 	const [boxBodyClass, setBoxBodyClass] = useState('');
 
 	// ======================= Status ======================= // 
-	const [boxOpenStatus, setBoxOpenStatus] = useState(true);
+	const [boxIsOpen, setBoxIsOpen] = useState(true);
+	const [boxWidthStatus, setBoxWidthStatus] = useState('box-open');
 
 	const [toggleIsOpen, setToggleIsOpen] = useState(!boxIsOpen); 
 	const [toggleClicked, setToggleClicked] = useState(false);
@@ -53,6 +53,7 @@ export default function OpenCloseBox({
 	// ======================= Event Handlers ======================= //
 	function clickOpenCloseToggle() {
 		setToggleClicked(true)
+		setBoxIsOpen(oldVal => !oldVal)
 	}
 
 	function onBoxClosing() {
@@ -76,7 +77,7 @@ export default function OpenCloseBox({
 	function onBoxOpen() {
 		setToggleIsOpen(false)
 		setIsAnimating(false)
-		setBoxOpenStatus('box-open')
+		setBoxIsOpen('box-open')
 	}
 
 	function onRefreshStart() {
@@ -108,8 +109,8 @@ export default function OpenCloseBox({
 	// =========== start open / close
 	useEffect(() => {
 		if(toggleClicked) {
-			if(boxIsOpen) setBoxOpenStatus('box-opening')
-			if(!boxIsOpen) setBoxOpenStatus('box-closing') 
+			if(boxIsOpen) setBoxWidthStatus('box-opening')
+			if(!boxIsOpen) setBoxWidthStatus('box-closing') 
 
 			setToggleClicked(false)
 		}
@@ -118,8 +119,8 @@ export default function OpenCloseBox({
 	// =========== listen for open and close
 	useEffect(() => {
 		if(widthTransitionFinished) {
-			if(boxIsOpen) setBoxOpenStatus('box-open')
-			if(!boxIsOpen) setBoxOpenStatus('box-closed')
+			if(boxIsOpen) setBoxWidthStatus('box-open')
+			if(!boxIsOpen) setBoxWidthStatus('box-closed')
 
 			setWidthTransitionFinished(false)
 		} 
@@ -127,11 +128,11 @@ export default function OpenCloseBox({
 
 	// ======================= Trigger Functions ======================= //
 	useEffect(() => {
-		if(boxOpenStatus === 'box-open') onBoxOpen()
-		if(boxOpenStatus === 'box-opening') onBoxOpening()
-		if(boxOpenStatus === 'box-closed') onBoxClosed()
-		if(boxOpenStatus === 'box-closing') onBoxClosing()
-	}, [boxOpenStatus])
+		if(boxWidthStatus === 'box-open') onBoxOpen()
+		if(boxWidthStatus === 'box-opening') onBoxOpening()
+		if(boxWidthStatus === 'box-closed') onBoxClosed()
+		if(boxWidthStatus === 'box-closing') onBoxClosing()
+	}, [boxWidthStatus])
 
 	useEffect(() => {
 		if(resizeStatus === 'display-box-resizing') onRefreshStart()
@@ -140,8 +141,8 @@ export default function OpenCloseBox({
 
 	// ======================= Console logs ======================= // 
 	// useEffect(() => {
-	// 	console.log('boxOpenStatus', boxOpenStatus)
-	// }, [boxOpenStatus])
+	// 	console.log('boxIsOpen', boxIsOpen)
+	// }, [boxIsOpen])
 
 	// useEffect(() => {
 	// 	console.log('resizeStatus', resizeStatus)

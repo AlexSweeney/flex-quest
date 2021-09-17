@@ -17,10 +17,12 @@
 	background: #E8E4E4;
 }
 
+.box-opening,
 .box-open {
 	width: 100%;
 }
 
+.box-closing,
 .box-closed {
 	width: 36px;
 }
@@ -98,6 +100,8 @@
 .box-body-refresh {
 	overflow: overlay;
 }
+
+/* =================== Content Container */
 
 /* =================== Body Scrollbar */
 .box-body::-webkit-scrollbar { 
