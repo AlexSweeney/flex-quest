@@ -1,0 +1,20 @@
+.output-display {
+	min-width: 12px;
+  min-height: 12px;
+	width: 100%;
+	height: 100%; 
+	background: #272727;
+	position: relative;
+	border: 0.5em solid #E8E4E4;
+	z-index: 1000;
+}
+
+.output-display-open {
+	resize: both;
+	overflow: hidden;
+}
+
+.output-display-closed {
+	resize: none;
+	overflow: hidden;
+}

@@ -3,17 +3,35 @@ import LearnBox from './LearnBox/LearnBox.jsx';
 import RefreshButton from './RefreshButton/RefreshButton.jsx';
 import GridButton from './GridButton/GridButton.jsx';
 import GridOverlay from './GridButton/GridOverlay.jsx';
+import './OutputDisplay.css';
 
 export default function OutputDisplay({title, htmlString, cssString, i}) {
+	/*
+		Resizable box with border
+		Not resizable when learn box is changing size
+		Displays output of html and css string
+		Updates when html or css string changed
+	*/
+
 	// ================ State ========================= //
+	// ====== Grid //
 	const [gridStatus, setGridStatus] = useState('');
 	const [showGrid, setShowGrid] = useState(false); 
+
+	// ====== Source //
 	const [source, setSource] = useState(null);
+
+	// ====== Refresh //
 	const [displayBoxResizeStatus, setDisplayBoxResizeStatus] = useState('');
 	const [displayBoxRefreshClass, setDisplayBoxRefreshClass] = useState('');
 	const [numTransitionStarts, setNumTransitionStarts] = useState(0);
 	const [numTransitionEnds, setNumTransitionEnds] = useState(0);
+
+	// ====== Open Close //
 	const [learnBoxStatus, setLearnBoxStatus] = useState('learn-box-open');
+
+	// ================ Class========================= //
+	const [outputDisplayClass, setOutputDisplayClass] = useState('output-display-open');
 
 	// ================ Buttons ===================== //
 	const buttons = [
@@ -150,18 +168,26 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		}
 	}, [numTransitionStarts, numTransitionEnds, displayBoxResizeStatus])
 
+  // ============== Set Class ==================== // 
+  useEffect(() => {
+  	if(learnBoxStatus === 'learn-box-open') setOutputDisplayClass('output-display-open')
+  	else setOutputDisplayClass('')
+  }, [learnBoxStatus])
+
 	// ============== Output ============================== //
-	return (
-		<LearnBox 
+	return ( 
+		<div className={`output-display ${outputDisplayClass}`}>
+			<GridOverlay gridStatus={gridStatus} showGrid={showGrid}/>
+			<iframe srcdoc={source} className="iFrame"/> 
+		</div> 
+	)
+}
+{/*<LearnBox 
 			title={title} 
 			i={i}
 			buttons={buttons} 
 			learnBoxStatus={learnBoxStatus} 
 			setLearnBoxStatus={setLearnBoxStatus}
 			displayBoxResizeStatus={displayBoxResizeStatus}
-			displayBoxRefreshClass={displayBoxRefreshClass}>
-			<GridOverlay gridStatus={gridStatus} showGrid={showGrid}/>
-			<iframe srcdoc={source} className="iFrame"/> 
-		</LearnBox>
-	)
-}
+			displayBoxRefreshClass={displayBoxRefreshClass}>*/}
+			/*</LearnBox>*/
