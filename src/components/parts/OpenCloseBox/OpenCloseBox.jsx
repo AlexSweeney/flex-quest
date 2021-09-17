@@ -42,6 +42,7 @@ export default function OpenCloseBox({
 	const [contentContainerIsOpen, setContentContainerIsOpen] = useState(true);
 
 	const [boxStatus, setBoxStatus] = useState('box-open');
+	//const [contentContainerStatus, setContentContainerStatus] = useState('content-container-open');
 
 	const [toggleIsOpen, setToggleIsOpen] = useState(!boxIsOpen); 
 
@@ -49,50 +50,28 @@ export default function OpenCloseBox({
 	const [heightTransitionFinished, setHeightTransitionFinished] = useState(false);
 	const [isAnimating, setIsAnimating] = useState(false);
 
-	// ======================= Classes ======================= //
-	const [boxOpenClass, setBoxOpenClass] = useState('box-open');
+	// ======================= Status ======================= //
+	const [boxOpenStatus, setBoxOpenStatus] = useState('box-open');
 	const [boxBodyClass, setBoxBodyClass] = useState('');
-	const [contentContainerOpenClass, setContentContainerOpenClass] = useState('content-container-open');
+	const [contentContainerOpenStatus, setContentContainerOpenStatus] = useState('content-container-open');
 
 	// ======================= Event Handlers ======================= //
 	function clickOpenCloseToggle() {
 		setBoxIsOpen(oldVal => !oldVal)
+		setIsAnimating(true)
 	}
-
-	function onBoxClosing() {
-		/*setBoxOpenClass('box-closed') 
-		setIsAnimating(true)*/
-	}
-
-	function onBoxOpen() {
-		/*setToggleIsOpen(false)
+  
+	function onBoxOpen() { 
+		setToggleIsOpen(false)
 		setIsAnimating(false) 
-		setContentContainerClass('content-container-opening')*/
-		setContentContainerOpenClass('content-container-open')
+		setContentContainerIsOpen(true) 
 	}
 
 	function onBoxClosed() {
-		setContentContainerOpenClass('content-container-closed')
-		/*setToggleIsOpen(true)
+		setToggleIsOpen(true)
 		setIsAnimating(false)
-		setBoxOpenClass('box-closed')
-		setContentContainerClass('content-container-closing')*/
-	}
-
-	function onBoxOpening() { 
-		/*setBoxOpenClass('box-open') 
-		setIsAnimating(true)*/
-	}
-
-	
-
-	function onContentContainerOpen() {
-		// setContentContainerClass('content-container-open')
-	}
-
-	function onContentContainerClosed() {
-		// setContentContainerClass('content-container-closed')
-	}
+		setContentContainerIsOpen(false) 
+	}  
 
 	function onRefreshStart() {
 		// setBoxBodyClass('box-body-refresh')
@@ -136,47 +115,53 @@ export default function OpenCloseBox({
 	}, [])
 
 	// ======================= Set Class ======================= //
-	// =========== box open / closed
+	//  ================ box
+	// opening / closing
 	useEffect(() => {
-		if(boxIsOpen) setBoxOpenClass('box-open')
-		if(!boxIsOpen) setBoxOpenClass('box-closed')
-	}, [boxIsOpen])
+		if(boxIsOpen 
+			&& boxOpenStatus === 'box-closed') setBoxOpenStatus('box-opening')
+		if(!boxIsOpen 
+			&& boxOpenStatus === 'box-open') setBoxOpenStatus('box-closing')
+	}, [boxIsOpen, boxOpenStatus])
 
-	// =========== content container open / closed
-	useEffect(() => {
-		if(contentContainerIsOpen) setContentContainerOpenClass('content-container-open')
-		if(!contentContainerIsOpen) setContentContainerOpenClass('content-container-closed')
-	}, [contentContainerIsOpen])	
-
-	// ======================= Set Status ======================= //
-	// box
+	// open / close
 	useEffect(() => {
 		if(widthTransitionFinished) { 
-			if(boxIsOpen) setBoxStatus('box-open')
-			if(!boxIsOpen) setBoxStatus('box-closed')
+			if(boxIsOpen) setBoxOpenStatus('box-open')
+			if(!boxIsOpen) setBoxOpenStatus('box-closed')
 
 			setWidthTransitionFinished(false)
 		} 
 	}, [widthTransitionFinished])
 
-	// content container 
+	// ================ content container 
+	// opening closing
+	useEffect(() => {
+		if(contentContainerIsOpen
+			&& contentContainerOpenStatus === 'content-container-closed') {
+			setContentContainerOpenStatus('content-container-opening')
+		}
+		if(!contentContainerIsOpen
+			&& contentContainerOpenStatus === 'content-container-open') {
+			setContentContainerOpenStatus('content-container-closing')
+		}
+	}, [contentContainerIsOpen, contentContainerOpenStatus])
 
- 
-	// =========== listen for content container open and close
-	// useEffect(() => {
-	// 	if(heightTransitionFinished) {
-	// 		if(boxIsOpen) setContentContainerClass('content-container-open')
-	// 		if(!boxIsOpen) setContentContainerClass('content-container-closed')
+	// open close
+	useEffect(() => {
+		if(heightTransitionFinished) {
+			if(boxIsOpen) setContentContainerOpenStatus('content-container-open')
+			if(!boxIsOpen) setContentContainerOpenStatus('content-container-closed')
 
-	// 		setWidthTransitionFinished(false)
-	// 	} 
-	// }, [heightTransitionFinished, boxIsOpen]) 
+			setHeightTransitionFinished(false)
+		} 
+	}, [heightTransitionFinished, boxIsOpen]) 
 
 	// ======================= Trigger Functions ======================= //
 	useEffect(() => {
-		if(boxStatus === 'box-open') onBoxOpen()
-		if(boxStatus === 'box-closed') onBoxClosed()
-	}, [boxStatus])
+		if(boxOpenStatus === 'box-open') onBoxOpen()
+		if(boxOpenStatus === 'box-closed') onBoxClosed()
+	}, [boxOpenStatus])
 
 	useEffect(() => {
 		if(resizeStatus === 'display-box-resizing') onRefreshStart()
@@ -186,17 +171,23 @@ export default function OpenCloseBox({
 	// ======================= Console logs ======================= // 
 	// useEffect(() => {
 	// 	console.log('boxIsOpen', boxIsOpen)
-	// }, [boxIsOpen])
+	// }, [boxIsOpen]) 
 
+	// useEffect(() => {
+	// 	console.log('boxOpenStatus', boxOpenStatus)
+	// }, [boxOpenStatus])
+
+	useEffect(() => {
+		console.log('contentContainerOpenStatus', contentContainerOpenStatus)
+	}, [contentContainerOpenStatus])
+	 
 	// useEffect(() => {
 	// 	console.log('resizeStatus', resizeStatus)
 	// }, [resizeStatus])
 
 	// ======================= Component ======================= //
 	return (
-		<div>
-		boxStatus: {boxStatus}
-		<div className={`box box-open-close-transition ${boxOpenClass}`} id={boxId}>
+		<div className={`box ${boxOpenStatus}`} id={boxId}>
 			<div className="box-header">
 				<div className="box-buttons-container">
 					{buttons.map(button => button)}
@@ -214,14 +205,12 @@ export default function OpenCloseBox({
 			</div>
 
 			<div className={`box-body ${boxBodyClass}`} id="box-body"> 
-				<div className={`content-container ${contentContainerOpenClass}`} id="content-container">
+				<div className={`content-container ${contentContainerOpenStatus}`} id="content-container">
 					{
-						  
+						 children
 					}
 				</div>
 			</div>
-		</div>
-
 		</div>
 	)
 }

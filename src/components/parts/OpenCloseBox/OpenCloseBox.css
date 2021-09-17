@@ -1,9 +1,5 @@
 /* =================== Transitions =================== */
-.box-open-close-transition {
-	transition: 2s width ease-in-out; 
-}
-
-/*.scroll-bar-transition {
+ /*.scroll-bar-transition {
 	transition: 2s width ease-in-out;	
 }*/
 
@@ -15,12 +11,15 @@
 	margin-right: 30px; 
 	overflow: hidden;
 	background: #E8E4E4;
+	transition: 2s width ease-in-out; 
 }
 
+.box-opening,
 .box-open {
 	width: 100%;
 }
 
+.box-closing,
 .box-closed {
 	width: 36px;
 }
@@ -105,11 +104,23 @@
 	transition: height 2s;
 }
 
-.content-container-closed {
-	height: 0;
+.content-container-closing,
+.content-container-closed,
+.content-container-opening {
 	overflow: hidden;
+	max-width: 100%;
 }
 
+.content-container-open {
+	overflow: visible;
+}
+
+.content-container-closing,
+.content-container-closed {
+	height: 0;
+}
+
+.content-container-opening,
 .content-container-open {
 	height: 100%;
 }
