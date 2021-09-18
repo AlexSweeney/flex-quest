@@ -13,8 +13,8 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 			* when unchanged
 			* when sized smaller - max width and height 100%
 			when sized bigger 
-				on close - shrinks down to 100% height and width
-				on open - grows back to size
+			*	on close - shrinks down to 100% height and width
+				on open - grows back to size - glitch, overflow is on open not opening
 
 		display box not resizable when box is opening / closing
 		
@@ -107,6 +107,20 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	}
 
 	// ================ Helper Fns ===================== //
+	function elementWidthIsOverflowing(id) {
+		const element = document.getElementById(id);
+		if(!element) return;
+
+	  return element.scrollWidth > element.clientWidth;
+	}
+
+	function elementHeightIsOverflowing(id) {
+		const element = document.getElementById(id);
+		if(!element) return;
+
+	  return element.scrollHeight > element.clientHeight;
+	}
+
 	function handleTransitionStartWidth(e) {
 		if(e.propertyName === 'width' 
 			&& e.srcElement.id === 'output-display'
@@ -171,11 +185,21 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		element.style.height = ''; 
 	}
 
+	 // ============== Update Status on Resize end ==================== // 
+	useEffect(() => {
+		if(outputDisplayResizeStatus === 'output-display-resizing' 
+			&& numTransitionStarts > 0
+			&& numTransitionStarts === numTransitionEnds) {
+			setOutputDisplayResizeStatus('output-display-resized')
+		}
+	}, [numTransitionStarts, numTransitionEnds, outputDisplayResizeStatus])
+
 	// ============== Trigger Event Handlers ==================== // 
 	// ======== Refresh //
 	useEffect(() => {
 		if(outputDisplayResizeStatus === 'output-display-resizing') onRefreshStart()
-		return () => { onRefreshEnd() } 
+		if(outputDisplayResizeStatus === 'output-display-resized') onRefreshEnd()
+		// return () => { onRefreshEnd() } 
 	}, [outputDisplayResizeStatus])
 
 	// ======== Code Input //
@@ -183,21 +207,25 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
   	onCodeChange(htmlString, cssString)
   }, [htmlString, cssString]) 
 
-  // ============== Set Status ==================== // 
-	useEffect(() => {
-		if(outputDisplayResizeStatus === 'output-display-resizing' 
-			&& numTransitionStarts > 0
-			&& numTransitionStarts === numTransitionEnds) {
-			setOutputDisplayResizeStatus('output-display-resize-finished')
-		}
-	}, [numTransitionStarts, numTransitionEnds, outputDisplayResizeStatus])
-
   // ============== Set Class ==================== // 
   useEffect(() => {
   	if(boxStatus === 'box-open') setOutputDisplayClass('output-display-open')
   	if(boxStatus === 'box-opening') setOutputDisplayClass('output-display-opening')
   	if(boxStatus === 'box-closed') setOutputDisplayClass('output-display-closed')
-  	if(boxStatus === 'box-closing') setOutputDisplayClass('output-display-closing')
+  	if(boxStatus === 'box-closing') {
+  		const widthIsOverflowing = elementWidthIsOverflowing('box-body');
+  		const heightIsOverflowing = elementHeightIsOverflowing('box-body');
+
+  		let baseClass = 'output-display-closing';
+  		let widthClass = 'output-display-closing-width';	
+  		let heightClass = 'output-display-closing-height';
+
+  		widthClass += widthIsOverflowing ? '-overflow' : '';
+  		heightClass += heightIsOverflowing ? '-overflow' : ''; 
+
+  		const newClass = baseClass + ' ' + widthClass + ' ' + heightClass; 
+  		setOutputDisplayClass(newClass) 
+  	}
   }, [boxStatus])
 
 	// ============== Output ============================== //

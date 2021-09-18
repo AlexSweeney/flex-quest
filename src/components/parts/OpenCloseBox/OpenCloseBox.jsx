@@ -169,7 +169,7 @@ export default function OpenCloseBox({
 
 	useEffect(() => {
 		if(resizeStatus === 'display-box-resizing') onRefreshStart()
-		if(resizeStatus === 'display-box-resize-finished') onRefreshEnd() 
+		if(resizeStatus === 'display-box-resized') onRefreshEnd() 
 	}, [resizeStatus])
 
 	// ======================= Console logs ======================= // 
