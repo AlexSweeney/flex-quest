@@ -113,8 +113,8 @@ export default function OpenCloseBox({
 		if(!contentContainerIsOpen) removeTransitionEndListener('content-container', heightTransitionEndFunction)
 	}, [contentContainerIsOpen]) 
 
-	// ======================= Set Class ======================= //
-	//  ================ box
+	// ======================= Set Status ======================= //
+	//  ================ box (for this)
 	// opening / closing
 	useEffect(() => {
 		if(boxIsOpen 
@@ -132,6 +132,11 @@ export default function OpenCloseBox({
 			setWidthTransitionFinished(false)
 		} 
 	}, [widthTransitionFinished])
+
+	//  ================ box (for parent)
+	useEffect(() => {
+		setBoxStatus(boxOpenStatus)
+	}, [boxOpenStatus])
 
 	// ================ content container 
 	// opening closing
@@ -206,7 +211,7 @@ export default function OpenCloseBox({
 			<div className={`box-body ${boxBodyClass}`} id="box-body"> 
 				<div className={`content-container ${contentContainerOpenStatus}`} id="content-container">
 					{
-						 
+						children
 					}
 				</div>
 			</div>

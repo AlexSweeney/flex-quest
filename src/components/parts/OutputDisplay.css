@@ -16,7 +16,10 @@
 	overflow: hidden;
 }
 
+.output-display-closing,
 .output-display-closed {
+	max-width: 100%;
+	max-height: 100%;
 	resize: none;
 	overflow: hidden;
 }

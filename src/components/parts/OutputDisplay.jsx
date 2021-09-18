@@ -7,13 +7,28 @@ import './OutputDisplay.css';
 
 export default function OutputDisplay({title, htmlString, cssString, i}) {
 	/*
-		Resizable box with border
-		Not resizable when learn box is changing size
+		* Resizable display box with border
+		
+		display box closes / opens when box opens and closes
+			* when unchanged
+			* when sized smaller - max width and height 100%
+			when sized bigger 
+				on close - shrinks down to 100% height and width
+				on open - grows back to size
+
+		display box not resizable when box is opening / closing
+		
 		Displays output of html and css string
+	
 		Updates when html or css string changed
 		
 		handle grid button press
+		
 		handle refresh button press
+
+		when close box 
+			max size and width = 100%
+			shrink down to 100% width and height if overflowing 
 	*/
 
 
@@ -180,7 +195,9 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
   // ============== Set Class ==================== // 
   useEffect(() => {
   	if(boxStatus === 'box-open') setOutputDisplayClass('output-display-open')
-  	else setOutputDisplayClass('output-display-closed')
+  	if(boxStatus === 'box-opening') setOutputDisplayClass('output-display-opening')
+  	if(boxStatus === 'box-closed') setOutputDisplayClass('output-display-closed')
+  	if(boxStatus === 'box-closing') setOutputDisplayClass('output-display-closing')
   }, [boxStatus])
 
 	// ============== Output ============================== //
@@ -189,7 +206,6 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 			title={title} 
 			i={i}
 			buttons={buttons} 
-			boxStatus={boxStatus} 
 			setBoxStatus={setBoxStatus}> 
 			<div className={`output-display ${outputDisplayClass} ${outputDisplayResizeClass}`} id="output-display">
 				<iframe srcDoc={source} className="iFrame"/> 
