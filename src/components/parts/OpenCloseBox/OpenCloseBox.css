@@ -11,7 +11,7 @@
 	margin-right: 30px; 
 	overflow: hidden;
 	background: #E8E4E4;
-	transition: 2s width ease-in-out; 
+	transition: 5s width ease-in-out; 
 }
 
 .box-opening,
@@ -89,7 +89,7 @@
 .box-body {
 	width: 100%;
 	height: 100%;
-	/*background: #E8E4E4; */ 
+	background: #E8E4E4;  
 	overflow: auto;
 } 
 
@@ -107,8 +107,7 @@
 .content-container-closing,
 .content-container-closed,
 .content-container-opening {
-	overflow: hidden;
-	max-width: 100%;
+	overflow: hidden; 
 }
 
 .content-container-open {
