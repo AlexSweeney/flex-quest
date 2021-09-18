@@ -11,7 +11,7 @@
 	margin-right: 30px; 
 	overflow: hidden;
 	background: #E8E4E4;
-	transition: 5s width ease-in-out; 
+	transition: 2s width ease-in-out; 
 }
 
 .box-opening,
@@ -101,7 +101,7 @@
 .content-container {
 	width: 100%; 
 	background: pink;
-	transition: height 2s;
+	transition: height 4s;
 }
 
 .content-container-closing,

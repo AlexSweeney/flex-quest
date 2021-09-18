@@ -9,25 +9,23 @@
 	border: 0.5em solid #E8E4E4;
 	z-index: 1000;
 	box-sizing: border-box; 
+	overflow: hidden;
 }
 
 .output-display-open {
-	resize: both;
-	overflow: hidden;
+	resize: both; 
 }
 
 .output-display-closing {
 	transition: width 2s, height 2s;
-	resize: none;
-	overflow: hidden;
+	resize: none; 
 	background: red;
 }
 
 .output-display-closed {    
 	max-width: 100%;
 	max-height: 100%;
-	resize: none;
-	overflow: hidden;
+	resize: none; 
 }
 
 .output-display-closing-width {

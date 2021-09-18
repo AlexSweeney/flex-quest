@@ -21,6 +21,10 @@ export default function OpenCloseBox({
 
 		use overflow: overlay when child is shrinking  
 	*/
+
+	/*
+	
+	*/
 	
 	// ======================= Id's ======================= //
 	const boxId = 'box';
@@ -118,9 +122,13 @@ export default function OpenCloseBox({
 	// opening / closing
 	useEffect(() => {
 		if(boxIsOpen 
-			&& boxOpenStatus === 'box-closed') setBoxOpenStatus('box-opening')
+			&& (boxOpenStatus === 'box-closed' || boxOpenStatus === 'box-closing')) {
+			setBoxOpenStatus('box-opening')
+		} 
 		if(!boxIsOpen 
-			&& boxOpenStatus === 'box-open') setBoxOpenStatus('box-closing')
+			&& (boxOpenStatus === 'box-open' || boxOpenStatus === 'box-opening')) {
+			setBoxOpenStatus('box-closing')
+		} 
 	}, [boxIsOpen, boxOpenStatus])
 
 	// open / close
@@ -181,9 +189,9 @@ export default function OpenCloseBox({
 	// 	console.log('boxOpenStatus', boxOpenStatus)
 	// }, [boxOpenStatus])
 
-	// useEffect(() => {
-	// 	console.log('contentContainerOpenStatus', contentContainerOpenStatus)
-	// }, [contentContainerOpenStatus])
+	useEffect(() => {
+		console.log('contentContainerOpenStatus', contentContainerOpenStatus)
+	}, [contentContainerOpenStatus])
 	 
 	// useEffect(() => {
 	// 	console.log('resizeStatus', resizeStatus)

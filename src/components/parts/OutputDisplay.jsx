@@ -14,7 +14,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 			* when sized smaller - max width and height 100%
 			when sized bigger 
 			*	on close - shrinks down to 100% height and width
-				on open - grows back to size - glitch, overflow is on open not opening
+				on open - grows back to size - glitch = click before content container closed, overflow is on open not opening
 
 		display box not resizable when box is opening / closing
 		
