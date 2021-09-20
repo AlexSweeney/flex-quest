@@ -9,18 +9,12 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	/*
 		* Resizable display box with border
 		
-		display box closes / opens when box opens and closes
-			* when unchanged
-			* when sized smaller - max width and height 100%
-			when sized bigger 
-				*	on close - shrinks down to 100% height and width
-				*	on open - grows back to size 
-				* overflow is on open not opening
-		
-		check when open before finished closing
-			unchanged x
-			smaller 
-			bigger 
+		* display box closes / opens when box opens and closes
+
+		fix - shows x scroll on open when unchanged size
+			unchanged
+			smaller
+			larger
 
 		display box not resizable when box is opening / closing
 		
@@ -58,7 +52,8 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	const [numTransitionEnds, setNumTransitionEnds] = useState(0);
 
 	// ====== Open Close //
-	const [openCloseBoxStatus, setOpenCloseBoxStatus] = useState('learn-box-open');
+	// const [openCloseBoxStatus, setOpenCloseBoxStatus] = useState('learn-box-open');
+	const [overflowStatus, setOverflowStatus] = useState(null);
 
 	// ================ Class========================= //
 	const [outputDisplayClass, setOutputDisplayClass] = useState('output-display-open');
@@ -81,7 +76,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	} 
 
 	function onRefreshClick() {
-		if(openCloseBoxStatus === 'learn-box-open' && userHasChangedSize('output-display')) {
+		if(boxStatus === 'box-open' && userHasChangedSize('output-display')) {
 		 setOutputDisplayResizeStatus('output-display-resizing')
 		}
 	}
@@ -201,12 +196,25 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		}
 	}, [numTransitionStarts, numTransitionEnds, outputDisplayResizeStatus])
 
+	// ============== Update resize status when closing from open ==================== // 
+	// useEffect(() => {
+	// 	if(boxStatus === 'box-closing') {
+	// 		const widthIsOverflowing = elementWidthIsOverflowing('box-body');
+ //  		const heightIsOverflowing = elementHeightIsOverflowing('box-body');
+
+ //  		setOverflowStatus({'width': widthIsOverflowing, 'height': heightIsOverflowing})
+	// 	}
+
+	// 	if(boxStatus === 'box-open') {
+	// 		setOverflowStatus(null)
+	// 	}
+	// }, [])
+
 	// ============== Trigger Event Handlers ==================== // 
 	// ======== Refresh //
 	useEffect(() => {
 		if(outputDisplayResizeStatus === 'output-display-resizing') onRefreshStart()
-		if(outputDisplayResizeStatus === 'output-display-resized') onRefreshEnd()
-		// return () => { onRefreshEnd() } 
+		if(outputDisplayResizeStatus === 'output-display-resized') onRefreshEnd() 
 	}, [outputDisplayResizeStatus])
 
 	// ======== Code Input //
@@ -217,34 +225,49 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
   // ============== Set Class ==================== // 
   useEffect(() => {
   	if(boxStatus === 'box-open') {
-  		if(contentContainerStatus === 'content-container-opening') {
+  		if(contentContainerStatus === 'content-container-opening') { 
   			setOutputDisplayClass('output-display-opening-y')
   		} else if(contentContainerStatus === 'content-container-open') {
-  			setOutputDisplayClass('output-display-open-y')
+  			setOutputDisplayClass('output-display-open-y') 
+  			setOverflowStatus(null)
   		} 
   	} 
-  	if(boxStatus === 'box-opening') setOutputDisplayClass('output-display-opening-x')
-  	if(boxStatus === 'box-closed') setOutputDisplayClass('output-display-closed-x')
-  	if(boxStatus === 'box-closing') {
-  		const widthIsOverflowing = elementWidthIsOverflowing('box-body');
-  		const heightIsOverflowing = elementHeightIsOverflowing('box-body');
+  	if(boxStatus === 'box-opening') {
+  		let newClass = 'output-display-opening-x';
+  		const widthIsOverflowing = overflowStatus.width;
+  		newClass += widthIsOverflowing ? '-width-overflow' : '';
 
-  		let baseClass = 'output-display-closing-x';
-  		let widthClass = 'output-display-closing-x-width';	
-  		let heightClass = 'output-display-closing-x-height';
-
-  		widthClass += widthIsOverflowing ? '-overflow' : '';
-  		heightClass += heightIsOverflowing ? '-overflow' : ''; 
-
-  		const newClass = baseClass + ' ' + widthClass + ' ' + heightClass; 
-  		setOutputDisplayClass(newClass) 
+  		setOutputDisplayClass(newClass)
   	}
-  }, [boxStatus, contentContainerStatus])
+  	if(boxStatus === 'box-closed') setOutputDisplayClass('output-display-closed-x')
+  	if(boxStatus === 'box-closing') { 
+  		if(!overflowStatus) {
+  			const widthIsOverflowing = elementWidthIsOverflowing('box-body');
+  			const heightIsOverflowing = elementHeightIsOverflowing('box-body');
+
+	  		let baseClass = 'output-display-closing-x';
+	  		let widthClass = 'output-display-closing-x-width';	
+	  		let heightClass = 'output-display-closing-x-height';
+
+	  		widthClass += widthIsOverflowing ? '-overflow' : '';
+	  		heightClass += heightIsOverflowing ? '-overflow' : ''; 
+
+	  		const newClass = baseClass + ' ' + widthClass + ' ' + heightClass; 
+	  		setOutputDisplayClass(newClass) 
+	  		setOverflowStatus({width: widthIsOverflowing, height: heightIsOverflowing})
+  		}
+  		
+  	}
+  }, [boxStatus, contentContainerStatus, overflowStatus])
 
   // ============== Console logs ==================== // 
   useEffect(() => {
   	console.log('outputDisplayClass', outputDisplayClass)
   }, [outputDisplayClass])
+
+  // useEffect(() => {
+  // 	console.log('overflowStatus', overflowStatus)
+  // }, [overflowStatus])
 
 	// ============== Output ============================== //
 	return ( 

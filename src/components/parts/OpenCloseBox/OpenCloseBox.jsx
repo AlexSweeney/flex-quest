@@ -227,8 +227,8 @@ export default function OpenCloseBox({
 
 			<div className={`box-body ${boxBodyClass}`} id="box-body"> 
 				<div className={`content-container ${contentContainerOpenStatus}`} id="content-container">
-					{
-					  children
+					{ 
+						children
 					}
 				</div>
 			</div>
