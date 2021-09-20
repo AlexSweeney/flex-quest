@@ -11,24 +11,17 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		
 		* display box closes / opens when box opens and closes
 
-		fix - shows x scroll on open when unchanged size
-			unchanged
-			smaller
-			larger
-
-		display box not resizable when box is opening / closing
+		* display box not resizable when box is opening / closing
 		
-		Displays output of html and css string
+		* Displays output of html and css string
 	
-		Updates when html or css string changed
+		* Updates when html or css string changed
 		
 		handle grid button press
 		
-		handle refresh button press
+		* handle refresh button press 
 
-		when close box 
-			max size and width = 100%
-			shrink down to 100% width and height if overflowing 
+		fix - bigger resize = use overlay
 	*/
 
 
@@ -76,8 +69,8 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	} 
 
 	function onRefreshClick() {
-		if(boxStatus === 'box-open' && userHasChangedSize('output-display')) {
-		 setOutputDisplayResizeStatus('output-display-resizing')
+		if(boxStatus === 'box-open' && userHasChangedSize('output-display')) { 
+			setOutputDisplayResizeStatus('output-display-resizing')
 		}
 	}
 
@@ -261,9 +254,9 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
   }, [boxStatus, contentContainerStatus, overflowStatus])
 
   // ============== Console logs ==================== // 
-  useEffect(() => {
-  	console.log('outputDisplayClass', outputDisplayClass)
-  }, [outputDisplayClass])
+  // useEffect(() => {
+  // 	console.log('outputDisplayClass', outputDisplayClass)
+  // }, [outputDisplayClass])
 
   // useEffect(() => {
   // 	console.log('overflowStatus', overflowStatus)

@@ -30,8 +30,7 @@
 
 .output-display-closing-x {
 	transition: width 2s, height 2s;
-	resize: none; 
-	background: red;
+	resize: none;  
 }
 
 .output-display-closing-x-width {
@@ -59,11 +58,11 @@
 }
 
 .output-display-refresh { 
-/*	width: 100%; 
+	width: 100%; 
 	height: 100%;
 	resize: none;
 	overflow: none;
-	transition: height 2s, width 2s;*/
+	transition: height 2s, width 2s;
 }
 
 .iFrame {

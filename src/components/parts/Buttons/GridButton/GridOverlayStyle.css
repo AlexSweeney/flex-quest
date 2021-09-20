@@ -7,14 +7,14 @@
 
 .grid-line-horiz {
 	border-bottom: 2px solid;
-	border-color: #272727;
+	border-color: transparent;
 	height: 10%;
 	width: 100%;
 }
 
 .grid-line-vert {
 	border-right: 2px solid;
-	border-color: #272727;
+	border-color: transparent;
 	height: 100%;
 	width: 10%;
 	position: absolute;
@@ -35,7 +35,7 @@
 
 .grid-line-horiz.grid-line-out,
 .grid-line-vert.grid-line-out  { 
-	border-color: #272727; 
+	border-color: transparent; 
 	transition: border-color 400ms ease-in-out;	
 } 
 

@@ -87,9 +87,7 @@
 
 /* =================== Content Container */
 .content-container {
-	width: 100%;  
-	background: pink;
-	border: 1px solid blue; /* makes content container take up space when closed */
+	width: 100%;   
 	transition: height 2s;
 	box-sizing: border-box;
 	overflow: visible; 
