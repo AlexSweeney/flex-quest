@@ -7,6 +7,7 @@ export default function OpenCloseBox({
 	buttons = [], 
 	boxStatus,
 	setBoxStatus,
+	setContentContainerStatus,
 	resizeStatus = '',
 	children
 }) {  
@@ -167,6 +168,11 @@ export default function OpenCloseBox({
 			setHeightTransitionFinished(false)
 		} 
 	}, [heightTransitionFinished, boxIsOpen]) 
+
+	// ================ content container (for parent)
+	useEffect(() => {
+		setContentContainerStatus(contentContainerOpenStatus)
+	}, [contentContainerOpenStatus])
 
 	// ======================= Trigger Functions ======================= //
 	useEffect(() => {

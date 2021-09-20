@@ -41,6 +41,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	// ================ State ========================= //
 	// ====== Box Status //
 	const [boxStatus, setBoxStatus] = useState('box-open');
+	const [contentContainerStatus, setContentContainerStatus] = useState('content-container-open');
 
 	// ====== Grid //
 	const [gridStatus, setGridStatus] = useState('');
@@ -215,16 +216,22 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 
   // ============== Set Class ==================== // 
   useEffect(() => {
-  	if(boxStatus === 'box-open') setOutputDisplayClass('output-display-open')
-  	if(boxStatus === 'box-opening') setOutputDisplayClass('output-display-opening')
-  	if(boxStatus === 'box-closed') setOutputDisplayClass('output-display-closed')
+  	if(boxStatus === 'box-open') {
+  		if(contentContainerStatus === 'content-container-opening') {
+  			setOutputDisplayClass('output-display-opening-y')
+  		} else if(contentContainerStatus === 'content-container-open') {
+  			setOutputDisplayClass('output-display-open-y')
+  		} 
+  	} 
+  	if(boxStatus === 'box-opening') setOutputDisplayClass('output-display-opening-x')
+  	if(boxStatus === 'box-closed') setOutputDisplayClass('output-display-closed-x')
   	if(boxStatus === 'box-closing') {
   		const widthIsOverflowing = elementWidthIsOverflowing('box-body');
   		const heightIsOverflowing = elementHeightIsOverflowing('box-body');
 
-  		let baseClass = 'output-display-closing';
-  		let widthClass = 'output-display-closing-width';	
-  		let heightClass = 'output-display-closing-height';
+  		let baseClass = 'output-display-closing-x';
+  		let widthClass = 'output-display-closing-x-width';	
+  		let heightClass = 'output-display-closing-x-height';
 
   		widthClass += widthIsOverflowing ? '-overflow' : '';
   		heightClass += heightIsOverflowing ? '-overflow' : ''; 
@@ -232,7 +239,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
   		const newClass = baseClass + ' ' + widthClass + ' ' + heightClass; 
   		setOutputDisplayClass(newClass) 
   	}
-  }, [boxStatus])
+  }, [boxStatus, contentContainerStatus])
 
   // ============== Console logs ==================== // 
   useEffect(() => {
@@ -245,6 +252,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 			title={title} 
 			i={i}
 			buttons={buttons} 
+			setContentContainerStatus={setContentContainerStatus}
 			setBoxStatus={setBoxStatus}> 
 			<div className={`output-display ${outputDisplayClass} ${outputDisplayResizeClass}`} id="output-display">
 				<iframe srcDoc={source} className="iFrame"/> 

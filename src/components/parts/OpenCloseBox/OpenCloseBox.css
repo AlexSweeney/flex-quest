@@ -90,7 +90,7 @@
 	width: 100%;  
 	background: pink;
 	border: 1px solid blue; /* makes content container take up space when closed */
-	transition: height 4s;
+	transition: height 2s;
 	box-sizing: border-box;
 	overflow: visible; 
 } 
