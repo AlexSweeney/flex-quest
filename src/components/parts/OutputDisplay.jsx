@@ -13,8 +13,10 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 			* when unchanged
 			* when sized smaller - max width and height 100%
 			when sized bigger 
-			*	on close - shrinks down to 100% height and width
-				on open - grows back to size - overflow is on open not opening
+				*	on close - shrinks down to 100% height and width
+				*	on open - grows back to size 
+				
+				- overflow is on open not opening
 		
 		check when open before finished closing
 			unchanged x
@@ -214,7 +216,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 
   // ============== Set Class ==================== // 
   useEffect(() => {
-  	if(boxStatus === 'box-open') setOutputDisplayClass('output-display-open')
+  	if(boxStatus === 'box-open') setOutputDisplayClass('output-display-opening')
   	if(boxStatus === 'box-opening') setOutputDisplayClass('output-display-opening')
   	if(boxStatus === 'box-closed') setOutputDisplayClass('output-display-closed')
   	if(boxStatus === 'box-closing') {

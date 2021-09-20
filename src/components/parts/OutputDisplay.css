@@ -2,7 +2,7 @@
 	min-width: 12px;
   min-height: 12px;
 
-	width: 100%;
+	width: 5000px;
 	height: 100%; 
 	background: #272727;
 	position: relative;
@@ -24,7 +24,7 @@
 
 .output-display-closed {    
 	max-width: 100%;
-	max-height: 100%;
+	max-height: 0;
 	resize: none; 
 }
 

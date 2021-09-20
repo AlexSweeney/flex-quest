@@ -152,7 +152,8 @@ export default function OpenCloseBox({
 		}
 		if(!contentContainerIsOpen
 			&& (contentContainerOpenStatus === 'content-container-open'
-				|| contentContainerOpenStatus === 'content-container-opening')) {
+				|| contentContainerOpenStatus === 'content-container-opening'
+			)) {
 			setContentContainerOpenStatus('content-container-closing')
 		}
 	}, [contentContainerIsOpen, contentContainerOpenStatus])
@@ -188,6 +189,10 @@ export default function OpenCloseBox({
 	// }, [boxOpenStatus])
 
 	useEffect(() => {
+		console.log('contentContainerIsOpen', contentContainerIsOpen)
+	}, [contentContainerIsOpen])
+
+	useEffect(() => {
 		console.log('contentContainerOpenStatus', contentContainerOpenStatus)
 	}, [contentContainerOpenStatus])
 	 
@@ -217,7 +222,7 @@ export default function OpenCloseBox({
 			<div className={`box-body ${boxBodyClass}`} id="box-body"> 
 				<div className={`content-container ${contentContainerOpenStatus}`} id="content-container">
 					{
-						children
+					  children
 					}
 				</div>
 			</div>
