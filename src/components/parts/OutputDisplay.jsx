@@ -21,7 +21,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		
 		* handle refresh button press 
 
-		fix - grid size wrong
+		fix - bigger then refresh
 	*/
 
 
@@ -269,7 +269,8 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 			i={i}
 			buttons={buttons} 
 			setContentContainerStatus={setContentContainerStatus}
-			setBoxStatus={setBoxStatus}> 
+			setBoxStatus={setBoxStatus}
+			resizeStatus={outputDisplayResizeStatus}> 
 			<div className={`output-display ${outputDisplayClass} ${outputDisplayResizeClass}`} id="output-display">
 				<iframe srcDoc={source} className="iFrame"/> 
 				<GridOverlay gridStatus={gridStatus} showGrid={showGrid}/>

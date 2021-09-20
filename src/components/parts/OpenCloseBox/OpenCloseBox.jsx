@@ -67,11 +67,11 @@ export default function OpenCloseBox({
 		setContentContainerIsOpen(false) 
 	}  
 
-	function onRefreshStart() {
+	function onRefreshStart() { 
 		setBoxBodyClass('box-body-refresh')
 	}
 
-	function onRefreshEnd() {
+	function onRefreshEnd() { 
 		setBoxBodyClass('')
 	}
 
@@ -180,9 +180,9 @@ export default function OpenCloseBox({
 		if(boxOpenStatus === 'box-closed') onBoxClosed()
 	}, [boxOpenStatus])
 
-	useEffect(() => {
-		if(resizeStatus === 'display-box-resizing') onRefreshStart()
-		if(resizeStatus === 'display-box-resized') onRefreshEnd() 
+	useEffect(() => { 
+		if(resizeStatus === 'output-display-resizing') onRefreshStart()
+		if(resizeStatus === 'output-display-resized') onRefreshEnd() 
 	}, [resizeStatus])
 
 	// ======================= Console logs ======================= // 
