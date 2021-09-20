@@ -92,18 +92,8 @@
 	border: 1px solid blue; /* makes content container take up space when closed */
 	transition: height 4s;
 	box-sizing: border-box;
-}
-
-.content-container-closing,
-.content-container-closed {
 	overflow: visible; 
-}
-
-.content-container-parent-opening,
-.content-container-opening,
-.content-container-open {
-	overflow: visible;
-}
+} 
 
 .content-container-closing,
 .content-container-closed {

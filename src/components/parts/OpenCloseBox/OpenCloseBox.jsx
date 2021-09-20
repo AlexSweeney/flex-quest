@@ -188,13 +188,13 @@ export default function OpenCloseBox({
 	// 	console.log('boxOpenStatus', boxOpenStatus)
 	// }, [boxOpenStatus])
 
-	useEffect(() => {
-		console.log('contentContainerIsOpen', contentContainerIsOpen)
-	}, [contentContainerIsOpen])
+	// useEffect(() => {
+	// 	console.log('contentContainerIsOpen', contentContainerIsOpen)
+	// }, [contentContainerIsOpen])
 
-	useEffect(() => {
-		console.log('contentContainerOpenStatus', contentContainerOpenStatus)
-	}, [contentContainerOpenStatus])
+	// useEffect(() => {
+	// 	console.log('contentContainerOpenStatus', contentContainerOpenStatus)
+	// }, [contentContainerOpenStatus])
 	 
 	// useEffect(() => {
 	// 	console.log('resizeStatus', resizeStatus)
