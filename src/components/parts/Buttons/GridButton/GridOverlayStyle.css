@@ -10,6 +10,7 @@
 	border-color: transparent;
 	height: 10%;
 	width: 100%;
+	box-sizing: border-box;
 }
 
 .grid-line-vert {
@@ -19,6 +20,7 @@
 	width: 10%;
 	position: absolute;
   top: 0;
+  box-sizing: border-box;
 }
 
 .grid-line-horiz.grid-line-over,

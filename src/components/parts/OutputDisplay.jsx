@@ -17,11 +17,11 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	
 		* Updates when html or css string changed
 		
-		handle grid button press
+		* handle grid button press
 		
 		* handle refresh button press 
 
-		fix - bigger resize = use overlay
+		fix - grid size wrong
 	*/
 
 
