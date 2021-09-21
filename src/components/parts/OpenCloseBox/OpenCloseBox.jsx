@@ -4,6 +4,7 @@ import './OpenCloseBox.css';
 
 export default function OpenCloseBox({
 	title = '',
+	i,
 	buttons = [], 
 	boxStatus = '',
 	setBoxStatus = () => {},
@@ -24,8 +25,8 @@ export default function OpenCloseBox({
 	*/ 
 	
 	// ======================= Id's ======================= //
-	const boxId = 'box';
-	const id = 'box';
+	const boxId = `box-${i}`;
+	const contentContainerId = `content-container-${i}`;
 
 	// ======================= State ======================= // 
 	const [boxIsOpen, setBoxIsOpen] = useState(true);
@@ -110,8 +111,8 @@ export default function OpenCloseBox({
 	}, [boxIsOpen])
 
 	useEffect(() => {
-		if(contentContainerIsOpen) addTransitionEndListener('content-container', heightTransitionEndFunction)
-		if(!contentContainerIsOpen) removeTransitionEndListener('content-container', heightTransitionEndFunction)
+		if(contentContainerIsOpen) addTransitionEndListener(contentContainerId, heightTransitionEndFunction)
+		if(!contentContainerIsOpen) removeTransitionEndListener(contentContainerId, heightTransitionEndFunction)
 	}, [contentContainerIsOpen]) 
 
 	// ======================= Set Status ======================= //
@@ -225,8 +226,8 @@ export default function OpenCloseBox({
 				</div>
 			</div>
 
-			<div className={`box-body ${boxBodyClass}`} id="box-body"> 
-				<div className={`content-container ${contentContainerOpenStatus}`} id="content-container">
+			<div className={`box-body ${boxBodyClass}`} id={`box-body-${i}`}> 
+				<div className={`content-container ${contentContainerOpenStatus}`} id={`content-container-${i}`}>
 					{ 
 						children
 					}

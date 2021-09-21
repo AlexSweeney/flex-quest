@@ -269,7 +269,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 			setContentContainerStatus={setContentContainerStatus}
 			setBoxStatus={setBoxStatus}
 			resizeStatus={outputDisplayResizeStatus}> 
-			<div className={`output-display ${outputDisplayClass} ${outputDisplayResizeClass}`} id="output-display">
+			<div className={`output-display ${outputDisplayClass} ${outputDisplayResizeClass}`} id={`output-display-${i}`}>
 				<iframe srcDoc={source} className="iFrame"/> 
 				<GridOverlay gridStatus={gridStatus} showGrid={showGrid}/>
 			</div>  
