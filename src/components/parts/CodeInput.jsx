@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react'; 
 import OpenCloseBox from './OpenCloseBox/OpenCloseBox.jsx';
+import './CodeInput.css';
 
-export default function CodeInput({title, code, setCode}) {
+export default function CodeInput({title, code}) {
 	/*
 		* show title
 
@@ -16,7 +17,8 @@ export default function CodeInput({title, code, setCode}) {
 
 	return (
 		<OpenCloseBox title={title}>
-
+			<textarea className="code-display" value={code}> 
+			</textarea>
 		</OpenCloseBox>
 	)
 }

@@ -241,7 +241,7 @@ export default function Learn() {
 			<CodeBox title="style.css" value={cssString} handleChange={handleCssChange} handleRefresh={handleCssRefresh} fade={fadeStyle}/> */}
 
 			{/*<DisplayBox title="display" htmlString={displayHtml} cssString={displayCss}/> */}
-			<CodeInput title="style.css"></CodeInput>
+			<CodeInput title="style.css" code={cssString}></CodeInput>
 			<OutputDisplay title="display" htmlString={displayHtml} cssString={displayCss} i="4" />
 		</section>
 	)
