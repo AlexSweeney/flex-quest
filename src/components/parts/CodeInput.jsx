@@ -13,7 +13,11 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 	
 		* reset to original code on refresh press
 
-		open and close on toggle press - use overflow = show scroll bar on opening
+		* open and close on toggle press 
+
+		custom scrollbar
+
+		tidy code
 	*/
 	const codeDisplayId = `code-display-${i}`;
 	const [boxStatus, setBoxStatus] = useState('');
@@ -54,13 +58,17 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 	useEffect(() => {
 		let newClass = '';
 
-		if(boxStatus === 'box-open') 
-			// if(!contentContainerStatus === 'content-container-open') {
-			// 	newClass = isOverflowing ? 'code-display-opening-overflow' : 'code-display-opening';
-			// } else if (contentContainerStatus === 'content-container-open') {
+		console.log('boxStatus', boxStatus)
+
+		if(boxStatus === 'box-open') {
+			if(contentContainerStatus !== 'content-container-open') {
+				newClass = isOverflowing ? 'code-display-opening-overflow' : 'code-display-opening';
+			} else if (contentContainerStatus === 'content-container-open') {
 				newClass = 'code-display-open';
-			// }
-		else newClass = 'code-display-closed';
+			}
+		} else {
+			newClass = 'code-display-closed';
+		}
 
 		setOpenClass(newClass)
 	}, [boxStatus, contentContainerStatus])

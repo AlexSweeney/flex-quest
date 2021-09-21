@@ -12,15 +12,13 @@ export default function OpenCloseBox({
 	children
 }) {  
 	/* 
-		show title   	
-		show buttons  
-		open and close on press toggle
+		* show title   	
+		* show buttons  
+		* open and close on press toggle
 
-		animate 
+		* animate 
 			close - x then y 
-			open - x then y  
-
-		use overflow: overlay when child is shrinking  
+			open - x then y   
 	*/ 
 	
 	// ======================= Id's ======================= //
@@ -112,15 +110,7 @@ export default function OpenCloseBox({
 	useEffect(() => { 
 		if(contentContainerIsOpen) addTransitionEndListener(contentContainerId, heightTransitionEndFunction)
 		if(!contentContainerIsOpen) removeTransitionEndListener(contentContainerId, heightTransitionEndFunction)
-	}, [contentContainerIsOpen])
-
-	// useEffect(() => {
-	// 	// console.log('contentContainerIsOpen', contentContainerIsOpen)
-	// 	addTransitionEndListener(contentContainerId, heightTransitionEndFunction)
-	// 	// return () => { removeTransitionEndListener(contentContainerId, heightTransitionEndFunction) }
-	// 	// if(contentContainerIsOpen) addTransitionEndListener(contentContainerId, heightTransitionEndFunction)
-	// 	// if(!contentContainerIsOpen) removeTransitionEndListener(contentContainerId, heightTransitionEndFunction)
-	// }, [])  
+	}, [contentContainerIsOpen]) 
 
 	// ======================= Set Status ======================= //
 	//  ================ box (for this)
@@ -206,9 +196,9 @@ export default function OpenCloseBox({
 	// 	console.log('contentContainerIsOpen', contentContainerIsOpen)
 	// }, [contentContainerIsOpen])
 
-	useEffect(() => {
-		console.log('contentContainerOpenStatus', contentContainerOpenStatus)
-	}, [contentContainerOpenStatus])
+	// useEffect(() => {
+	// 	console.log('contentContainerOpenStatus', contentContainerOpenStatus)
+	// }, [contentContainerOpenStatus])
 	 
 	// useEffect(() => {
 	// 	console.log('resizeStatus', resizeStatus)
@@ -236,7 +226,7 @@ export default function OpenCloseBox({
 			<div className={`box-body ${boxBodyClass}`} id={`box-body-${i}`}> 
 				<div className={`content-container ${contentContainerOpenStatus}`} id={contentContainerId}>
 					{ 
-						
+						children
 					}
 				</div>
 			</div>

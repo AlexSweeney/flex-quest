@@ -25,6 +25,7 @@
 	overflow-y: auto;
 }
 
+.code-display-opening,
 .code-display-open {
 	background: green;
 	overflow-y: auto;
