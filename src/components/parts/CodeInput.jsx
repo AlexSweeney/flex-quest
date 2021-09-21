@@ -42,31 +42,24 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 	function handleChange(e) {   
 		const isOverflowing = e.target.scrollHeight > e.target.clientHeight; 
 		setIsOverflowing(isOverflowing)
-		
+
 		setCode(e.target.value)
 	}
 
 	function handleTransitionEnd(e) {
 		if(e.propertyName === 'color') setColorHasTransitioned(true)
-	}
-
-	// update isOverflowing 
-	useEffect(() => {
-		if(boxStatus === 'box-closing') {
-
-		}
-	}, [boxStatus])
+	} 
 
 	// update openClass
 	useEffect(() => {
 		let newClass = '';
 
 		if(boxStatus === 'box-open') 
-			if(!contentContainerStatus === 'content-container-open') {
-				newClass = isOverflowing ? 'code-display-opening-overflow' : 'code-display-opening';
-			} else if (contentContainerStatus === 'content-container-open') {
+			// if(!contentContainerStatus === 'content-container-open') {
+			// 	newClass = isOverflowing ? 'code-display-opening-overflow' : 'code-display-opening';
+			// } else if (contentContainerStatus === 'content-container-open') {
 				newClass = 'code-display-open';
-			}
+			// }
 		else newClass = 'code-display-closed';
 
 		setOpenClass(newClass)

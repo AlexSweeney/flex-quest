@@ -45,7 +45,7 @@ export default function OpenCloseBox({
 	const widthTransitionEndFunction = makeListenerFunction('width', boxId, () => {
 		onWidthTransitionEnd()
 	})
-	const heightTransitionEndFunction = makeListenerFunction('height', 'content-container', () => {
+	const heightTransitionEndFunction = makeListenerFunction('height', contentContainerId, () => {
 		onHeightTransitionEnd()
 	})
 
@@ -79,7 +79,7 @@ export default function OpenCloseBox({
 		setWidthTransitionFinished(true)
 	}
 
-	function onHeightTransitionEnd() {
+	function onHeightTransitionEnd() { 
 		setHeightTransitionFinished(true)
 	}
 
@@ -109,10 +109,18 @@ export default function OpenCloseBox({
 		if(!boxIsOpen) removeTransitionEndListener(boxId, widthTransitionEndFunction)
 	}, [boxIsOpen])
 
-	useEffect(() => {
+	useEffect(() => { 
 		if(contentContainerIsOpen) addTransitionEndListener(contentContainerId, heightTransitionEndFunction)
 		if(!contentContainerIsOpen) removeTransitionEndListener(contentContainerId, heightTransitionEndFunction)
-	}, [contentContainerIsOpen]) 
+	}, [contentContainerIsOpen])
+
+	// useEffect(() => {
+	// 	// console.log('contentContainerIsOpen', contentContainerIsOpen)
+	// 	addTransitionEndListener(contentContainerId, heightTransitionEndFunction)
+	// 	// return () => { removeTransitionEndListener(contentContainerId, heightTransitionEndFunction) }
+	// 	// if(contentContainerIsOpen) addTransitionEndListener(contentContainerId, heightTransitionEndFunction)
+	// 	// if(!contentContainerIsOpen) removeTransitionEndListener(contentContainerId, heightTransitionEndFunction)
+	// }, [])  
 
 	// ======================= Set Status ======================= //
 	//  ================ box (for this)
@@ -198,9 +206,9 @@ export default function OpenCloseBox({
 	// 	console.log('contentContainerIsOpen', contentContainerIsOpen)
 	// }, [contentContainerIsOpen])
 
-	// useEffect(() => {
-	// 	console.log('contentContainerOpenStatus', contentContainerOpenStatus)
-	// }, [contentContainerOpenStatus])
+	useEffect(() => {
+		console.log('contentContainerOpenStatus', contentContainerOpenStatus)
+	}, [contentContainerOpenStatus])
 	 
 	// useEffect(() => {
 	// 	console.log('resizeStatus', resizeStatus)
@@ -226,9 +234,9 @@ export default function OpenCloseBox({
 			</div>
 
 			<div className={`box-body ${boxBodyClass}`} id={`box-body-${i}`}> 
-				<div className={`content-container ${contentContainerOpenStatus}`} id={`content-container-${i}`}>
+				<div className={`content-container ${contentContainerOpenStatus}`} id={contentContainerId}>
 					{ 
-						children
+						
 					}
 				</div>
 			</div>

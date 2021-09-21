@@ -92,6 +92,7 @@
 	transition: height 2s;
 	box-sizing: border-box;
 	overflow: visible; 
+	background: pink;
 } 
 
 .content-container-closing,

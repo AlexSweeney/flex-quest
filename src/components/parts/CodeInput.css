@@ -21,16 +21,18 @@
 } 
 
 .code-display-opening-overflow {
+	background: yellow;
 	overflow-y: auto;
 }
 
 .code-display-open {
+	background: green;
 	overflow-y: auto;
 }
 
 .code-display-closed {
-	overflow: hidden;
-	overflow-y: auto;
+	background: red;
+	overflow: hidden; 
 	white-space: nowrap; 
 }
 
