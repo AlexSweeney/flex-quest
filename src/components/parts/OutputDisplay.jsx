@@ -19,9 +19,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		
 		* handle grid button press
 		
-		* handle refresh button press 
-
-		fix - bigger then refresh
+		* handle refresh button press  
 	*/
 
 
@@ -278,12 +276,3 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		</OpenCloseBox>
 	)
 }
-/*
-<LearnBox 
-			title={title} 
-			i={i}
-			buttons={buttons} 
-			openCloseBoxStatus={openCloseBoxStatus} 
-			setOpenCloseBoxStatus={setOpenCloseBoxStatus}> 
-				</LearnBox>
-*/
