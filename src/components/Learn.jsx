@@ -241,8 +241,8 @@ export default function Learn() {
 			<CodeBox title="style.css" value={cssString} handleChange={handleCssChange} handleRefresh={handleCssRefresh} fade={fadeStyle}/> */}
 
 			{/*<DisplayBox title="display" htmlString={displayHtml} cssString={displayCss}/> */}
-			<CodeInput title="style.css" code={cssString} setCode={setCssString} originalCode={cssStrings[levelNum]}></CodeInput>
-			<OutputDisplay title="display" htmlString={displayHtml} cssString={displayCss} i="4" />
+			<CodeInput title="style.css" i="3" code={cssString} setCode={setCssString} originalCode={cssStrings[levelNum]}></CodeInput>
+			<OutputDisplay title="display" i="4" htmlString={displayHtml} cssString={displayCss} />
 		</section>
 	)
 }

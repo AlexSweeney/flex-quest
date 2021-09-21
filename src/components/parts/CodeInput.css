@@ -10,4 +10,17 @@
 	top: 0;
 	display: block;
 	border: none;
+	transition: color 1s;
+}
+
+.code-display::selected {
+	border: 2px solid red;
+}
+
+.code-display-fade {
+  color: #272727;
+}
+
+.code-display-no-fade {
+	color: white;
 }
