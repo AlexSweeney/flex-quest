@@ -6,6 +6,7 @@
 /* =================== Box =================== */
 .box {
 	height: 400px;  
+	min-width: 36px;
 	display: flex;
 	flex-direction: column;
 	margin-right: 30px; 
@@ -22,7 +23,6 @@
 .box-closing,
 .box-closed {
 	width: 36px;
-	min-width: 36px;
 }
 
 /* =================== Box Header =================== */
@@ -91,8 +91,7 @@
 	width: 100%;   
 	transition: height 2s;
 	box-sizing: border-box;
-	overflow: visible; 
-	background: pink;
+	overflow: visible;  
 } 
 
 .content-container-closing,

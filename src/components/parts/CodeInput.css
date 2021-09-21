@@ -20,19 +20,19 @@
 	box-sizing: border-box; 
 } 
 
+.code-display-opening {
+	overflow: hidden;
+}
+
 .code-display-opening-overflow {
-	background: yellow;
 	overflow-y: auto;
 }
 
-.code-display-opening,
 .code-display-open {
-	background: green;
 	overflow-y: auto;
 }
 
 .code-display-closed {
-	background: red;
 	overflow: hidden; 
 	white-space: nowrap; 
 }
@@ -43,4 +43,23 @@
 
 .code-display-no-fade {
 	color: white;
+}
+
+/* =================== Body Scrollbar */
+.code-display::-webkit-scrollbar { 
+  height: 16px;
+  width: 16px;
+  background: transparent; 
+}
+
+.code-display::-webkit-scrollbar-corner {
+	background: #a7a7a7;
+}
+ 
+.code-display::-webkit-scrollbar-thumb { 
+	background: #a7a7a7;  
+}
+
+.code-display::-webkit-scrollbar-thumb:hover { 
+	background: #d6d1d1;
 }

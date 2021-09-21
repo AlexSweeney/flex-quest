@@ -3,7 +3,11 @@ import Button from './../Button.jsx';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import './RefreshButton.css';
 
-export default function RefreshButton({onClick}) {
+export default function RefreshButton({onClick, i}) {
+	// ====================== Ids ====================== //
+	const refreshButtonId = `refresh-button-${i}`;
+	const refreshIconId = `refresh-icons-${i}`;
+
 	// ====================== State ====================== //
 	const [rotateNum, setRotateNum] = useState(0);  
 	const iconStyle = {
@@ -50,12 +54,12 @@ export default function RefreshButton({onClick}) {
 	// ====================== Listen for Animation End ====================== //
 	useEffect(() => {
 		if(cursorIsDown) {
-			const cursorElement = document.getElementById('refresh-icon');
+			const cursorElement = document.getElementById(refreshIconId);
 			cursorElement.addEventListener('transitionend', handleTransitionEnd)
 		}
 
 		return () => {
-			const cursorElement = document.getElementById('refresh-icon');
+			const cursorElement = document.getElementById(refreshIconId);
 			cursorElement.removeEventListener('transitionend', handleTransitionEnd)
 		}
 	}, [isAnimating])
@@ -94,7 +98,7 @@ export default function RefreshButton({onClick}) {
 	return ( 
 		<Button>
 			<div className={`refresh-button ${refreshColorClass}`}
-				id="refresh-button"
+				id={refreshButtonId}
 				onMouseOver={handleMouseOver}
 				onMouseOut={handleMouseOut}
 				onMouseDown={handleMouseDown}
@@ -102,7 +106,7 @@ export default function RefreshButton({onClick}) {
 				>
 				<RefreshIcon 
 					className="refresh-icon" 
-					id="refresh-icon" 
+					id={refreshIconId}
 					style={iconStyle} 
 					fontSize="inherit" 
 				/>

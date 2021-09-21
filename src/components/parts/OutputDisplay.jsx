@@ -24,6 +24,9 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 
 
 	// ================ State ========================= //
+	// ====== Ids //
+	const outputDisplayId = `output-display-${i}`;
+
 	// ====== Box Status //
 	const [boxStatus, setBoxStatus] = useState('box-open');
 	const [contentContainerStatus, setContentContainerStatus] = useState('content-container-open');
@@ -37,13 +40,11 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 
 	// ====== Refresh //
 	const [outputDisplayResizeStatus, setOutputDisplayResizeStatus] = useState('');
-	
-	// const [displayBoxRefreshClass, setDisplayBoxRefreshClass] = useState('');
+	 
 	const [numTransitionStarts, setNumTransitionStarts] = useState(0);
 	const [numTransitionEnds, setNumTransitionEnds] = useState(0);
 
-	// ====== Open Close //
-	// const [openCloseBoxStatus, setOpenCloseBoxStatus] = useState('learn-box-open');
+	// ====== Open Close // 
 	const [overflowStatus, setOverflowStatus] = useState(null);
 
 	// ================ Class========================= //
@@ -52,7 +53,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 
 	// ================ Buttons ===================== //
 	const buttons = [
-		<RefreshButton onClick={onRefreshClick}/>,
+		<RefreshButton onClick={onRefreshClick} i={i}/>,
 		<GridButton 
 			handleClick={onGridClick} 
 			gridStatus={gridStatus} 
@@ -67,19 +68,19 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	} 
 
 	function onRefreshClick() {
-		if(boxStatus === 'box-open' && userHasChangedSize('output-display')) { 
+		if(boxStatus === 'box-open' && userHasChangedSize(outputDisplayId)) { 
 			setOutputDisplayResizeStatus('output-display-resizing')
 		}
 	}
 
 	// ================ Event Handlers ===================== //
-	function onRefreshStart() { 
+	function onRefreshStart() {  
 		addRefreshListeners()
 		setOutputDisplayResizeClass('output-display-refresh') 
-		removeInlineSize('output-display') 
+		removeInlineSize(outputDisplayId) 
 	}
 
-	function onRefreshEnd() { 
+	function onRefreshEnd() {  
 		removeRefreshListeners()
 		setNumTransitionStarts(0)
 		setNumTransitionEnds(0)
@@ -116,7 +117,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 
 	function handleTransitionStartWidth(e) {
 		if(e.propertyName === 'width' 
-			&& e.srcElement.id === 'output-display'
+			&& e.srcElement.id === outputDisplayId
 			&& outputDisplayResizeStatus === 'output-display-resizing') {
 			setNumTransitionStarts(oldVal => oldVal + 1)
 		}
@@ -124,7 +125,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 
 	function handleTransitionStartHeight(e) {
 		if(e.propertyName === 'height' 
-			&& e.srcElement.id === 'output-display'
+			&& e.srcElement.id === outputDisplayId
 			&& outputDisplayResizeStatus === 'output-display-resizing') {
 			setNumTransitionStarts(oldVal => oldVal + 1)
 		}
@@ -132,7 +133,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 
 	function handleTransitionEndWidth(e) {
 		if(e.propertyName === 'width' 
-			&& e.srcElement.id === 'output-display'
+			&& e.srcElement.id === outputDisplayId
 			&& outputDisplayResizeStatus === 'output-display-resizing') {
 			setNumTransitionEnds(oldVal => oldVal + 1)
 		}
@@ -140,14 +141,14 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 
 	function handleTransitionEndHeight(e) {
 		if(e.propertyName === 'height' 
-			&& e.srcElement.id === 'output-display'
+			&& e.srcElement.id === outputDisplayId
 			&& outputDisplayResizeStatus === 'output-display-resizing') {
 			setNumTransitionEnds(oldVal => oldVal + 1)
 		}
 	}
 
 	function addRefreshListeners() {
-		const outputDisplayElement = document.getElementById('output-display');
+		const outputDisplayElement = document.getElementById(outputDisplayId);
 		 
 		outputDisplayElement.addEventListener('transitionstart', handleTransitionStartWidth)
 		outputDisplayElement.addEventListener('transitionstart', handleTransitionStartHeight)
@@ -157,7 +158,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	}
 
 	function removeRefreshListeners() { 
-		const outputDisplayElement = document.getElementById('output-display');
+		const outputDisplayElement = document.getElementById(outputDisplayId);
 		
 		outputDisplayElement.removeEventListener('transitionstart', handleTransitionStartWidth)
 		outputDisplayElement.removeEventListener('transitionstart', handleTransitionStartHeight)
@@ -269,7 +270,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 			setContentContainerStatus={setContentContainerStatus}
 			setBoxStatus={setBoxStatus}
 			resizeStatus={outputDisplayResizeStatus}> 
-			<div className={`output-display ${outputDisplayClass} ${outputDisplayResizeClass}`} id={`output-display-${i}`}>
+			<div className={`output-display ${outputDisplayClass} ${outputDisplayResizeClass}`} id={outputDisplayId}>
 				<iframe srcDoc={source} className="iFrame"/> 
 				<GridOverlay gridStatus={gridStatus} showGrid={showGrid}/>
 			</div>  

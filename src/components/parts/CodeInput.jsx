@@ -15,20 +15,27 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 
 		* open and close on toggle press 
 
-		custom scrollbar
-
 		tidy code
 	*/
+
+	// ===================================== Ids ===================================== //
 	const codeDisplayId = `code-display-${i}`;
+	
+	// ===================================== Status ===================================== //
 	const [boxStatus, setBoxStatus] = useState('');
 	const [contentContainerStatus, setContentContainerStatus] = useState('');
 	const [isOverflowing, setIsOverflowing] = useState(false);
-	const [fadeClass, setFadeClass] = useState('code-display-no-fade');
-	const [openClass, setOpenClass] = useState('code-display-open');
 	const [refreshClicked, setRefreshClicked] = useState(false);
 	const [colorHasTransitioned, setColorHasTransitioned] = useState(false);
+
+	// ===================================== Classes ===================================== //
+	const [fadeClass, setFadeClass] = useState('code-display-no-fade');
+	const [openClass, setOpenClass] = useState('code-display-open');
+	
+	// ===================================== Buttons ===================================== //
 	const buttons = [<RefreshButton onClick={handleRefreshClick}/>];
 
+	// ===================================== Event Handlers ===================================== //
 	function handleRefreshClick() {
 		if(code !== originalCode) {
 			setRefreshClicked(true)
@@ -53,12 +60,11 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 	function handleTransitionEnd(e) {
 		if(e.propertyName === 'color') setColorHasTransitioned(true)
 	} 
-
+	
+	// ===================================== Update Classes ===================================== //
 	// update openClass
 	useEffect(() => {
 		let newClass = '';
-
-		console.log('boxStatus', boxStatus)
 
 		if(boxStatus === 'box-open') {
 			if(contentContainerStatus !== 'content-container-open') {
@@ -73,6 +79,7 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 		setOpenClass(newClass)
 	}, [boxStatus, contentContainerStatus])
 
+	// ===================================== Add Event Listeners ===================================== //
 	// listen for transition end
 	useEffect(() => {
 		const codeDisplayElement = document.getElementById(codeDisplayId);
@@ -81,6 +88,7 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 		return () => { codeDisplayElement.removeEventListener ('transitionend', handleTransitionEnd)}
 	}, [refreshClicked])
 
+	// ===================================== Listen for transition end ===================================== //
 	// handle color transition end
 	useEffect(() => { 
 		if(refreshClicked && colorHasTransitioned) {
@@ -88,6 +96,7 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 		} 
 	}, [refreshClicked, colorHasTransitioned])
 
+	// ===================================== Output ===================================== //
 	return (
 		<OpenCloseBox title={title} i={i} buttons={buttons} setBoxStatus={setBoxStatus} setContentContainerStatus={setContentContainerStatus}>
 			<div className="code-display-container">

@@ -17,8 +17,8 @@ export default function OpenCloseBox({
 		* open and close on press toggle
 
 		* animate 
-			close - x then y 
-			open - x then y   
+			*	close - x then y 
+			*	open - x then y   
 	*/ 
 	
 	// ======================= Id's ======================= //
