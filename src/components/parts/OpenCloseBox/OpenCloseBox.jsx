@@ -5,8 +5,7 @@ import './OpenCloseBox.css';
 export default function OpenCloseBox({
 	title = '',
 	i,
-	buttons = [], 
-	boxStatus = '',
+	buttons = [],  
 	setBoxStatus = () => {},
 	setContentContainerStatus = () => {},
 	resizeStatus = '',
