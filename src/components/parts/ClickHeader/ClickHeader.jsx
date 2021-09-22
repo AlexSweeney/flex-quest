@@ -2,16 +2,16 @@ import React, {useState, useEffect} from 'react';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import './ClickHeaderStyle.css'; 
 
-export default function ClickHeader({title, i, selectedHeader, setSelectedHeader, children}) { 
+export default function ClickHeader({title, i, selectedHeader, setSelectedHeader, setSelectedStyle, thisStyle, children}) { 
 	/* 
-		title, i 
+		* title, i 
 
 		* show header and icon
 		
 		* on click icon = toggle body text on / off
 
-		on click header = apply header style + add color to header
-		on reclick header = remove header style  + remove color from header
+		* on click header = apply header style + add color to header
+		* on reclick header = remove header style  + remove color from header
 	*/
 
 	// ================================= Ids ============================== // 
@@ -55,6 +55,16 @@ export default function ClickHeader({title, i, selectedHeader, setSelectedHeader
 		setContainerHeightToZero()
 	}
 
+	function onSelectHeader() {
+		setHeaderSelectedClass('info-header-selected')
+		setSelectedStyle(thisStyle)
+	}
+
+	function onDeselectHeader() {
+		setHeaderSelectedClass('info-header-unselected')
+		setSelectedStyle(null)
+	}
+
 	// ================================= Helper Fns ============================== // 
 	function getContainerHeight() {
 		const childContainerElement = document.getElementById(childContainerId);
@@ -86,15 +96,15 @@ export default function ClickHeader({title, i, selectedHeader, setSelectedHeader
 	useEffect(() => {
 		getContainerHeight()
 	}, [])
+
+	// ================================= Trigger handlers ============================== //
+	// header
+	useEffect(() => { 
+		if(selectedHeader === headerId) onSelectHeader()
+		else onDeselectHeader()
+	}, [selectedHeader])
  
 	// ================================= Set Classes ============================== //
-	// header
-	useEffect(() => {
-		console.log('selectedHeader', selectedHeader)
-		if(selectedHeader === headerId) setHeaderSelectedClass('info-header-selected')
-		else setHeaderSelectedClass('info-header-unselected')
-	}, [selectedHeader])
-
 	// play icon
 	useEffect(() => { 
 		let newClass = 'play-icon';
@@ -126,11 +136,9 @@ export default function ClickHeader({title, i, selectedHeader, setSelectedHeader
 	// ================================= Output ============================== //
 	return (
 		<div className='click-header'>
-			<div className='header-container'>
-				{/*<h2 className={`info-header ${passedClass} ${newStyle === styleString ? 'selected' : ''}`} 
-						onClick={() => { handleClick(newStyle, styleString, setStyleString); }}>{title}</h2> */}
-				<h2 className={`info-header ${headerSelectedClass}`}
-						onClick={onHeaderClick}
+			<div className='header-container'> 
+				<h2 className={`info-header ${headerSelectedClass}`} 
+						onClick={onHeaderClick} 
 						id={headerId}>{title}</h2>
 				<PlayArrowIcon className={playIconClass} onClick={onIconClick} id={playIconId}/>
 			</div> 
@@ -139,5 +147,4 @@ export default function ClickHeader({title, i, selectedHeader, setSelectedHeader
 			</div>
 		</div>
 	)
-					
 }
