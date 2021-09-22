@@ -4,6 +4,8 @@ import './ClickHeaderStyle.css';
 
 export default function ClickHeader({title, i, newStyle, styleString, setStyleString, handleClick, passedClass = '', children}) { 
 	/* 
+		title, i 
+
 		* show header and icon
 		
 		on click icon = toggle body text on / off
@@ -17,24 +19,56 @@ export default function ClickHeader({title, i, newStyle, styleString, setStyleSt
 
 	// ================================= Ids ============================== // 
 	const playIconId = `play-icon-${i}`;
+	const childContainerId = `child-container-${i}`;
 
 	// ================================= State ============================== // 
 	const [showChildren, setShowChildren] = useState(false); 
-	const [playIconClass, setPlayIconClass] = useState('play-icon');
 	const [playIconAnimating, setPlayIconAnimating] = useState(false);
+	const [headerSelected, setHeaderSelected] = useState(false);
+	const [containerHeight, setContainerHeight] = useState(null);
+
+	// ================================= Class ============================== // 
+	const [playIconClass, setPlayIconClass] = useState('play-icon');
+	const [showChildrenClass, setShowChildrenClass] = useState('children-init')
 
 	// ================================= Event Handler ============================== // 
+	function handleHeaderClick() {
+		setHeaderSelected(oldVal => !oldVal)
+	}
+
 	function handleIconClick() {
 		setShowChildren(oldVal => !oldVal);
 		setPlayIconAnimating(true);
-
-		/*setTimeout(() => {
-			setPlayIconAnimating(false);
-		}, 500) */
 	}
 
 	function handleTransitionEnd(e) { 
 		if(e.propertyName === 'transform') setPlayIconAnimating(false)
+	}
+
+	function onChildrenVisible() {
+		setContainerHeightToFull()
+	}
+
+	function onChildrenHidden() {
+		setContainerHeightToZero()
+	}
+
+	// ================================= Helper Fns ============================== // 
+	function getContainerHeight() {
+		const childContainerElement = document.getElementById(childContainerId);
+
+		const height = getComputedStyle(childContainerElement).height;
+		setContainerHeight(height)
+	}
+
+	function setContainerHeightToFull() {
+		const childContainerElement = document.getElementById(childContainerId);
+		childContainerElement.style.height = containerHeight;
+	}
+
+	function setContainerHeightToZero() {
+		const childContainerElement = document.getElementById(childContainerId);
+		childContainerElement.style.height = 0;
 	}
 
 	// ================================= Detect Transition End ============================== // 
@@ -46,7 +80,13 @@ export default function ClickHeader({title, i, newStyle, styleString, setStyleSt
 		return () => { playIconElement.removeEventListener('transitionend', handleTransitionEnd) }
 	}, [playIconAnimating])
 
+	// ================================= Get Container Height ============================== //
+	useEffect(() => {
+		getContainerHeight()
+	}, [])
+ 
 	// ================================= Set Classes ============================== //
+	// play icon
 	useEffect(() => { 
 		let newClass = 'play-icon';
 
@@ -61,6 +101,19 @@ export default function ClickHeader({title, i, newStyle, styleString, setStyleSt
 		setPlayIconClass(newClass);
 	}, [playIconAnimating, showChildren])
 
+	// child container
+	useEffect(() => {
+		if(showChildren) {
+			setShowChildrenClass('children-visible') 
+			onChildrenVisible()
+		}
+
+		if(!showChildren) {
+			setShowChildrenClass('children-hidden')  
+			onChildrenHidden()
+		}
+	}, [showChildren])
+
 	// ================================= Output ============================== //
 	return (
 		<div className='click-header'>
@@ -69,7 +122,9 @@ export default function ClickHeader({title, i, newStyle, styleString, setStyleSt
 						onClick={() => { handleClick(newStyle, styleString, setStyleString); }}>{title}</h2> 
 				<PlayArrowIcon className={playIconClass} onClick={handleIconClick} id={playIconId}/>
 			</div> 
-			<div className={`child-container ${showChildren ? 'child-container-visible' : 'child-container-hidden'}`}>{children}</div>
+			<div className={`child-container ${showChildrenClass}`} id={childContainerId}>
+				<p>hello world</p>
+			</div>
 		</div>
 	)
 					

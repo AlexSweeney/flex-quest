@@ -13,7 +13,7 @@ function Text({handleClick, styleString}) {
 
 	return (
 		<div>
-			<p>Use 'justify-content' to control where child elements are placed along the x-axis of the flex container and where text is placed along the x-axis of the content area of the flex container.</p>
+			{/*<p>Use 'justify-content' to control where child elements are placed along the x-axis of the flex container and where text is placed along the x-axis of the content area of the flex container.</p>
 
 			<p>Any<InlineClicker newStyle={style_1} {...props}> padding you add to an element</InlineClicker> will be outside of the content area, and so will add space between any text and the edge of the element.</p>   
 
@@ -34,7 +34,7 @@ function Text({handleClick, styleString}) {
 				<p>Space will be added between the other child elements along the x-axis.</p>
 	 			<p>Text is not affected.</p>
  			</ClickHeader> 
-
+			*/}
  			<ClickHeader newStyle={style_5} title="justify-content: space-around;" {...props}>
 	 			<p>Child elements will be spread out across the x-axis.</p>
 				<p>Each child element will have the same amount of space added to the left and right of the child.</p>

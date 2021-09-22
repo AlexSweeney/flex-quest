@@ -54,27 +54,43 @@ div .play-icon-selected {
 	transform: rotate(90deg);
 }
 
-/* ================== Text ================== */
+/* ================== Text ================== */  
+.click-header {
+	position: relative;
+}
+
 .info-text {
-	padding: 0.5em 0.75em;
+	padding: 0.5em 0.75em; 
 }
 
 .child-container {
-	transition: max-height 1000ms, opacity 1000ms;
+	transition: height 1000ms;
+	border: 2px solid red; 
+	overflow: hidden;
+	position: absolute;
 }
 
 .child-container:hover {
 	cursor: default;
 }
 
-.child-container-hidden {
-	opacity: 0; 
-	max-height: 0; 
-	pointer-events: none;
-	overflow: hidden;
+.children-init {
+	opacity: 0;
+}
+
+.children-hidden { 
+/*	max-height: 0;
+ 	opacity: 0;
+	pointer-events: none; */
+}
+
+.children-visible {
+/*	height: 0;
+	opacity: 1;*/
 }
  
-.child-container-visible {
-	opacity: 1;  
-	max-height: 1000px; 
+.children-visible-end { 
+	/*max-height: 100px;*/
+	/*opacity: 1;  
+	max-height: 1000px;*/ 
 }
