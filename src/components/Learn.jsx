@@ -243,7 +243,7 @@ export default function Learn() {
 
 			{/*<DisplayBox title="display" htmlString={displayHtml} cssString={displayCss}/> */}
 
-			<LevelText i="1" titles={menuOptions} allText={menuText} levelNum={levelNum}/>
+			<LevelText i="1" titles={menuOptions} allText={menuText} setStyle={setCssString} defaultStyle={cssStrings[levelNum]} levelNum={levelNum}/>
 			<CodeInput i="2" title="index.html" code={htmlString} setCode={setHtmlString} originalCode={htmlStrings[levelNum]}></CodeInput>
 			<CodeInput i="3" title="style.css" code={cssString} setCode={setCssString} originalCode={cssStrings[levelNum]}></CodeInput>
 			<OutputDisplay i="4" title="display" htmlString={htmlString} cssString={cssString} />

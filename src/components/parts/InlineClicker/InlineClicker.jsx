@@ -1,15 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import './InlineClicker.css';
 
-export default function InlineClicker({newStyle, i, selectedHeader, setSelectedHeader, setSelectedStyle, children}) {   
+export default function InlineClicker({newStyle, i, selectedHeader, setSelectedHeader, setSelectedStyle, thisStyle, children}) {   
 	/*
 		on click 
 			* add highlight color
-			- change style
+			* change style
 	
 		on reclick
 			* remove highlight color
-			- revert style
+			* revert style
 	*/
 
 	const [clickerSelected, setClickerSelected] = useState(false);
@@ -21,10 +21,12 @@ export default function InlineClicker({newStyle, i, selectedHeader, setSelectedH
 
 	function onSelected() {
 		setClickerSelectedClass('inline-clicker-selected')
+		setSelectedStyle(thisStyle)
 	}
 
 	function onDeselected() {
 		setClickerSelectedClass('')
+		setSelectedStyle(null)
 	}
 
 	useEffect(() => {
@@ -37,12 +39,4 @@ export default function InlineClicker({newStyle, i, selectedHeader, setSelectedH
 			{children}
 		</div>
 	)
-} 
-
-{/*
-	<div className={`inline-clicker ${newStyle === styleString ? 'selected' : ''}`}
-			onClick={() => { handleClick(newStyle, styleString, setStyleString); }}>
-			{children}
-		</div>		
-
-*/}
+}  

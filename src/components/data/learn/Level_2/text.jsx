@@ -13,10 +13,10 @@ function Text({setSelectedStyle}) {
 	const props = {selectedHeader, setSelectedHeader, setSelectedStyle}; 
 
 	return (
-		<div>
+		<div> 
 			<p>Use 'justify-content' to control where child elements are placed along the x-axis of the flex container and where text is placed along the x-axis of the content area of the flex container.</p>
 
-			<p>Any<InlineClicker i="2.1" newStyle={style_1} {...props}> padding you add to an element</InlineClicker> will be outside of the content area, and so will add space between any text and the edge of the element.</p>   
+			<p>Any<InlineClicker i="2.1" thisStyle={style_1} {...props}> padding you add to an element</InlineClicker> will be outside of the content area, and so will add space between any text and the edge of the element.</p>   
 
 			<ClickHeader i="2.2" newStyle={style_2} {...props} title="justify-content: flex-start; (default)"> 
 				<p>Child elements and text will be placed at the start of the x-axis.</p>
