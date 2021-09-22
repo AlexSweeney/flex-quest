@@ -20,10 +20,8 @@ export default function LevelText({i, titles, allText, levelNum}) {
 	*/
 
 	const buttons = []; 
-	const Text = allText[1];
-
-
-	const [setSelectedStyle] = useState(null)
+	const Text = allText[1]; 
+	const [selectedStyle, setSelectedStyle] = useState(null)
 
 	return (
 		<OpenCloseBox title={titles[levelNum]} i={i} buttons={buttons}>

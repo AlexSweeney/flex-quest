@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import './ClickHeaderStyle.css'; 
 
-export default function ClickHeader({title, i, selectedHeader, setSelectedHeader, setSelectedStyle, thisStyle, children}) { 
+export default function ClickHeader({title, i, selectedHeader, setSelectedHeader, setSelectedStyle, thisStyle, children}) {  
 	/* 
 		* title, i 
 
@@ -22,7 +22,6 @@ export default function ClickHeader({title, i, selectedHeader, setSelectedHeader
 	// ================================= State ============================== // 
 	const [showChildren, setShowChildren] = useState(false); 
 	const [playIconAnimating, setPlayIconAnimating] = useState(false);
-	// const [headerSelected, setHeaderSelected] = useState(false);
 	const [containerHeight, setContainerHeight] = useState(null);
 
 	// ================================= Class ============================== // 
@@ -30,12 +29,9 @@ export default function ClickHeader({title, i, selectedHeader, setSelectedHeader
 	const [headerSelectedClass, setHeaderSelectedClass] = useState('info-header-unselected')
 	const [showChildrenClass, setShowChildrenClass] = useState('children-init')
 
-	// ================================= Event Handler ============================== // 
+	// ================================= Event Handlers ============================== // 
 	function onHeaderClick() {
-		setSelectedHeader(newVal => {
-			if(newVal === headerId) return '';
-			return headerId;
-		})
+		toggleSelectedHeader()
 	}
 
 	function onIconClick() {
@@ -47,13 +43,15 @@ export default function ClickHeader({title, i, selectedHeader, setSelectedHeader
 		if(e.propertyName === 'transform') setPlayIconAnimating(false)
 	}
 
-	function onChildrenVisible() {
+	function onShowChildren() {
+		setShowChildrenClass('children-visible') 
 		setContainerHeightToFull()
 	}
 
-	function onChildrenHidden() {
+	function onHideChildren() {
+		setShowChildrenClass('children-hidden')  
 		setContainerHeightToZero()
-	}
+	} 
 
 	function onSelectHeader() {
 		setHeaderSelectedClass('info-header-selected')
@@ -83,6 +81,13 @@ export default function ClickHeader({title, i, selectedHeader, setSelectedHeader
 		childContainerElement.style.height = 0;
 	} 
 
+	function toggleSelectedHeader() {
+		setSelectedHeader(newVal => {
+			if(newVal === headerId) return '';
+			return headerId;
+		})
+	}
+
 	// ================================= Detect Transition End ============================== // 
 	useEffect(() => {
 		const playIconElement = document.getElementById(playIconId);
@@ -98,11 +103,17 @@ export default function ClickHeader({title, i, selectedHeader, setSelectedHeader
 	}, [])
 
 	// ================================= Trigger handlers ============================== //
-	// header
+	// select header
 	useEffect(() => { 
 		if(selectedHeader === headerId) onSelectHeader()
 		else onDeselectHeader()
 	}, [selectedHeader])
+
+	// show / hide children
+	useEffect(() => {
+		if(showChildren) onShowChildren()
+		if(!showChildren) onHideChildren()
+	}, [showChildren])
  
 	// ================================= Set Classes ============================== //
 	// play icon
@@ -119,19 +130,6 @@ export default function ClickHeader({title, i, selectedHeader, setSelectedHeader
 
 		setPlayIconClass(newClass);
 	}, [playIconAnimating, showChildren])
-
-	// child container
-	useEffect(() => {
-		if(showChildren) {
-			setShowChildrenClass('children-visible') 
-			onChildrenVisible()
-		}
-
-		if(!showChildren) {
-			setShowChildrenClass('children-hidden')  
-			onChildrenHidden()
-		}
-	}, [showChildren])
 
 	// ================================= Output ============================== //
 	return (
