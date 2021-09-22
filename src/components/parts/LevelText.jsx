@@ -10,6 +10,8 @@ export default function LevelText({i, titles, allText, levelNum, setStyle, defau
 
 		* when new style selected change css string
 		* when new style unselected change back css string
+			
+		fix - click inline then headers
 
 		burger
 			show all titles when clicked
