@@ -5,14 +5,12 @@ export default function Burger({burgerIsOpen, setBurgerIsOpen}) {
 	/*
 		* show burger icon
 
-		rotate 90deg on click
+		* rotate 90deg on click
 
-		change color 
-			over 
-			animating 
-			click  
-
-		fix - use z-index = make simpler?
+		* change color 
+			* over 
+			* animating 
+			* click   
 	*/
 
 	// ============================== State ============================= //
@@ -22,51 +20,41 @@ export default function Burger({burgerIsOpen, setBurgerIsOpen}) {
 
 	// ============================== Class ============================= //
 	const [burgerOpenClass, setBurgerOpenClass] = useState('burger-closed');
-	const [burgerBarClass, setBurgerBarClass] = useState('burger-bar'); 
-	const animationTime = 500;
+	const [burgerBarClass, setBurgerBarClass] = useState('burger-bar');
 	
-	// ============================== Event Handlers ============================= //
+	// ============================== Event Handlers ==================== //
 	function handleMouseOver(e) { 
-		if(isNowOver(e)) { 
-			setIsOver(true)
-		}
+		setIsOver(true)
 	}
 
 	function handleMouseOut(e) {  
-		if(isOut(e)) {
-			setIsOver(false)
-			setIsDown(false)
-		}
+		setIsOver(false)
+		setIsDown(false)
 	}
 
-	function handleMouseDown(e) {
-		// if(isNowDown()) {
-			// setIsDown(true)
-			setBurgerIsOpen(oldVal => !oldVal)
-			// setIsAnimating(true)
-
-			/*setTimeout(() => {
-				setIsAnimating(false);
-			}, animationTime);*/ 
-		// }
+	function handleMouseDown(e) { 
+		setIsDown(true)
+		setBurgerIsOpen(oldVal => !oldVal)
 	}
 
 	function handleMouseUp(e) {  
 		setIsDown(false);
 	} 
 
-	// ============================== Helper Functions ============================= //
-	function isOut(e) {
-		return e.relatedTarget.id !== 'burger-bar-container' && e.relatedTarget.id !== 'burger-bar';
+	function onTransitionStart(e) { 
+		if(e.propertyName === 'transform') setIsAnimating(true)
 	}
 
-	function isNowDown(e) {
-		return e.target.id === 'burger-bar-container' || e.target.id === 'burger-bar';
+	function onTransitionEnd(e) {
+		if(e.propertyName === 'transform') setIsAnimating(false)
 	}
 
-	function isNowOver(e) {
-		return e.target.id === 'burger-bar-container' || e.target.id === 'burger-bar';
-	}
+	// ============================== Detect Transition ==================== //
+ 	useEffect(() => {
+ 		const burgerElement = document.getElementById('burger');
+ 		burgerElement.addEventListener('transitionstart', onTransitionStart)
+ 		burgerElement.addEventListener('transitionend', onTransitionEnd)
+ 	}, [])
 
  	// ============================== Set Classes ============================= //
  	// burger is open
@@ -77,26 +65,23 @@ export default function Burger({burgerIsOpen, setBurgerIsOpen}) {
 
  	// burger bar colors
 	useEffect(() => {
-		if(isOver && !isDown) { 
-			setBurgerBarClass('burger-bar burger-bar-hover');
+		if(isOver && !isDown && !isAnimating) { 
+			setBurgerBarClass('burger-bar-hover');
 		} else if(!isOver && !isDown && !isAnimating) { 
-			setBurgerBarClass('burger-bar');
-		} else if(isDown || isAnimating && !isOver) { 
-			setBurgerBarClass('burger-bar burger-bar-down');
+			setBurgerBarClass('burger-bar-out');
+		} else if(isDown || isAnimating) { 
+			setBurgerBarClass('burger-bar-down');
 		}
 	}, [isOver, isDown, isAnimating]); 
 	
+	// ============================== Output ============================= //
 	return (
-		<div className={`burger ${burgerOpenClass}`} id="burger"  
-			onMouseOver={handleMouseOver}
-			onMouseOut={handleMouseOut}
-			onMouseDown={handleMouseDown}
-			onMouseUp={handleMouseUp}>
-			<div className="burger-bar-container" id="burger-bar-container">
-				<div className={burgerBarClass} id="burger-bar"></div>
-				<div className={burgerBarClass} id="burger-bar"></div>
-				<div className={burgerBarClass} id="burger-bar"></div>
-			</div>
-		</div>	
+		<div className={`burger ${burgerOpenClass}`} id="burger"
+			onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}
+			onMouseDown={handleMouseDown} onMouseUp={handleMouseUp}>
+				<div className={`burger-bar ${burgerBarClass}`}></div>
+				<div className={`burger-bar ${burgerBarClass}`}></div>
+				<div className={`burger-bar ${burgerBarClass}`}></div>
+		</div> 
 	)
-}
+} 

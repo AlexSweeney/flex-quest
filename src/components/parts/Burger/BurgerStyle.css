@@ -1,5 +1,39 @@
 /* ========================== Burger Icon ========================== */
 .burger {
+	width: 22px;
+	height: 18px;
+	cursor: pointer;
+	display: flex;
+	flex-direction: column;
+  align-items: center; 
+  justify-content: space-between; 
+	transition: transform 500ms ease-in-out;  
+	background: transparent; 
+}
+
+.burger-open {
+	transform: rotate(90deg);
+}
+
+.burger-bar { 
+	width: 22px;
+	height: 4px;
+	background: #E8E4E4;
+	transition: background 500ms, width 500ms ease-in-out;
+	z-index: -1;
+}
+
+.burger-bar-hover {
+	background: #2196f3;
+	cursor: pointer;
+}
+
+.burger-bar-down {
+	background: #3f51b5;
+}
+
+
+/*.burger {
 	height: 100%;
 	width: 100%;
 	display: flex;
@@ -8,6 +42,7 @@
   justify-content: center; 
 	transition: transform 500ms ease-in-out;
 	z-index: 1000;
+	background: red;
 }
 
 .burger-open {
@@ -26,7 +61,7 @@
 	cursor: pointer;
   justify-content: center;
   flex-direction: column;
-  z-index: 1000;
+  background: blue;
 }
 
 .burger-bar { 
@@ -35,7 +70,7 @@
 	margin-bottom: 4px; 
 	background: #E8E4E4;
 	transition: background 500ms, width 500ms ease-in-out;
-	z-index: 2000;
+	z-index: -1;
 }
 
 .burger-bar-hover {
@@ -45,10 +80,10 @@
 
 .burger-bar-down {
 	background: #3f51b5;
-} 
+} */
 
 /* ========================== Burger Body ========================== */
-.burger-body {
+/*.burger-body {
 	width: 100%;  
 	background: #272727;  
 	position: absolute;
@@ -63,10 +98,10 @@
 
 .burger-body-closed {
 	height: 0;
-}
+}*/
 
 /* ========================== Burger Links ========================== */
-.burger-title {
+/*.burger-title {
 	height: 20px;
 	color: #E8E4E4;  
 	font-size: 1em;
@@ -88,4 +123,4 @@
 	color: #3f51b5;
 	background: #4e4e4e;
 	cursor: pointer;
-}
+}*/
