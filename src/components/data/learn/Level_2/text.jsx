@@ -9,7 +9,8 @@ import {style_5} from './style_5.jsx';
 import {style_6} from './style_6.jsx';
 
 function Text({handleClick, styleString}) { 
-	const props = {handleClick, styleString};
+	const [selectedHeader, setSelectedHeader] = useState(null);
+	const props = {handleClick, styleString, selectedHeader, setSelectedHeader};
 
 	return (
 		<div>
