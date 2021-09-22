@@ -1,52 +1,81 @@
 import React, {useState, useEffect} from 'react';
 import './BurgerStyle.css';
 
-export default function Burger({menuOptions, burgerIsOpen, onClick}) {
-	const [burgerBarClass, setBurgerBarClass] = useState('burger-bar'); 
-	const animationTime = 500;
-	
+export default function Burger({burgerIsOpen, setBurgerIsOpen}) {
+	/*
+		* show burger icon
+
+		rotate 90deg on click
+
+		change color 
+			over 
+			animating 
+			click  
+
+		fix - use z-index = make simpler?
+	*/
+
+	// ============================== State ============================= //
 	const [isOver, setIsOver] = useState(false);
 	const [isDown, setIsDown] = useState(false);
 	const [isAnimating, setIsAnimating] = useState(false);
 
+	// ============================== Class ============================= //
+	const [burgerOpenClass, setBurgerOpenClass] = useState('burger-closed');
+	const [burgerBarClass, setBurgerBarClass] = useState('burger-bar'); 
+	const animationTime = 500;
+	
+	// ============================== Event Handlers ============================= //
 	function handleMouseOver(e) { 
-		if(e.target.id === 'burger-bar-container' || e.target.id === 'burger-bar') { 
-			setIsOver(true);
+		if(isNowOver(e)) { 
+			setIsOver(true)
 		}
 	}
 
-	function handleMouseOut(e) { 
-		const outOfBurger = e.relatedTarget.id !== 'burger-bar-container' && e.relatedTarget.id !== 'burger-bar';
-		
-		if(outOfBurger) {
-			setIsOver(false); 
-			setIsDown(false);
+	function handleMouseOut(e) {  
+		if(isOut(e)) {
+			setIsOver(false)
+			setIsDown(false)
 		}
 	}
 
 	function handleMouseDown(e) {
-		if(e.target.id === 'burger-bar-container' || e.target.id === 'burger-bar') {
-			setIsDown(true);  
-			setIsAnimating(true);
-			onClick();
+		// if(isNowDown()) {
+			// setIsDown(true)
+			setBurgerIsOpen(oldVal => !oldVal)
+			// setIsAnimating(true)
 
-			setTimeout(() => {
+			/*setTimeout(() => {
 				setIsAnimating(false);
-			}, animationTime); 
-		}
+			}, animationTime);*/ 
+		// }
 	}
 
 	function handleMouseUp(e) {  
 		setIsDown(false);
 	} 
 
-	function BurgerBar() {
-		return (<div className={burgerBarClass} 
-							onMouseDown={handleMouseDown}
-							onMouseUp={handleMouseUp}>
-						</div>)
+	// ============================== Helper Functions ============================= //
+	function isOut(e) {
+		return e.relatedTarget.id !== 'burger-bar-container' && e.relatedTarget.id !== 'burger-bar';
 	}
- 
+
+	function isNowDown(e) {
+		return e.target.id === 'burger-bar-container' || e.target.id === 'burger-bar';
+	}
+
+	function isNowOver(e) {
+		return e.target.id === 'burger-bar-container' || e.target.id === 'burger-bar';
+	}
+
+ 	// ============================== Set Classes ============================= //
+ 	// burger is open
+ 	useEffect(() => {
+ 		if(burgerIsOpen) setBurgerOpenClass('burger-open')
+ 		if(!burgerIsOpen) setBurgerOpenClass('burger-closed')
+ 	}, [burgerIsOpen])
+
+ 	// burger bar colors
 	useEffect(() => {
 		if(isOver && !isDown) { 
 			setBurgerBarClass('burger-bar burger-bar-hover');
@@ -58,7 +87,7 @@ export default function Burger({menuOptions, burgerIsOpen, onClick}) {
 	}, [isOver, isDown, isAnimating]); 
 	
 	return (
-		<div className={"burger " + (burgerIsOpen ? "burger-open" : "")} id="burger"  
+		<div className={`burger ${burgerOpenClass}`} id="burger"  
 			onMouseOver={handleMouseOver}
 			onMouseOut={handleMouseOut}
 			onMouseDown={handleMouseDown}

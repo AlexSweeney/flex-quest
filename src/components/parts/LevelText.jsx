@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import Burger from './Burger/Burger.jsx';
 import OpenCloseBox from './OpenCloseBox/OpenCloseBox.jsx';
 import './LevelText.css';
 
@@ -10,8 +11,6 @@ export default function LevelText({i, titles, allText, levelNum, setStyle, defau
 
 		* when new style selected change css string
 		* when new style unselected change back css string
-			
-		fix - click inline then headers
 
 		burger
 			show all titles when clicked
@@ -21,9 +20,15 @@ export default function LevelText({i, titles, allText, levelNum, setStyle, defau
 		animate on open / close box
 	*/
 
-	const buttons = []; 
+	const [burgerIsOpen, setBurgerIsOpen] = useState(false);
+	const buttons = [<Burger burgerIsOpen={burgerIsOpen} setBurgerIsOpen={setBurgerIsOpen}/>]; 
+
 	const Text = allText[1]; 
 	const [selectedStyle, setSelectedStyle] = useState(null);
+
+	function handleBurgerClick() {
+
+	}
 
 	useEffect(() => {
 		if(selectedStyle) setStyle(selectedStyle)

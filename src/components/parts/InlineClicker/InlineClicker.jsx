@@ -15,6 +15,7 @@ export default function InlineClicker({newStyle, i, selectedHeader, setSelectedH
 	const [clickerSelected, setClickerSelected] = useState(false);
 	const [clickerSelectedClass, setClickerSelectedClass] = useState(null);
 
+	// =========================== Event Handlers =========================== //
 	function onClick() {
 		toggleSelectedHeader()
 	}
@@ -29,23 +30,21 @@ export default function InlineClicker({newStyle, i, selectedHeader, setSelectedH
 		setSelectedStyle(null)
 	}
 
+	// =========================== Helper fns =========================== //
 	function toggleSelectedHeader() {
 		setSelectedHeader(newVal => {
 			if(newVal === children) return '';
 			return children;
 		})
-	}
-/*
-	useEffect(() => {
-		if(clickerSelected) onSelected()
-		if(!clickerSelected) onDeselected()
-	}, [clickerSelected])
-*/
+	} 
+
+	// =========================== Trigger Selected =========================== //
 	useEffect(() => {
 		if(selectedHeader === children) onSelected()
 		else onDeselected()
 	}, [selectedHeader])
 
+	// =========================== Outputs =========================== //
 	return (
 		<div className={`inline-clicker ${clickerSelectedClass}`} onClick={onClick}>
 			{children}
