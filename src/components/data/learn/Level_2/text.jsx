@@ -35,14 +35,14 @@ function Text({handleClick, styleString}) {
 	 			<p>Text is not affected.</p>
  			</ClickHeader> 
 			*/}
- 			<ClickHeader newStyle={style_5} title="justify-content: space-around;" {...props}>
+ 			<ClickHeader i="2.1" newStyle={style_5} title="justify-content: space-around;" {...props}>
 	 			<p>Child elements will be spread out across the x-axis.</p>
 				<p>Each child element will have the same amount of space added to the left and right of the child.</p>
 				<p>This means the spaces between the first and last children and the edges of the flex container will be half the size as the spaces between the child elements.</p>
 	 			<p>Text is not affected.</p>
  			</ClickHeader> 
 
- 			<ClickHeader newStyle={style_6} title="justify-content: space-evenly;" {...props}>
+ 			<ClickHeader i="2.2" newStyle={style_6} title="justify-content: space-evenly;" {...props}>
 				<p>Child elements will be spread out across the x-axis.</p>
 				<p>The space will be distributed to give an evenly spaced appearence.</p>
 				<p>The spacse between the edges of the flex container and the first and last child elements will be the same size as the spaces between the child elements.</p>

@@ -12,14 +12,11 @@ export default function ClickHeader({title, i, newStyle, styleString, setStyleSt
 
 		on click header = apply header style + add color to header
 		on reclick header = remove header style  + remove color from header
-
-		
-
 	*/
 
 	// ================================= Ids ============================== // 
 	const playIconId = `play-icon-${i}`;
-	const childContainerId = `child-container-${i}`;
+	const childContainerId = `child-container-${i}`; 
 
 	// ================================= State ============================== // 
 	const [showChildren, setShowChildren] = useState(false); 
@@ -69,7 +66,7 @@ export default function ClickHeader({title, i, newStyle, styleString, setStyleSt
 	function setContainerHeightToZero() {
 		const childContainerElement = document.getElementById(childContainerId);
 		childContainerElement.style.height = 0;
-	}
+	} 
 
 	// ================================= Detect Transition End ============================== // 
 	useEffect(() => {
@@ -114,6 +111,7 @@ export default function ClickHeader({title, i, newStyle, styleString, setStyleSt
 		}
 	}, [showChildren])
 
+
 	// ================================= Output ============================== //
 	return (
 		<div className='click-header'>
@@ -123,7 +121,7 @@ export default function ClickHeader({title, i, newStyle, styleString, setStyleSt
 				<PlayArrowIcon className={playIconClass} onClick={handleIconClick} id={playIconId}/>
 			</div> 
 			<div className={`child-container ${showChildrenClass}`} id={childContainerId}>
-				<p>hello world</p>
+				{children}
 			</div>
 		</div>
 	)

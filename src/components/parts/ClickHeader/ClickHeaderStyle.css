@@ -56,7 +56,7 @@ div .play-icon-selected {
 
 /* ================== Text ================== */  
 .click-header {
-	position: relative;
+ 
 }
 
 .info-text {
@@ -64,10 +64,8 @@ div .play-icon-selected {
 }
 
 .child-container {
-	transition: height 1000ms;
-	border: 2px solid red; 
-	overflow: hidden;
-	position: absolute;
+	transition: height 1000ms; 
+	overflow: hidden; 
 }
 
 .child-container:hover {
@@ -76,21 +74,4 @@ div .play-icon-selected {
 
 .children-init {
 	opacity: 0;
-}
-
-.children-hidden { 
-/*	max-height: 0;
- 	opacity: 0;
-	pointer-events: none; */
-}
-
-.children-visible {
-/*	height: 0;
-	opacity: 1;*/
-}
- 
-.children-visible-end { 
-	/*max-height: 100px;*/
-	/*opacity: 1;  
-	max-height: 1000px;*/ 
-}
+} 
