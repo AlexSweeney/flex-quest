@@ -19,7 +19,7 @@ export default function LevelText({i, titles, allText, levelNum, setLevelNum, se
 			* change level and close when click title
 
 		animate on open / close box
-			full
+			* full
 			when press before closed
 			make so no bottom scroll
 
@@ -39,6 +39,7 @@ export default function LevelText({i, titles, allText, levelNum, setLevelNum, se
 	const [title, setTitle] = useState(titles[levelNum]);
 	const [selectedStyle, setSelectedStyle] = useState(null);
 
+	const [boxHasClosed, setBoxHasClosed] = useState(false);
 	const [boxStatus, setBoxStatus] = useState('');
 
 	// ======================================= Event Handlers ================================== //
@@ -47,18 +48,21 @@ export default function LevelText({i, titles, allText, levelNum, setLevelNum, se
 		setLevelNum(newLevelNum)
 	}
 
-	function onBoxClosing() {
-		console.log('onBoxClosing =-=-=-=-=-') 
-		// check was open before
+	function onBoxClosing() { 
 		fixContainerWidth() 
 	}
 
-	function onBoxOpening() {
-		console.log('onBoxOpening =-=-=-=-=-=-=-')
-		resetContainerWidth()
+	function onBoxOpening() { 
+		if(boxHasClosed)resetContainerWidth()
+	} 
+
+	function onBoxOpen() {
+		setBoxHasClosed(false)
 	}
-	// if opening from closed
-			// reset width
+
+	function onBoxClosed() {
+		setBoxHasClosed(true)
+	}
 
 	// ======================================= Helper Fns ================================== //
 	function fixContainerWidth() { 
@@ -93,6 +97,8 @@ export default function LevelText({i, titles, allText, levelNum, setLevelNum, se
 		console.log('boxStatus', boxStatus)
 		if(boxStatus === 'box-closing') onBoxClosing()
 		if(boxStatus === 'box-opening') onBoxOpening()
+		if(boxStatus === 'box-closed') onBoxClosed()
+		if(boxStatus === 'box-open') onBoxOpen()
 	}, [boxStatus])
 
 	// ======================================= Output ======================================= //
