@@ -1,6 +1,5 @@
 .output-display {
-	min-width: 12px;
-  min-height: 12px; 
+	
 	height: 100%;  
 	width: 100%;
 	background: #C4C4C4;
@@ -26,6 +25,8 @@
 
 .output-display-open-y {  
 	resize: both; 
+	min-width: 29px;
+  min-height: 29px; 
 }
 
 .output-display-closing-x {
