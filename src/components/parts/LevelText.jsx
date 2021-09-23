@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Burger from './Burger/Burger.jsx';
+import BurgerMenu from './Burger/BurgerMenu.jsx';
 import OpenCloseBox from './OpenCloseBox/OpenCloseBox.jsx';
 import './LevelText.css';
 
@@ -12,7 +13,7 @@ export default function LevelText({i, titles, allText, levelNum, setStyle, defau
 		* when new style selected change css string
 		* when new style unselected change back css string
 
-		burger
+		* burger
 			show all titles when clicked
 
 			change level and close when click title
@@ -38,7 +39,8 @@ export default function LevelText({i, titles, allText, levelNum, setStyle, defau
 	return (
 		<OpenCloseBox title={titles[levelNum]} i={i} buttons={buttons}>
 			<div className="text-container">
-			 <Text setSelectedStyle={setSelectedStyle}/>
+				<BurgerMenu isOpen={burgerIsOpen} options={titles}/>
+				<Text setSelectedStyle={setSelectedStyle}/>
 			</div>
 		</OpenCloseBox>
 	)
