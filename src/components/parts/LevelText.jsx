@@ -20,9 +20,9 @@ export default function LevelText({i, titles, allText, levelNum, setLevelNum, se
 
 		animate on open / close box
 			* full
-			when press before closed
-			make so no bottom scroll
-
+			* when press before closed
+			* make so no bottom scroll
+			make so has vert scroll
 
 		fix - adjust width when box size changes
 			this
@@ -93,8 +93,7 @@ export default function LevelText({i, titles, allText, levelNum, setLevelNum, se
 	}, [levelNum])
 
 	// ======================================= Trigger Events =============================== //
-	useEffect(() => {
-		console.log('boxStatus', boxStatus)
+	useEffect(() => { 
 		if(boxStatus === 'box-closing') onBoxClosing()
 		if(boxStatus === 'box-opening') onBoxOpening()
 		if(boxStatus === 'box-closed') onBoxClosed()
@@ -104,9 +103,11 @@ export default function LevelText({i, titles, allText, levelNum, setLevelNum, se
 	// ======================================= Output ======================================= //
 	return (
 		<OpenCloseBox title={title} i={i} buttons={buttons} setBoxStatus={setBoxStatus}>
-			<div className="text-container" id={textContainerId}>
-				<BurgerMenu isOpen={burgerIsOpen} setIsOpen={setBurgerIsOpen} options={titles} handleClick={handleBurgerClick}/>
-				<Text setSelectedStyle={setSelectedStyle}/>
+			<div className="overflow-barrier">
+				<div className="text-container" id={textContainerId}>
+					<BurgerMenu isOpen={burgerIsOpen} setIsOpen={setBurgerIsOpen} options={titles} handleClick={handleBurgerClick}/>
+					<Text setSelectedStyle={setSelectedStyle}/>
+				</div>
 			</div>
 		</OpenCloseBox>
 	)
