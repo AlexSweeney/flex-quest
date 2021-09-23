@@ -16,10 +16,20 @@ export default function LevelText({i, titles, allText, levelNum, setLevelNum, se
 		* burger
 			* show all titles when clicked
 
-			change level and close when click title
+			* change level and close when click title
 
 		animate on open / close box
+			full
+			when press before closed
+			make so no bottom scroll
+
+
+		fix - adjust width when box size changes
+			this
+			other boxes
 	*/
+	// ======================================= Ids ======================================= //
+	const textContainerId = `text-container-${i}`;
 
 	// ======================================= State ======================================= //
 	const [burgerIsOpen, setBurgerIsOpen] = useState(false);
@@ -29,12 +39,43 @@ export default function LevelText({i, titles, allText, levelNum, setLevelNum, se
 	const [title, setTitle] = useState(titles[levelNum]);
 	const [selectedStyle, setSelectedStyle] = useState(null);
 
-	// ======================================= Event Handlers ======================================= //
-	function handleBurgerClick(option) {
-		console.log('option', option)
-		console.log('titles', titles)
+	const [boxStatus, setBoxStatus] = useState('');
+
+	// ======================================= Event Handlers ================================== //
+	function handleBurgerClick(option) { 
 		const newLevelNum = titles.indexOf(option);
 		setLevelNum(newLevelNum)
+	}
+
+	function onBoxClosing() {
+		console.log('onBoxClosing =-=-=-=-=-') 
+		// check was open before
+		fixContainerWidth() 
+	}
+
+	function onBoxOpening() {
+		console.log('onBoxOpening =-=-=-=-=-=-=-')
+		resetContainerWidth()
+	}
+	// if opening from closed
+			// reset width
+
+	// ======================================= Helper Fns ================================== //
+	function fixContainerWidth() { 
+		const containerElement = document.getElementById(textContainerId);
+		const elementWidth = getComputedWidth(containerElement); 
+
+		containerElement.style.width = elementWidth; 
+	}
+
+	function resetContainerWidth() {
+		const containerElement = document.getElementById(textContainerId);
+		containerElement.style.width = '';
+	}
+
+	function getComputedWidth(element) {
+		const style = window.getComputedStyle(element);
+		return style.width;
 	}
 
 	// ======================================= Update ======================================= //
@@ -43,17 +84,21 @@ export default function LevelText({i, titles, allText, levelNum, setLevelNum, se
 		if(!selectedStyle) setStyle(defaultStyle)
 	}, [selectedStyle])
 
-	useEffect(() => {
-		console.log('titles', titles)
-		console.log('levelNum', levelNum)
-		console.log('titles[levelNum]', titles[levelNum])
+	useEffect(() => { 
 		setTitle(titles[levelNum])
 	}, [levelNum])
 
+	// ======================================= Trigger Events =============================== //
+	useEffect(() => {
+		console.log('boxStatus', boxStatus)
+		if(boxStatus === 'box-closing') onBoxClosing()
+		if(boxStatus === 'box-opening') onBoxOpening()
+	}, [boxStatus])
+
 	// ======================================= Output ======================================= //
 	return (
-		<OpenCloseBox title={title} i={i} buttons={buttons}>
-			<div className="text-container">
+		<OpenCloseBox title={title} i={i} buttons={buttons} setBoxStatus={setBoxStatus}>
+			<div className="text-container" id={textContainerId}>
 				<BurgerMenu isOpen={burgerIsOpen} setIsOpen={setBurgerIsOpen} options={titles} handleClick={handleBurgerClick}/>
 				<Text setSelectedStyle={setSelectedStyle}/>
 			</div>
