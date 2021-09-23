@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 /*import LearnBox from './parts/LearnBox.jsx'; */
 /*import OutputDisplay from './parts/OutputDisplay.jsx'; */
 import LevelText from './parts/LevelText.jsx';
@@ -88,10 +88,6 @@ export default function Learn() {
 		style_13,
 	];
 
-	const [htmlString, setHtmlString] = useState(htmlStrings[levelNum]);
-	const [cssString, setCssString] = useState(cssStrings[levelNum]); 
-	const defaultCssString = cssStrings[levelNum];
-
 	const menuOptions = [
 		'Level 1: display: flex',
 		'Level 2: justify-content',
@@ -123,25 +119,58 @@ export default function Learn() {
 		Text_12,
 		Text_13,
 	];
-
-	// const [infoTitle, setInfoTitle] = useState(menuOptions[levelNum]);
+	
 	const infoTitle = menuOptions[levelNum];
 	const InfoText = menuText[levelNum];
+
+	const [htmlString, setHtmlString] = useState(htmlStrings[levelNum]);
+	const [cssString, setCssString] = useState(cssStrings[levelNum]); 
+	const [defaultCssString, setDefaultCssString] = useState(cssStrings[levelNum]);
+	
+	useEffect(() => {
+		setHtmlString(htmlStrings[levelNum])
+		setCssString(cssStrings[levelNum])
+		setDefaultCssString(cssStrings[levelNum])
+	}, [levelNum])
+
+	return (
+		<section className="learn-container"> 
+			<LevelText i="1" titles={menuOptions} allText={menuText} setStyle={setCssString} defaultStyle={defaultCssString} levelNum={levelNum} setLevelNum={setLevelNum}/>
+			<CodeInput i="2" title="index.html" code={htmlString} setCode={setHtmlString} originalCode={htmlStrings[levelNum]}></CodeInput>
+			<CodeInput i="3" title="style.css" code={cssString} setCode={setCssString} originalCode={cssStrings[levelNum]}></CodeInput>
+			<OutputDisplay i="4" title="display" htmlString={htmlString} cssString={cssString} />
+		</section>
+	)
+}
+	// 	const [displayHtml, setDisplayHtml] = useState(htmlString);
+	// const [displayCss, setDisplayCss] = useState(cssString);
+			{/*<OpenCloseBox title={infoTitle} menuOptions={menuOptions} handleMenuOptionClick={handleMenuOptionClick} fade={fadeInfo}>*/}
+				{/*	<InfoText handleClick={handleTextOptionClick} styleString={cssString}/>*/}
+			{/*	<div className="info-text-container">{infoText}</div>*/}
+				{/*<div className={ fadeInfo ? "no-show info-text-container" : "info-text-container"}>
+					<InfoText handleClick={handleTextOptionClick} styleString={cssString} setStyleString={setCssString}/>
+				</div>
+			</OpenCloseBox>*/}
+			{/*<CodeBox title="index.html" value={htmlString} handleChange={handleHtmlChange} handleRefresh={handleHtmlRefresh} fade={fadeHtml}/> 
+			<CodeBox title="style.css" value={cssString} handleChange={handleCssChange} handleRefresh={handleCssRefresh} fade={fadeStyle}/> */}
+
+			{/*<DisplayBox title="display" htmlString={displayHtml} cssString={displayCss}/> */}
+
+	{/*<OpenCloseBox title="style.css"><p contentEditable>{cssString}</p></OpenCloseBox>*/} 
+
 	// const [infoText, setInfoText] = useState(menuText[levelNum]); 
+	// const [infoTitle, setInfoTitle] = useState(menuOptions[levelNum]);
 
-	const [displayHtml, setDisplayHtml] = useState(htmlString);
-	const [displayCss, setDisplayCss] = useState(cssString);
-
-	const [fadeInfo, setFadeInfo] = useState(false);
+	/*const [fadeInfo, setFadeInfo] = useState(false);
 	const [fadeDisplay, setFadeDisplay] = useState(false);
 	const [fadeHtml, setFadeHtml] = useState(false);
-	const [fadeStyle, setFadeStyle] = useState(false);
+	const [fadeStyle, setFadeStyle] = useState(false);*/
 
-	function handleMenuOptionClick(option) { 
+	/*function handleMenuOptionClick(option) { 
 		changeLevel(menuOptions.indexOf(option));
-	}
+	}*/
 
-	function changeLevel(levelNum) {  
+	/*function changeLevel(levelNum) {  
 		setFadeInfo(true);
 		setFadeHtml(true);
 		setFadeStyle(true);
@@ -228,27 +257,4 @@ export default function Learn() {
 			setFadeStyle(false);
 		}, 750);
 	} 
- 
-	return (
-		<section className="learn-container"> 
-			{/*<OpenCloseBox title={infoTitle} menuOptions={menuOptions} handleMenuOptionClick={handleMenuOptionClick} fade={fadeInfo}>*/}
-				{/*	<InfoText handleClick={handleTextOptionClick} styleString={cssString}/>*/}
-			{/*	<div className="info-text-container">{infoText}</div>*/}
-				{/*<div className={ fadeInfo ? "no-show info-text-container" : "info-text-container"}>
-					<InfoText handleClick={handleTextOptionClick} styleString={cssString} setStyleString={setCssString}/>
-				</div>
-			</OpenCloseBox>*/}
-			{/*<CodeBox title="index.html" value={htmlString} handleChange={handleHtmlChange} handleRefresh={handleHtmlRefresh} fade={fadeHtml}/> 
-			<CodeBox title="style.css" value={cssString} handleChange={handleCssChange} handleRefresh={handleCssRefresh} fade={fadeStyle}/> */}
-
-			{/*<DisplayBox title="display" htmlString={displayHtml} cssString={displayCss}/> */}
-
-			<LevelText i="1" titles={menuOptions} allText={menuText} setStyle={setCssString} defaultStyle={cssStrings[levelNum]} levelNum={levelNum}/>
-			<CodeInput i="2" title="index.html" code={htmlString} setCode={setHtmlString} originalCode={htmlStrings[levelNum]}></CodeInput>
-			<CodeInput i="3" title="style.css" code={cssString} setCode={setCssString} originalCode={cssStrings[levelNum]}></CodeInput>
-			<OutputDisplay i="4" title="display" htmlString={htmlString} cssString={cssString} />
-		</section>
-	)
-}
-
-	{/*<OpenCloseBox title="style.css"><p contentEditable>{cssString}</p></OpenCloseBox>*/} 
+ */

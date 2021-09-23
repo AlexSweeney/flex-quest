@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import './BurgerMenu.css';
 
-export default function BurgerMenu({isOpen, options, handleOptionClick}) { 
+export default function BurgerMenu({isOpen, setIsOpen, options, handleClick}) { 
 	/*
 		*	if isOpen show options
 
@@ -9,12 +9,16 @@ export default function BurgerMenu({isOpen, options, handleOptionClick}) {
 
 		* animate show and hide
 
-		if click option call handle click and hide options 
+		* if click option call handle click and hide options 
 	
 	*/
 
 	const [menuOpenClass, setMenuOpenClass] = useState('burger-menu-closed');
-	const menuTitles = 
+	
+	function onOptionClick(option) {
+		handleClick(option)
+		setIsOpen(false)
+	}
 
 	useEffect(() => {
 		if(isOpen) setMenuOpenClass('burger-menu-open')
@@ -24,7 +28,7 @@ export default function BurgerMenu({isOpen, options, handleOptionClick}) {
 	return ( 
 		<div className={`burger-menu ${menuOpenClass}`}>
 			{options && options.map(option => (
-				<h3 className="menu-title" onClick={() => handleOptionClick(option)}>
+				<h3 className="menu-title" onClick={() => onOptionClick(option)}>
 					{option}
 				</h3>
 			))}
