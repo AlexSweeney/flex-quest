@@ -1,14 +1,35 @@
-.overflow-barrier {
+/*.overflow-barrier {
 	overflow: hidden;
-  width: 100%;
-  height: 100%;
+  width: 100%; 
+  transition: min-height 1s;
 }
+
+.overflow-barrier-closing {
+	/*height: 100%;
+	height: 100%;
+}
+
+.overflow-barrier-opening { 
+	/*min-height: 100%;
+} */
 
 .text-container {
 	border: 0.5em transparent solid;
-  position: relative;
-  height: 100%;
-  width: 100%;
+  max-width: 100%;
+  background: red;
+  opacity: 0.5;
+  max-height: 100%;
   box-sizing: border-box;
   overflow: hidden;
+  position: relative;
+}
+
+.text-container-closing {
+	/* set width as current value in js */
+}
+
+.text-body {
+	width: 100%;
+	min-height: 100%;
+	background: #C4C4C4;
 }

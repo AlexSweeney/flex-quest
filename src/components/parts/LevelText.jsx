@@ -22,7 +22,7 @@ export default function LevelText({i, titles, allText, levelNum, setLevelNum, se
 			* full
 			* when press before closed
 			* make so no bottom scroll
-			make so has vert scroll
+			make so has vert scroll - make content box expand 
 
 		fix - adjust width when box size changes
 			this
@@ -30,6 +30,7 @@ export default function LevelText({i, titles, allText, levelNum, setLevelNum, se
 	*/
 	// ======================================= Ids ======================================= //
 	const textContainerId = `text-container-${i}`;
+	const textBodyId = `text-body-${i}`;
 
 	// ======================================= State ======================================= //
 	const [burgerIsOpen, setBurgerIsOpen] = useState(false);
@@ -40,7 +41,10 @@ export default function LevelText({i, titles, allText, levelNum, setLevelNum, se
 	const [selectedStyle, setSelectedStyle] = useState(null);
 
 	const [boxHasClosed, setBoxHasClosed] = useState(false);
+
+	// ======================================= Class ======================================= //
 	const [boxStatus, setBoxStatus] = useState('');
+	const [overflowOpenClass, setOverflowOpenClass] = useState('');
 
 	// ======================================= Event Handlers ================================== //
 	function handleBurgerClick(option) { 
@@ -50,14 +54,16 @@ export default function LevelText({i, titles, allText, levelNum, setLevelNum, se
 
 	function onBoxClosing() { 
 		fixContainerWidth() 
+		setOverflowOpenClass('overflow-barrier-closing')
 	}
 
 	function onBoxOpening() { 
-		if(boxHasClosed)resetContainerWidth()
+		if(boxHasClosed) resetContainerWidth()
 	} 
 
 	function onBoxOpen() {
 		setBoxHasClosed(false)
+		setOverflowOpenClass('overflow-barrier-opening')
 	}
 
 	function onBoxClosed() {
@@ -66,20 +72,20 @@ export default function LevelText({i, titles, allText, levelNum, setLevelNum, se
 
 	// ======================================= Helper Fns ================================== //
 	function fixContainerWidth() { 
-		const containerElement = document.getElementById(textContainerId);
-		const elementWidth = getComputedWidth(containerElement); 
+		// const containerElement = document.getElementById(textContainerId);
+		// const elementWidth = getComputedWidth(containerElement); 
 
-		containerElement.style.width = elementWidth; 
+		// containerElement.style.width = elementWidth; 
 	}
 
 	function resetContainerWidth() {
-		const containerElement = document.getElementById(textContainerId);
-		containerElement.style.width = '';
+		// const containerElement = document.getElementById(textBodyId);
+		// containerElement.style.width = '';
 	}
 
 	function getComputedWidth(element) {
-		const style = window.getComputedStyle(element);
-		return style.width;
+		// const style = window.getComputedStyle(element);
+		// return style.width;
 	}
 
 	// ======================================= Update ======================================= //
@@ -103,12 +109,14 @@ export default function LevelText({i, titles, allText, levelNum, setLevelNum, se
 	// ======================================= Output ======================================= //
 	return (
 		<OpenCloseBox title={title} i={i} buttons={buttons} setBoxStatus={setBoxStatus}>
-			<div className="overflow-barrier">
+			{/*<div className={`overflow-barrier ${overflowOpenClass}`}> 	</div> */}
 				<div className="text-container" id={textContainerId}>
 					<BurgerMenu isOpen={burgerIsOpen} setIsOpen={setBurgerIsOpen} options={titles} handleClick={handleBurgerClick}/>
-					<Text setSelectedStyle={setSelectedStyle}/>
+					<div className={"text-body"} id={textBodyId}>
+						<Text setSelectedStyle={setSelectedStyle}/>
+					</div>
 				</div>
-			</div>
+
 		</OpenCloseBox>
 	)
 }
