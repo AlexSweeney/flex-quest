@@ -97,9 +97,9 @@
 	background: purple;
 }
 
-.display-container-x-closing {
+.display-container-x-closing-no-overflow {
 	/*overflow: hidden;*/
-	max-width: 100%; 
+	max-width: 100%;
 }
 
 /* =================== Content Container - wrapper for content */

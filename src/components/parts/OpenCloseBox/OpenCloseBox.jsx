@@ -35,7 +35,8 @@ export default function OpenCloseBox({
 
 	// ======================= State ======================= // 
 	const [boxIsOpen, setBoxIsOpen] = useState(null);
-	const [widthTransitionFinished, setWidthTransitionFinished] = useState(false); 
+	const [widthTransitionEnded, setWidthTransitionEnded] = useState(false); 
+	const [contentContainerTransitionEnded, setContentContainerTransitionEnded] = useState(false);
 	const [savedHeight, setSavedHeight] = useState(null);
 
 	// ======================= Classes ======================= //
@@ -63,17 +64,25 @@ export default function OpenCloseBox({
 
 	function onBoxClosing() { 
 		// keepHeight(contentContainerId)
-
+		setBoxOpenClass('box-closed')
 		
 		setContentContainerOpenClass('content-container-x-closing')
 		
+
 		saveHeight(contentContainerId, setSavedHeight)
 
 		// close container if overflow width
-		keepWidth(displayContainerId)
+
+		if(elementWidthIsOverflowing(boxBodyId)) {
+			console.log('overflowing')
+			keepWidth(displayContainerId)
+			setWidthToFull(displayContainerId, boxBodyId)
+		} else {
+			console.log('not overflowing')
+			setDisplayContainerOpenClass('display-container-x-closing-no-overflow')
+		}
+		
 		keepHeight(contentContainerId)
- 
- 		setWidthToFull(displayContainerId, boxBodyId)
 		setHeightToFull(contentContainerId, boxBodyId)
 		// setDisplayContainerOpenClass('display-container-closing-x')
 		// setOverflowToHidden(displayContainerId)
@@ -100,7 +109,9 @@ export default function OpenCloseBox({
 	}
 
 	function onContentContainerOpen() {
+		console.log('content container open')
 		// remove inline height
+		removeInlineStyles(contentContainerId)
 	}
 
 	function onWidthTransitionEnd() {  
@@ -110,6 +121,13 @@ export default function OpenCloseBox({
 	}
 
 	// ======================= Helper Fns ======================= //
+	function elementWidthIsOverflowing(id) {
+		const element = document.getElementById(id);
+		if(!element) return;
+
+	  return element.scrollWidth > element.clientWidth;
+	}
+
 	function removeInlineStyles(id) {
 		const element = document.getElementById(id);
 		element.style = [];
@@ -188,9 +206,7 @@ export default function OpenCloseBox({
 
 		displayElement.addEventListener('transitionend', (e) => {
 			if(e.propertyName === 'width') onWidthTransitionEnd()
-		}) 
-
-		
+		})   
 	}, [])
 
 	// listen for box open / closed
@@ -207,6 +223,15 @@ export default function OpenCloseBox({
 	}, [boxIsOpen, boxTransitionEnded])
 
 	useEffect(() => {
+		if(contentContainerTransitionEnded) {
+			if(boxIsOpen) onContentContainerOpen()
+			if(!boxIsOpen) 
+
+			setContentContainerTransitionEnded(false)
+		}
+	}, [boxIsOpen, contentContainerTransitionEnded])
+
+	useEffect(() => {
 		const boxElement = document.getElementById(boxId);
 
 		boxElement.addEventListener('transitionstart', (e) => { 
@@ -216,6 +241,19 @@ export default function OpenCloseBox({
 		boxElement.addEventListener('transitionend', (e) => { 
 			if(e.propertyName === 'width' && e.srcElement.id === boxId) setBoxTransitionEnded(true)
 		}) 
+	}, [])
+
+	useEffect(() => {
+		const contentContainerElement = document.getElementById(contentContainerId);
+
+		contentContainerElement.addEventListener('transitionstart', (e) => { 
+			if(e.propertyName === 'height' && e.srcElement.id === contentContainerId) setContentContainerTransitionEnded(false)
+		}) 
+
+		contentContainerElement.addEventListener('transitionend', (e) => { 
+			if(e.propertyName === 'height' && e.srcElement.id === contentContainerId) setContentContainerTransitionEnded(true)
+		}) 
+
 	}, [])
 
 	// ======================= Component ======================= //
@@ -240,7 +278,7 @@ export default function OpenCloseBox({
 			<div className={`box-body`} id={boxBodyId}> 
 				<div className={`display-container ${displayContainerOpenClass}`} id={displayContainerId}>
 					<div className={`content-container ${contentContainerOpenClass}`} id={contentContainerId}>
-						<p>asdfjaksdfllllllllllllllllllllllllllllllllsadlkfjdslkdsjasfdksfdajfldaksjdsfakljdsfadkfjdsfasdfjaksdfllllllllllllllllllllllllllllllllsadlkfjdslkdsjasfdksfdajfldaksjdsfakljdsfadkfjdsfasdfjaksdfllllllllllllllllllllllllllllllllsadlkfjdslkdsjasfdksfdajfldaksjdsfakljdsfadkfjdsfasdfjaksdfllllllllllllllllllllllllllllllllsadlkfjdslkdsjasfdksfdajfldaksjdsfakljdsfadkfjdsfasdfjaksdfllllllllllllllllllllllllllllllllsadlkfjdslkdsjasfdksfdajfldaksjdsfakljdsfadkfjdsfasdfjaksdfllllllllllllllllllllllllllllllllsadlkfjdslkdsjasfdksfdajfldaksjdsfakljdsfadkfjdsf</p>
+					{/*<p>asdfjaksdfllllllllllllllllllllllllllllllllsadlkfjdslkdsjasfdksfdajfldaksjdsfakljdsfadkfjdsfasdfjaksdfllllllllllllllllllllllllllllllllsadlkfjdslkdsjasfdksfdajfldaksjdsfakljdsfadkfjdsfasdfjaksdfllllllllllllllllllllllllllllllllsadlkfjdslkdsjasfdksfdajfldaksjdsfakljdsfadkfjdsfasdfjaksdfllllllllllllllllllllllllllllllllsadlkfjdslkdsjasfdksfdajfldaksjdsfakljdsfadkfjdsfasdfjaksdfllllllllllllllllllllllllllllllllsadlkfjdslkdsjasfdksfdajfldaksjdsfakljdsfadkfjdsfasdfjaksdfllllllllllllllllllllllllllllllllsadlkfjdslkdsjasfdksfdajfldaksjdsfakljdsfadkfjdsf</p> */}
 			 			<p>asdfjaksdfllllllllllllll</p>
 						<p>asdfjaksdfllllllllllllll</p>
 						<p>asdfjaksdfllllllllllllll</p>
