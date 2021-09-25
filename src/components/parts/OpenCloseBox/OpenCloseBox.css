@@ -20,6 +20,10 @@
 	width: 100%;
 }
 
+.box-opening-no-overflow-x {
+	overflow-x: hidden;
+}
+
 .box-closing,
 .box-closed {
 	width: 36px;  
@@ -84,7 +88,7 @@
 	background: #E8E4E4;  
 	overflow: auto;
 	background: red;
-	display: flex; 
+	display: inline-flex; 
 } 
 
 .box-body-refresh {
@@ -94,7 +98,8 @@
 /* =================== View Container - area visible to user*/
 .display-container {  
 	transition: width 1s; 
-	background: purple;
+	background: purple;  
+	min-width: 100%;
 }
 
 .display-container-x-closing-no-overflow {
@@ -108,17 +113,18 @@
 	box-sizing: border-box;
 	overflow: visible;  
 */
+	/*width: 100%;
+  	max-width: 100%;*/
 /*	transition: height 2s, width 2s;*/
+	/*  box-sizing: border-box; */
+	
 	transition: height 1s;
 
 	background: pink;   
   border: 0.5em solid blue;
-
-  width: 100%;
-  max-width: 100%;
   overflow: hidden;
   box-sizing: border-box; 
-/*  box-sizing: border-box; */
+	white-space: nowrap;
 }  
 
 .content-container-x-closed {

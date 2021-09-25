@@ -36,11 +36,13 @@ export default function OpenCloseBox({
 	// ======================= State ======================= // 
 	const [boxIsOpen, setBoxIsOpen] = useState(null);
 	const [widthTransitionEnded, setWidthTransitionEnded] = useState(false); 
+	const [widthIsOverflowing, setWidthIsOverflowing] = useState(false);
 	const [contentContainerTransitionEnded, setContentContainerTransitionEnded] = useState(false);
 	const [savedHeight, setSavedHeight] = useState(null);
 
 	// ======================= Classes ======================= //
 	const [boxOpenClass, setBoxOpenClass] = useState('box-open');
+	const [boxOverflowClass, setBoxOverflowClass] = useState('');
 	const [contentContainerOpenClass, setContentContainerOpenClass] = useState('content-container-open');
 	const [displayContainerOpenClass, setDisplayContainerOpenClass] = useState('display-container-open');
 	
@@ -57,9 +59,11 @@ export default function OpenCloseBox({
 	function onBoxOpening() { 
 		setBoxOpenClass('box-open')
 		setContentContainerOpenClass('content-container-x-opening')
-		setDisplayContainerOpenClass('display-container-x-opening')
-		
-		
+		setDisplayContainerOpenClass('display-container-x-opening')  
+
+		if(!widthIsOverflowing) {
+			setBoxOverflowClass('box-opening-no-overflow-x')
+		}
 	}
 
 	function onBoxClosing() { 
@@ -73,10 +77,13 @@ export default function OpenCloseBox({
 
 		// close container if overflow width
 
-		if(elementWidthIsOverflowing(boxBodyId)) {
+		const xOverflowing = elementWidthIsOverflowing(boxBodyId);
+
+		if(xOverflowing) {
 			console.log('overflowing')
 			keepWidth(displayContainerId)
 			setWidthToFull(displayContainerId, boxBodyId)
+			setWidthIsOverflowing(true)
 		} else {
 			console.log('not overflowing')
 			setDisplayContainerOpenClass('display-container-x-closing-no-overflow')
@@ -104,6 +111,7 @@ export default function OpenCloseBox({
 		console.log('onBoxOpen')
 		setContentContainerOpenClass('content-container-open')
 
+		setBoxOverflowClass('')
 		// set height to saved value
 		setHeight(contentContainerId, savedHeight)
 	}
@@ -275,10 +283,10 @@ export default function OpenCloseBox({
 				</div>
 			</div>
 
-			<div className={`box-body`} id={boxBodyId}> 
+			<div className={`box-body ${boxOverflowClass}`} id={boxBodyId}> 
 				<div className={`display-container ${displayContainerOpenClass}`} id={displayContainerId}>
 					<div className={`content-container ${contentContainerOpenClass}`} id={contentContainerId}>
-					{/*<p>asdfjaksdfllllllllllllllllllllllllllllllllsadlkfjdslkdsjasfdksfdajfldaksjdsfakljdsfadkfjdsfasdfjaksdfllllllllllllllllllllllllllllllllsadlkfjdslkdsjasfdksfdajfldaksjdsfakljdsfadkfjdsfasdfjaksdfllllllllllllllllllllllllllllllllsadlkfjdslkdsjasfdksfdajfldaksjdsfakljdsfadkfjdsfasdfjaksdfllllllllllllllllllllllllllllllllsadlkfjdslkdsjasfdksfdajfldaksjdsfakljdsfadkfjdsfasdfjaksdfllllllllllllllllllllllllllllllllsadlkfjdslkdsjasfdksfdajfldaksjdsfakljdsfadkfjdsfasdfjaksdfllllllllllllllllllllllllllllllllsadlkfjdslkdsjasfdksfdajfldaksjdsfakljdsfadkfjdsf</p> */}
+						{/*<p>abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg--- end </p> */}
 			 			<p>asdfjaksdfllllllllllllll</p>
 						<p>asdfjaksdfllllllllllllll</p>
 						<p>asdfjaksdfllllllllllllll</p>
