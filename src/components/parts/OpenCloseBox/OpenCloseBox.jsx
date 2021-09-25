@@ -36,6 +36,7 @@ export default function OpenCloseBox({
 	// ======================= State ======================= // 
 	const [boxIsOpen, setBoxIsOpen] = useState(null);
 	const [widthTransitionFinished, setWidthTransitionFinished] = useState(false); 
+	const [savedHeight, setSavedHeight] = useState(null);
 
 	// ======================= Classes ======================= //
 	const [boxOpenClass, setBoxOpenClass] = useState('box-open');
@@ -52,29 +53,28 @@ export default function OpenCloseBox({
 		// setIsAnimating(true)
 	} 
 
-	function onBoxOpening() {
-		console.log('box-opening')
+	function onBoxOpening() { 
 		setBoxOpenClass('box-open')
 		setContentContainerOpenClass('content-container-x-opening')
+		setDisplayContainerOpenClass('display-container-x-opening')
+		
+		
 	}
 
-	function onBoxClosing() {
-		console.log('box-closing')
+	function onBoxClosing() { 
 		// keepHeight(contentContainerId)
 
 		
 		setContentContainerOpenClass('content-container-x-closing')
-		 
+		
+		saveHeight(contentContainerId, setSavedHeight)
+
 		// close container if overflow width
-
-
 		keepWidth(displayContainerId)
 		keepHeight(contentContainerId)
  
  		setWidthToFull(displayContainerId, boxBodyId)
 		setHeightToFull(contentContainerId, boxBodyId)
-		
-
 		// setDisplayContainerOpenClass('display-container-closing-x')
 		// setOverflowToHidden(displayContainerId)
 			
@@ -83,22 +83,38 @@ export default function OpenCloseBox({
 	}
 
 	function onBoxClosed() {
+		console.log('onBoxClosed')
 		setContentContainerOpenClass('content-container-x-closed')
 		// saveWidth(contentContainerId, setSavedWidth)
+
+		removeInlineStyles(displayContainerId)
+		// removeInlineStyles(contentContainerId)
 	}
 
 	function onBoxOpen() {
+		console.log('onBoxOpen')
 		setContentContainerOpenClass('content-container-open')
+
+		// set height to saved value
+		setHeight(contentContainerId, savedHeight)
 	}
 
-	function onWidthTransitionEnd() { 
-		console.log('width trans end')
-		setDisplayContainerOpenClass('display-container-closing-x')
+	function onContentContainerOpen() {
+		// remove inline height
+	}
+
+	function onWidthTransitionEnd() {  
+		setDisplayContainerOpenClass('display-container-x-closing')
 		setBoxOpenClass('box-closed')
 		// setWidthTransitionFinished(true)
 	}
 
 	// ======================= Helper Fns ======================= //
+	function removeInlineStyles(id) {
+		const element = document.getElementById(id);
+		element.style = [];
+	}
+
 	// onHeightTransitionENd removeHeight(contentContainerId)
 	function keepWidth(id) {
 		const element = document.getElementById(id);
@@ -113,16 +129,14 @@ export default function OpenCloseBox({
 		
 		const height = element.offsetHeight + 'px';
 		// console.log('heightElement.clientHeight', heightElement.clientHeight)
-		// console.log('heightElement.offsetHeight', heightElement.offsetHeight) 
-		console.log('height', height)
+		// console.log('heightElement.offsetHeight', heightElement.offsetHeight)  
 		element.style.height = height;
 	}
 
 	function setHeightToFull(id, heightId) {
 		const element = document.getElementById(id);
 		const heightElement = document.getElementById(heightId); 
-		const height = heightElement.offsetHeight; 
-		console.log('height', height)
+		const height = heightElement.offsetHeight;  
 		element.style.height = height + 'px';
 	}
 
@@ -138,10 +152,16 @@ export default function OpenCloseBox({
 		element.style.height = '';
 	}
 
-	function saveWidth(id, saveFn) {
+	function saveHeight(id, saveFn) {
 		const element = document.getElementById(id);
-		const width = element.width;
-		saveFn(width) 
+		const height = element.offsetHeight + 'px'; 
+		saveFn(height) 
+	}
+
+	function setHeight(id, height) {
+		const element = document.getElementById(id);
+		element.height = '';
+		element.style.height = height;
 	}
 
 	useEffect(() => {
@@ -164,14 +184,37 @@ export default function OpenCloseBox({
 	// Add / Remove Listeners
 	useEffect(() => {
 		const displayElement = document.getElementById(displayContainerId);
-		const boxElement = document.getElementById(boxId);
+		
 
 		displayElement.addEventListener('transitionend', (e) => {
 			if(e.propertyName === 'width') onWidthTransitionEnd()
 		}) 
 
+		
+	}, [])
+
+	// listen for box open / closed
+	const [boxTransitionEnded, setBoxTransitionEnded] = useState(false)
+
+
+	useEffect(() => {
+		if(boxTransitionEnded) {
+			if(boxIsOpen) onBoxOpen()
+			if(!boxIsOpen) onBoxClosed()
+
+			setBoxTransitionEnded(false)
+		}
+	}, [boxIsOpen, boxTransitionEnded])
+
+	useEffect(() => {
+		const boxElement = document.getElementById(boxId);
+
+		boxElement.addEventListener('transitionstart', (e) => { 
+			if(e.propertyName === 'width' && e.srcElement.id === boxId) setBoxTransitionEnded(false)
+		}) 
+
 		boxElement.addEventListener('transitionend', (e) => { 
-			if(e.propertyName === 'width' && e.srcElement.id === boxId) onBoxClosed()
+			if(e.propertyName === 'width' && e.srcElement.id === boxId) setBoxTransitionEnded(true)
 		}) 
 	}, [])
 

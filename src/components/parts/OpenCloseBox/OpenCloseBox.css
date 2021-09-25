@@ -97,7 +97,7 @@
 	background: purple;
 }
 
-.display-container-closing-x {
+.display-container-x-closing {
 	/*overflow: hidden;*/
 	max-width: 100%; 
 }
@@ -122,6 +122,10 @@
 }  
 
 .content-container-x-closed {
+	height: 0 !important;
+}
+
+.content-container-x-opening {
 	height: 0 !important;
 }
 
