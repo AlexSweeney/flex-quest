@@ -23,6 +23,7 @@
 .box-closing,
 .box-closed {
 	width: 36px; 
+	width: 100%;
 }
 
 /* =================== Box Header =================== */
@@ -94,10 +95,11 @@
 /* =================== View Container - area visible to user*/
 .display-container {  
 	transition: width 1s; 
+	background: purple;
 }
 
 .display-container-closing-x {
-	overflow: hidden;
+	/*overflow: hidden;*/
 	max-width: 100%; 
 }
 
@@ -108,15 +110,15 @@
 	overflow: visible;  
 */
 /*	transition: height 2s, width 2s;*/
+	transition: height 1s;
+
 	background: pink;   
   border: 0.5em solid blue;
 
   width: 100%;
   max-width: 100%;
   overflow: hidden;
-  box-sizing: border-box;
-
-  transition: width 2s; 
+  box-sizing: border-box; 
 /*  box-sizing: border-box; */
 }  
 

@@ -68,14 +68,20 @@ export default function OpenCloseBox({
 		// close container if overflow width
 
 
-		keepWidth(displayContainerId)
-		setWidthToFull(displayContainerId, boxBodyId)
+		// keepWidth(displayContainerId)
+		keepHeight(contentContainerId)
+
+		// setWidthToFull(displayContainerId, boxBodyId)
+		
+
+		setHeightToFull(contentContainerId, boxBodyId)
+		
 
 		// setDisplayContainerOpenClass('display-container-closing-x')
 		// setOverflowToHidden(displayContainerId)
 			
 
-		// setHeightToFull(contentContainerId, boxBodyId)
+		
 	}
 
 	function onBoxClosed() {
@@ -102,16 +108,23 @@ export default function OpenCloseBox({
 		element.style.width = width; 
 	}
 
-	function keepHeight(id) {
+	function keepHeight(id, heightId) {
 		const element = document.getElementById(id);
-		const height = window.getComputedStyle(element).height;
-		element.style.height = height; 
+		// const heightElement = document.getElementById(heightId);
+		// const height = window.getComputedStyle(element).height;
+		
+		const height = element.offsetHeight + 'px';
+		// console.log('heightElement.clientHeight', heightElement.clientHeight)
+		// console.log('heightElement.offsetHeight', heightElement.offsetHeight) 
+		console.log('height', height)
+		element.style.height = height;
 	}
 
 	function setHeightToFull(id, heightId) {
 		const element = document.getElementById(id);
 		const heightElement = document.getElementById(heightId); 
 		const height = heightElement.offsetHeight; 
+		console.log('height', height)
 		element.style.height = height + 'px';
 	}
 
@@ -140,9 +153,6 @@ export default function OpenCloseBox({
 	}, [boxIsOpen])
   
 	// ======================= Transition Functions ======================= //
-	
-
-		
 	function addTransitionEndListener(id, fn) {
 		const element = document.getElementById(id);
 		element.addEventListener('transitionend', fn)
@@ -185,8 +195,7 @@ export default function OpenCloseBox({
 				<div className={`display-container ${displayContainerOpenClass}`} id={displayContainerId}>
 					<div className={`content-container ${contentContainerOpenClass}`} id={contentContainerId}>
 						<p>asdfjaksdfllllllllllllllllllllllllllllllllsadlkfjdslkdsjasfdksfdajfldaksjdsfakljdsfadkfjdsfasdfjaksdfllllllllllllllllllllllllllllllllsadlkfjdslkdsjasfdksfdajfldaksjdsfakljdsfadkfjdsfasdfjaksdfllllllllllllllllllllllllllllllllsadlkfjdslkdsjasfdksfdajfldaksjdsfakljdsfadkfjdsfasdfjaksdfllllllllllllllllllllllllllllllllsadlkfjdslkdsjasfdksfdajfldaksjdsfakljdsfadkfjdsfasdfjaksdfllllllllllllllllllllllllllllllllsadlkfjdslkdsjasfdksfdajfldaksjdsfakljdsfadkfjdsfasdfjaksdfllllllllllllllllllllllllllllllllsadlkfjdslkdsjasfdksfdajfldaksjdsfakljdsfadkfjdsf</p>
-			
-						{/*<p>asdfjaksdfllllllllllllll</p>
+			 			<p>asdfjaksdfllllllllllllll</p>
 						<p>asdfjaksdfllllllllllllll</p>
 						<p>asdfjaksdfllllllllllllll</p>
 						<p>asdfjaksdfllllllllllllll</p>
@@ -212,7 +221,7 @@ export default function OpenCloseBox({
 						<p>asdfjaksdfllllllllllllll</p>
 						<p>asdfjaksdfllllllllllllll</p>
 						<p>asdfjaksdfllllllllllllll</p>
-						<p>end</p>*/}
+						<p>end</p> 
 					</div>
 				</div>
 			</div>
