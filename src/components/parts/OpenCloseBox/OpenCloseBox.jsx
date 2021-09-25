@@ -68,12 +68,10 @@ export default function OpenCloseBox({
 		// close container if overflow width
 
 
-		// keepWidth(displayContainerId)
+		keepWidth(displayContainerId)
 		keepHeight(contentContainerId)
-
-		// setWidthToFull(displayContainerId, boxBodyId)
-		
-
+ 
+ 		setWidthToFull(displayContainerId, boxBodyId)
 		setHeightToFull(contentContainerId, boxBodyId)
 		
 
@@ -85,7 +83,7 @@ export default function OpenCloseBox({
 	}
 
 	function onBoxClosed() {
-		setContentContainerOpenClass('content-container-closed')
+		setContentContainerOpenClass('content-container-x-closed')
 		// saveWidth(contentContainerId, setSavedWidth)
 	}
 
@@ -166,9 +164,14 @@ export default function OpenCloseBox({
 	// Add / Remove Listeners
 	useEffect(() => {
 		const displayElement = document.getElementById(displayContainerId);
+		const boxElement = document.getElementById(boxId);
 
 		displayElement.addEventListener('transitionend', (e) => {
 			if(e.propertyName === 'width') onWidthTransitionEnd()
+		}) 
+
+		boxElement.addEventListener('transitionend', (e) => { 
+			if(e.propertyName === 'width' && e.srcElement.id === boxId) onBoxClosed()
 		}) 
 	}, [])
 
