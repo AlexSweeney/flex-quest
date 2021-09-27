@@ -99,7 +99,7 @@
 .display-container {  
 	transition: width 1s; 
 	background: purple;  
-	min-width: 100%;
+	/*min-width: 100%;*/
 }
 
 .display-container-x-closing-no-overflow {
@@ -125,6 +125,8 @@
   overflow: hidden;
   box-sizing: border-box; 
 	white-space: nowrap;
+
+	height: 100%;
 }  
 
 .content-container-x-closed {

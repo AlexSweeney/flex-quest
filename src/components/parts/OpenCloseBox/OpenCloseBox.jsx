@@ -17,14 +17,25 @@ export default function OpenCloseBox({
 		* open and close on press toggle
 
 		* animate 
-			*	close - x then y 
-			*	open - x then y   
+			same size:
+			
+			overflow
+				x 
+					open 
+					close
+				y
+					open
+					close
 
-		overflow
+				x + y
+					open 
+					close
 
-			* expand x
-			* expand y 
-			on close shrink
+			smaller
+				x
+				y
+				x + y
+
 	*/ 
 	
 	// ======================= Id's ======================= //
@@ -52,8 +63,7 @@ export default function OpenCloseBox({
 			if(oldVal === null) return false;
 			if(oldVal === false) return true;
 			if(oldVal === true) return false;
-		})
-		// setIsAnimating(true)
+		}) 
 	} 
 
 	function onBoxOpening() { 
@@ -67,35 +77,33 @@ export default function OpenCloseBox({
 	}
 
 	function onBoxClosing() { 
-		// keepHeight(contentContainerId)
 		setBoxOpenClass('box-closed')
-		
 		setContentContainerOpenClass('content-container-x-closing')
 		
+		onBoxClosingX()
+		onBoxClosingY() 
+	}
 
-		saveHeight(contentContainerId, setSavedHeight)
+	function onBoxClosingX() {
+		const isOverflowing = elementWidthIsOverflowing(boxBodyId);
 
-		// close container if overflow width
-
-		const xOverflowing = elementWidthIsOverflowing(boxBodyId);
-
-		if(xOverflowing) {
-			console.log('overflowing')
+		if(isOverflowing) {
 			keepWidth(displayContainerId)
 			setWidthToFull(displayContainerId, boxBodyId)
 			setWidthIsOverflowing(true)
 		} else {
-			console.log('not overflowing')
 			setDisplayContainerOpenClass('display-container-x-closing-no-overflow')
 		}
-		
-		keepHeight(contentContainerId)
-		setHeightToFull(contentContainerId, boxBodyId)
-		// setDisplayContainerOpenClass('display-container-closing-x')
-		// setOverflowToHidden(displayContainerId)
-			
+	}
 
-		
+	function onBoxClosingY() {
+		const isOverflowing = elementHeightIsOverflowing(boxBodyId);
+
+		if(isOverflowing) {
+			keepHeight(contentContainerId)
+			setHeightToFull(contentContainerId, boxBodyId)
+			saveHeight(contentContainerId, setSavedHeight)
+		} 
 	}
 
 	function onBoxClosed() {
@@ -134,6 +142,13 @@ export default function OpenCloseBox({
 		if(!element) return;
 
 	  return element.scrollWidth > element.clientWidth;
+	}
+
+	function elementHeightIsOverflowing(id) {
+		const element = document.getElementById(id);
+		if(!element) return;
+
+	  return element.scrollHeight > element.clientHeight;
 	}
 
 	function removeInlineStyles(id) {
@@ -286,12 +301,13 @@ export default function OpenCloseBox({
 			<div className={`box-body ${boxOverflowClass}`} id={boxBodyId}> 
 				<div className={`display-container ${displayContainerOpenClass}`} id={displayContainerId}>
 					<div className={`content-container ${contentContainerOpenClass}`} id={contentContainerId}>
-						{/*<p>abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg--- end </p> */}
+					{/*	<p>abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg--- end </p>*/}
 			 			<p>asdfjaksdfllllllllllllll</p>
 						<p>asdfjaksdfllllllllllllll</p>
 						<p>asdfjaksdfllllllllllllll</p>
 						<p>asdfjaksdfllllllllllllll</p>
 						<p>asdfjaksdfllllllllllllll</p>
+						{/*<p>asdfjaksdfllllllllllllll</p>
 						<p>asdfjaksdfllllllllllllll</p>
 						<p>asdfjaksdfllllllllllllll</p>
 						<p>asdfjaksdfllllllllllllll</p>
@@ -311,8 +327,7 @@ export default function OpenCloseBox({
 						<p>asdfjaksdfllllllllllllll</p>
 						<p>asdfjaksdfllllllllllllll</p>
 						<p>asdfjaksdfllllllllllllll</p>
-						<p>asdfjaksdfllllllllllllll</p>
-						<p>asdfjaksdfllllllllllllll</p>
+						<p>asdfjaksdfllllllllllllll</p>*/}
 						<p>end</p> 
 					</div>
 				</div>
