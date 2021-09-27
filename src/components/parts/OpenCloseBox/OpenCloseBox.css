@@ -26,7 +26,7 @@
 
 .box-closing,
 .box-closed {
-	width: 36px;  
+	width: 36px;   
 }
 
 /* =================== Box Header =================== */
@@ -88,7 +88,8 @@
 	background: #E8E4E4;  
 	overflow: auto;
 	background: red;
-	display: inline-flex; 
+	display: flex; 
+  flex-direction: column;
 } 
 
 .box-body-refresh {
@@ -98,11 +99,13 @@
 /* =================== View Container - area visible to user*/
 .display-container {  
 	transition: width 1s; 
-	background: purple;  
-	min-width: 100%;
+	background: purple;   
+	display: flex;
+	flex-grow: 1;
+	/*min-height: 100%;*/
 }
 
-.display-container-x-closing-no-overflow {
+.display-container-x-closing {
 	/*overflow: hidden;*/
 	max-width: 100%;
 }
@@ -122,31 +125,39 @@
 
 	background: pink;   
   border: 0.5em solid blue;
-  overflow: hidden;
+ /* overflow: hidden;*/
   box-sizing: border-box; 
 	white-space: nowrap; 
 
-	min-height: 100%; 
+	display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+/*	min-height: 100%; 
+	min-width: 100%;*/
 }  
+
+.content-container-x-closing {
+	/* set height and width to 100% in pixels if overflowing */ 
+	/* if not overflowing set max-height and max-width to 100% */
+ 	overflow: hidden;
+ 	max-width: 100%;
+}
 
 .content-container-x-closed {
 	height: 0 !important; 
 	min-height: 0;
+	max-width: 100%;
+	overflow: hidden;
 }
 
 .content-container-x-opening {
 	height: 0 !important;
 	min-height: 0;
-}
+	overflow: hidden;
+} 
 
- 
 
-/*.content-container-x-closing {
-	/* set height and width to 100% in pixels if overflowing */ 
-	/* if not overflowing set max-height and max-width to 100% */
- /*	overflow: hidden;
-}
- 
+/*
 .content-container-closed {	
 
 	height: 0 !important; 
