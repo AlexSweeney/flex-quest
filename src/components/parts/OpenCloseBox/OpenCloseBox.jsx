@@ -17,7 +17,7 @@ export default function OpenCloseBox({
 		* open and close on press toggle
 
 		* animate 
-			same size:
+			same size: x
 			
 			overflow
 				x 
@@ -29,12 +29,7 @@ export default function OpenCloseBox({
 
 				x + y
 					open 
-					close
-
-			smaller
-				x
-				y
-				x + y
+					close 
 
 	*/ 
 	
@@ -303,11 +298,11 @@ export default function OpenCloseBox({
 					<div className={`content-container ${contentContainerOpenClass}`} id={contentContainerId}>
 					{/*	<p>abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg--- end </p>*/}
 			 			<p>asdfjaksdfllllllllllllll</p>
-						<p>asdfjaksdfllllllllllllll</p>
-						<p>asdfjaksdfllllllllllllll</p>
-						<p>asdfjaksdfllllllllllllll</p>
-						<p>asdfjaksdfllllllllllllll</p>
 						{/*<p>asdfjaksdfllllllllllllll</p>
+						<p>asdfjaksdfllllllllllllll</p>
+						<p>asdfjaksdfllllllllllllll</p>
+						<p>asdfjaksdfllllllllllllll</p>
+						<p>asdfjaksdfllllllllllllll</p>
 						<p>asdfjaksdfllllllllllllll</p>
 						<p>asdfjaksdfllllllllllllll</p>
 						<p>asdfjaksdfllllllllllllll</p>
