@@ -17,7 +17,7 @@
    
 .box-closed {
 	width: 36px;  
-	width: 100%;
+/*	width: 100%;*/
 }
 
 /* =================== Box Header =================== */
@@ -114,7 +114,8 @@
 }
 
 .content-container-closing-x {
-
+	overflow: hidden;
+	max-width: 100%;
 }
 
 .content-container-closing-y {

@@ -36,6 +36,7 @@ export default function OpenCloseBox({
 
 	const [widthIsOverflowing, setWidthIsOverflowing] = useState(false);
 	const [heightIsOverflowing, setHeightIsOverflowing] = useState(false);
+	const [overflowIsShrinking, setOverflowIsShrinking] = useState(false);
 
 	// ======================= Classes ======================= //
 	const [boxOpenClass, setBoxOpenClass] = useState('box-open');
@@ -61,6 +62,7 @@ export default function OpenCloseBox({
 		const thisHeightIsOverflowing = elementHeightIsOverflowing(boxBodyId);
 		setHeightIsOverflowing(thisHeightIsOverflowing)
 
+		if(thisWidthIsOverflowing || thisHeightIsOverflowing) setOverflowIsShrinking(true)
 		if(thisWidthIsOverflowing) closeWidthOverflow()
 		if(thisHeightIsOverflowing) closeHeightOverflow() 
 
@@ -70,23 +72,38 @@ export default function OpenCloseBox({
 	function onBoxClosing() {
 		console.log('onBoxClosing ------------------')
 		setBoxOpenClass('box-closed')
-		setContentContainerOpenClass('content-container-x-closing')
+		setContentContainerOpenClass('content-container-closing-x')
 	}
 
 	function onBoxOpen() {
 		setContentContainerOpenClass('content-container-open')
 	}
 
+	function onOverflowClosed() {
+		onBoxClosing()
+	}
+
 	// ======================= Helper Fns ========================== //  
+	function addListeners(id, property, fn) {
+		const element = document.getElementById(id);
+		element.addEventListener('transitionend', (e) => {
+			if(e.propertyName === property && e.srcElement.id === id) {
+				fn()
+			}
+		})
+	}
+
 	function closeWidthOverflow() {
 		console.log('close width overflow')
+		addListeners(contentContainerId, 'width', () => { setWidthIsOverflowing(false);  console.log('width finished') })
 		keepWidth(contentContainerId)
 		setWidthToFull(contentContainerId, boxBodyId)
-		setContentContainerOpenClass('content-container-closing-overflow')
+		setContentContainerOpenClass('content-container-closing-overflow') 
 	}
 
 	function closeHeightOverflow() {
 		console.log('close height overflow')
+		addListeners(contentContainerId, 'height', () => { setHeightIsOverflowing(false); console.log('height finished') })
 		keepHeight(contentContainerId)
 		setHeightToFull(contentContainerId, boxBodyId)
 		setContentContainerOpenClass('content-container-closing-overflow')
@@ -141,7 +158,14 @@ export default function OpenCloseBox({
 		if(clickedOpen === null) onBoxOpen()
 	}, [clickedOpen]) 
 
-	// detect box open / closed 
+	// detect box resized
+	useEffect(() => {
+		if(overflowIsShrinking) {
+			if(!widthIsOverflowing && !heightIsOverflowing) { 
+				onOverflowClosed()
+			}
+		}
+	}, [overflowIsShrinking, widthIsOverflowing, heightIsOverflowing])
 
 	// trigger overflow status update !!!!!!!!!!!! update to only trigger if clicked when boxIsOpen
 	/*useEffect(() => {
