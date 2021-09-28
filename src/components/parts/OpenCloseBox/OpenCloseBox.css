@@ -116,10 +116,15 @@
 .content-container-closing-x {
 	overflow: hidden;
 	max-width: 100%;
+	flex-grow: 0;
 }
 
 .content-container-closing-y {
-
+	height: 0 !important;
+  overflow: hidden;
+  max-width: 100%;
+  flex-grow: 0;
+  padding-bottom: 0; 
 }
 
 .content-container-closed {

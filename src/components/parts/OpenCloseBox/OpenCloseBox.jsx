@@ -73,10 +73,15 @@ export default function OpenCloseBox({
 		console.log('onBoxClosing ------------------')
 		setBoxOpenClass('box-closed')
 		setContentContainerOpenClass('content-container-closing-x')
+		addListeners(boxId, 'width', () => onBoxClosed())
 	}
 
 	function onBoxOpen() {
 		setContentContainerOpenClass('content-container-open')
+	}
+
+	function onBoxClosed() {
+		setContentContainerOpenClass('content-container-closing-y')
 	}
 
 	function onOverflowClosed() {
@@ -84,13 +89,17 @@ export default function OpenCloseBox({
 	}
 
 	// ======================= Helper Fns ========================== //  
-	function addListeners(id, property, fn) {
+	function addListeners(id, property, fn) { 
 		const element = document.getElementById(id);
-		element.addEventListener('transitionend', (e) => {
+
+		function handleEnd(e) {
 			if(e.propertyName === property && e.srcElement.id === id) {
 				fn()
+				element.removeEventListener('transitionend', handleEnd)
 			}
-		})
+		}
+
+		element.addEventListener('transitionend', handleEnd)
 	}
 
 	function closeWidthOverflow() {
