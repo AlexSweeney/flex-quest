@@ -23,6 +23,7 @@
 .box-closing,
 .box-closed {
 	width: 36px;  
+	/*width: 100%;*/
 }
 
 /* =================== Box Header =================== */
@@ -129,13 +130,11 @@
 	display: flex;
   flex-direction: column;
   flex-grow: 1;
+  overflow: hidden;
 
   min-width: 100%;
 }  
-
-.content-container-overflow-closed {
-
-}
+ 
 
 .content-container-x-closing {
 	/* set height and width to 100% in pixels if overflowing */ 
@@ -150,6 +149,7 @@
 .content-container-width-shrunk {
 	overflow: hidden;
 	width: 100% !important;
+	max-width: 100%;
 }
 
 .content-container-x-closed {

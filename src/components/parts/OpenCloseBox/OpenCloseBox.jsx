@@ -61,26 +61,44 @@ export default function OpenCloseBox({
 	function onContentContainerShrunk() {
 		console.log('content container shrunk')
 		setContentContainerOpenClass('content-container-width-shrunk')
+		setBoxOpenClass('box-closed')
 	}
 
 	function onBoxClosing() { 
 		console.log('on box closing -----------------------------------')
-		setBoxOpenClass('box-closed')
+		// setBoxOpenClass('box-closed')
 		
+		const thisWidthIsOverflowing = elementWidthIsOverflowing(boxBodyId)
+		setWidthIsOverflowing(thisWidthIsOverflowing)
+		console.log('thisWidthIsOverflowing', thisWidthIsOverflowing)
+
+		// if overflowing close extra width / height then close box
+		if(thisWidthIsOverflowing) {
+			keepWidth(contentContainerId)
+			setWidthToFull(contentContainerId, boxBodyId)
+		} 
+
+		if(!thisWidthIsOverflowing) {
+			setBoxOpenClass('box-closed')
+		}
+
+
+		// saveWidthIsOverflowing(boxBodyId)
+
 		// keepWidth(displayContainerId)
 		// setWidthToFull(displayContainerId, boxBodyId)
 		// saveWidthIsOverflowing(boxBodyId)
 		
-		keepWidth(contentContainerId)
-		setWidthToFull(contentContainerId, boxBodyId)
 		
-		// saveWidthIsOverflowing(displayContainerId)
+		
 
 		// keepHeight(contentContainerId)
 		// setHeightToFull(contentContainerId, boxBodyId)
 		// saveHeight(contentContainerId, setSavedHeight)
 
-		if(!elementWidthIsOverflowing(boxBodyId)) setContentContainerOpenClass('content-container-x-closing')
+		// if(!elementWidthIsOverflowing(boxBodyId)) setContentContainerOpenClass('content-container-x-closing')
+		
+
 		// setDisplayContainerOpenClass('display-container-x-closing') 
 	}
 
@@ -124,6 +142,9 @@ export default function OpenCloseBox({
 		setContentContainerOpenClass('content-container-x-opening')
 		setDisplayContainerOpenClass('display-container-x-opening')  
 
+		if(widthIsOverflowing) {
+			console.log('open width overflow')
+		}
 
 		// if width overflow don't remove inline style
 		// if(!widthIsOverflowing) removeInlineWidth(displayContainerId)
@@ -351,7 +372,7 @@ export default function OpenCloseBox({
 			<div className={`box-body ${boxOverflowClass}`} id={boxBodyId}> 
 				{/*<div className={`display-container ${displayContainerOpenClass}`} id={displayContainerId}>*/}
 					<div className={`content-container ${contentContainerOpenClass}`} id={contentContainerId}>
-						{/*<p>abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg--- end </p>*/}
+						<p>abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg--- end </p>
 			 			<p>asdfjaksdfllllllllllllll</p>
 						{/*<p>asdfjaksdfllllllllllllll</p>
 						<p>asdfjaksdfllllllllllllll</p>
