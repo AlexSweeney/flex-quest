@@ -72,15 +72,19 @@
 
 /* =================== Body */
 .box-body { 
-	width: 100%;
+	/*min-width: 100%;
+	min-height: 100%;*/
 	height: 100%;
+	width: 100%;
 
 	background: #E8E4E4;  
 	overflow: auto;
 	background: red;
-	display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+	/*display: flex;
+	align-items: stretch;*/
+
+  /*flex-direction: column;
+  align-items: flex-start;*/
 } 
 
 .box-body-closing {
@@ -102,12 +106,19 @@
   padding: 0.5em;
 	white-space: nowrap; 
 	box-sizing: border-box;
-	display: flex;
-  flex-direction: column;
- /* flex-grow: 1; */
+/*	display: flex;
+  flex-direction: row;*/
 
-  min-width: 100%;
-  min-height: 100%;
+  position: relative;
+  float: left;
+
+      min-width: 100%;
+    min-height: 100%;
+
+  /*flex-grow: 1; */
+
+ /* min-width: 100%;*/
+ /* min-height: 100%;*/
 }  
 
 .content-container-closing-overflow {
@@ -117,7 +128,7 @@
 .content-container-closing-x {
 	overflow: hidden;
 	max-width: 100%;
-	height: 100%;
+	height: 100%; 
 }
 
 .content-container-closing-y {
@@ -144,5 +155,9 @@
 }
 
 .content-container-opening-y {
+	overflow: hidden;
+}
+
+.content-container-open {
 
 }

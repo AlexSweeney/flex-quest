@@ -34,7 +34,9 @@ export default function OpenCloseBox({
 	const [clickedOpen, setClickedOpen] = useState(null);
 	// const [boxIsOpen, setBoxIsOpen] = useState(null);
 
-	const [widthOverflowOnOpen, setWidthOverflowOnOpen] = useState(false);
+	const [widthOverflowOnClose, setWidthOverflowOnClose] = useState(false);
+	const [heightOverflowOnClose, setHeightOverflowOnClose] = useState(false);
+	const [savedHeight, setSavedHeight] = useState(null);
 
 	const [widthIsOverflowing, setWidthIsOverflowing] = useState(false);
 	const [heightIsOverflowing, setHeightIsOverflowing] = useState(false);
@@ -59,23 +61,28 @@ export default function OpenCloseBox({
 		console.log('press opening') 
 		setBoxOpenClass('box-open')
 		setContentContainerOpenClass('content-container-opening-x')
-		if(!widthOverflowOnOpen) setContentContainerOpenClass('content-container-opening-x-max-width')
+		if(!widthOverflowOnClose) setContentContainerOpenClass('content-container-opening-x-max-width')
 		removeInlineWidth(contentContainerId)
 		addListeners(boxId, 'width', () => { setBoxWidthTransitionHasEnded(true); console.log('width trans over') })
 	}
 
 	function onPressBoxClosing() {
-		console.log('press closing')
+		console.log('--------------------------- press closing')
 		const thisWidthIsOverflowing = elementWidthIsOverflowing(boxBodyId);
-		setWidthOverflowOnOpen(thisWidthIsOverflowing)
-		console.log('thisWidthIsOverflowing', thisWidthIsOverflowing)
+		setWidthOverflowOnClose(thisWidthIsOverflowing) 
 
 		const thisHeightIsOverflowing = elementHeightIsOverflowing(boxBodyId);
-		setHeightIsOverflowing(thisHeightIsOverflowing)
+		setHeightOverflowOnClose(thisHeightIsOverflowing)
+
+		console.log('thisWidthIsOverflowing', thisWidthIsOverflowing)
+		console.log('thisHeightIsOverflowing', thisHeightIsOverflowing)
 
 		if(thisWidthIsOverflowing || thisHeightIsOverflowing) setOverflowIsShrinking(true)
 		if(thisWidthIsOverflowing) closeWidthOverflow()
-		if(thisHeightIsOverflowing) closeHeightOverflow() 
+		if(thisHeightIsOverflowing) {
+			saveHeight(contentContainerId)
+			closeHeightOverflow() 
+		}
 
 		if(!thisWidthIsOverflowing && !thisHeightIsOverflowing) onBoxClosing() 
 	}
@@ -88,7 +95,23 @@ export default function OpenCloseBox({
 
 	function onBoxOpen() {
 		console.log('box open')
-		// setContentContainerOpenClass('content-container-open')
+		// if height overflow
+		console.log('heightOverflowOnClose', heightOverflowOnClose)
+		if(heightOverflowOnClose) {
+			setHeightTo(contentContainerId, '0')
+			console.log('savedHeight', savedHeight)
+			setHeightTo(contentContainerId, savedHeight)
+			setContentContainerOpenClass('content-container-opening-y')
+		}
+
+		if(!heightOverflowOnClose) {
+			setContentContainerOpenClass('content-container-opening-y')
+		}
+	}
+
+	function onContentContainerOpen() {
+		// remove inline height
+		// removeInlineHeight(contentContainerId)
 	}
 
 	function onBoxClosed() {
@@ -96,6 +119,7 @@ export default function OpenCloseBox({
 	}
 
 	function onOverflowClosed() {
+		console.log('on overflow closed')
 		onBoxClosing()
 	}
 
@@ -113,12 +137,18 @@ export default function OpenCloseBox({
 		element.addEventListener('transitionend', handleEnd)
 	}
 
+	function removeInlineHeight(id) {
+		const element = document.getElementById(id);
+		element.style.height = '';
+	}
+
 	function removeInlineWidth(id) {
 		const element = document.getElementById(id);
 		element.style.width = '';
 	}
 
 	function closeWidthOverflow() {
+		setWidthIsOverflowing(true)
 		addListeners(contentContainerId, 'width', () => { setWidthIsOverflowing(false)})
 		keepWidth(contentContainerId)
 		setWidthToFull(contentContainerId, boxBodyId)
@@ -126,6 +156,7 @@ export default function OpenCloseBox({
 	}
 
 	function closeHeightOverflow() {
+		setHeightIsOverflowing(true)
 		addListeners(contentContainerId, 'height', () => { setHeightIsOverflowing(false)})
 		keepHeight(contentContainerId)
 		setHeightToFull(contentContainerId, boxBodyId)
@@ -142,6 +173,18 @@ export default function OpenCloseBox({
 	function keepHeight(id) {
 		const element = document.getElementById(id);  
 		const height = element.offsetHeight + 'px';  
+		element.style.height = height;
+	}
+
+	function saveHeight(id) {
+		const element = document.getElementById(id);  
+		const height = element.offsetHeight + 'px';  
+		console.log('save height --- ', height)
+		setSavedHeight(height)
+	}
+
+	function setHeightTo(id, height) {
+		const element = document.getElementById(id);
 		element.style.height = height;
 	}
 
@@ -186,6 +229,7 @@ export default function OpenCloseBox({
 		if(overflowIsShrinking) {
 			if(!widthIsOverflowing && !heightIsOverflowing) { 
 				onOverflowClosed()
+				setOverflowIsShrinking(false)
 			}
 		}
 	}, [overflowIsShrinking, widthIsOverflowing, heightIsOverflowing])
@@ -224,9 +268,8 @@ export default function OpenCloseBox({
 
 			<div className={`box-body`} id={boxBodyId}> 
 				<div className={`content-container ${contentContainerOpenClass}`} id={contentContainerId}>
-					{/*<p>abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg--- end </p>*/}
+					<p>one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty end </p>
 		 			<p>asdfjaksdfllllllllllllll</p>
-					{/*<p>asdfjaksdfllllllllllllll</p>
 					<p>asdfjaksdfllllllllllllll</p>
 					<p>asdfjaksdfllllllllllllll</p>
 					<p>asdfjaksdfllllllllllllll</p>
@@ -251,7 +294,8 @@ export default function OpenCloseBox({
 					<p>asdfjaksdfllllllllllllll</p>
 					<p>asdfjaksdfllllllllllllll</p>
 					<p>asdfjaksdfllllllllllllll</p>
-					<p>end</p> */}
+					<p>asdfjaksdfllllllllllllll</p>
+					<p>end</p> 
 				</div>
 			</div>
 		</div>
