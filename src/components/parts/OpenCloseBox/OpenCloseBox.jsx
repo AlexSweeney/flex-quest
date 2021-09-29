@@ -95,7 +95,9 @@ export default function OpenCloseBox({
 		addListeners(boxId, 'width', () => onBoxClosed())
 	}
 
-	function onBoxOpen() { 
+	function onBoxWidthOpen() { 
+		addListeners(contentContainerId, 'min-height', () => {console.log('box open')})
+
 		if(heightOverflowOnClose) {
 			setHeightTo(contentContainerId, '0') 
 			setHeightTo(contentContainerId, savedHeight)
@@ -105,6 +107,10 @@ export default function OpenCloseBox({
 		if(!heightOverflowOnClose) {
 			setContentContainerOpenClass('content-container-opening-y')
 		}
+	}
+
+	function onBoxOpen() {
+		setContentContainerOpenClass('content-container-open')
 	}
 
 	function onContentContainerOpen() {
@@ -233,7 +239,7 @@ export default function OpenCloseBox({
 	// detect box open 
 	useEffect(() => { 
 		if(clickedOpen && boxWidthTransitionHasEnded) {
-			onBoxOpen()
+			onBoxWidthOpen()
 			setBoxWidthTransitionHasEnded(false)
 			setBoxIsOpen(true)
 		}
@@ -265,9 +271,8 @@ export default function OpenCloseBox({
 
 			<div className={`box-body`} id={boxBodyId}> 
 				<div className={`content-container ${contentContainerOpenClass}`} id={contentContainerId}>
-					{/*<p>one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty end </p>*/}
+					<p>one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty end </p>
 		 			<p>asdfjaksdfllllllllllllll</p>
-					{/*<p>asdfjaksdfllllllllllllll</p>
 					<p>asdfjaksdfllllllllllllll</p>
 					<p>asdfjaksdfllllllllllllll</p>
 					<p>asdfjaksdfllllllllllllll</p>
@@ -292,7 +297,8 @@ export default function OpenCloseBox({
 					<p>asdfjaksdfllllllllllllll</p>
 					<p>asdfjaksdfllllllllllllll</p>
 					<p>asdfjaksdfllllllllllllll</p>
-					<p>end</p> */}
+					<p>asdfjaksdfllllllllllllll</p>
+					<p>end</p> 
 				</div>
 			</div>
 		</div>
