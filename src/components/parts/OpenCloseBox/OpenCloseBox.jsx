@@ -95,13 +95,9 @@ export default function OpenCloseBox({
 		addListeners(boxId, 'width', () => onBoxClosed())
 	}
 
-	function onBoxOpen() {
-		console.log('box open')
-		// if height overflow
-		console.log('heightOverflowOnClose', heightOverflowOnClose)
+	function onBoxOpen() { 
 		if(heightOverflowOnClose) {
-			setHeightTo(contentContainerId, '0')
-			console.log('savedHeight', savedHeight)
+			setHeightTo(contentContainerId, '0') 
 			setHeightTo(contentContainerId, savedHeight)
 			setContentContainerOpenClass('content-container-opening-y')
 		}
@@ -120,8 +116,7 @@ export default function OpenCloseBox({
 		setContentContainerOpenClass('content-container-closing-y')
 	}
 
-	function onOverflowClosed() {
-		console.log('on overflow closed')
+	function onOverflowClosed() { 
 		onBoxClosing()
 	}
 
@@ -180,8 +175,7 @@ export default function OpenCloseBox({
 
 	function saveHeight(id) {
 		const element = document.getElementById(id);  
-		const height = element.offsetHeight + 'px';  
-		console.log('save height --- ', height)
+		const height = element.offsetHeight + 'px';   
 		setSavedHeight(height)
 	}
 
