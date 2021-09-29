@@ -32,7 +32,7 @@ export default function OpenCloseBox({
 
 	// ======================= State ======================= // 
 	const [clickedOpen, setClickedOpen] = useState(null);
-	// const [boxIsOpen, setBoxIsOpen] = useState(null);
+	const [boxIsOpen, setBoxIsOpen] = useState(null);
 
 	const [widthOverflowOnClose, setWidthOverflowOnClose] = useState(false);
 	const [heightOverflowOnClose, setHeightOverflowOnClose] = useState(false);
@@ -57,37 +57,39 @@ export default function OpenCloseBox({
 		}) 
 	} 
 
-	function onPressBoxOpening() {
-		console.log('press opening') 
+	function onPressBoxOpening() { 
 		setBoxOpenClass('box-open')
 		setContentContainerOpenClass('content-container-opening-x')
 		if(!widthOverflowOnClose) setContentContainerOpenClass('content-container-opening-x-max-width')
 		removeInlineWidth(contentContainerId)
-		addListeners(boxId, 'width', () => { setBoxWidthTransitionHasEnded(true); console.log('width trans over') })
+		addListeners(boxId, 'width', () => { setBoxWidthTransitionHasEnded(true) })
 	}
 
 	function onPressBoxClosing() {
-		console.log('--------------------------- press closing')
-		const thisWidthIsOverflowing = elementWidthIsOverflowing(boxBodyId);
-		setWidthOverflowOnClose(thisWidthIsOverflowing) 
+		if(boxIsOpen) {
+			const thisWidthIsOverflowing = elementWidthIsOverflowing(boxBodyId);
+			setWidthOverflowOnClose(thisWidthIsOverflowing) 
 
-		const thisHeightIsOverflowing = elementHeightIsOverflowing(boxBodyId);
-		setHeightOverflowOnClose(thisHeightIsOverflowing)
+			const thisHeightIsOverflowing = elementHeightIsOverflowing(boxBodyId);
+			setHeightOverflowOnClose(thisHeightIsOverflowing)
+	  
+			if(thisWidthIsOverflowing || thisHeightIsOverflowing) setOverflowIsShrinking(true)
+			if(thisWidthIsOverflowing) closeWidthOverflow()
+			if(thisHeightIsOverflowing) {
+				saveHeight(contentContainerId)
+				closeHeightOverflow() 
+			}
 
-		console.log('thisWidthIsOverflowing', thisWidthIsOverflowing)
-		console.log('thisHeightIsOverflowing', thisHeightIsOverflowing)
-
-		if(thisWidthIsOverflowing || thisHeightIsOverflowing) setOverflowIsShrinking(true)
-		if(thisWidthIsOverflowing) closeWidthOverflow()
-		if(thisHeightIsOverflowing) {
-			saveHeight(contentContainerId)
-			closeHeightOverflow() 
+			if(!thisWidthIsOverflowing && !thisHeightIsOverflowing) onBoxClosing() 
 		}
 
-		if(!thisWidthIsOverflowing && !thisHeightIsOverflowing) onBoxClosing() 
+		if(!boxIsOpen) {
+			onBoxClosing() 
+		}
 	}
 
 	function onBoxClosing() { 
+		setBoxIsOpen(false)
 		setBoxOpenClass('box-closed')
 		setContentContainerOpenClass('content-container-closing-x')
 		addListeners(boxId, 'width', () => onBoxClosed())
@@ -239,6 +241,7 @@ export default function OpenCloseBox({
 		if(clickedOpen && boxWidthTransitionHasEnded) {
 			onBoxOpen()
 			setBoxWidthTransitionHasEnded(false)
+			setBoxIsOpen(true)
 		}
 	}, [clickedOpen, boxWidthTransitionHasEnded])
 
@@ -268,8 +271,9 @@ export default function OpenCloseBox({
 
 			<div className={`box-body`} id={boxBodyId}> 
 				<div className={`content-container ${contentContainerOpenClass}`} id={contentContainerId}>
-					<p>one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty end </p>
+					{/*<p>one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty end </p>*/}
 		 			<p>asdfjaksdfllllllllllllll</p>
+					{/*<p>asdfjaksdfllllllllllllll</p>
 					<p>asdfjaksdfllllllllllllll</p>
 					<p>asdfjaksdfllllllllllllll</p>
 					<p>asdfjaksdfllllllllllllll</p>
@@ -294,8 +298,7 @@ export default function OpenCloseBox({
 					<p>asdfjaksdfllllllllllllll</p>
 					<p>asdfjaksdfllllllllllllll</p>
 					<p>asdfjaksdfllllllllllllll</p>
-					<p>asdfjaksdfllllllllllllll</p>
-					<p>end</p> 
+					<p>end</p> */}
 				</div>
 			</div>
 		</div>
