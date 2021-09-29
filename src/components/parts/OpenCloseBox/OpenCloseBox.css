@@ -16,8 +16,7 @@
 }
    
 .box-closed {
-	width: 36px;  
-/*	width: 100%;*/
+	width: 36px;   
 }
 
 /* =================== Box Header =================== */
@@ -71,20 +70,13 @@
 }
 
 /* =================== Body */
-.box-body { 
-	/*min-width: 100%;
-	min-height: 100%;*/
+.box-body {  
 	height: 100%;
 	width: 100%;
 
 	background: #E8E4E4;  
 	overflow: auto;
-	background: red;
-	/*display: flex;
-	align-items: stretch;*/
-
-  /*flex-direction: column;
-  align-items: flex-start;*/
+	background: red; 
 } 
 
 .box-body-closing {
@@ -95,12 +87,9 @@
 	overflow: overlay; 
 }
 
-/* =================== Content Container 
-	on open - show overflow
-	on closing - hide overflow outside set width
-*/
+/* =================== Content Container  */
 .content-container { 
-	transition: height 1s, min-height 5s, width 1s;
+	transition: height 1s, min-height 1s, width 1s;
 
 	background: pink;   
 	box-sizing: border-box;
@@ -145,11 +134,29 @@
 }
 
 .content-container-opening-y {
-	overflow: hidden; 
-	height: 0;
+	overflow: hidden;  
 	min-height: 100%;
 }
 
 .content-container-open {
 
+}
+
+/* =================== Scrollbar */
+.box-body::-webkit-scrollbar { 
+  height: 16px;
+  width: 16px;
+  background: transparent; 
+}
+
+.box-body::-webkit-scrollbar-corner {
+	background: #a7a7a7;
+}
+ 
+.box-body::-webkit-scrollbar-thumb { 
+	background: #a7a7a7;  
+}
+
+.box-body::-webkit-scrollbar-thumb:hover { 
+	background: #d6d1d1;
 }

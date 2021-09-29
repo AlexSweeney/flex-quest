@@ -17,10 +17,10 @@ export default function OpenCloseBox({
 		* show open close toggle
 
 		* on press open close toggle
-			- close overflow
-			- close box
+			* close overflow the close box
+			- show width bar on open
 
-			- open box to previous size
+			* open box to previous size
 
 	*/
 
@@ -32,7 +32,7 @@ export default function OpenCloseBox({
 
 	// ======================= State ======================= // 
 	const [clickedOpen, setClickedOpen] = useState(null);
-	const [boxIsOpen, setBoxIsOpen] = useState(null);
+	const [boxIsOpen, setBoxIsOpen] = useState(true);
 
 	const [widthOverflowOnClose, setWidthOverflowOnClose] = useState(false);
 	const [heightOverflowOnClose, setHeightOverflowOnClose] = useState(false);
@@ -66,6 +66,8 @@ export default function OpenCloseBox({
 	}
 
 	function onPressBoxClosing() {
+		console.log('press closing -----------')
+		console.log('boxIsOpen', boxIsOpen)
 		if(boxIsOpen) {
 			const thisWidthIsOverflowing = elementWidthIsOverflowing(boxBodyId);
 			setWidthOverflowOnClose(thisWidthIsOverflowing) 
