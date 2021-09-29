@@ -32,11 +32,15 @@ export default function OpenCloseBox({
 
 	// ======================= State ======================= // 
 	const [clickedOpen, setClickedOpen] = useState(null);
-	const [boxIsOpen, setBoxIsOpen] = useState(null);
+	// const [boxIsOpen, setBoxIsOpen] = useState(null);
+
+	const [widthOverflowOnOpen, setWidthOverflowOnOpen] = useState(false);
 
 	const [widthIsOverflowing, setWidthIsOverflowing] = useState(false);
 	const [heightIsOverflowing, setHeightIsOverflowing] = useState(false);
 	const [overflowIsShrinking, setOverflowIsShrinking] = useState(false);
+
+	const [boxWidthTransitionHasEnded, setBoxWidthTransitionHasEnded] = useState(false);
 
 	// ======================= Classes ======================= //
 	const [boxOpenClass, setBoxOpenClass] = useState('box-open');
@@ -52,12 +56,19 @@ export default function OpenCloseBox({
 	} 
 
 	function onPressBoxOpening() {
-
+		console.log('press opening') 
+		setBoxOpenClass('box-open')
+		setContentContainerOpenClass('content-container-opening-x')
+		if(!widthOverflowOnOpen) setContentContainerOpenClass('content-container-opening-x-max-width')
+		removeInlineWidth(contentContainerId)
+		addListeners(boxId, 'width', () => { setBoxWidthTransitionHasEnded(true); console.log('width trans over') })
 	}
 
 	function onPressBoxClosing() {
+		console.log('press closing')
 		const thisWidthIsOverflowing = elementWidthIsOverflowing(boxBodyId);
-		setWidthIsOverflowing(thisWidthIsOverflowing)
+		setWidthOverflowOnOpen(thisWidthIsOverflowing)
+		console.log('thisWidthIsOverflowing', thisWidthIsOverflowing)
 
 		const thisHeightIsOverflowing = elementHeightIsOverflowing(boxBodyId);
 		setHeightIsOverflowing(thisHeightIsOverflowing)
@@ -69,15 +80,15 @@ export default function OpenCloseBox({
 		if(!thisWidthIsOverflowing && !thisHeightIsOverflowing) onBoxClosing() 
 	}
 
-	function onBoxClosing() {
-		console.log('onBoxClosing ------------------')
+	function onBoxClosing() { 
 		setBoxOpenClass('box-closed')
 		setContentContainerOpenClass('content-container-closing-x')
 		addListeners(boxId, 'width', () => onBoxClosed())
 	}
 
 	function onBoxOpen() {
-		setContentContainerOpenClass('content-container-open')
+		console.log('box open')
+		// setContentContainerOpenClass('content-container-open')
 	}
 
 	function onBoxClosed() {
@@ -102,17 +113,20 @@ export default function OpenCloseBox({
 		element.addEventListener('transitionend', handleEnd)
 	}
 
+	function removeInlineWidth(id) {
+		const element = document.getElementById(id);
+		element.style.width = '';
+	}
+
 	function closeWidthOverflow() {
-		console.log('close width overflow')
-		addListeners(contentContainerId, 'width', () => { setWidthIsOverflowing(false);  console.log('width finished') })
+		addListeners(contentContainerId, 'width', () => { setWidthIsOverflowing(false)})
 		keepWidth(contentContainerId)
 		setWidthToFull(contentContainerId, boxBodyId)
 		setContentContainerOpenClass('content-container-closing-overflow') 
 	}
 
 	function closeHeightOverflow() {
-		console.log('close height overflow')
-		addListeners(contentContainerId, 'height', () => { setHeightIsOverflowing(false); console.log('height finished') })
+		addListeners(contentContainerId, 'height', () => { setHeightIsOverflowing(false)})
 		keepHeight(contentContainerId)
 		setHeightToFull(contentContainerId, boxBodyId)
 		setContentContainerOpenClass('content-container-closing-overflow')
@@ -176,6 +190,14 @@ export default function OpenCloseBox({
 		}
 	}, [overflowIsShrinking, widthIsOverflowing, heightIsOverflowing])
 
+	// detect box open 
+	useEffect(() => { 
+		if(clickedOpen && boxWidthTransitionHasEnded) {
+			onBoxOpen()
+			setBoxWidthTransitionHasEnded(false)
+		}
+	}, [clickedOpen, boxWidthTransitionHasEnded])
+
 	// trigger overflow status update !!!!!!!!!!!! update to only trigger if clicked when boxIsOpen
 	/*useEffect(() => {
 		if(clickedOpen === false) updateOverflow() 
@@ -202,34 +224,34 @@ export default function OpenCloseBox({
 
 			<div className={`box-body`} id={boxBodyId}> 
 				<div className={`content-container ${contentContainerOpenClass}`} id={contentContainerId}>
-					<p>abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg--- end </p>
-			 			<p>asdfjaksdfllllllllllllll</p>
-						<p>asdfjaksdfllllllllllllll</p>
-						<p>asdfjaksdfllllllllllllll</p>
-						<p>asdfjaksdfllllllllllllll</p>
-						<p>asdfjaksdfllllllllllllll</p>
-						<p>asdfjaksdfllllllllllllll</p>
-						<p>asdfjaksdfllllllllllllll</p>
-						<p>asdfjaksdfllllllllllllll</p>
-						<p>asdfjaksdfllllllllllllll</p>
-						<p>asdfjaksdfllllllllllllll</p>
-						<p>asdfjaksdfllllllllllllll</p>
-						<p>asdfjaksdfllllllllllllll</p>
-						<p>asdfjaksdfllllllllllllll</p>
-						<p>asdfjaksdfllllllllllllll</p>
-						<p>asdfjaksdfllllllllllllll</p>
-						<p>asdfjaksdfllllllllllllll</p>
-						<p>asdfjaksdfllllllllllllll</p>
-						<p>asdfjaksdfllllllllllllll</p>
-						<p>asdfjaksdfllllllllllllll</p>
-						<p>asdfjaksdfllllllllllllll</p>
-						<p>asdfjaksdfllllllllllllll</p>
-						<p>asdfjaksdfllllllllllllll</p>
-						<p>asdfjaksdfllllllllllllll</p>
-						<p>asdfjaksdfllllllllllllll</p>
-						<p>asdfjaksdfllllllllllllll</p>
-						<p>asdfjaksdfllllllllllllll</p>
-						<p>end</p> 
+					{/*<p>abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg--- end </p>*/}
+		 			<p>asdfjaksdfllllllllllllll</p>
+					{/*<p>asdfjaksdfllllllllllllll</p>
+					<p>asdfjaksdfllllllllllllll</p>
+					<p>asdfjaksdfllllllllllllll</p>
+					<p>asdfjaksdfllllllllllllll</p>
+					<p>asdfjaksdfllllllllllllll</p>
+					<p>asdfjaksdfllllllllllllll</p>
+					<p>asdfjaksdfllllllllllllll</p>
+					<p>asdfjaksdfllllllllllllll</p>
+					<p>asdfjaksdfllllllllllllll</p>
+					<p>asdfjaksdfllllllllllllll</p>
+					<p>asdfjaksdfllllllllllllll</p>
+					<p>asdfjaksdfllllllllllllll</p>
+					<p>asdfjaksdfllllllllllllll</p>
+					<p>asdfjaksdfllllllllllllll</p>
+					<p>asdfjaksdfllllllllllllll</p>
+					<p>asdfjaksdfllllllllllllll</p>
+					<p>asdfjaksdfllllllllllllll</p>
+					<p>asdfjaksdfllllllllllllll</p>
+					<p>asdfjaksdfllllllllllllll</p>
+					<p>asdfjaksdfllllllllllllll</p>
+					<p>asdfjaksdfllllllllllllll</p>
+					<p>asdfjaksdfllllllllllllll</p>
+					<p>asdfjaksdfllllllllllllll</p>
+					<p>asdfjaksdfllllllllllllll</p>
+					<p>asdfjaksdfllllllllllllll</p>
+					<p>end</p> */}
 				</div>
 			</div>
 		</div>

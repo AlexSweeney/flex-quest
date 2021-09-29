@@ -104,9 +104,10 @@
 	box-sizing: border-box;
 	display: flex;
   flex-direction: column;
-  flex-grow: 1; 
+ /* flex-grow: 1; */
 
   min-width: 100%;
+  min-height: 100%;
 }  
 
 .content-container-closing-overflow {
@@ -116,17 +117,32 @@
 .content-container-closing-x {
 	overflow: hidden;
 	max-width: 100%;
-	flex-grow: 0;
+	height: 100%;
 }
 
 .content-container-closing-y {
 	height: 0 !important;
   overflow: hidden;
   max-width: 100%;
-  flex-grow: 0;
+  min-height: 0; 
   padding-bottom: 0; 
 }
 
-.content-container-closed {
+.content-container-opening-x {
+	height: 0 !important; 
+	min-height: 0;
+	overflow: hidden;
+	padding-bottom: 0;
+}
+
+.content-container-opening-x-max-width {
+	height: 0 !important; 
+	min-height: 0;
+	overflow: hidden;
+	padding-bottom: 0;
+	max-width: 100%;
+}
+
+.content-container-opening-y {
 
 }
