@@ -20,10 +20,7 @@ export default function OpenCloseBox({
 			* close overflow the close box
 			* show width bar on open
 
-			* open box to previous size
-		
-			- open before close
-			- close before opens
+			* open box to previous size 
 	*/
 
 	// =========================== Id's ============================ //
@@ -35,6 +32,8 @@ export default function OpenCloseBox({
 	// ======================= State ======================= // 
 	const [clickedOpen, setClickedOpen] = useState(null);
 	const [boxIsOpen, setBoxIsOpen] = useState(true);
+
+	const [isAnimating, setIsAnimating] = useState(false);
 
 	const [widthOverflowOnClose, setWidthOverflowOnClose] = useState(false);
 	const [heightOverflowOnClose, setHeightOverflowOnClose] = useState(false);
@@ -52,24 +51,28 @@ export default function OpenCloseBox({
 
 	// ======================= Event Handlers ======================= //
 	function onClickOpenCloseToggle() {
-		setClickedOpen(oldVal => {
-			if(oldVal === null) return false;
-			if(oldVal === false) return true;
-			if(oldVal === true) return false;
-		}) 
+		if(!isAnimating) {
+			setClickedOpen(oldVal => {
+				if(oldVal === null) return false;
+				if(oldVal === false) return true;
+				if(oldVal === true) return false;
+			}) 
+		} 
 	} 
 
 	function onPressBoxOpening() { 
+		setIsAnimating(true)
 		setBoxOpenClass('box-open')
-		setContentContainerOpenClass('content-container-opening-x')
+		
+		if(widthOverflowOnClose) setContentContainerOpenClass('content-container-opening-x')
 		if(!widthOverflowOnClose) setContentContainerOpenClass('content-container-opening-x-max-width')
 		removeInlineWidth(contentContainerId)
 		addListeners(boxId, 'width', () => { setBoxWidthTransitionHasEnded(true) })
 	}
 
-	function onPressBoxClosing() {
-		console.log('press closing -----------')
-		console.log('boxIsOpen', boxIsOpen)
+	function onPressBoxClosing() { 
+		setIsAnimating(true)
+
 		if(boxIsOpen) {
 			const thisWidthIsOverflowing = elementWidthIsOverflowing(boxBodyId);
 			setWidthOverflowOnClose(thisWidthIsOverflowing) 
@@ -113,19 +116,22 @@ export default function OpenCloseBox({
 			setHeightToFull(contentContainerId, boxBodyId)
 			setContentContainerOpenClass('content-container-opening-y')
 		}
-	}
+	} 
 
-	function onBoxOpen() {
+	function onContentContainerOpen() { 
+		setIsAnimating(false)
+		removeInlineHeight(contentContainerId)
 		setContentContainerOpenClass('content-container-open')
 	}
 
-	function onContentContainerOpen() {
-		console.log('content container open') 
-		removeInlineHeight(contentContainerId)
+	function onContentContainerClosed() {
+		console.log('onContentContainerClosed() ----------')
+		setIsAnimating(false)
 	}
 
 	function onBoxClosed() {
 		setContentContainerOpenClass('content-container-closing-y')
+		addListeners(contentContainerId, 'height', () => { onContentContainerClosed() })
 	}
 
 	function onOverflowClosed() { 
@@ -229,7 +235,7 @@ export default function OpenCloseBox({
 	useEffect(() => {
 		if(clickedOpen === true) onPressBoxOpening()
 		if(clickedOpen === false) onPressBoxClosing()
-		if(clickedOpen === null) onBoxOpen()
+		if(clickedOpen === null) onContentContainerOpen()
 	}, [clickedOpen]) 
 
 	// detect box resized
@@ -251,13 +257,10 @@ export default function OpenCloseBox({
 		}
 	}, [clickedOpen, boxWidthTransitionHasEnded])
 
-	// trigger overflow status update !!!!!!!!!!!! update to only trigger if clicked when boxIsOpen
-	/*useEffect(() => {
-		if(clickedOpen === false) updateOverflow() 
-	}, [clickedOpen])*/
-
 	// =========================== Output ============================ //
 	return (
+		<>
+		isAnimating: {isAnimating.toString()} 
 		<div className={`box ${boxOpenClass}`} id={boxId}>
 			<div className="box-header">
 				<div className="box-buttons-container">
@@ -270,7 +273,7 @@ export default function OpenCloseBox({
 					<OpenCloseToggle 	
 						handleClick={onClickOpenCloseToggle}
 						toggleIsOpen={true}
-						parentIsAnimating={false}
+						parentIsAnimating={isAnimating}
 					/>
 				</div>
 			</div>
@@ -278,7 +281,7 @@ export default function OpenCloseBox({
 			<div className={`box-body`} id={boxBodyId}> 
 				<div className={`content-container ${contentContainerOpenClass}`} id={contentContainerId}>
 					<p>one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty end </p>
-		 			{/*<p>asdfjaksdfllllllllllllll</p>
+		 			<p>asdfjaksdfllllllllllllll</p>
 					<p>asdfjaksdfllllllllllllll</p>
 					<p>asdfjaksdfllllllllllllll</p>
 					<p>asdfjaksdfllllllllllllll</p>
@@ -304,9 +307,10 @@ export default function OpenCloseBox({
 					<p>asdfjaksdfllllllllllllll</p>
 					<p>asdfjaksdfllllllllllllll</p>
 					<p>asdfjaksdfllllllllllllll</p>
-					<p>end</p> */}
+					<p>end</p> 
 				</div>
 			</div>
 		</div>
+		</>
 	)
 }
