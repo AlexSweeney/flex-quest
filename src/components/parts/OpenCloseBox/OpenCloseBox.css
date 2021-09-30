@@ -94,17 +94,18 @@
 	background: pink;   
 	box-sizing: border-box;
 
+	min-width: 100%;
+  min-height: 100%; 
+
   position: relative;
   float: left;
-
-  min-width: 100%;
-  min-height: 100%; 
 
   white-space: nowrap;
 }  
 
 .content-container-closing-overflow {
 	overflow: hidden;
+	min-height: 100%;
 }
 
 .content-container-closing-x {
@@ -140,7 +141,7 @@
 }
 
 .content-container-open {
-
+	
 }
 
 /* =================== Content Container  */

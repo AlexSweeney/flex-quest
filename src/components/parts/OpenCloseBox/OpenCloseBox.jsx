@@ -109,6 +109,8 @@ export default function OpenCloseBox({
 		}
 
 		if(!heightOverflowOnClose) {
+			setHeightTo(contentContainerId, '0') 
+			setHeightToFull(contentContainerId, boxBodyId)
 			setContentContainerOpenClass('content-container-opening-y')
 		}
 	}
@@ -197,7 +199,7 @@ export default function OpenCloseBox({
 	function setHeightToFull(id, heightId) {
 		const element = document.getElementById(id);
 		const heightElement = document.getElementById(heightId); 
-		const height = heightElement.offsetHeight;  
+		const height = heightElement.clientHeight;  
 		element.style.height = height + 'px';
 	}
 
@@ -276,7 +278,7 @@ export default function OpenCloseBox({
 			<div className={`box-body`} id={boxBodyId}> 
 				<div className={`content-container ${contentContainerOpenClass}`} id={contentContainerId}>
 					<p>one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty end </p>
-		 			<p>asdfjaksdfllllllllllllll</p>
+		 			{/*<p>asdfjaksdfllllllllllllll</p>
 					<p>asdfjaksdfllllllllllllll</p>
 					<p>asdfjaksdfllllllllllllll</p>
 					<p>asdfjaksdfllllllllllllll</p>
@@ -302,7 +304,7 @@ export default function OpenCloseBox({
 					<p>asdfjaksdfllllllllllllll</p>
 					<p>asdfjaksdfllllllllllllll</p>
 					<p>asdfjaksdfllllllllllllll</p>
-					<p>end</p> 
+					<p>end</p> */}
 				</div>
 			</div>
 		</div>
