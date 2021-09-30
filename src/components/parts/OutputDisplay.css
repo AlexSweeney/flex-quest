@@ -1,9 +1,8 @@
 .output-display {
-	
 	height: 100%;  
 	width: 100%;
 	background: #C4C4C4;
-	position: relative;
+	position: absolute;
 	border: 0.5em solid #E8E4E4;
 	z-index: 1000;
 	box-sizing: border-box; 

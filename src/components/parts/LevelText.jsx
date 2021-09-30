@@ -115,8 +115,7 @@ export default function LevelText({i, titles, allText, levelNum, setLevelNum, se
 					<div className={"text-body"} id={textBodyId}>
 						<Text setSelectedStyle={setSelectedStyle}/>
 					</div>
-				</div>
-
+				</div> 
 		</OpenCloseBox>
 	)
 }

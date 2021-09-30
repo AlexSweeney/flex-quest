@@ -136,9 +136,9 @@ export default function Learn() {
 	return (
 		<section className="learn-container"> 
 			<LevelText i="1" titles={menuOptions} allText={menuText} setStyle={setCssString} defaultStyle={defaultCssString} levelNum={levelNum} setLevelNum={setLevelNum}/>
-			{/*<CodeInput i="2" title="index.html" code={htmlString} setCode={setHtmlString} originalCode={htmlStrings[levelNum]}></CodeInput>
+			<CodeInput i="2" title="index.html" code={htmlString} setCode={setHtmlString} originalCode={htmlStrings[levelNum]}></CodeInput>
 			<CodeInput i="3" title="style.css" code={cssString} setCode={setCssString} originalCode={cssStrings[levelNum]}></CodeInput>
-			<OutputDisplay i="4" title="display" htmlString={htmlString} cssString={cssString} />*/}
+			<OutputDisplay i="4" title="display" htmlString={htmlString} cssString={cssString} />
 		</section>
 	)
 }

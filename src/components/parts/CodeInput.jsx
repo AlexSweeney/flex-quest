@@ -17,7 +17,7 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 
 		tidy code
 	*/
-
+	
 	// ===================================== Ids ===================================== //
 	const codeDisplayId = `code-display-${i}`;
 	

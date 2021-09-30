@@ -280,34 +280,7 @@ export default function OpenCloseBox({
 
 			<div className={`box-body`} id={boxBodyId}> 
 				<div className={`content-container ${contentContainerOpenClass}`} id={contentContainerId}>
-					<p>one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty end </p>
-		 			<p>asdfjaksdfllllllllllllll</p>
-					<p>asdfjaksdfllllllllllllll</p>
-					<p>asdfjaksdfllllllllllllll</p>
-					<p>asdfjaksdfllllllllllllll</p>
-					<p>asdfjaksdfllllllllllllll</p>
-					<p>asdfjaksdfllllllllllllll</p>
-					<p>asdfjaksdfllllllllllllll</p>
-					<p>asdfjaksdfllllllllllllll</p>
-					<p>asdfjaksdfllllllllllllll</p>
-					<p>asdfjaksdfllllllllllllll</p>
-					<p>asdfjaksdfllllllllllllll</p>
-					<p>asdfjaksdfllllllllllllll</p>
-					<p>asdfjaksdfllllllllllllll</p>
-					<p>asdfjaksdfllllllllllllll</p>
-					<p>asdfjaksdfllllllllllllll</p>
-					<p>asdfjaksdfllllllllllllll</p>
-					<p>asdfjaksdfllllllllllllll</p>
-					<p>asdfjaksdfllllllllllllll</p>
-					<p>asdfjaksdfllllllllllllll</p>
-					<p>asdfjaksdfllllllllllllll</p>
-					<p>asdfjaksdfllllllllllllll</p>
-					<p>asdfjaksdfllllllllllllll</p>
-					<p>asdfjaksdfllllllllllllll</p>
-					<p>asdfjaksdfllllllllllllll</p>
-					<p>asdfjaksdfllllllllllllll</p>
-					<p>asdfjaksdfllllllllllllll</p>
-					<p>end</p> 
+					{children}
 				</div>
 			</div>
 		</div>

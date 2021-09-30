@@ -5,6 +5,8 @@
 	border: 0.5em solid #E8E4E4;
 	box-sizing: border-box;
 	overflow: hidden;
+
+	position: absolute;
 }
 
 .code-display {

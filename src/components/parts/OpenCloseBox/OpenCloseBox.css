@@ -90,17 +90,14 @@
 /* =================== Content Container  */
 .content-container { 
 	transition: height 1s, min-height 1s, width 1s;
-
-	background: pink;   
+ 
 	box-sizing: border-box;
 
 	min-width: 100%;
   min-height: 100%; 
 
   position: relative;
-  float: left;
-
-  white-space: nowrap;
+  float: left; 
 }  
 
 .content-container-closing-overflow {
