@@ -34,6 +34,7 @@ export default function OpenCloseBox({
 	const [boxIsOpen, setBoxIsOpen] = useState(true);
 
 	const [isAnimating, setIsAnimating] = useState(false);
+	const [toggleIsOpen, setToggleIsOpen] = useState(false);
 
 	const [widthOverflowOnClose, setWidthOverflowOnClose] = useState(false);
 	const [heightOverflowOnClose, setHeightOverflowOnClose] = useState(false);
@@ -103,6 +104,7 @@ export default function OpenCloseBox({
 	}
 
 	function onBoxWidthOpen() { 
+		setToggleIsOpen(false)
 		addListeners(contentContainerId, 'min-height', () => { onContentContainerOpen() })
 
 		if(heightOverflowOnClose) {
@@ -124,12 +126,12 @@ export default function OpenCloseBox({
 		setContentContainerOpenClass('content-container-open')
 	}
 
-	function onContentContainerClosed() {
-		console.log('onContentContainerClosed() ----------')
+	function onContentContainerClosed() { 
 		setIsAnimating(false)
 	}
 
 	function onBoxClosed() {
+		setToggleIsOpen(true)
 		setContentContainerOpenClass('content-container-closing-y')
 		addListeners(contentContainerId, 'height', () => { onContentContainerClosed() })
 	}
@@ -259,8 +261,6 @@ export default function OpenCloseBox({
 
 	// =========================== Output ============================ //
 	return (
-		<>
-		isAnimating: {isAnimating.toString()} 
 		<div className={`box ${boxOpenClass}`} id={boxId}>
 			<div className="box-header">
 				<div className="box-buttons-container">
@@ -272,7 +272,7 @@ export default function OpenCloseBox({
 				<div className="open-close-toggle-container">
 					<OpenCloseToggle 	
 						handleClick={onClickOpenCloseToggle}
-						toggleIsOpen={true}
+						toggleIsOpen={toggleIsOpen}
 						parentIsAnimating={isAnimating}
 					/>
 				</div>
@@ -311,6 +311,5 @@ export default function OpenCloseBox({
 				</div>
 			</div>
 		</div>
-		</>
 	)
 }
