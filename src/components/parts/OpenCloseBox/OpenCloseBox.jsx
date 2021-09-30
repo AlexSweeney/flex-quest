@@ -18,10 +18,12 @@ export default function OpenCloseBox({
 
 		* on press open close toggle
 			* close overflow the close box
-			- show width bar on open
+			* show width bar on open
 
 			* open box to previous size
-
+		
+			- open before close
+			- close before opens
 	*/
 
 	// =========================== Id's ============================ //
@@ -98,7 +100,7 @@ export default function OpenCloseBox({
 	}
 
 	function onBoxWidthOpen() { 
-		addListeners(contentContainerId, 'min-height', () => {console.log('box open')})
+		addListeners(contentContainerId, 'min-height', () => { onContentContainerOpen() })
 
 		if(heightOverflowOnClose) {
 			setHeightTo(contentContainerId, '0') 
@@ -116,8 +118,8 @@ export default function OpenCloseBox({
 	}
 
 	function onContentContainerOpen() {
-		// remove inline height
-		// removeInlineHeight(contentContainerId)
+		console.log('content container open') 
+		removeInlineHeight(contentContainerId)
 	}
 
 	function onBoxClosed() {

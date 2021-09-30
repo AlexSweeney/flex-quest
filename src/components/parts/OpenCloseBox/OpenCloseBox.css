@@ -89,7 +89,7 @@
 
 /* =================== Content Container  */
 .content-container { 
-	transition: height 1s, min-height 1s, width 1s;
+	transition: height 4s, min-height 4s, width 4s;
 
 	background: pink;   
 	box-sizing: border-box;
@@ -121,9 +121,6 @@
 }
 
 .content-container-opening-x {
-	/*height: 0 !important; 
-	min-height: 0;
-	overflow: hidden;*/
 	height: 1px !important;
 	min-height: 0;
 	overflow: hidden;
@@ -135,15 +132,10 @@
 	min-height: 0;
 	overflow: hidden;
 	max-width: 100%;
-	
-	/*height: 1px;
-	min-height: 0;
-	overflow: hidden;
-	visibility: hidden;*/
 }
 
 .content-container-opening-y {
-	overflow: hidden;  
+	overflow: hidden;   
 	min-height: 100%;
 }
 
