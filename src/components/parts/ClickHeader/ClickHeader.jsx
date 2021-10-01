@@ -2,7 +2,14 @@ import React, {useState, useEffect} from 'react';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import './ClickHeaderStyle.css'; 
 
-export default function ClickHeader({title, i, selectedHeader, setSelectedHeader, setSelectedStyle, thisStyle, children}) {  
+export default function ClickHeader({
+	title, 
+	i, 
+	selectedHeader,
+	setSelectedHeader, 
+	handleClick, 
+	thisStyle, 
+	children}) {  
 	/* 
 		* title, i 
 
@@ -55,12 +62,12 @@ export default function ClickHeader({title, i, selectedHeader, setSelectedHeader
 
 	function onSelectHeader() {
 		setHeaderSelectedClass('info-header-selected')
-		setSelectedStyle(thisStyle)
+		handleClick(thisStyle)
 	}
 
 	function onDeselectHeader() {
 		setHeaderSelectedClass('info-header-unselected')
-		setSelectedStyle(null)
+		handleClick(null)
 	}
 
 	// ================================= Helper Fns ============================== // 

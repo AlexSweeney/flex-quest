@@ -8,23 +8,18 @@ import {style_4} from './style_4.jsx';
 import {style_5} from './style_5.jsx'; 
 import {style_6} from './style_6.jsx';
 
-function Text(props) {  
-	const handleClick = props && props.handleClick;
+function Text(passedProps) {  
+	const handleClick = passedProps && passedProps.handleClick;
 	console.log('handleClick', handleClick) 
 	
-	/*{setSelectedStyle}
 	const [selectedHeader, setSelectedHeader] = useState(null);
-	const props = {selectedHeader, setSelectedHeader, setSelectedStyle}; */
-
-	// const setSelectedStyle = () => {}; 
-	// const [selectedHeader, setSelectedHeader] = useState(null);
-	// const props = {selectedHeader, setSelectedHeader, setSelectedStyle};
+	const props = {selectedHeader, setSelectedHeader, handleClick};
 
 	return (
 		<div> 
 			<p>Use 'justify-content' to control where child elements are placed along the x-axis of the flex container and where text is placed along the x-axis of the content area of the flex container.</p>
 
-			{/*<p>Any<InlineClicker i="2.1" thisStyle={style_1} {...props}> padding you add to an element</InlineClicker> will be outside of the content area, and so will add space between any text and the edge of the element.</p>   
+			<p>Any<InlineClicker i="2.1" thisStyle={style_1} {...props}> padding you add to an element</InlineClicker> will be outside of the content area, and so will add space between any text and the edge of the element.</p>   
 
 			<ClickHeader i="2.2" thisStyle={style_2} {...props} title="justify-content: flex-start; (default)"> 
 				<p>Child elements and text will be placed at the start of the x-axis.</p>
@@ -56,7 +51,7 @@ function Text(props) {
 				<p>The space will be distributed to give an evenly spaced appearence.</p>
 				<p>The spacse between the edges of the flex container and the first and last child elements will be the same size as the spaces between the child elements.</p>
 				<p>Text is not affected.</p>
-			</ClickHeader>*/}
+			</ClickHeader>
 		</div>
 	)
 }
