@@ -10,7 +10,6 @@ import {style_6} from './style_6.jsx';
 
 function Text(passedProps) {  
 	const handleClick = passedProps && passedProps.handleClick;
-	console.log('handleClick', handleClick) 
 	
 	const [selectedHeader, setSelectedHeader] = useState(null);
 	const props = {selectedHeader, setSelectedHeader, handleClick};
@@ -21,7 +20,7 @@ function Text(passedProps) {
 
 			<p>Any<InlineClicker i="2.1" thisStyle={style_1} {...props}> padding you add to an element</InlineClicker> will be outside of the content area, and so will add space between any text and the edge of the element.</p>   
 
-			<ClickHeader i="2.2" thisStyle={style_2} {...props} title="justify-content: flex-start; (default)"> 
+			{/*<ClickHeader i="2.2" thisStyle={style_2} {...props} title="justify-content: flex-start; (default)"> 
 				<p>Child elements and text will be placed at the start of the x-axis.</p>
 				<p>Text will be placed at the start of the x-axis of the content area.</p> 
 			</ClickHeader> 
@@ -51,7 +50,7 @@ function Text(passedProps) {
 				<p>The space will be distributed to give an evenly spaced appearence.</p>
 				<p>The spacse between the edges of the flex container and the first and last child elements will be the same size as the spaces between the child elements.</p>
 				<p>Text is not affected.</p>
-			</ClickHeader>
+			</ClickHeader>*/}
 		</div>
 	)
 }

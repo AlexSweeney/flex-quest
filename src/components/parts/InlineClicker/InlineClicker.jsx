@@ -12,49 +12,57 @@ export default function InlineClicker({
 	/*
 		on click 
 			* add highlight color
-			* change style
+			* select this style
 	
 		on reclick
 			* remove highlight color
 			* revert style
 	*/
+	const headerName = children;
 
 	const [clickerSelected, setClickerSelected] = useState(false);
 	const [clickerSelectedClass, setClickerSelectedClass] = useState(null);
 
 	// =========================== Event Handlers =========================== //
 	function onClick() {
+		console.log('click inline-clicker ============================')
 		toggleSelectedHeader()
 	}
 
 	function onSelected() {
+		console.log('onSelected =-=-=-=-=-=-=')
 		setClickerSelectedClass('inline-clicker-selected')
-		handleClick(thisStyle)
+		// setSelectedHeader(headerName)
+		// handleClick(thisStyle)
 	}
 
 	function onDeselected() {
+		console.log('onDeselected -=-=-=-=-=-=')
 		setClickerSelectedClass('')
-		handleClick(null)
+		// setSelectedHeader(null)
+		// handleClick('')
 	}
 
 	// =========================== Helper fns =========================== //
 	function toggleSelectedHeader() {
 		setSelectedHeader(newVal => {
-			if(newVal === children) return '';
-			return children;
+			if(newVal === headerName) return '';
+			return headerName;
 		})
 	} 
 
 	// =========================== Trigger Selected =========================== //
 	useEffect(() => {
-		if(selectedHeader === children) onSelected()
-		else onDeselected()
+		// if other header is clicked turn off
+		if(selectedHeader !== headerName) onDeselected()
+		// if this header is clicked turn on
+		if(selectedHeader === headerName) onSelected() 
 	}, [selectedHeader])
 
 	// =========================== Outputs =========================== //
 	return (
 		<div className={`inline-clicker ${clickerSelectedClass}`} onClick={onClick}>
-			{children}
+			{headerName}
 		</div>
 	)
 }  
