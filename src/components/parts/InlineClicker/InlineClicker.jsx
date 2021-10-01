@@ -19,44 +19,42 @@ export default function InlineClicker({
 			* revert style
 	*/
 	const headerName = children;
+	console.log('headerName', headerName)
 
 	const [clickerSelected, setClickerSelected] = useState(false);
 	const [clickerSelectedClass, setClickerSelectedClass] = useState(null);
 
 	// =========================== Event Handlers =========================== //
 	function onClick() {
-		console.log('click inline-clicker ============================')
 		toggleSelectedHeader()
 	}
 
-	function onSelected() {
-		console.log('onSelected =-=-=-=-=-=-=')
+	function onHeaderSelected() {
 		setClickerSelectedClass('inline-clicker-selected')
 		// setSelectedHeader(headerName)
 		// handleClick(thisStyle)
 	}
 
-	function onDeselected() {
-		console.log('onDeselected -=-=-=-=-=-=')
-		setClickerSelectedClass('')
+	function onHeaderDeselected() {
+		setClickerSelectedClass('.inline-clicker-not-selected')
 		// setSelectedHeader(null)
 		// handleClick('')
 	}
 
 	// =========================== Helper fns =========================== //
 	function toggleSelectedHeader() {
-		setSelectedHeader(newVal => {
-			if(newVal === headerName) return '';
-			return headerName;
-		})
+		let newHeader;
+
+		if(selectedHeader === headerName) newHeader = '';
+		if(selectedHeader !== headerName) newHeader = headerName; 
+
+		setSelectedHeader(newHeader)
 	} 
 
 	// =========================== Trigger Selected =========================== //
 	useEffect(() => {
-		// if other header is clicked turn off
-		if(selectedHeader !== headerName) onDeselected()
-		// if this header is clicked turn on
-		if(selectedHeader === headerName) onSelected() 
+		if(selectedHeader === headerName) onHeaderSelected() 
+		if(selectedHeader !== headerName) onHeaderDeselected()
 	}, [selectedHeader])
 
 	// =========================== Outputs =========================== //
