@@ -7,6 +7,7 @@ export default function OpenCloseBox({
 	i,
 	buttons = [],   
 	handleToggleClick = () => {},
+	handleOverflowHidden = () => {},
 	setContentContainerStatus = () => {}, 
 	children
 }) {  
@@ -59,7 +60,7 @@ export default function OpenCloseBox({
 			if(clickedOpen === true) newValue = false;
 
 			setClickedOpen(newValue) 
-			handleToggleClick(newValue)
+			handleToggleClick(newValue, elementWidthIsOverflowing(boxBodyId), elementHeightIsOverflowing(boxBodyId))
 		} 
 	} 
 
@@ -140,6 +141,7 @@ export default function OpenCloseBox({
 
 	function onOverflowClosed() { 
 		onBoxClosing()
+		handleOverflowHidden()
 	}
 
 	// ======================= Helper Fns ========================== //  
@@ -232,6 +234,10 @@ export default function OpenCloseBox({
 		if(!element) return;
 
 	  return element.scrollHeight > element.clientHeight;
+	}
+
+	function checkIfOverflowing(id) {
+		return elementWidthIsOverflowing(id) || elementHeightIsOverflowing(id);
 	}
 
 	// ======================= Event Detects ======================= //

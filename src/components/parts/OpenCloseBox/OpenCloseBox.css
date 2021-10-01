@@ -16,7 +16,7 @@
 }
    
 .box-closed {
-	width: 36px;   
+	width: 36px;  
 }
 
 /* =================== Box Header =================== */
@@ -97,6 +97,8 @@
 
   position: relative;
   float: left; 
+
+  display: flex;
 }  
 
 .content-container-closing-overflow {

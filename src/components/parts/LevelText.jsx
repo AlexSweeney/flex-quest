@@ -50,6 +50,7 @@ export default function LevelText({
 	// const [boxHasClosed, setBoxHasClosed] = useState(false);
 
 	// ======================================= Class ======================================= //
+	const [textBodyOpenClass, setTextBodyOpenClass] = useState('');
 	// const [boxStatus, setBoxStatus] = useState('');
 	// const [overflowOpenClass, setOverflowOpenClass] = useState('');
 
@@ -59,19 +60,25 @@ export default function LevelText({
 		setLevelNum(newLevelNum)
 	}
 
-	function handleToggleClick(boxIsOpen) {
+	function handleToggleClick(boxIsOpen, widthIsOverflowing, heightIsOverflowing) {
 		console.log('toggle clicked === level text')
-		console.log('boxIsOpen', boxIsOpen)
+		console.log('heightIsOverflowing', heightIsOverflowing)
 		if(boxIsOpen) onBoxOpening()
-		if(!boxIsOpen) onBoxClosing()
+		if(!boxIsOpen) onBoxClosing(heightIsOverflowing) 
 	}
 
-	function onBoxClosing() { 
+	function onOverflowHidden() {
+		setTextBodyOpenClass('text-body-closing-overflow-hidden')
+	}
+
+	function onBoxClosing(heightIsOverflowing) { 
 		fixContainerWidth(textBodyId)
+		if(!heightIsOverflowing) setTextBodyOpenClass('text-body-closing-no-overflow')
 	}
 
 	function onBoxOpening() {
 		removeInlineWidth(textBodyId)
+		setTextBodyOpenClass('text-body-opening')
 	}
 
 	/*function onBoxOpening() { 
@@ -93,17 +100,19 @@ export default function LevelText({
 		const elementWidth = getComputedWidth(element); 
 
 		element.style.width = elementWidth; 
+		element.style['max-width'] = elementWidth;
 	}
 
 	function removeInlineWidth(id) {
 		const element = document.getElementById(id);
 		element.style.width = '';
+		element.style['max-width'] = '';
 	}
 
 	function getComputedWidth(element) {
 		const style = window.getComputedStyle(element);
 		return style.width;
-	}
+	} 
 
 	// ======================================= Update ======================================= //
 	useEffect(() => {
@@ -126,14 +135,14 @@ export default function LevelText({
 	}, [boxStatus])*/
 
 	// ======================================= Output ======================================= //
-	return (
-		<OpenCloseBox title={title} i={i} buttons={buttons} handleToggleClick={handleToggleClick}>
+	return ( 
+		<OpenCloseBox title={title} i={i} buttons={buttons} handleToggleClick={handleToggleClick} handleOverflowHidden={onOverflowHidden}>
 			<BurgerMenu isOpen={burgerIsOpen} setIsOpen={setBurgerIsOpen} options={titles} handleClick={handleBurgerClick}/>
 			
-			<div className={"text-body"} id={textBodyId}>
-			 	<Text levelNum={levelNum} setSelectedStyle={setSelectedStyle}/>
+			<div className={`text-body ${textBodyOpenClass}`} id={textBodyId}>
+			 	<Text levelNum={levelNum} setSelectedStyle={setSelectedStyle}/> 
 			</div> 
-		</OpenCloseBox>
+		</OpenCloseBox> 
 	)
 }
 
