@@ -17,7 +17,8 @@
 	border: 0.5em transparent solid;
   
 	position: relative;
-	float: left;
+	/*float: left;*/ 
+ 	min-height: 100%;
  
 	box-sizing: border-box;
  /* 
@@ -37,8 +38,11 @@
 	/* set width as current value in js */
 }
 
-.text-body {
-	width: 100%;
-	min-height: 100%;
-	background: #C4C4C4;
+.text-body { 
+	padding: 0.5em;
+  background: #E8E4E4;
+  position: absolute;
+  min-height: 100%;
+  min-width: 100%;
+  box-sizing: border-box;
 }

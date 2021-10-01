@@ -40,11 +40,11 @@ export default function LevelText({i, titles, allText, levelNum, setLevelNum, se
 	const [title, setTitle] = useState(titles[levelNum]);
 	const [selectedStyle, setSelectedStyle] = useState(null);
 
-	const [boxHasClosed, setBoxHasClosed] = useState(false);
+	// const [boxHasClosed, setBoxHasClosed] = useState(false);
 
 	// ======================================= Class ======================================= //
-	const [boxStatus, setBoxStatus] = useState('');
-	const [overflowOpenClass, setOverflowOpenClass] = useState('');
+	// const [boxStatus, setBoxStatus] = useState('');
+	// const [overflowOpenClass, setOverflowOpenClass] = useState('');
 
 	// ======================================= Event Handlers ================================== //
 	function handleBurgerClick(option) { 
@@ -52,7 +52,7 @@ export default function LevelText({i, titles, allText, levelNum, setLevelNum, se
 		setLevelNum(newLevelNum)
 	}
 
-	function onBoxClosing() { 
+	/*function onBoxClosing() { 
 		fixContainerWidth() 
 		setOverflowOpenClass('overflow-barrier-closing')
 	}
@@ -68,7 +68,7 @@ export default function LevelText({i, titles, allText, levelNum, setLevelNum, se
 
 	function onBoxClosed() {
 		setBoxHasClosed(true)
-	}
+	}*/
 
 	// ======================================= Helper Fns ================================== //
 	function fixContainerWidth() { 
@@ -99,23 +99,33 @@ export default function LevelText({i, titles, allText, levelNum, setLevelNum, se
 	}, [levelNum])
 
 	// ======================================= Trigger Events =============================== //
-	useEffect(() => { 
+	/*useEffect(() => { 
 		if(boxStatus === 'box-closing') onBoxClosing()
 		if(boxStatus === 'box-opening') onBoxOpening()
 		if(boxStatus === 'box-closed') onBoxClosed()
 		if(boxStatus === 'box-open') onBoxOpen()
-	}, [boxStatus])
+	}, [boxStatus])*/
 
 	// ======================================= Output ======================================= //
 	return (
-		<OpenCloseBox title={title} i={i} buttons={buttons} setBoxStatus={setBoxStatus}>
-			{/*<div className={`overflow-barrier ${overflowOpenClass}`}> 	</div> */}
-				<div className="text-container" id={textContainerId}>
-					<BurgerMenu isOpen={burgerIsOpen} setIsOpen={setBurgerIsOpen} options={titles} handleClick={handleBurgerClick}/>
-					<div className={"text-body"} id={textBodyId}>
-						<Text setSelectedStyle={setSelectedStyle}/>
-					</div>
-				</div> 
+		<OpenCloseBox title={title} i={i} buttons={buttons}>
+			<BurgerMenu isOpen={burgerIsOpen} setIsOpen={setBurgerIsOpen} options={titles} handleClick={handleBurgerClick}/>
+			<div className={"text-body"} id={textBodyId}>
+				<Text setSelectedStyle={setSelectedStyle}/>
+			</div> 
 		</OpenCloseBox>
 	)
 }
+
+{/* 
+<OpenCloseBox title={title} i={i} buttons={buttons}>
+<div className={`overflow-barrier ${overflowOpenClass}`}> 	</div> 
+		<div className="text-container" id={textContainerId}>
+			<BurgerMenu isOpen={burgerIsOpen} setIsOpen={setBurgerIsOpen} options={titles} handleClick={handleBurgerClick}/>
+			<div className={"text-body"} id={textBodyId}>
+				<Text setSelectedStyle={setSelectedStyle}/>
+			</div>
+		</div> 
+</OpenCloseBox>
+
+*/}

@@ -22,10 +22,10 @@ export default function Header() {
 		  			<li className={activeLink === '/learn' ? 'link link-selected' : 'link'} 
 		  					onClick={() => handleLinkClick('/learn')}>Learn</li>
 		  		</Link>
-		  		<Link to="/play">
+		  		{/*<Link to="/play">
 		  			<li className={activeLink === '/play' ? 'link link-selected' : 'link'} 
 		  					onClick={() => handleLinkClick('/play')}>Play</li>
-		  		</Link>
+		  		</Link>*/}
 		  		{/*<li>Read</li>
 		  		<li>Write</li>
 		  		<li>Use</li>
