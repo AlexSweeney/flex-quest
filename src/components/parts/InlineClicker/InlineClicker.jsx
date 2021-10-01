@@ -6,7 +6,7 @@ export default function InlineClicker({
 	i, 
 	selectedHeader, 
 	setSelectedHeader, 
-	handleClick, 
+	setSelectedStyle, 
 	thisStyle, 
 	children}) {   
 	/*
@@ -31,13 +31,14 @@ export default function InlineClicker({
 
 	function onHeaderSelected() {
 		setClickerSelectedClass('inline-clicker-selected')
-		// setSelectedHeader(headerName)
+
+		// setSelectedStyle
+
 		// handleClick(thisStyle)
 	}
 
 	function onHeaderDeselected() {
 		setClickerSelectedClass('.inline-clicker-not-selected')
-		// setSelectedHeader(null)
 		// handleClick('')
 	}
 

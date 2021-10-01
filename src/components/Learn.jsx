@@ -11,20 +11,6 @@ import OutputDisplay from './parts/OutputDisplay.jsx';
 // import DisplayBox from './DisplayBox.jsx';
 import './LearnStyle.css'; 
 
-import {Text as Text_1} from './data/learn/Level_1/text.jsx';
-import {Text as Text_2} from './data/learn/Level_2/text.jsx';
-import Text_3 from './data/text/Text_3.jsx';
-import Text_4 from './data/text/Text_4.jsx';
-import Text_5 from './data/text/Text_5.jsx';
-import Text_6 from './data/text/Text_6.jsx';
-import Text_7 from './data/text/Text_7.jsx';
-import Text_8 from './data/text/Text_8.jsx';
-import Text_9 from './data/text/Text_9.jsx';
-import Text_10 from './data/text/Text_10.jsx';
-import Text_11 from './data/text/Text_11.jsx';
-import Text_12 from './data/text/Text_12.jsx';
-import Text_13 from './data/text/Text_13.jsx';
-
 import {html as html_1} from './data/learn/Level_1/html.jsx';
 import {html as html_2} from './data/learn/Level_2/html.jsx';
 import {html_3} from './data/html/html_3.jsx';
@@ -104,24 +90,7 @@ export default function Learn() {
 		'Level 13: align-self',
 	]; 
 
-	const menuText = [
-		Text_1,
-		Text_2,
-		Text_3,
-		Text_4,
-		Text_5,
-		Text_6,
-		Text_7,
-		Text_8,
-		Text_9,
-		Text_10,
-		Text_11,
-		Text_12,
-		Text_13,
-	];
-	
 	const infoTitle = menuOptions[levelNum];
-	const InfoText = menuText[levelNum];
 
 	const [htmlString, setHtmlString] = useState(htmlStrings[levelNum]);
 	const [cssString, setCssString] = useState(cssStrings[levelNum]); 
@@ -131,11 +100,12 @@ export default function Learn() {
 		setHtmlString(htmlStrings[levelNum])
 		setCssString(cssStrings[levelNum])
 		setDefaultCssString(cssStrings[levelNum])
+
 	}, [levelNum])
 
 	return (
 		<section className="learn-container"> 
-			<LevelText i="1" titles={menuOptions} allText={menuText} setStyle={setCssString} defaultStyle={defaultCssString} levelNum={levelNum} setLevelNum={setLevelNum}/>
+			<LevelText i="1" titles={menuOptions} setStyle={setCssString} defaultStyle={defaultCssString} levelNum={levelNum} setLevelNum={setLevelNum}/>
 			<CodeInput i="2" title="index.html" code={htmlString} setCode={setHtmlString} originalCode={htmlStrings[levelNum]}></CodeInput>
 			<CodeInput i="3" title="style.css" code={cssString} setCode={setCssString} originalCode={cssStrings[levelNum]}></CodeInput>
 			<OutputDisplay i="4" title="display" htmlString={htmlString} cssString={cssString} />

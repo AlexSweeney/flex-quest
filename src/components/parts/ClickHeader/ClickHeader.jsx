@@ -7,7 +7,7 @@ export default function ClickHeader({
 	i, 
 	selectedHeader,
 	setSelectedHeader, 
-	handleClick, 
+	setSelectedStyle, 
 	thisStyle, 
 	children}) {  
 	/* 
@@ -62,12 +62,12 @@ export default function ClickHeader({
 
 	function onSelectHeader() {
 		setHeaderSelectedClass('info-header-selected')
-		handleClick(thisStyle)
+		setSelectedStyle(thisStyle)
 	}
 
 	function onDeselectHeader() {
 		setHeaderSelectedClass('info-header-unselected')
-		handleClick(null)
+		setSelectedStyle(null)
 	}
 
 	// ================================= Helper Fns ============================== // 

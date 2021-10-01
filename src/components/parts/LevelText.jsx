@@ -5,7 +5,14 @@ import Text from './Text.jsx';
 import OpenCloseBox from './OpenCloseBox/OpenCloseBox.jsx'; 
 import './LevelText.css';
 
-export default function LevelText({i, titles, allText, levelNum, setLevelNum, setStyle, defaultStyle}) {
+export default function LevelText({
+	i, 
+	titles, 
+	levelNum, 
+	setLevelNum, 
+	setStyle, 
+	defaultStyle
+}) {
 	/*
 		* show title
 		
@@ -36,8 +43,7 @@ export default function LevelText({i, titles, allText, levelNum, setLevelNum, se
 	// ======================================= State ======================================= //
 	const [burgerIsOpen, setBurgerIsOpen] = useState(false);
 	const buttons = [<Burger burgerIsOpen={burgerIsOpen} setBurgerIsOpen={setBurgerIsOpen}/>]; 
-
-	const [text, setText] = useState(allText[levelNum]);
+ 
 	const [title, setTitle] = useState(titles[levelNum]);
 	const [selectedStyle, setSelectedStyle] = useState('');
 
@@ -95,11 +101,12 @@ export default function LevelText({i, titles, allText, levelNum, setLevelNum, se
 		if(!selectedStyle) setStyle(defaultStyle)
 	}, [selectedStyle])
 
-	useEffect(() => { 
+	/*useEffect(() => { 
 		setTitle(titles[levelNum])
 		setText(allText[levelNum])
-	}, [levelNum])
-  
+	}, [levelNum])*/
+ 
+
 	// ======================================= Trigger Events =============================== //
 	/*useEffect(() => { 
 		if(boxStatus === 'box-closing') onBoxClosing()
@@ -112,9 +119,9 @@ export default function LevelText({i, titles, allText, levelNum, setLevelNum, se
 	return (
 		<OpenCloseBox title={title} i={i} buttons={buttons}>
 			<BurgerMenu isOpen={burgerIsOpen} setIsOpen={setBurgerIsOpen} options={titles} handleClick={handleBurgerClick}/>
+			
 			<div className={"text-body"} id={textBodyId}>
-				{/*<Text setSelectedStyle={setSelectedStyle}/>*/}
-			 	<Text levelNum={levelNum} allText={allText} setSelectedStyle={setSelectedStyle}/>
+			 	<Text levelNum={levelNum} setSelectedStyle={setSelectedStyle}/>
 			</div> 
 		</OpenCloseBox>
 	)
