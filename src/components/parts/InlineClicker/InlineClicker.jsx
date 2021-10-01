@@ -1,7 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import './InlineClicker.css';
 
-export default function InlineClicker({newStyle, i, selectedHeader, setSelectedHeader, setSelectedStyle, thisStyle, children}) {   
+export default function InlineClicker({
+	newStyle, 
+	i, 
+	selectedHeader, 
+	setSelectedHeader, 
+	setSelectedStyle, 
+	thisStyle, 
+	children}) {   
 	/*
 		on click 
 			* add highlight color
