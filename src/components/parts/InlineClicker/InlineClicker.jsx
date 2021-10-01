@@ -7,7 +7,6 @@ export default function InlineClicker({
 	selectedHeader, 
 	setSelectedHeader, 
 	setSelectedStyle, 
-	thisStyle, 
 	children}) {   
 	/*
 		on click 
@@ -18,8 +17,7 @@ export default function InlineClicker({
 			* remove highlight color
 			* revert style
 	*/
-	const headerName = children;
-	console.log('headerName', headerName)
+	const headerName = children; 
 
 	const [clickerSelected, setClickerSelected] = useState(false);
 	const [clickerSelectedClass, setClickerSelectedClass] = useState(null);
@@ -31,15 +29,12 @@ export default function InlineClicker({
 
 	function onHeaderSelected() {
 		setClickerSelectedClass('inline-clicker-selected')
-
-		// setSelectedStyle
-
-		// handleClick(thisStyle)
+		setSelectedStyle(newStyle)
 	}
 
 	function onHeaderDeselected() {
 		setClickerSelectedClass('.inline-clicker-not-selected')
-		// handleClick('')
+		setSelectedStyle(null)
 	}
 
 	// =========================== Helper fns =========================== //
@@ -57,6 +52,7 @@ export default function InlineClicker({
 		if(selectedHeader === headerName) onHeaderSelected() 
 		if(selectedHeader !== headerName) onHeaderDeselected()
 	}, [selectedHeader])
+
 
 	// =========================== Outputs =========================== //
 	return (

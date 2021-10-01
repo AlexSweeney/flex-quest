@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import ClickHeader from './ClickHeader.jsx';
 import {style_1a} from './../css/style_1a.jsx';
 
-export default function Text_1({handleClick, styleString}) {
+export default function Text_1({handleClick, styleString}) { 
 	const props = {handleClick, styleString};
 
 	return (

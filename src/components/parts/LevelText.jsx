@@ -97,14 +97,14 @@ export default function LevelText({
 
 	// ======================================= Update ======================================= //
 	useEffect(() => {
+		console.log(selectedStyle)
 		if(selectedStyle) setStyle(selectedStyle)
 		if(!selectedStyle) setStyle(defaultStyle)
 	}, [selectedStyle])
 
-	/*useEffect(() => { 
-		setTitle(titles[levelNum])
-		setText(allText[levelNum])
-	}, [levelNum])*/
+	useEffect(() => { 
+		setTitle(titles[levelNum]) 
+	}, [levelNum])
  
 
 	// ======================================= Trigger Events =============================== //

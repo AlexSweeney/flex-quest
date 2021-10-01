@@ -9,8 +9,6 @@ import {style_5} from './style_5.jsx';
 import {style_6} from './style_6.jsx';
 
 function Text({setSelectedStyle}) {  
-	// const setSelectedStyle = passedProps && passedProps.setSelectedStyle;
-	
 	const [selectedHeader, setSelectedHeader] = useState(null);
 	const props = {selectedHeader, setSelectedHeader, setSelectedStyle};
 
