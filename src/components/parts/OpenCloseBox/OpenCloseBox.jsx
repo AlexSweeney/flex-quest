@@ -5,10 +5,9 @@ import './OpenCloseBox.css';
 export default function OpenCloseBox({
 	title = '',
 	i,
-	buttons = [],  
-	setBoxStatus = () => {},
-	setContentContainerStatus = () => {},
-	resizeStatus = '',
+	buttons = [],   
+	handleToggleClick = () => {},
+	setContentContainerStatus = () => {}, 
 	children
 }) {  
 	/*
@@ -53,11 +52,14 @@ export default function OpenCloseBox({
 	// ======================= Event Handlers ======================= //
 	function onClickOpenCloseToggle() {
 		if(!isAnimating) {
-			setClickedOpen(oldVal => {
-				if(oldVal === null) return false;
-				if(oldVal === false) return true;
-				if(oldVal === true) return false;
-			}) 
+			let newValue;
+
+			if(clickedOpen === null) newValue = false;
+			if(clickedOpen === false) newValue = true;
+			if(clickedOpen === true) newValue = false;
+
+			setClickedOpen(newValue) 
+			handleToggleClick(newValue)
 		} 
 	} 
 

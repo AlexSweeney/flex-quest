@@ -59,12 +59,22 @@ export default function LevelText({
 		setLevelNum(newLevelNum)
 	}
 
-	/*function onBoxClosing() { 
-		fixContainerWidth() 
-		setOverflowOpenClass('overflow-barrier-closing')
+	function handleToggleClick(boxIsOpen) {
+		console.log('toggle clicked === level text')
+		console.log('boxIsOpen', boxIsOpen)
+		if(boxIsOpen) onBoxOpening()
+		if(!boxIsOpen) onBoxClosing()
 	}
 
-	function onBoxOpening() { 
+	function onBoxClosing() { 
+		fixContainerWidth(textBodyId)
+	}
+
+	function onBoxOpening() {
+		removeInlineWidth(textBodyId)
+	}
+
+	/*function onBoxOpening() { 
 		if(boxHasClosed) resetContainerWidth()
 	} 
 
@@ -78,21 +88,21 @@ export default function LevelText({
 	}*/
 
 	// ======================================= Helper Fns ================================== //
-	function fixContainerWidth() { 
-		// const containerElement = document.getElementById(textContainerId);
-		// const elementWidth = getComputedWidth(containerElement); 
+	function fixContainerWidth(id) { 
+		const element = document.getElementById(id);
+		const elementWidth = getComputedWidth(element); 
 
-		// containerElement.style.width = elementWidth; 
+		element.style.width = elementWidth; 
 	}
 
-	function resetContainerWidth() {
-		// const containerElement = document.getElementById(textBodyId);
-		// containerElement.style.width = '';
+	function removeInlineWidth(id) {
+		const element = document.getElementById(id);
+		element.style.width = '';
 	}
 
 	function getComputedWidth(element) {
-		// const style = window.getComputedStyle(element);
-		// return style.width;
+		const style = window.getComputedStyle(element);
+		return style.width;
 	}
 
 	// ======================================= Update ======================================= //
@@ -117,7 +127,7 @@ export default function LevelText({
 
 	// ======================================= Output ======================================= //
 	return (
-		<OpenCloseBox title={title} i={i} buttons={buttons}>
+		<OpenCloseBox title={title} i={i} buttons={buttons} handleToggleClick={handleToggleClick}>
 			<BurgerMenu isOpen={burgerIsOpen} setIsOpen={setBurgerIsOpen} options={titles} handleClick={handleBurgerClick}/>
 			
 			<div className={"text-body"} id={textBodyId}>
