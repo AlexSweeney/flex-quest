@@ -26,6 +26,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	// ================ State ========================= //
 	// ====== Ids //
 	const outputDisplayId = `output-display-${i}`;
+	const boxBodyId =  `box-body-${i}`;
 
 	// ====== Box Status //
 	const [boxStatus, setBoxStatus] = useState('box-open');
@@ -79,8 +80,10 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		console.log('refresh start')
 		addRefreshListeners()
 
-		setWidthToParentWidth(outputDisplayId)
-		setHeightToParentHeight(outputDisplayId) 
+		const contentContainerId = document.getElementById(outputDisplayId).parentNode.id;
+
+		setWidthToOtherWidth(outputDisplayId, boxBodyId)
+		setHeightToOtherHeight(outputDisplayId, boxBodyId) 
 	}
 
 	function onRefreshEnd() {  
@@ -88,6 +91,9 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		setNumTransitionStarts(0)
 		setNumTransitionEnds(0)
 		setOutputDisplayResizeClass('') 
+
+		/*const contentContainerId = document.getElementById(outputDisplayId).parentNode.id;
+		removeInlineSize(contentContainerId)*/
 	}
 
 	function onCodeChange() {
@@ -182,7 +188,31 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		element.style.height = ''; 
 	}
 
-	function setWidthToParentWidth(id) {
+/*	function setContentContainerSizeToParentSize(outerId) {
+		const contentContainerElement = document.getElementById(outerId).parentNode;
+		const contentContainerParentElement = contentContainerElement.parentNode;
+
+		const parentStyle = window.getComputedStyle(contentContainerParentElement);
+
+		contentContainerElement.style.height = parentStyle.height;
+		contentContainerElement.style.width = parentStyle.width;
+	}*/
+
+	function setWidthToOtherWidth(id_1, id_2) {
+		const element_1 = document.getElementById(id_1);
+		const element_2 = document.getElementById(id_2);
+ 
+		element_1.style.width = element_2.offsetWidth + 'px';
+	}
+
+	function setHeightToOtherHeight(id_1, id_2) {
+		const element_1 = document.getElementById(id_1);
+		const element_2 = document.getElementById(id_2); 
+
+		element_1.style.height = element_2.offsetHeight + 'px';
+	}
+
+	/*function setWidthToParentWidth(id) {
 		const element = document.getElementById(id);
 		const parent = element.parentNode;
 		const parentStyle = window.getComputedStyle(parent);
@@ -196,21 +226,8 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		const parentStyle = window.getComputedStyle(parent);
 
 		element.style.height = parentStyle.height;
-	}
-
-	function setWidthAndHeightToParent(id) {
-		const element = document.getElementById(id);
-		const parent = element.parentNode;
-		const parentStyle = window.getComputedStyle(parent);
-		
-		const newStyle = {
-			'height': parentStyle.height,
-			'width': parentStyle.width,
-		}
-		element.style.height = parentStyle.height;
-		element.style.width = parentStyle.width;
 	} 
-
+*/
 	// ============== Update Status on Resize end ==================== // 
 	useEffect(() => {
 		if(outputDisplayResizeStatus === 'output-display-resizing' 
@@ -298,10 +315,8 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		<OpenCloseBox 
 			title={title} 
 			i={i}
-			buttons={buttons} 
-			setContentContainerStatus={setContentContainerStatus}
-			setBoxStatus={setBoxStatus}
-			resizeStatus={outputDisplayResizeStatus}> 
+			boxBodyId={boxBodyId}
+			buttons={buttons}> 
 			<div className={`output-display ${outputDisplayClass} ${outputDisplayResizeClass}`} id={outputDisplayId}>
 				<iframe srcDoc={source} className="iFrame"/> 
 				<GridOverlay gridStatus={gridStatus} showGrid={showGrid}/>

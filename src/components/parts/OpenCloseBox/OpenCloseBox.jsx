@@ -5,6 +5,7 @@ import './OpenCloseBox.css';
 export default function OpenCloseBox({
 	title = '',
 	i,
+	boxBodyId = null,
 	buttons = [],   
 	handleToggleClick = () => {},
 	handleOverflowHidden = () => {},
@@ -25,7 +26,7 @@ export default function OpenCloseBox({
 
 	// =========================== Id's ============================ //
 	const boxId = `box-${i}`;
-	const boxBodyId = `box-body-${i}`;
+	if(!boxBodyId) boxBodyId = `box-body-${i}`;
 	const contentContainerId = `content-container-${i}`;
 	const displayContainerId = `display-container-${i}`;
 
