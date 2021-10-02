@@ -201,6 +201,10 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	function setWidthToOtherWidth(id_1, id_2) {
 		const element_1 = document.getElementById(id_1);
 		const element_2 = document.getElementById(id_2);
+ 		
+ 		const style = window.getComputedStyle(element_2); 
+ 		console.log(element_2.clientWidth)
+ 		console.log(element_2.offsetWidth)
  
 		element_1.style.width = element_2.offsetWidth + 'px';
 	}
