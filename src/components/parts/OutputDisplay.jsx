@@ -70,14 +70,17 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	function onRefreshClick() {
 		if(boxStatus === 'box-open' && userHasChangedSize(outputDisplayId)) { 
 			setOutputDisplayResizeStatus('output-display-resizing')
+			setOutputDisplayResizeClass('output-display-refresh')
 		}
 	}
 
 	// ================ Event Handlers ===================== //
 	function onRefreshStart() {  
+		console.log('refresh start')
 		addRefreshListeners()
-		setOutputDisplayResizeClass('output-display-refresh') 
-		removeInlineSize(outputDisplayId) 
+
+		setWidthToParentWidth(outputDisplayId)
+		setHeightToParentHeight(outputDisplayId) 
 	}
 
 	function onRefreshEnd() {  
@@ -179,7 +182,36 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		element.style.height = ''; 
 	}
 
-	 // ============== Update Status on Resize end ==================== // 
+	function setWidthToParentWidth(id) {
+		const element = document.getElementById(id);
+		const parent = element.parentNode;
+		const parentStyle = window.getComputedStyle(parent);
+
+		element.style.width = parentStyle.width;
+	}
+
+	function setHeightToParentHeight(id) {
+		const element = document.getElementById(id);
+		const parent = element.parentNode;
+		const parentStyle = window.getComputedStyle(parent);
+
+		element.style.height = parentStyle.height;
+	}
+
+	function setWidthAndHeightToParent(id) {
+		const element = document.getElementById(id);
+		const parent = element.parentNode;
+		const parentStyle = window.getComputedStyle(parent);
+		
+		const newStyle = {
+			'height': parentStyle.height,
+			'width': parentStyle.width,
+		}
+		element.style.height = parentStyle.height;
+		element.style.width = parentStyle.width;
+	} 
+
+	// ============== Update Status on Resize end ==================== // 
 	useEffect(() => {
 		if(outputDisplayResizeStatus === 'output-display-resizing' 
 			&& numTransitionStarts > 0
