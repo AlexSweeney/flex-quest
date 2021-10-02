@@ -198,22 +198,31 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		contentContainerElement.style.width = parentStyle.width;
 	}*/
 
+	// function resetWidth() {
+	// 	const element_1 = document.getElementById(id_1);
+	// 	const element_2 = document.getElementById(id_2);
+
+	// 	const borderWidth = 0;
+ 		
+ // 		const style = window.getComputedStyle(element_2);  
+ 
+	// 	element_1.style.width = element_2.offsetWidth - borderWidth + 'px';
+	// }
+
 	function setWidthToOtherWidth(id_1, id_2) {
 		const element_1 = document.getElementById(id_1);
 		const element_2 = document.getElementById(id_2);
  		
- 		const style = window.getComputedStyle(element_2); 
- 		console.log(element_2.clientWidth)
- 		console.log(element_2.offsetWidth)
+ 		const style = window.getComputedStyle(element_2);  
  
-		element_1.style.width = element_2.offsetWidth + 'px';
+		element_1.style.width = element_2.offsetWidth - 16 + 'px';
 	}
 
 	function setHeightToOtherHeight(id_1, id_2) {
 		const element_1 = document.getElementById(id_1);
 		const element_2 = document.getElementById(id_2); 
 
-		element_1.style.height = element_2.offsetHeight + 'px';
+		element_1.style.height = element_2.offsetHeight - 16 + 'px';
 	}
 
 	/*function setWidthToParentWidth(id) {
