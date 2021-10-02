@@ -1,12 +1,19 @@
-.output-display {
-	height: 100%;  
+/*
+  open and close = ok
+  make size of parent on render
+*/
+
+.output-display { 
 	width: 100%;
 	background: #C4C4C4;
-	position: absolute;
+	/*position: absolute;*/
 	border: 0.5em solid #E8E4E4;
 	z-index: 1000;
 	box-sizing: border-box; 
 	overflow: hidden;
+
+	float: left;
+  position: relative;
 }
 
 .output-display-opening-x { 
