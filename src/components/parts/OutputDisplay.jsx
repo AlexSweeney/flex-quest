@@ -27,6 +27,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	// ====== Ids //
 	const outputDisplayId = `output-display-${i}`;
 	const boxBodyId =  `box-body-${i}`;
+	const contentContainerId = `content-container-${i}`;
 
 	// ====== Box Status //
 	const [boxStatus, setBoxStatus] = useState('box-open');
@@ -79,17 +80,18 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	function onRefreshStart() {  
 		console.log('refresh start')
 		addRefreshListeners()
-
-		const contentContainerId = document.getElementById(outputDisplayId).parentNode.id;
-
-		setWidthToOtherWidth(outputDisplayId, boxBodyId)
-		setHeightToOtherHeight(outputDisplayId, boxBodyId) 
+ 		
+ 		resetSize()
+		// setWidthToOtherWidth(outputDisplayId, boxBodyId)
+		// setHeightToOtherHeight(outputDisplayId, boxBodyId) 
 	}
 
 	function onRefreshEnd() {  
 		removeRefreshListeners()
 		setNumTransitionStarts(0)
 		setNumTransitionEnds(0)
+
+		// removeInlineSize(outputDisplayId);
 		setOutputDisplayResizeClass('') 
 
 		/*const contentContainerId = document.getElementById(outputDisplayId).parentNode.id;
@@ -198,32 +200,32 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		contentContainerElement.style.width = parentStyle.width;
 	}*/
 
-	// function resetWidth() {
-	// 	const element_1 = document.getElementById(id_1);
-	// 	const element_2 = document.getElementById(id_2);
+	function resetSize() {
+		const boxBodyElement = document.getElementById(boxBodyId);
+		const outputDisplayElement = document.getElementById(outputDisplayId);
+		const contentContainerElement = document.getElementById(contentContainerId);
 
-	// 	const borderWidth = 0;
- 		
- // 		const style = window.getComputedStyle(element_2);  
- 
-	// 	element_1.style.width = element_2.offsetWidth - borderWidth + 'px';
-	// }
+		const borderWidth = window.getComputedStyle(contentContainerElement)['border-width'].replace('px', ''); 
+		
+		outputDisplayElement.style.width = boxBodyElement.offsetWidth - (borderWidth * 2) + 'px';
+		outputDisplayElement.style.height = boxBodyElement.offsetHeight - (borderWidth * 2) + 'px';
+	}
 
-	function setWidthToOtherWidth(id_1, id_2) {
+	/*function setWidthToOtherWidth(id_1, id_2) {
 		const element_1 = document.getElementById(id_1);
 		const element_2 = document.getElementById(id_2);
  		
  		const style = window.getComputedStyle(element_2);  
  
-		element_1.style.width = element_2.offsetWidth - 16 + 'px';
+		element_1.style.width = element_2.offsetWidth + 'px';
 	}
 
 	function setHeightToOtherHeight(id_1, id_2) {
 		const element_1 = document.getElementById(id_1);
 		const element_2 = document.getElementById(id_2); 
 
-		element_1.style.height = element_2.offsetHeight - 16 + 'px';
-	}
+		element_1.style.height = element_2.offsetHeight + 'px';
+	}*/
 
 	/*function setWidthToParentWidth(id) {
 		const element = document.getElementById(id);
