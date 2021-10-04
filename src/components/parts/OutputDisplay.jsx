@@ -22,6 +22,8 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		* handle refresh button press  
 	*/
 
+	// open overflow height = jerking animation
+
 	// fragility = refresh depends on boxBody having box-sizing: border-box
 	// -> set content container size -> shrink content container back to 100%
 
@@ -96,37 +98,26 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	}
 
 	function onClickToggle(boxIsOpen, widthIsOverflowing, heightIsOverflowing) {
-		if(!boxIsOpen) {
-			setIsOverflowing(widthIsOverflowing || heightIsOverflowing);
-		}
+		if(boxIsOpen) onClickBoxOpen(widthIsOverflowing, heightIsOverflowing)
+		if(!boxIsOpen) onClickBoxClosed()
+	}
 
-		if(boxIsOpen && isOverflowing) {
-			const outputElement = document.getElementById(outputDisplayId)
-			if(savedWidth) outputElement.style.width = savedWidth;
-			if(savedHeight) outputElement.style.height = savedHeight;
+	function onClickBoxClosed(widthIsOverflowing, heightIsOverflowing) {
+		const thisIsOverflowing = widthIsOverflowing || heightIsOverflowing;
+		setIsOverflowing(thisIsOverflowing)
 
-			setSavedWidth(null)
-			setSavedHeight(null)
-		}
+		setOutputDisplayClass('output-display-closing')
 
-		if(!boxIsOpen && widthIsOverflowing || heightIsOverflowing) {
-			// set parent to size 
-			const outputElement = document.getElementById(outputDisplayId)
-			const parentElement = outputElement.parentNode; 
-
-			const inlineHeight = outputElement.offsetHeight && outputElement.offsetHeight + 'px';
-			const inlineWidth =  outputElement.offsetWidth && outputElement.offsetWidth + 'px';
-
-			if(inlineWidth) parentElement.style.width =  outputElement.offsetWidth + 'px';
-			if(inlineHeight) parentElement.style.height = outputElement.offsetHeight + 'px';
-
-			setSavedHeight(outputElement.offsetWidth + 'px')
-			setSavedWidth(outputElement.offsetHeight + 'px')
-
-			// remove inline size
+		if(thisIsOverflowing) {
+			setParentSizeToChildSize(outputDisplayId)
 			removeInlineSize(outputDisplayId)
 		}
-		
+	}
+
+	function onClickBoxOpen() {
+		setOutputDisplayClass('output-display-opening')
+
+		if(isOverflowing) setToSavedSize(outputDisplayId)
 	}
 
 	function onCodeChange() {
@@ -143,6 +134,29 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	}
 
 	// ================ Helper Fns ===================== //
+	function setParentSizeToChildSize(id) {
+		const outputElement = document.getElementById(id)
+		const parentElement = outputElement.parentNode; 
+
+		const inlineHeight = outputElement.offsetHeight && outputElement.offsetHeight + 'px';
+		const inlineWidth =  outputElement.offsetWidth && outputElement.offsetWidth + 'px';
+
+		if(inlineWidth) parentElement.style.width =  outputElement.offsetWidth + 'px';
+		if(inlineHeight) parentElement.style.height = outputElement.offsetHeight + 'px';
+
+		setSavedHeight(outputElement.offsetWidth + 'px')
+		setSavedWidth(outputElement.offsetHeight + 'px')
+	}
+
+	function setToSavedSize(id) {
+		const element = document.getElementById(id)
+		if(savedWidth) element.style.width = savedWidth;
+		if(savedHeight) element.style.height = savedHeight;
+
+		setSavedWidth(null)
+		setSavedHeight(null)
+	}
+
 	function elementWidthIsOverflowing(id) {
 		const element = document.getElementById(id);
 		if(!element) return;
@@ -228,15 +242,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		let newWidth;
 		let newHeight;
 
-		const compStyle = window.getComputedStyle(boxBodyElement); 
-
-		// const widthIsOverflowing = elementWidthIsOverflowing(boxBodyId);
-		// const heightIsOverflowing = elementHeightIsOverflowing(boxBodyId);
-
-		// if(widthIsOverflowing) newWidth =  boxBodyElement.offsetWidth + 'px';;
-		// if(!widthIsOverflowing) newWidth = boxBodyElement.clientWidth + 'px';
-		// if(heightIsOverflowing) newHeight = boxBodyElement.offsetHeight + 'px';
-		// if(!heightIsOverflowing) newHeight = boxBodyElement.clientHeight + 'px';
+		const compStyle = window.getComputedStyle(boxBodyElement);  
 
 		outputDisplayElement.style.width = compStyle.width;
 		outputDisplayElement.style.height = compStyle.height;
