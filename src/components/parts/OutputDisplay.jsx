@@ -22,6 +22,8 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		* handle refresh button press  
 	*/
 
+	// fragility = refresh depends on boxBody having box-sizing: border-box
+	// -> set content container size -> shrink content container back to 100%
 
 	// ================ State ========================= //
 	// ====== Ids //
@@ -72,7 +74,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		setShowGrid(oldVal => !oldVal)
 	} 
 
-	function onRefreshClick() {
+	function onRefreshClick() {  
 		if(boxStatus === 'box-open' && userHasChangedSize(outputDisplayId)) { 
 			setOutputDisplayResizeStatus('output-display-resizing')
 			setOutputDisplayResizeClass('output-display-refresh')
@@ -221,13 +223,23 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 
 	function resetSize(id) { 
 		const boxBodyElement = document.getElementById(boxBodyId);
-		const outputDisplayElement = document.getElementById(outputDisplayId);
-		// const contentContainerElement = document.getElementById(contentContainerId);
+		const outputDisplayElement = document.getElementById(outputDisplayId);  
 
-		// const borderWidth = window.getComputedStyle(contentContainerElement)['border-width'].replace('px', ''); 
+		let newWidth;
+		let newHeight;
 
-		outputDisplayElement.style.width = boxBodyElement.offsetWidth + 'px';
-		outputDisplayElement.style.height = boxBodyElement.offsetHeight + 'px';
+		const compStyle = window.getComputedStyle(boxBodyElement); 
+
+		// const widthIsOverflowing = elementWidthIsOverflowing(boxBodyId);
+		// const heightIsOverflowing = elementHeightIsOverflowing(boxBodyId);
+
+		// if(widthIsOverflowing) newWidth =  boxBodyElement.offsetWidth + 'px';;
+		// if(!widthIsOverflowing) newWidth = boxBodyElement.clientWidth + 'px';
+		// if(heightIsOverflowing) newHeight = boxBodyElement.offsetHeight + 'px';
+		// if(!heightIsOverflowing) newHeight = boxBodyElement.clientHeight + 'px';
+
+		outputDisplayElement.style.width = compStyle.width;
+		outputDisplayElement.style.height = compStyle.height;
 	}
 
 	// ============== Update Status on Resize end ==================== // 

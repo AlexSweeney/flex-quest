@@ -76,6 +76,7 @@
 
 	background: #E8E4E4;  
 	overflow: auto; 
+	box-sizing: border-box;
 } 
 
 .box-body-closing {
