@@ -34,6 +34,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	const [contentContainerStatus, setContentContainerStatus] = useState('content-container-open');
 	const [savedHeight, setSavedHeight] = useState(null);
 	const [savedWidth, setSavedWidth] = useState(null);
+	const [isOverflowing, setIsOverflowing] = useState(false);
 
 	// ====== Grid //
 	const [gridStatus, setGridStatus] = useState('');
@@ -91,10 +92,14 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		setOutputDisplayResizeClass('')
 	}
 
-	function onClickToggle(boxIsOpen) {
+	function onClickToggle(boxIsOpen, widthIsOverflowing, heightIsOverflowing) {
+		if(!boxIsOpen) {
+			setIsOverflowing(widthIsOverflowing || heightIsOverflowing);
+		}
 		console.log('toggle click')
-		console.log('boxIsOpen', boxIsOpen)
-		if(boxIsOpen) {
+		console.log('boxIsOpen', boxIsOpen) 
+
+		if(boxIsOpen && isOverflowing) {
 			const outputElement = document.getElementById(outputDisplayId)
 			if(savedWidth) outputElement.style.width = savedWidth;
 			if(savedHeight) outputElement.style.height = savedHeight;
@@ -103,11 +108,10 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 			setSavedHeight(null)
 		}
 
-		if(!boxIsOpen) {
+		if(!boxIsOpen && widthIsOverflowing || heightIsOverflowing) {
 			// set parent to size 
 			const outputElement = document.getElementById(outputDisplayId)
-			const parentElement = outputElement.parentNode;
-			console.log('parentElement', parentElement)
+			const parentElement = outputElement.parentNode; 
 
 			const inlineHeight = outputElement.offsetHeight && outputElement.offsetHeight + 'px';
 			const inlineWidth =  outputElement.offsetWidth && outputElement.offsetWidth + 'px';
