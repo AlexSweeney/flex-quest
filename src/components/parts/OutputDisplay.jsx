@@ -32,6 +32,8 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	// ====== Box Status //
 	const [boxStatus, setBoxStatus] = useState('box-open');
 	const [contentContainerStatus, setContentContainerStatus] = useState('content-container-open');
+	const [savedHeight, setSavedHeight] = useState(null);
+	const [savedWidth, setSavedWidth] = useState(null);
 
 	// ====== Grid //
 	const [gridStatus, setGridStatus] = useState('');
@@ -89,18 +91,37 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		setOutputDisplayResizeClass('')
 	}
 
-	function onClickToggle() {
+	function onClickToggle(boxIsOpen) {
 		console.log('toggle click')
-		// set parent to size 
-		const outputElement = document.getElementById(outputDisplayId)
-		const parentElement = outputElement.parentNode;
-		console.log('parentElement', parentElement)
+		console.log('boxIsOpen', boxIsOpen)
+		if(boxIsOpen) {
+			const outputElement = document.getElementById(outputDisplayId)
+			if(savedWidth) outputElement.style.width = savedWidth;
+			if(savedHeight) outputElement.style.height = savedHeight;
 
-		parentElement.style.width = outputElement.offsetWidth + 'px';
-		parentElement.style.height = outputElement.offsetHeight + 'px';
+			setSavedWidth(null)
+			setSavedHeight(null)
+		}
 
-		// remove inline size
-		removeInlineSize(outputDisplayId)
+		if(!boxIsOpen) {
+			// set parent to size 
+			const outputElement = document.getElementById(outputDisplayId)
+			const parentElement = outputElement.parentNode;
+			console.log('parentElement', parentElement)
+
+			const inlineHeight = outputElement.offsetHeight && outputElement.offsetHeight + 'px';
+			const inlineWidth =  outputElement.offsetWidth && outputElement.offsetWidth + 'px';
+
+			if(inlineWidth) parentElement.style.width =  outputElement.offsetWidth + 'px';
+			if(inlineHeight) parentElement.style.height = outputElement.offsetHeight + 'px';
+
+			setSavedHeight(outputElement.offsetWidth + 'px')
+			setSavedWidth(outputElement.offsetHeight + 'px')
+
+			// remove inline size
+			removeInlineSize(outputDisplayId)
+		}
+		
 	}
 
 	function onCodeChange() {
