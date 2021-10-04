@@ -79,7 +79,6 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	// ================ Event Handlers ===================== //
 	function onRefreshStart() {  
 		addRefreshListeners()
- 		resetSize()
 	}
 
 	function onRefreshEnd() {  
@@ -88,6 +87,20 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		setNumTransitionEnds(0)
 
 		setOutputDisplayResizeClass('')
+	}
+
+	function onClickToggle() {
+		console.log('toggle click')
+		// set parent to size 
+		const outputElement = document.getElementById(outputDisplayId)
+		const parentElement = outputElement.parentNode;
+		console.log('parentElement', parentElement)
+
+		parentElement.style.width = outputElement.offsetWidth + 'px';
+		parentElement.style.height = outputElement.offsetHeight + 'px';
+
+		// remove inline size
+		removeInlineSize(outputDisplayId)
 	}
 
 	function onCodeChange() {
@@ -182,15 +195,20 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		element.style.height = ''; 
 	}
 
-	function resetSize() {
-		const boxBodyElement = document.getElementById(boxBodyId);
+	function resetSize(id) {
+		removeInlineSize(id)
+		// set width to 100% of parent
+
+		// set height to 100% of parent
+
+		/*const boxBodyElement = document.getElementById(boxBodyId);
 		const outputDisplayElement = document.getElementById(outputDisplayId);
 		const contentContainerElement = document.getElementById(contentContainerId);
 
 		const borderWidth = window.getComputedStyle(contentContainerElement)['border-width'].replace('px', ''); 
 
 		outputDisplayElement.style.width = boxBodyElement.offsetWidth - (borderWidth * 2) + 'px';
-		outputDisplayElement.style.height = boxBodyElement.offsetHeight - (borderWidth * 2) + 'px';
+		outputDisplayElement.style.height = boxBodyElement.offsetHeight - (borderWidth * 2) + 'px';*/
 	}
 
 	// ============== Update Status on Resize end ==================== // 
@@ -266,6 +284,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		<OpenCloseBox 
 			title={title} 
 			i={i}
+			handleToggleClick={onClickToggle}
 			boxBodyId={boxBodyId}
 			contentContainerId={contentContainerId}
 			buttons={buttons}> 

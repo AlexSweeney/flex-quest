@@ -78,7 +78,7 @@ export default function OpenCloseBox({
 
 	function onPressBoxClosing() { 
 		setIsAnimating(true)
-
+		
 		if(boxIsOpen) {
 			const thisWidthIsOverflowing = elementWidthIsOverflowing(boxBodyId);
 			setWidthOverflowOnClose(thisWidthIsOverflowing) 
