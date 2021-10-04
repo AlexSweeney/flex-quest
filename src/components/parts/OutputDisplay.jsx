@@ -78,12 +78,8 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 
 	// ================ Event Handlers ===================== //
 	function onRefreshStart() {  
-		console.log('refresh start')
 		addRefreshListeners()
- 		
  		resetSize()
-		// setWidthToOtherWidth(outputDisplayId, boxBodyId)
-		// setHeightToOtherHeight(outputDisplayId, boxBodyId) 
 	}
 
 	function onRefreshEnd() {  
@@ -91,11 +87,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		setNumTransitionStarts(0)
 		setNumTransitionEnds(0)
 
-		// removeInlineSize(outputDisplayId);
-		setOutputDisplayResizeClass('') 
-
-		/*const contentContainerId = document.getElementById(outputDisplayId).parentNode.id;
-		removeInlineSize(contentContainerId)*/
+		setOutputDisplayResizeClass('')
 	}
 
 	function onCodeChange() {
@@ -190,59 +182,17 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		element.style.height = ''; 
 	}
 
-/*	function setContentContainerSizeToParentSize(outerId) {
-		const contentContainerElement = document.getElementById(outerId).parentNode;
-		const contentContainerParentElement = contentContainerElement.parentNode;
-
-		const parentStyle = window.getComputedStyle(contentContainerParentElement);
-
-		contentContainerElement.style.height = parentStyle.height;
-		contentContainerElement.style.width = parentStyle.width;
-	}*/
-
 	function resetSize() {
 		const boxBodyElement = document.getElementById(boxBodyId);
 		const outputDisplayElement = document.getElementById(outputDisplayId);
 		const contentContainerElement = document.getElementById(contentContainerId);
 
 		const borderWidth = window.getComputedStyle(contentContainerElement)['border-width'].replace('px', ''); 
-		
+
 		outputDisplayElement.style.width = boxBodyElement.offsetWidth - (borderWidth * 2) + 'px';
 		outputDisplayElement.style.height = boxBodyElement.offsetHeight - (borderWidth * 2) + 'px';
 	}
 
-	/*function setWidthToOtherWidth(id_1, id_2) {
-		const element_1 = document.getElementById(id_1);
-		const element_2 = document.getElementById(id_2);
- 		
- 		const style = window.getComputedStyle(element_2);  
- 
-		element_1.style.width = element_2.offsetWidth + 'px';
-	}
-
-	function setHeightToOtherHeight(id_1, id_2) {
-		const element_1 = document.getElementById(id_1);
-		const element_2 = document.getElementById(id_2); 
-
-		element_1.style.height = element_2.offsetHeight + 'px';
-	}*/
-
-	/*function setWidthToParentWidth(id) {
-		const element = document.getElementById(id);
-		const parent = element.parentNode;
-		const parentStyle = window.getComputedStyle(parent);
-
-		element.style.width = parentStyle.width;
-	}
-
-	function setHeightToParentHeight(id) {
-		const element = document.getElementById(id);
-		const parent = element.parentNode;
-		const parentStyle = window.getComputedStyle(parent);
-
-		element.style.height = parentStyle.height;
-	} 
-*/
 	// ============== Update Status on Resize end ==================== // 
 	useEffect(() => {
 		if(outputDisplayResizeStatus === 'output-display-resizing' 
@@ -251,21 +201,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 			setOutputDisplayResizeStatus('output-display-resized')
 		}
 	}, [numTransitionStarts, numTransitionEnds, outputDisplayResizeStatus])
-
-	// ============== Update resize status when closing from open ==================== // 
-	// useEffect(() => {
-	// 	if(boxStatus === 'box-closing') {
-	// 		const widthIsOverflowing = elementWidthIsOverflowing('box-body');
- //  		const heightIsOverflowing = elementHeightIsOverflowing('box-body');
-
- //  		setOverflowStatus({'width': widthIsOverflowing, 'height': heightIsOverflowing})
-	// 	}
-
-	// 	if(boxStatus === 'box-open') {
-	// 		setOverflowStatus(null)
-	// 	}
-	// }, [])
-
+  
 	// ============== Trigger Event Handlers ==================== // 
 	// ======== Refresh //
 	useEffect(() => {
@@ -331,6 +267,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 			title={title} 
 			i={i}
 			boxBodyId={boxBodyId}
+			contentContainerId={contentContainerId}
 			buttons={buttons}> 
 			<div className={`output-display ${outputDisplayClass} ${outputDisplayResizeClass}`} id={outputDisplayId}>
 				<iframe srcDoc={source} className="iFrame"/> 

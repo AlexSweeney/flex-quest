@@ -6,6 +6,7 @@ export default function OpenCloseBox({
 	title = '',
 	i,
 	boxBodyId = null,
+	contentContainerId = null,
 	buttons = [],   
 	handleToggleClick = () => {},
 	handleOverflowHidden = () => {},
@@ -27,7 +28,7 @@ export default function OpenCloseBox({
 	// =========================== Id's ============================ //
 	const boxId = `box-${i}`;
 	if(!boxBodyId) boxBodyId = `box-body-${i}`;
-	const contentContainerId = `content-container-${i}`;
+	if(!contentContainerId) contentContainerId = `content-container-${i}`;
 	const displayContainerId = `display-container-${i}`;
 
 	// ======================= State ======================= // 

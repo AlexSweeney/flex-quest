@@ -1,7 +1,7 @@
 .output-display { 
 	width: 100%;
 	background: #C4C4C4;
-	/*border: 0.5em solid #E8E4E4;*/
+	border: 0.5em solid #E8E4E4;
 	z-index: 1000;
 	box-sizing: border-box; 
 	overflow: hidden;
@@ -9,9 +9,7 @@
 	float: left;
   position: relative;
 
-  resize: both;
-
-
+  resize: both;   
 }
 
 .output-display-refresh { 
@@ -20,8 +18,7 @@
 	
 	/*resize: none;
 	overflow: hidden;*/
-	transition: height 1s, width 1s;
-	
+	transition: height 1s, width 1s; 
 }
 
 .iFrame {
