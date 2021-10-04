@@ -82,6 +82,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	// ================ Event Handlers ===================== //
 	function onRefreshStart() {  
 		addRefreshListeners()
+		resetSize()
 	}
 
 	function onRefreshEnd() {  
@@ -96,8 +97,6 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		if(!boxIsOpen) {
 			setIsOverflowing(widthIsOverflowing || heightIsOverflowing);
 		}
-		console.log('toggle click')
-		console.log('boxIsOpen', boxIsOpen) 
 
 		if(boxIsOpen && isOverflowing) {
 			const outputElement = document.getElementById(outputDisplayId)
@@ -220,20 +219,15 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		element.style.height = ''; 
 	}
 
-	function resetSize(id) {
-		removeInlineSize(id)
-		// set width to 100% of parent
-
-		// set height to 100% of parent
-
-		/*const boxBodyElement = document.getElementById(boxBodyId);
+	function resetSize(id) { 
+		const boxBodyElement = document.getElementById(boxBodyId);
 		const outputDisplayElement = document.getElementById(outputDisplayId);
-		const contentContainerElement = document.getElementById(contentContainerId);
+		// const contentContainerElement = document.getElementById(contentContainerId);
 
-		const borderWidth = window.getComputedStyle(contentContainerElement)['border-width'].replace('px', ''); 
+		// const borderWidth = window.getComputedStyle(contentContainerElement)['border-width'].replace('px', ''); 
 
-		outputDisplayElement.style.width = boxBodyElement.offsetWidth - (borderWidth * 2) + 'px';
-		outputDisplayElement.style.height = boxBodyElement.offsetHeight - (borderWidth * 2) + 'px';*/
+		outputDisplayElement.style.width = boxBodyElement.offsetWidth + 'px';
+		outputDisplayElement.style.height = boxBodyElement.offsetHeight + 'px';
 	}
 
 	// ============== Update Status on Resize end ==================== // 
