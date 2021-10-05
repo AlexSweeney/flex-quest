@@ -3,7 +3,13 @@ import OpenCloseBox from './OpenCloseBox/OpenCloseBox.jsx';
 import RefreshButton from './Buttons/RefreshButton/RefreshButton.jsx';
 import GridButton from './Buttons/GridButton/GridButton.jsx';
 import GridOverlay from './Buttons/GridButton/GridOverlay.jsx';
-import {onTransition} from './../utils.js';
+import {
+	onTransition, 
+	elementWidthIsOverflowing, 
+	elementHeightIsOverflowing, 
+	elementHasInlineSize,
+	removeInlineSize,
+} from './../utils.js';
 import './OutputDisplay.css';
 
 export default function OutputDisplay({title, htmlString, cssString, i}) {
@@ -24,9 +30,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	*/
 
 	// tidy class adds
-		/*
-				refreshing
-
+		/* 
 				closing
 				closed
 				opening
@@ -72,7 +76,6 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 
 	// ================ Class========================= //
 	const [outputDisplayClass, setOutputDisplayClass] = useState('output-display-open');
-	// const [outputDisplayResizeClass, setOutputDisplayResizeClass] = useState('');
 
 	// ================ Buttons ===================== //
 	const buttons = [
@@ -91,7 +94,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	} 
 
 	function onRefreshClick() {  
-		if(userHasChangedSize(outputDisplayId)) { 
+		if(elementHasInlineSize(outputDisplayId)) { 
 			setOutputDisplayClass('output-display-resizing') 
 			setIsResizing(true)
 		}
@@ -108,6 +111,8 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		setNumTransitionStarts(0)
 		setNumTransitionEnds(0) 
 		setIsResizing(false)
+		// removeInlineSize(contentContainerId)
+		// removeInlineSize(outputDisplayId)
 	}
 
 	function onRefreshTransitionStart() {
@@ -167,7 +172,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 
 		setSavedHeight(outputElement.offsetWidth + 'px')
 		setSavedWidth(outputElement.offsetHeight + 'px')
-	}
+	} 
 
 	function setToSavedSize(id) {
 		const element = document.getElementById(id)
@@ -177,21 +182,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		setSavedWidth(null)
 		setSavedHeight(null)
 	}
-
-	function elementWidthIsOverflowing(id) {
-		const element = document.getElementById(id);
-		if(!element) return;
-
-	  return element.scrollWidth > element.clientWidth;
-	}
-
-	function elementHeightIsOverflowing(id) {
-		const element = document.getElementById(id);
-		if(!element) return;
-
-	  return element.scrollHeight > element.clientHeight;
-	}
-
+ 
 	function addRefreshListeners() {
 		function transitionStart() {
 			onRefreshTransitionStart()
@@ -204,18 +195,6 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		onTransition(outputDisplayId, 'width', transitionStart, transitionEnd)
 		onTransition(outputDisplayId, 'height', transitionStart, transitionEnd)
 	} 
-
-	function userHasChangedSize(id) {
-		const element = document.getElementById(id); 
-
-		return !(element.style.width === '' && element.style.height === '');
-	}
-
-	function removeInlineSize(id) { 
-		const element = document.getElementById(id);  
-		element.style.width = '';
-		element.style.height = ''; 
-	}
 
 	function resetSize(id) { 
 		const boxBodyElement = document.getElementById(boxBodyId);
@@ -243,7 +222,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 			}
 		}
 	}, [isResizing, numTransitionStarts, numTransitionEnds]) 
-	
+
 	// ======== Code Input //
 	useEffect(() => {  
   	onCodeChange(htmlString, cssString)
@@ -304,7 +283,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 			handleToggleClick={onClickToggle}
 			boxBodyId={boxBodyId}
 			contentContainerId={contentContainerId}
-			buttons={buttons}> 
+			buttons={buttons}>  
 			<div className={`output-display ${outputDisplayClass}`} id={outputDisplayId}>
 				<iframe srcDoc={source} className="iFrame"/> 
 				<GridOverlay gridStatus={gridStatus} showGrid={showGrid}/>
@@ -312,3 +291,27 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		</OpenCloseBox>
 	)
 }
+
+/* BIN
+
+
+	function getElementWidth(element) {
+	 
+		return window.getComputedStyle(element).width;  
+	}
+
+	function getElementHeight(element) {
+		
+		return window.getComputedStyle(element).height;  
+	}
+	function resetContentContainerSize() {
+		setToCurrentSize(contentContainerId)
+		setToParentSize(contentContainerId) 
+	}
+
+	function resetOutputDisplaySize() {
+		setToCurrentSize(outputDisplayId)
+		setToParentSize(outputDisplayId) 
+	}
+
+*/

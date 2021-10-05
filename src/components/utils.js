@@ -1,3 +1,4 @@
+// ================ trigger fn on transition start and end, one time
 export function onTransition(id, propertyName, onStart = null, onEnd = null) {
 	const element = document.getElementById(id); 
 
@@ -19,6 +20,45 @@ function transitionEndHandler(element, id, propertyName, onStart, onEnd, e) {
 		onEnd && onEnd() 
 	}
 }
+
+// ================ check if overflowing
+export function elementWidthIsOverflowing(id) {
+	const element = document.getElementById(id);
+	return element.scrollWidth > element.clientWidth;
+}
+
+export function elementHeightIsOverflowing(id) {
+	const element = document.getElementById(id);
+	return element.scrollHeight > element.clientHeight;
+}
+
+export function elementHasInlineSize(id) {
+	const element = document.getElementById(id); 
+
+	return !(element.style.width === '' && element.style.height === '');
+}
+
+export function removeInlineSize(id) { 
+	const element = document.getElementById(id);  
+	element.style.width = '';
+	element.style.height = ''; 
+}
+
+export function setToCurrentSize(id) {
+	const element = document.getElementById(id);
+	element.style.width = getElementWidth(element);
+	element.style.height = getElementHeight(element);
+}
+
+export function setToParentSize(id) {
+	const element = document.getElementById(id)
+	const parentElement = element.parentNode; 
+
+	element.style.width =	getElementWidth(parentElement);
+	element.style.height = getElementHeight(parentElement);
+}
+
+/* ------------ */
 
 export function detectTransition(id, propertyName, onChange) {
 	let element = document.getElementById(id);
