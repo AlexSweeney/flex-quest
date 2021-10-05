@@ -37,72 +37,81 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 
 	// ===================================== Event Handlers ===================================== //
 	function handleRefreshClick() {
-		if(code !== originalCode) {
-			setRefreshClicked(true)
-			setColorHasTransitioned(false)
-			setFadeClass('code-display-fade')
-		} 
+		// if(code !== originalCode) {
+		// 	setRefreshClicked(true)
+		// 	setColorHasTransitioned(false)
+		// 	setFadeClass('code-display-fade')
+		// } 
 	}
 
 	function onTextFaded() {
-		setRefreshClicked(false)
-		setCode(originalCode)
-		setFadeClass('code-display-no-fade')
+		// setRefreshClicked(false)
+		// setCode(originalCode)
+		// setFadeClass('code-display-no-fade')
 	}
 
-	function handleChange(e) {   
+	function onTextChange(e) {   
 		const isOverflowing = e.target.scrollHeight > e.target.clientHeight; 
 		setIsOverflowing(isOverflowing)
 
 		setCode(e.target.value)
 	}
 
-	function handleTransitionEnd(e) {
-		if(e.propertyName === 'color') setColorHasTransitioned(true)
-	} 
+	// function handleTransitionEnd(e) {
+	// 	if(e.propertyName === 'color') setColorHasTransitioned(true)
+	// } 
+
+	// ===================================== Helper Fns ===================================== //
 	
 	// ===================================== Update Classes ===================================== //
 	// update openClass
-	useEffect(() => {
-		let newClass = '';
+	// useEffect(() => {
+	// 	let newClass = '';
 
-		if(boxStatus === 'box-open') {
-			if(contentContainerStatus !== 'content-container-open') {
-				newClass = isOverflowing ? 'code-display-opening-overflow' : 'code-display-opening';
-			} else if (contentContainerStatus === 'content-container-open') {
-				newClass = 'code-display-open';
-			}
-		} else {
-			newClass = 'code-display-closed';
-		}
+	// 	if(boxStatus === 'box-open') {
+	// 		if(contentContainerStatus !== 'content-container-open') {
+	// 			newClass = isOverflowing ? 'code-display-opening-overflow' : 'code-display-opening';
+	// 		} else if (contentContainerStatus === 'content-container-open') {
+	// 			newClass = 'code-display-open';
+	// 		}
+	// 	} else {
+	// 		newClass = 'code-display-closed';
+	// 	}
 
-		setOpenClass(newClass)
-	}, [boxStatus, contentContainerStatus])
+	// 	setOpenClass(newClass)
+	// }, [boxStatus, contentContainerStatus])
 
-	// ===================================== Add Event Listeners ===================================== //
+	// ===================================== Add Event Listeners ===================================== 
 	// listen for transition end
-	useEffect(() => {
-		const codeDisplayElement = document.getElementById(codeDisplayId);
+	// useEffect(() => {
+	// 	const codeDisplayElement = document.getElementById(codeDisplayId);
 
-		if(refreshClicked) codeDisplayElement.addEventListener('transitionend', handleTransitionEnd)
-		return () => { codeDisplayElement.removeEventListener ('transitionend', handleTransitionEnd)}
-	}, [refreshClicked])
+	// 	if(refreshClicked) codeDisplayElement.addEventListener('transitionend', handleTransitionEnd)
+	// 	return () => { codeDisplayElement.removeEventListener ('transitionend', handleTransitionEnd)}
+	// }, [refreshClicked])
 
 	// ===================================== Listen for transition end ===================================== //
 	// handle color transition end
-	useEffect(() => { 
-		if(refreshClicked && colorHasTransitioned) {
-			onTextFaded()
-		} 
-	}, [refreshClicked, colorHasTransitioned])
+	// useEffect(() => { 
+	// 	if(refreshClicked && colorHasTransitioned) {
+	// 		onTextFaded()
+	// 	} 
+	// }, [refreshClicked, colorHasTransitioned])
 
 	// ===================================== Output ===================================== //
 	return (
 		<OpenCloseBox title={title} i={i} buttons={buttons} setBoxStatus={setBoxStatus} setContentContainerStatus={setContentContainerStatus}>
-			<div className="code-display-container">
-				<textarea className={`code-display ${openClass} ${fadeClass}`} id={codeDisplayId} value={code} onChange={handleChange}> 
-				</textarea>
-			</div>
+			<textarea className={`code-display ${openClass} ${fadeClass}`} id={codeDisplayId} value={code} onChange={onTextChange}> 
+			</textarea>
 		</OpenCloseBox>
 	)
 }
+
+{/* 
+
+	<div className="code-display-container">
+				<textarea className={`code-display ${openClass} ${fadeClass}`} id={codeDisplayId} value={code} onChange={onTextChange}> 
+				</textarea>
+			</div>
+
+*/}

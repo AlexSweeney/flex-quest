@@ -1,4 +1,4 @@
-.code-display-container {
+/*.code-display-container {
 	width: 100%;
 	height: 100%; 
 	background: #272727;
@@ -8,21 +8,22 @@
 
 	position: absolute;
 }
-
+*/
 .code-display {
-	width: 100%;
-	height: 100%;
+	min-width: 100%;
 	background: #272727;
 	resize: none;
 	outline: none;
 	border: none;
 	transition: color 1s;
 	padding: 0.5em;
-	
+	white-space: nowrap;
 	box-sizing: border-box; 
+
+	color: white;
 } 
 
-.code-display-opening {
+/*.code-display-opening {
 	overflow: hidden;
 }
 
@@ -46,6 +47,7 @@
 .code-display-no-fade {
 	color: white;
 }
+*/
 
 /* =================== Body Scrollbar */
 .code-display::-webkit-scrollbar { 
