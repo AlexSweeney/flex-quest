@@ -52,12 +52,9 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	const contentContainerId = `content-container-${i}`;
 
 	// ====== Box Status //
-	// const [boxStatus, setBoxStatus] = useState('box-open');
-	// const [contentContainerStatus, setContentContainerStatus] = useState('content-container-open');
 	const [savedHeight, setSavedHeight] = useState(null);
 	const [savedWidth, setSavedWidth] = useState(null);
 	const [isOverflowing, setIsOverflowing] = useState(false);
-	// const [outputDisplayStatus, setOutputDisplayStatus] = useState('output-display-open')
 
 	// ====== Grid //
 	const [gridStatus, setGridStatus] = useState('');
@@ -67,13 +64,9 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	const [source, setSource] = useState(null);
 
 	// ====== Refresh //
-	// const [outputDisplayResizeStatus, setOutputDisplayResizeStatus] = useState('');
 	const [isResizing, setIsResizing] = useState(false);
 	const [numTransitionStarts, setNumTransitionStarts] = useState(0);
-	const [numTransitionEnds, setNumTransitionEnds] = useState(0);
-
-	// ====== Open Close // 
-	const [overflowStatus, setOverflowStatus] = useState(null);
+	const [numTransitionEnds, setNumTransitionEnds] = useState(0); 
 
 	// ================ Class========================= //
 	const [outputDisplayClass, setOutputDisplayClass] = useState('output-display-open');
@@ -128,15 +121,15 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	}
 
 	function onClickBoxClosed(widthIsOverflowing, heightIsOverflowing) {
-		const thisIsOverflowing = widthIsOverflowing || heightIsOverflowing;
-		setIsOverflowing(thisIsOverflowing)
-
-		setOutputDisplayClass('output-display-closing')
+		const thisIsOverflowing = updateIsOverflowing(widthIsOverflowing, heightIsOverflowing)
 
 		if(thisIsOverflowing) {
-			setParentSizeToChildSize(outputDisplayId)
-			removeInlineSize(outputDisplayId)
-		}
+			// set content container size in pixels to allow animated overflow shrink
+			setToElementSize(contentContainerId, outputDisplayId)
+		}   
+
+		// use !important style to over-ride inline width and height
+		setOutputDisplayClass('output-display-closing')
 	}
 
 	function onClickBoxOpen() {
@@ -159,18 +152,10 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	}
 
 	// ================ Helper Fns ===================== //
-	function setParentSizeToChildSize(id) {
-		const outputElement = document.getElementById(id)
-		const parentElement = outputElement.parentNode; 
-
-		const inlineHeight = outputElement.offsetHeight && outputElement.offsetHeight + 'px';
-		const inlineWidth =  outputElement.offsetWidth && outputElement.offsetWidth + 'px';
-
-		if(inlineWidth) parentElement.style.width =  outputElement.offsetWidth + 'px';
-		if(inlineHeight) parentElement.style.height = outputElement.offsetHeight + 'px';
-
-		setSavedHeight(outputElement.offsetWidth + 'px')
-		setSavedWidth(outputElement.offsetHeight + 'px')
+	function updateIsOverflowing(widthIsOverflowing, heightIsOverflowing) {
+		const thisIsOverflowing = widthIsOverflowing || heightIsOverflowing;
+		setIsOverflowing(thisIsOverflowing)
+		return thisIsOverflowing;
 	} 
 
 	function setToSavedSize(id) {

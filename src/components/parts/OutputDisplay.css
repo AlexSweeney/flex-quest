@@ -16,11 +16,13 @@
 .output-display-closing {
 	background: red;
 	resize: none;
+ 	max-height: 100% !important;
+	max-width: 100% !important;
 }
 
 .output-display-opening {
 	background: blue;
-	resize: none;
+	/*resize: none;*/
 }
 
 .output-display-resizing {  
