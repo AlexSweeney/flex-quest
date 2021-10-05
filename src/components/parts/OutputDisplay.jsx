@@ -9,6 +9,7 @@ import {
 	elementHeightIsOverflowing, 
 	elementHasInlineSize,
 	removeInlineSize,
+	setToElementSize,
 } from './../utils.js';
 import './OutputDisplay.css';
 
@@ -103,16 +104,14 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	// ================ Event Handlers ===================== //
 	function onRefreshStart() { 
 		addRefreshListeners()
-		resetSize()
+		setToElementSize(outputDisplayId, boxBodyId)
 	}
 
 	function onRefreshEnd() {  
 		setOutputDisplayClass('output-display-open')
 		setNumTransitionStarts(0)
 		setNumTransitionEnds(0) 
-		setIsResizing(false)
-		// removeInlineSize(contentContainerId)
-		// removeInlineSize(outputDisplayId)
+		setIsResizing(false) 
 	}
 
 	function onRefreshTransitionStart() {
@@ -179,34 +178,20 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		if(savedWidth) element.style.width = savedWidth;
 		if(savedHeight) element.style.height = savedHeight;
 
+		resetSavedSize()
+	}
+
+	function resetSavedSize() {
 		setSavedWidth(null)
 		setSavedHeight(null)
 	}
  
 	function addRefreshListeners() {
-		function transitionStart() {
-			onRefreshTransitionStart()
-		}
-
-		function transitionEnd() {
-			onRefreshTransitionEnd()
-		}
+		const transitionStart = () => onRefreshTransitionStart();
+		const transitionEnd = () => onRefreshTransitionEnd();
 
 		onTransition(outputDisplayId, 'width', transitionStart, transitionEnd)
 		onTransition(outputDisplayId, 'height', transitionStart, transitionEnd)
-	} 
-
-	function resetSize(id) { 
-		const boxBodyElement = document.getElementById(boxBodyId);
-		const outputDisplayElement = document.getElementById(outputDisplayId);  
-
-		let newWidth;
-		let newHeight;
-
-		const compStyle = window.getComputedStyle(boxBodyElement);  
-
-		outputDisplayElement.style.height = compStyle.height;
-		outputDisplayElement.style.width = compStyle.width;
 	} 
 
 	// ============== Detect Refresh End =================== //
@@ -228,43 +213,6 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
   	onCodeChange(htmlString, cssString)
   }, [htmlString, cssString]) 
 
-  // ============== Set Class ==================== // 
-  /*useEffect(() => {
-  	if(boxStatus === 'box-open') {
-  		if(contentContainerStatus === 'content-container-opening') { 
-  			setOutputDisplayClass('output-display-opening-y')
-  		} else if(contentContainerStatus === 'content-container-open') {
-  			setOutputDisplayClass('output-display-open-y') 
-  			setOverflowStatus(null)
-  		} 
-  	} 
-  	if(boxStatus === 'box-opening') {
-  		let newClass = 'output-display-opening-x';
-  		const widthIsOverflowing = overflowStatus.width;
-  		newClass += widthIsOverflowing ? '-width-overflow' : '';
-
-  		setOutputDisplayClass(newClass)
-  	}
-  	if(boxStatus === 'box-closed') setOutputDisplayClass('output-display-closed-x')
-  	if(boxStatus === 'box-closing') { 
-  		if(!overflowStatus) {
-  			const widthIsOverflowing = elementWidthIsOverflowing('box-body');
-  			const heightIsOverflowing = elementHeightIsOverflowing('box-body');
-
-	  		let baseClass = 'output-display-closing-x';
-	  		let widthClass = 'output-display-closing-x-width';	
-	  		let heightClass = 'output-display-closing-x-height';
-
-	  		widthClass += widthIsOverflowing ? '-overflow' : '';
-	  		heightClass += heightIsOverflowing ? '-overflow' : ''; 
-
-	  		const newClass = baseClass + ' ' + widthClass + ' ' + heightClass; 
-	  		setOutputDisplayClass(newClass) 
-	  		setOverflowStatus({width: widthIsOverflowing, height: heightIsOverflowing})
-  		}
-  		
-  	}
-  }, [boxStatus, contentContainerStatus, overflowStatus])*/
 
   // ============== Console logs ==================== // 
   // useEffect(() => {
@@ -313,5 +261,42 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		setToCurrentSize(outputDisplayId)
 		setToParentSize(outputDisplayId) 
 	}
+  // ============== Set Class ==================== // 
+  /*useEffect(() => {
+  	if(boxStatus === 'box-open') {
+  		if(contentContainerStatus === 'content-container-opening') { 
+  			setOutputDisplayClass('output-display-opening-y')
+  		} else if(contentContainerStatus === 'content-container-open') {
+  			setOutputDisplayClass('output-display-open-y') 
+  			setOverflowStatus(null)
+  		} 
+  	} 
+  	if(boxStatus === 'box-opening') {
+  		let newClass = 'output-display-opening-x';
+  		const widthIsOverflowing = overflowStatus.width;
+  		newClass += widthIsOverflowing ? '-width-overflow' : '';
+
+  		setOutputDisplayClass(newClass)
+  	}
+  	if(boxStatus === 'box-closed') setOutputDisplayClass('output-display-closed-x')
+  	if(boxStatus === 'box-closing') { 
+  		if(!overflowStatus) {
+  			const widthIsOverflowing = elementWidthIsOverflowing('box-body');
+  			const heightIsOverflowing = elementHeightIsOverflowing('box-body');
+
+	  		let baseClass = 'output-display-closing-x';
+	  		let widthClass = 'output-display-closing-x-width';	
+	  		let heightClass = 'output-display-closing-x-height';
+
+	  		widthClass += widthIsOverflowing ? '-overflow' : '';
+	  		heightClass += heightIsOverflowing ? '-overflow' : ''; 
+
+	  		const newClass = baseClass + ' ' + widthClass + ' ' + heightClass; 
+	  		setOutputDisplayClass(newClass) 
+	  		setOverflowStatus({width: widthIsOverflowing, height: heightIsOverflowing})
+  		}
+  		
+  	}
+  }, [boxStatus, contentContainerStatus, overflowStatus]) 
 
 */

@@ -44,7 +44,17 @@ export function removeInlineSize(id) {
 	element.style.height = ''; 
 }
 
-export function setToCurrentSize(id) {
+export function setToElementSize(idOne, idTwo) {
+	const elementOne = document.getElementById(idOne);
+	const elementTwo = document.getElementById(idTwo);  
+
+	const elementTwoStyle = window.getComputedStyle(elementTwo);  
+
+	elementOne.style.width = elementTwoStyle.width;
+	elementOne.style.height = elementTwoStyle.height;
+}
+
+/*export function setToCurrentSize(id) {
 	const element = document.getElementById(id);
 	element.style.width = getElementWidth(element);
 	element.style.height = getElementHeight(element);
@@ -56,7 +66,7 @@ export function setToParentSize(id) {
 
 	element.style.width =	getElementWidth(parentElement);
 	element.style.height = getElementHeight(parentElement);
-}
+}*/
 
 /* ------------ */
 
