@@ -3,6 +3,7 @@ import OpenCloseBox from './OpenCloseBox/OpenCloseBox.jsx';
 import RefreshButton from './Buttons/RefreshButton/RefreshButton.jsx';
 import GridButton from './Buttons/GridButton/GridButton.jsx';
 import GridOverlay from './Buttons/GridButton/GridOverlay.jsx';
+import {onTransition} from './../utils.js';
 import './OutputDisplay.css';
 
 export default function OutputDisplay({title, htmlString, cssString, i}) {
@@ -22,7 +23,19 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		* handle refresh button press  
 	*/
 
-	// open overflow height = jerking animation
+	// tidy class adds
+		/*
+				refreshing
+
+				closing
+				closed
+				opening
+				open
+		*/
+
+	// remove ids = fragile
+
+	// close over flow height - is overflowing content container
 
 	// fragility = refresh depends on boxBody having box-sizing: border-box
 	// -> set content container size -> shrink content container back to 100%
@@ -34,8 +47,8 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	const contentContainerId = `content-container-${i}`;
 
 	// ====== Box Status //
-	const [boxStatus, setBoxStatus] = useState('box-open');
-	const [contentContainerStatus, setContentContainerStatus] = useState('content-container-open');
+	// const [boxStatus, setBoxStatus] = useState('box-open');
+	// const [contentContainerStatus, setContentContainerStatus] = useState('content-container-open');
 	const [savedHeight, setSavedHeight] = useState(null);
 	const [savedWidth, setSavedWidth] = useState(null);
 	const [isOverflowing, setIsOverflowing] = useState(false);
@@ -58,7 +71,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 
 	// ================ Class========================= //
 	const [outputDisplayClass, setOutputDisplayClass] = useState('output-display-open');
-	const [outputDisplayResizeClass, setOutputDisplayResizeClass] = useState('');
+	// const [outputDisplayResizeClass, setOutputDisplayResizeClass] = useState('');
 
 	// ================ Buttons ===================== //
 	const buttons = [
@@ -77,24 +90,25 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	} 
 
 	function onRefreshClick() {  
-		if(boxStatus === 'box-open' && userHasChangedSize(outputDisplayId)) { 
-			setOutputDisplayResizeStatus('output-display-resizing')
-			setOutputDisplayResizeClass('output-display-refresh')
+		if(userHasChangedSize(outputDisplayId)) { 
+			onRefreshStart()
+			// setOutputDisplayResizeStatus('output-display-resizing')
+			// setOutputDisplayResizeClass('output-display-refresh')
 		}
 	}
 
 	// ================ Event Handlers ===================== //
 	function onRefreshStart() {  
 		addRefreshListeners()
+		
+		setOutputDisplayClass('output-display-resizing') 
 		resetSize()
 	}
 
 	function onRefreshEnd() {  
-		removeRefreshListeners()
-		setNumTransitionStarts(0)
-		setNumTransitionEnds(0)
+		setOutputDisplayClass('output-display-resizing')
 
-		setOutputDisplayResizeClass('')
+		removeRefreshListeners()
 	}
 
 	function onClickToggle(boxIsOpen, widthIsOverflowing, heightIsOverflowing) {
@@ -204,13 +218,16 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	}
 
 	function addRefreshListeners() {
-		const outputDisplayElement = document.getElementById(outputDisplayId);
+		// onTransition(outputDisplayId, 'width', () => { console.log('start w --------- ')}, () => {console.log('end')})
+		onTransition(outputDisplayId, 'height', () => { console.log('start fn') }, () => { console.log('end fn')})
+
+		/*const outputDisplayElement = document.getElementById(outputDisplayId);
 		 
 		outputDisplayElement.addEventListener('transitionstart', handleTransitionStartWidth)
 		outputDisplayElement.addEventListener('transitionstart', handleTransitionStartHeight)
 
 		outputDisplayElement.addEventListener('transitionend', handleTransitionEndWidth)
-		outputDisplayElement.addEventListener('transitionend', handleTransitionEndHeight)
+		outputDisplayElement.addEventListener('transitionend', handleTransitionEndHeight)*/
 	}
 
 	function removeRefreshListeners() { 
@@ -221,6 +238,9 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 
 		outputDisplayElement.removeEventListener('transitionend', handleTransitionEndWidth)
 		outputDisplayElement.removeEventListener('transitionend', handleTransitionEndHeight)
+
+		setNumTransitionStarts(0)
+		setNumTransitionEnds(0) 
 	}
 
 	function userHasChangedSize(id) {
@@ -249,13 +269,13 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	}
 
 	// ============== Update Status on Resize end ==================== // 
-	useEffect(() => {
+	/*useEffect(() => {
 		if(outputDisplayResizeStatus === 'output-display-resizing' 
 			&& numTransitionStarts > 0
 			&& numTransitionStarts === numTransitionEnds) {
 			setOutputDisplayResizeStatus('output-display-resized')
 		}
-	}, [numTransitionStarts, numTransitionEnds, outputDisplayResizeStatus])
+	}, [numTransitionStarts, numTransitionEnds, outputDisplayResizeStatus])*/
   
 	// ============== Trigger Event Handlers ==================== // 
 	// ======== Refresh //
@@ -270,7 +290,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
   }, [htmlString, cssString]) 
 
   // ============== Set Class ==================== // 
-  useEffect(() => {
+  /*useEffect(() => {
   	if(boxStatus === 'box-open') {
   		if(contentContainerStatus === 'content-container-opening') { 
   			setOutputDisplayClass('output-display-opening-y')
@@ -305,7 +325,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
   		}
   		
   	}
-  }, [boxStatus, contentContainerStatus, overflowStatus])
+  }, [boxStatus, contentContainerStatus, overflowStatus])*/
 
   // ============== Console logs ==================== // 
   // useEffect(() => {
@@ -325,7 +345,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 			boxBodyId={boxBodyId}
 			contentContainerId={contentContainerId}
 			buttons={buttons}> 
-			<div className={`output-display ${outputDisplayClass} ${outputDisplayResizeClass}`} id={outputDisplayId}>
+			<div className={`output-display ${outputDisplayClass}`} id={outputDisplayId}>
 				<iframe srcDoc={source} className="iFrame"/> 
 				<GridOverlay gridStatus={gridStatus} showGrid={showGrid}/>
 			</div>  
