@@ -1,8 +1,5 @@
 .output-display { 
-	width: 100%;
-	min-width: 100%;
-	max-width: 100%;
-
+	width: 100%; 
 	background: #C4C4C4;
 	border: 0.5em solid #E8E4E4;
 	z-index: 1000;
@@ -12,7 +9,8 @@
 	float: left;
   position: relative;
 
-  resize: both;   
+  resize: both;  
+
 }
 
 .output-display-closing {

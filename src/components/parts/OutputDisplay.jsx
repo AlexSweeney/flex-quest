@@ -52,6 +52,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	const [savedHeight, setSavedHeight] = useState(null);
 	const [savedWidth, setSavedWidth] = useState(null);
 	const [isOverflowing, setIsOverflowing] = useState(false);
+	// const [outputDisplayStatus, setOutputDisplayStatus] = useState('output-display-open')
 
 	// ====== Grid //
 	const [gridStatus, setGridStatus] = useState('');
@@ -61,8 +62,8 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	const [source, setSource] = useState(null);
 
 	// ====== Refresh //
-	const [outputDisplayResizeStatus, setOutputDisplayResizeStatus] = useState('');
-	 
+	// const [outputDisplayResizeStatus, setOutputDisplayResizeStatus] = useState('');
+	const [isResizing, setIsResizing] = useState(false);
 	const [numTransitionStarts, setNumTransitionStarts] = useState(0);
 	const [numTransitionEnds, setNumTransitionEnds] = useState(0);
 
@@ -91,24 +92,30 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 
 	function onRefreshClick() {  
 		if(userHasChangedSize(outputDisplayId)) { 
-			onRefreshStart()
-			// setOutputDisplayResizeStatus('output-display-resizing')
-			// setOutputDisplayResizeClass('output-display-refresh')
+			setOutputDisplayClass('output-display-resizing') 
+			setIsResizing(true)
 		}
 	}
 
 	// ================ Event Handlers ===================== //
-	function onRefreshStart() {  
+	function onRefreshStart() { 
 		addRefreshListeners()
-		
-		setOutputDisplayClass('output-display-resizing') 
 		resetSize()
 	}
 
 	function onRefreshEnd() {  
-		setOutputDisplayClass('output-display-resizing')
+		setOutputDisplayClass('output-display-open')
+		setNumTransitionStarts(0)
+		setNumTransitionEnds(0) 
+		setIsResizing(false)
+	}
 
-		removeRefreshListeners()
+	function onRefreshTransitionStart() {
+		setNumTransitionStarts(oldVal => oldVal + 1)
+	}
+
+	function onRefreshTransitionEnd() {
+		setNumTransitionEnds(oldVal => oldVal + 1)
 	}
 
 	function onClickToggle(boxIsOpen, widthIsOverflowing, heightIsOverflowing) {
@@ -185,63 +192,18 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	  return element.scrollHeight > element.clientHeight;
 	}
 
-	function handleTransitionStartWidth(e) {
-		if(e.propertyName === 'width' 
-			&& e.srcElement.id === outputDisplayId
-			&& outputDisplayResizeStatus === 'output-display-resizing') {
-			setNumTransitionStarts(oldVal => oldVal + 1)
-		}
-	}
-
-	function handleTransitionStartHeight(e) {
-		if(e.propertyName === 'height' 
-			&& e.srcElement.id === outputDisplayId
-			&& outputDisplayResizeStatus === 'output-display-resizing') {
-			setNumTransitionStarts(oldVal => oldVal + 1)
-		}
-	}
-
-	function handleTransitionEndWidth(e) {
-		if(e.propertyName === 'width' 
-			&& e.srcElement.id === outputDisplayId
-			&& outputDisplayResizeStatus === 'output-display-resizing') {
-			setNumTransitionEnds(oldVal => oldVal + 1)
-		}
-	}
-
-	function handleTransitionEndHeight(e) {
-		if(e.propertyName === 'height' 
-			&& e.srcElement.id === outputDisplayId
-			&& outputDisplayResizeStatus === 'output-display-resizing') {
-			setNumTransitionEnds(oldVal => oldVal + 1)
-		}
-	}
-
 	function addRefreshListeners() {
-		// onTransition(outputDisplayId, 'width', () => { console.log('start w --------- ')}, () => {console.log('end')})
-		onTransition(outputDisplayId, 'height', () => { console.log('start fn') }, () => { console.log('end fn')})
+		function transitionStart() {
+			onRefreshTransitionStart()
+		}
 
-		/*const outputDisplayElement = document.getElementById(outputDisplayId);
-		 
-		outputDisplayElement.addEventListener('transitionstart', handleTransitionStartWidth)
-		outputDisplayElement.addEventListener('transitionstart', handleTransitionStartHeight)
+		function transitionEnd() {
+			onRefreshTransitionEnd()
+		}
 
-		outputDisplayElement.addEventListener('transitionend', handleTransitionEndWidth)
-		outputDisplayElement.addEventListener('transitionend', handleTransitionEndHeight)*/
-	}
-
-	function removeRefreshListeners() { 
-		const outputDisplayElement = document.getElementById(outputDisplayId);
-		
-		outputDisplayElement.removeEventListener('transitionstart', handleTransitionStartWidth)
-		outputDisplayElement.removeEventListener('transitionstart', handleTransitionStartHeight)
-
-		outputDisplayElement.removeEventListener('transitionend', handleTransitionEndWidth)
-		outputDisplayElement.removeEventListener('transitionend', handleTransitionEndHeight)
-
-		setNumTransitionStarts(0)
-		setNumTransitionEnds(0) 
-	}
+		onTransition(outputDisplayId, 'width', transitionStart, transitionEnd)
+		onTransition(outputDisplayId, 'height', transitionStart, transitionEnd)
+	} 
 
 	function userHasChangedSize(id) {
 		const element = document.getElementById(id); 
@@ -264,26 +226,24 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 
 		const compStyle = window.getComputedStyle(boxBodyElement);  
 
-		outputDisplayElement.style.width = compStyle.width;
 		outputDisplayElement.style.height = compStyle.height;
-	}
+		outputDisplayElement.style.width = compStyle.width;
+	} 
 
-	// ============== Update Status on Resize end ==================== // 
-	/*useEffect(() => {
-		if(outputDisplayResizeStatus === 'output-display-resizing' 
-			&& numTransitionStarts > 0
-			&& numTransitionStarts === numTransitionEnds) {
-			setOutputDisplayResizeStatus('output-display-resized')
-		}
-	}, [numTransitionStarts, numTransitionEnds, outputDisplayResizeStatus])*/
-  
-	// ============== Trigger Event Handlers ==================== // 
-	// ======== Refresh //
+	// ============== Detect Refresh End =================== //
 	useEffect(() => {
-		if(outputDisplayResizeStatus === 'output-display-resizing') onRefreshStart()
-		if(outputDisplayResizeStatus === 'output-display-resized') onRefreshEnd() 
-	}, [outputDisplayResizeStatus])
+		if(isResizing) {
+			if(numTransitionStarts === 0) {
+				onRefreshStart() 
+			}
 
+			if(numTransitionStarts > 0
+			&& numTransitionStarts === numTransitionEnds) {
+				onRefreshEnd()
+			}
+		}
+	}, [isResizing, numTransitionStarts, numTransitionEnds]) 
+	
 	// ======== Code Input //
 	useEffect(() => {  
   	onCodeChange(htmlString, cssString)
