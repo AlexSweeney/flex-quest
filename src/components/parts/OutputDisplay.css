@@ -10,19 +10,16 @@
   position: relative;
 
   resize: both;  
-
 }
 
-.output-display-closing {
-	background: red;
+.output-display-closing { 
 	resize: none;
  	max-height: 100% !important;
 	max-width: 100% !important;
 }
 
-.output-display-opening {
-	background: blue;
-	/*resize: none;*/
+.output-display-opening { 
+	resize: none;
 }
 
 .output-display-resizing {  

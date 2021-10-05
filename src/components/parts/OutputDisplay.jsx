@@ -136,6 +136,15 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		setOutputDisplayClass('output-display-opening')
 
 		if(isOverflowing) setToSavedSize(outputDisplayId)
+		addOutputDisplayListeners()
+	}
+
+	function onBoxOpen() {
+		setOutputDisplayClass('output-display-open')
+	}
+
+	function onBoxClosed() {
+
 	}
 
 	function onCodeChange() {
@@ -160,6 +169,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 
 	function setToSavedSize(id) {
 		const element = document.getElementById(id)
+		
 		if(savedWidth) element.style.width = savedWidth;
 		if(savedHeight) element.style.height = savedHeight;
 
@@ -179,7 +189,14 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		onTransition(outputDisplayId, 'height', transitionStart, transitionEnd)
 	} 
 
-	// ============== Detect Refresh End =================== //
+	function addOutputDisplayListeners() {
+		const transitionStart = () => { };
+		const transitionEnd = () => { onBoxOpen() };
+
+		onTransition(contentContainerId, 'height', transitionStart, transitionEnd)
+	}
+
+	// ============== Detect Refresh Start & End =================== //
 	useEffect(() => {
 		if(isResizing) {
 			if(numTransitionStarts === 0) {
@@ -197,8 +214,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	useEffect(() => {  
   	onCodeChange(htmlString, cssString)
   }, [htmlString, cssString]) 
-
-
+ 
   // ============== Console logs ==================== // 
   // useEffect(() => {
   // 	console.log('outputDisplayClass', outputDisplayClass)
