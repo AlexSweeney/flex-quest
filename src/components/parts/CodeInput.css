@@ -21,6 +21,9 @@
 	box-sizing: border-box; 
 
 	color: white;
+
+	/*border: 0.5em solid #E8E4E4;*/
+	overflow: hidden;
 } 
 
 /*.code-display-opening {

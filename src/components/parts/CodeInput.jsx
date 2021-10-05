@@ -101,8 +101,9 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 	// ===================================== Output ===================================== //
 	return (
 		<OpenCloseBox title={title} i={i} buttons={buttons} setBoxStatus={setBoxStatus} setContentContainerStatus={setContentContainerStatus}>
-			<textarea className={`code-display ${openClass} ${fadeClass}`} id={codeDisplayId} value={code} onChange={onTextChange}> 
-			</textarea>
+			<div className={`code-display ${openClass} ${fadeClass}`} id={codeDisplayId} contenteditable="true"> 
+				{code}
+			</div>
 		</OpenCloseBox>
 	)
 }
