@@ -30,21 +30,6 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		* handle refresh button press  
 	*/
 
-	// tidy class adds
-		/* 
-				closing
-				closed
-				opening
-				open
-		*/
-
-	// remove ids = fragile
-
-	// close over flow height - is overflowing content container
-
-	// fragility = refresh depends on boxBody having box-sizing: border-box
-	// -> set content container size -> shrink content container back to 100%
-
 	// ================ State ========================= //
 	// ====== Ids //
 	const outputDisplayId = `output-display-${i}`;
@@ -141,11 +126,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 
 	function onBoxOpen() {
 		setOutputDisplayClass('output-display-open')
-	}
-
-	function onBoxClosed() {
-
-	}
+	} 
 
 	function onCodeChange() {
 		setSource(`
@@ -215,15 +196,6 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
   	onCodeChange(htmlString, cssString)
   }, [htmlString, cssString]) 
  
-  // ============== Console logs ==================== // 
-  // useEffect(() => {
-  // 	console.log('outputDisplayClass', outputDisplayClass)
-  // }, [outputDisplayClass])
-
-  // useEffect(() => {
-  // 	console.log('overflowStatus', overflowStatus)
-  // }, [overflowStatus])
-
 	// ============== Output ============================== //
 	return ( 
 		<OpenCloseBox 
@@ -240,64 +212,3 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		</OpenCloseBox>
 	)
 }
-
-/* BIN
-
-
-	function getElementWidth(element) {
-	 
-		return window.getComputedStyle(element).width;  
-	}
-
-	function getElementHeight(element) {
-		
-		return window.getComputedStyle(element).height;  
-	}
-	function resetContentContainerSize() {
-		setToCurrentSize(contentContainerId)
-		setToParentSize(contentContainerId) 
-	}
-
-	function resetOutputDisplaySize() {
-		setToCurrentSize(outputDisplayId)
-		setToParentSize(outputDisplayId) 
-	}
-  // ============== Set Class ==================== // 
-  /*useEffect(() => {
-  	if(boxStatus === 'box-open') {
-  		if(contentContainerStatus === 'content-container-opening') { 
-  			setOutputDisplayClass('output-display-opening-y')
-  		} else if(contentContainerStatus === 'content-container-open') {
-  			setOutputDisplayClass('output-display-open-y') 
-  			setOverflowStatus(null)
-  		} 
-  	} 
-  	if(boxStatus === 'box-opening') {
-  		let newClass = 'output-display-opening-x';
-  		const widthIsOverflowing = overflowStatus.width;
-  		newClass += widthIsOverflowing ? '-width-overflow' : '';
-
-  		setOutputDisplayClass(newClass)
-  	}
-  	if(boxStatus === 'box-closed') setOutputDisplayClass('output-display-closed-x')
-  	if(boxStatus === 'box-closing') { 
-  		if(!overflowStatus) {
-  			const widthIsOverflowing = elementWidthIsOverflowing('box-body');
-  			const heightIsOverflowing = elementHeightIsOverflowing('box-body');
-
-	  		let baseClass = 'output-display-closing-x';
-	  		let widthClass = 'output-display-closing-x-width';	
-	  		let heightClass = 'output-display-closing-x-height';
-
-	  		widthClass += widthIsOverflowing ? '-overflow' : '';
-	  		heightClass += heightIsOverflowing ? '-overflow' : ''; 
-
-	  		const newClass = baseClass + ' ' + widthClass + ' ' + heightClass; 
-	  		setOutputDisplayClass(newClass) 
-	  		setOverflowStatus({width: widthIsOverflowing, height: heightIsOverflowing})
-  		}
-  		
-  	}
-  }, [boxStatus, contentContainerStatus, overflowStatus]) 
-
-*/
