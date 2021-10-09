@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/flex-quest/static/css/main.8078d6b0.chunk.css",
-    "main.js": "/flex-quest/static/js/main.f71fbdb0.chunk.js",
-    "main.js.map": "/flex-quest/static/js/main.f71fbdb0.chunk.js.map",
+    "main.js": "/flex-quest/static/js/main.3c5109d6.chunk.js",
+    "main.js.map": "/flex-quest/static/js/main.3c5109d6.chunk.js.map",
     "runtime-main.js": "/flex-quest/static/js/runtime-main.cb48795b.js",
     "runtime-main.js.map": "/flex-quest/static/js/runtime-main.cb48795b.js.map",
     "static/js/2.cd3f9ca6.chunk.js": "/flex-quest/static/js/2.cd3f9ca6.chunk.js",
@@ -16,6 +16,6 @@
     "static/js/runtime-main.cb48795b.js",
     "static/js/2.cd3f9ca6.chunk.js",
     "static/css/main.8078d6b0.chunk.css",
-    "static/js/main.f71fbdb0.chunk.js"
+    "static/js/main.3c5109d6.chunk.js"
   ]
 }
