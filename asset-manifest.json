@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/flex-quest/static/css/main.b08d69ab.chunk.css",
-    "main.js": "/flex-quest/static/js/main.8c16cf2a.chunk.js",
-    "main.js.map": "/flex-quest/static/js/main.8c16cf2a.chunk.js.map",
+    "main.css": "/flex-quest/static/css/main.8078d6b0.chunk.css",
+    "main.js": "/flex-quest/static/js/main.f71fbdb0.chunk.js",
+    "main.js.map": "/flex-quest/static/js/main.f71fbdb0.chunk.js.map",
     "runtime-main.js": "/flex-quest/static/js/runtime-main.cb48795b.js",
     "runtime-main.js.map": "/flex-quest/static/js/runtime-main.cb48795b.js.map",
-    "static/js/2.e8575a0d.chunk.js": "/flex-quest/static/js/2.e8575a0d.chunk.js",
-    "static/js/2.e8575a0d.chunk.js.map": "/flex-quest/static/js/2.e8575a0d.chunk.js.map",
+    "static/js/2.cd3f9ca6.chunk.js": "/flex-quest/static/js/2.cd3f9ca6.chunk.js",
+    "static/js/2.cd3f9ca6.chunk.js.map": "/flex-quest/static/js/2.cd3f9ca6.chunk.js.map",
     "index.html": "/flex-quest/index.html",
-    "static/css/main.b08d69ab.chunk.css.map": "/flex-quest/static/css/main.b08d69ab.chunk.css.map",
-    "static/js/2.e8575a0d.chunk.js.LICENSE.txt": "/flex-quest/static/js/2.e8575a0d.chunk.js.LICENSE.txt",
+    "static/css/main.8078d6b0.chunk.css.map": "/flex-quest/static/css/main.8078d6b0.chunk.css.map",
+    "static/js/2.cd3f9ca6.chunk.js.LICENSE.txt": "/flex-quest/static/js/2.cd3f9ca6.chunk.js.LICENSE.txt",
     "static/media/fonts.css": "/flex-quest/static/media/Roboto-Light.8be2d148.ttf"
   },
   "entrypoints": [
     "static/js/runtime-main.cb48795b.js",
-    "static/js/2.e8575a0d.chunk.js",
-    "static/css/main.b08d69ab.chunk.css",
-    "static/js/main.8c16cf2a.chunk.js"
+    "static/js/2.cd3f9ca6.chunk.js",
+    "static/css/main.8078d6b0.chunk.css",
+    "static/js/main.f71fbdb0.chunk.js"
   ]
 }
