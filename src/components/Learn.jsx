@@ -77,7 +77,7 @@ export default function Learn() {
 	const menuOptions = [
 		'Level 1: display: flex',
 		'Level 2: justify-content',
-		'Level 3: flex-direction',
+		/*'Level 3: flex-direction',
 		'Level 4: flex-wrap',
 		'Level 5: flex-flow',
 		'Level 6: align-items',
@@ -87,7 +87,7 @@ export default function Learn() {
 		'Level 10: flex-shrink',
 		'Level 11: flex-basis',
 		'Level 12: flex',
-		'Level 13: align-self',
+		'Level 13: align-self',*/
 	]; 
 
 	const infoTitle = menuOptions[levelNum];
