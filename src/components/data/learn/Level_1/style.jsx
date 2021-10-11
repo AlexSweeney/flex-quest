@@ -6,7 +6,10 @@ export const style =
 } 
 
 .item_2 {  	
-  	
+
   justify-content: center;  
   background: blue; 
 }`;
+
+
+// ".item_1 {" + <br> + "display: flex";

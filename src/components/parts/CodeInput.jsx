@@ -33,7 +33,8 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 	const [openClass, setOpenClass] = useState('code-display-open');
 	
 	// ===================================== Buttons ===================================== //
-	const buttons = [<RefreshButton onClick={handleRefreshClick}/>];
+	// const buttons = [<RefreshButton onClick={handleRefreshClick}/>];
+	const buttons = [];
 
 	// ===================================== Event Handlers ===================================== //
 	function handleRefreshClick() {
@@ -106,14 +107,13 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 	}
 	// set initial value
 	useEffect(() => {
-		setInnerText(codeDisplayId, code)
+		// setInnerText(codeDisplayId, code)
 	}, [])
 
 	// ===================================== Output ===================================== //
 	return (
 		<OpenCloseBox title={title} i={i} buttons={buttons}>
-			<code className={`code-display ${openClass} ${fadeClass}`} id={codeDisplayId} contenteditable="true" onKeyDown={onCodeChange} innerText="hello world">  
-			</code>
+			<textarea className={`code-display ${openClass} ${fadeClass}`} value={code}></textarea>
 		</OpenCloseBox>
 	)
 }
@@ -124,5 +124,7 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 				<textarea className={`code-display ${openClass} ${fadeClass}`} id={codeDisplayId} value={code} onChange={onTextChange}> 
 				</textarea>
 			</div>
-
+	
+	<code className={`code-display ${openClass} ${fadeClass}`} id={codeDisplayId} contenteditable="true" onKeyDown={onCodeChange}>   
+			</code>
 */}
