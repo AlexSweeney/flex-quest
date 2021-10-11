@@ -90,11 +90,8 @@ export function detectTransition(id, propertyName, onChange) {
 	})
 }
 
-export function detectTransitions(id, propertyNames, onChange) {
-	// console.log('detectTransitions ===========================')
-	// console.log('propertyNames', propertyNames)
-	propertyNames.forEach(propertyName => {
-		// console.log('propertyName', propertyName)
+export function detectTransitions(id, propertyNames, onChange) { 
+	propertyNames.forEach(propertyName => { 
 		addListeners(id, propertyName, onChange)
 	})
 }
@@ -108,8 +105,7 @@ function addListeners(id, propertyName, onChange) {
 		return;
 	}   
 	
-	element.addEventListener('transitionstart', (e) => {
-		
+	element.addEventListener('transitionstart', (e) => { 
 		if(e.propertyName === propertyName && e.srcElement.id === id) { 
 			numTransitions += 1;
 			if(numTransitions === 1) onChange(true)
@@ -117,8 +113,7 @@ function addListeners(id, propertyName, onChange) {
 	})
 
  	element.addEventListener('transitionend', (e) => {
-		if(e.propertyName === propertyName && e.srcElement.id === id) { 
-			// console.log(e) 
+		if(e.propertyName === propertyName && e.srcElement.id === id) {  
 			numTransitions -= 1;
 			if(numTransitions === 0) onChange(false)
 		}
