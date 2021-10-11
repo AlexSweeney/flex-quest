@@ -9,18 +9,15 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 
 		* show code
 
-		* update code on user input
+		- update code on user input
 	
-		* reset to original code on refresh press
+		- reset to original code on refresh press
 
 		* open and close on toggle press 
 		
-		scrollable overflow
-		-  make container expand width with content width
-		* make text area expand width with content width
+		* scroll on overflow
 
-		- overflow width = close overflow then box
-		tidy code
+		* animate on open and close
 	*/
 	
 	// ===================================== Ids ===================================== //
@@ -73,17 +70,7 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 		const element = document.getElementById(id);
 		element.innerText = value;
 	}
-
-	function setElementSizeToElementSize(id_1, id_2) {
-		const element_1 = document.getElementById(id_1);
-		const element_2 = document.getElementById(id_2);
-
-		const newStyle = window.getComputedStyle(element_2);
-		console.log('newStyle', newStyle)
-
-		element_1.height = newStyle.height;
-		element_1.width = newStyle.width;
-	}
+ 
 	// ===================================== Update Classes ===================================== //
 	// update openClass
 	// useEffect(() => {
@@ -119,27 +106,43 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 	// 	} 
 	// }, [refreshClicked, colorHasTransitioned])
 
-	function onTextChange(e) {
-		console.log(e)
-		setCode(e.target.value) 
+	function sizeElementToContent(element) { 
+		element.style.width = '';
+		element.style.height = '';
+ 		
+		if(element.scrollWidth > element.clientWidth) {
+			element.style.width = element.scrollWidth + 'px';
+		}
+
+		if(element.scrollHeight > element.clientHeight) {
+			element.style.height = element.scrollHeight + 'px';
+		}  
+	}
+
+	function onTextChange(e) { 
+		sizeElementToContent(e.target)
+		setCode(e.target.value)  
 	}
  
 	// ===================================== Output ===================================== //
 	return (
 		<OpenCloseBox title={title} i={i} buttons={buttons}>
-			<code className="code-display" id={codeDisplayId} contenteditable="true"> 
-				<pre>{code}</pre>
-			</code>
+			<textarea 
+				className={`code-display ${openClass} ${fadeClass}`} 
+				id={codeDisplayId} 
+				value={code} 
+				onChange={onTextChange}> 
+			</textarea>
 		</OpenCloseBox>
 	)
 }
 
-{/*<textarea 
-					className={`code-display ${openClass} ${fadeClass}`} 
-					id={codeDisplayId} 
-					value={code} 
-					onChange={onTextChange}> 
-				</textarea>*/}
+{/*
+<code className="code-display" id={codeDisplayId} onKeyUp={onTextChange} contenteditable="true"> 
+				<pre>{code}</pre>
+			</code>
+	
+*/}
 
 {/* 
 		<div contenteditable="true" className={`code-display ${openClass} ${fadeClass}`} onChange={onCodeChange} value={code}>{code}</div>

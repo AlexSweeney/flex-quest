@@ -10,17 +10,23 @@
 }
 */
 .code-display {   
+	margin: 0;
+
 	box-sizing: border-box; 
 	padding: 0.5em;
 	padding-right: 0;
 	padding-bottom: 0;
+	resize: none;
+	border-radius: 0;
 
 	background: #272727; 
 	color: white;
 
 	min-width: 100%; 
+	min-height: 100%;
 	overflow: hidden;
 	font-family: monospace;
+	white-space: nowrap;
 }
 
 /*.code-display {
