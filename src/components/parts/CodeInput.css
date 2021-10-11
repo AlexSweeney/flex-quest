@@ -23,7 +23,7 @@
 	color: white;
 
 	/*border: 0.5em solid #E8E4E4;*/
-	overflow: hidden;
+	/*overflow: hidden;*/
 } 
 
 /*.code-display-opening {
@@ -53,7 +53,7 @@
 */
 
 /* =================== Body Scrollbar */
-.code-display::-webkit-scrollbar { 
+/*.code-display::-webkit-scrollbar { 
   height: 16px;
   width: 16px;
   background: transparent; 
@@ -69,4 +69,4 @@
 
 .code-display::-webkit-scrollbar-thumb:hover { 
 	background: #d6d1d1;
-}
+}*/

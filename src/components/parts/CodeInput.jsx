@@ -14,7 +14,10 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 		* reset to original code on refresh press
 
 		* open and close on toggle press 
-
+		
+		scrollable overflow
+		- make container expand width with content width
+		- make text area expand width with content width
 		tidy code
 	*/
 	
@@ -104,6 +107,7 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 
 	function onCodeChange(e) {
 		console.log(e)
+		setCode(e.target.value)
 	}
 	// set initial value
 	useEffect(() => {
@@ -113,7 +117,7 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 	// ===================================== Output ===================================== //
 	return (
 		<OpenCloseBox title={title} i={i} buttons={buttons}>
-			<textarea className={`code-display ${openClass} ${fadeClass}`} value={code}></textarea>
+			{/*<textarea className={`code-display ${openClass} ${fadeClass}`} onChange={onCodeChange} value={code}></textarea>*/}
 		</OpenCloseBox>
 	)
 }
