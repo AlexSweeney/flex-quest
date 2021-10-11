@@ -10,14 +10,18 @@
 }
 */
 .code-display { 
-	display: inline-block;
-	min-width: 100%;
-	min-height: 100%; 
+	display: flex;
+	/*min-width: 100%;
+	min-height: 100%; */
 	box-sizing: border-box;
-	position: absolute;
+	/*position: absolute;*/
 
 	background: #272727; 
 	color: white;
+
+	min-width: 100%;
+	min-height: 100%;
+	overflow: hidden;
 }
 
 /*.code-display {

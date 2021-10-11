@@ -16,8 +16,10 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 		* open and close on toggle press 
 		
 		scrollable overflow
-		* make container expand width with content width
-		- make text area expand width with content width
+		-  make container expand width with content width
+		* make text area expand width with content width
+
+		- overflow width = close overflow then box
 		tidy code
 	*/
 	
@@ -122,7 +124,6 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 		setCode(e.target.value) 
 	}
  
-
 	// ===================================== Output ===================================== //
 	return (
 		<OpenCloseBox title={title} i={i} buttons={buttons}>
