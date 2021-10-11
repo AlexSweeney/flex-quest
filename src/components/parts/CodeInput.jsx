@@ -62,7 +62,10 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 	// } 
 
 	// ===================================== Helper Fns ===================================== //
-	
+	function setInnerText(id, value) {
+		const element = document.getElementById(id);
+		element.innerText = value;
+	}
 	// ===================================== Update Classes ===================================== //
 	// update openClass
 	// useEffect(() => {
@@ -98,12 +101,19 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 	// 	} 
 	// }, [refreshClicked, colorHasTransitioned])
 
+	function onCodeChange(e) {
+		console.log(e)
+	}
+	// set initial value
+	useEffect(() => {
+		setInnerText(codeDisplayId, code)
+	}, [])
+
 	// ===================================== Output ===================================== //
 	return (
-		<OpenCloseBox title={title} i={i} buttons={buttons} setBoxStatus={setBoxStatus} setContentContainerStatus={setContentContainerStatus}>
-			<div className={`code-display ${openClass} ${fadeClass}`} id={codeDisplayId} contenteditable="true"> 
-				{code}
-			</div>
+		<OpenCloseBox title={title} i={i} buttons={buttons}>
+			<code className={`code-display ${openClass} ${fadeClass}`} id={codeDisplayId} contenteditable="true" onKeyDown={onCodeChange} innerText="hello world">  
+			</code>
 		</OpenCloseBox>
 	)
 }
