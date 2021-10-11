@@ -16,13 +16,14 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 		* open and close on toggle press 
 		
 		scrollable overflow
-		- make container expand width with content width
+		* make container expand width with content width
 		- make text area expand width with content width
 		tidy code
 	*/
 	
 	// ===================================== Ids ===================================== //
 	const codeDisplayId = `code-display-${i}`;
+	const codeDisplayContainerId = `code-display-container-${i}`;
 	
 	// ===================================== Status ===================================== //
 	const [boxStatus, setBoxStatus] = useState('');
@@ -54,12 +55,12 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 		// setFadeClass('code-display-no-fade')
 	}
 
-	function onTextChange(e) {   
+	/*function onTextChange(e) {   
 		const isOverflowing = e.target.scrollHeight > e.target.clientHeight; 
 		setIsOverflowing(isOverflowing)
 
 		setCode(e.target.value)
-	}
+	}*/
 
 	// function handleTransitionEnd(e) {
 	// 	if(e.propertyName === 'color') setColorHasTransitioned(true)
@@ -69,6 +70,17 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 	function setInnerText(id, value) {
 		const element = document.getElementById(id);
 		element.innerText = value;
+	}
+
+	function setElementSizeToElementSize(id_1, id_2) {
+		const element_1 = document.getElementById(id_1);
+		const element_2 = document.getElementById(id_2);
+
+		const newStyle = window.getComputedStyle(element_2);
+		console.log('newStyle', newStyle)
+
+		element_1.height = newStyle.height;
+		element_1.width = newStyle.width;
 	}
 	// ===================================== Update Classes ===================================== //
 	// update openClass
@@ -105,24 +117,31 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 	// 	} 
 	// }, [refreshClicked, colorHasTransitioned])
 
-	function onCodeChange(e) {
+	function onTextChange(e) {
 		console.log(e)
-		setCode(e.target.value)
+		setCode(e.target.value) 
 	}
-	// set initial value
-	useEffect(() => {
-		// setInnerText(codeDisplayId, code)
-	}, [])
+ 
 
 	// ===================================== Output ===================================== //
 	return (
 		<OpenCloseBox title={title} i={i} buttons={buttons}>
-			{/*<textarea className={`code-display ${openClass} ${fadeClass}`} onChange={onCodeChange} value={code}></textarea>*/}
+			<code className="code-display" id={codeDisplayId} contenteditable="true"> 
+				<pre>{code}</pre>
+			</code>
 		</OpenCloseBox>
 	)
 }
 
+{/*<textarea 
+					className={`code-display ${openClass} ${fadeClass}`} 
+					id={codeDisplayId} 
+					value={code} 
+					onChange={onTextChange}> 
+				</textarea>*/}
+
 {/* 
+		<div contenteditable="true" className={`code-display ${openClass} ${fadeClass}`} onChange={onCodeChange} value={code}>{code}</div>
 
 	<div className="code-display-container">
 				<textarea className={`code-display ${openClass} ${fadeClass}`} id={codeDisplayId} value={code} onChange={onTextChange}> 

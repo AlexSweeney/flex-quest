@@ -9,10 +9,28 @@
 	position: absolute;
 }
 */
-.code-display {
+.code-display { 
+	display: inline-block;
 	min-width: 100%;
-	background: #272727;
+	min-height: 100%; 
+	box-sizing: border-box;
+	position: absolute;
+
+	background: #272727; 
+	color: white;
+}
+
+/*.code-display {
+	min-width: 100%;
+	background: #272727; 
+	color: white;
+	display: inline-block;
 	resize: none;
+	white-space: nowrap;
+	
+	min-width: 100%; 
+	position: absolute; 
+	/*resize: none;
 	outline: none;
 	border: none;
 	transition: color 1s;
@@ -21,10 +39,12 @@
 	box-sizing: border-box; 
 
 	color: white;
+	display: inline-block;
+	overflow: hidden;*/
 
 	/*border: 0.5em solid #E8E4E4;*/
-	/*overflow: hidden;*/
-} 
+	/*overflow: hidden;
+} */
 
 /*.code-display-opening {
 	overflow: hidden;
