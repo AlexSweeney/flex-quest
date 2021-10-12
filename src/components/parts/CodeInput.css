@@ -1,21 +1,23 @@
 .code-display {   
 	transition: color 500ms;
-	margin: 0; 
-	box-sizing: border-box; 
+
+	min-width: 100%; 
+	min-height: 100%;
 	padding: 0.5em;
 	padding-right: 0;
 	padding-bottom: 0;
+	overflow: hidden;
+	 
+	background: #272727; 
+	color: white;  
+	font-family: monospace;
+	white-space: nowrap;
+
+	box-sizing: border-box; 
+	margin: 0; 
 	resize: none;
 	border: none;
 	outline: none;
-	border-radius: 0; 
-	background: #272727; 
-	color: white; 
-	min-width: 100%; 
-	min-height: 100%;
-	overflow: hidden;
-	font-family: monospace;
-	white-space: nowrap;
 }
 
 .code-display-fade {
