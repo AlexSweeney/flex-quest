@@ -287,6 +287,7 @@ export default function OpenCloseBox({
 						handleClick={onClickOpenCloseToggle}
 						toggleIsOpen={toggleIsOpen}
 						parentIsAnimating={isAnimating}
+						i={i}
 					/>
 				</div>
 			</div>
