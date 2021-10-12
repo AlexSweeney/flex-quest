@@ -109,7 +109,7 @@ export default function OpenCloseBox({
 		setBoxIsOpen(false)
 		setBoxOpenClass('box-closed')
 		setContentContainerOpenClass('content-container-closing-x')
-		triggerOnTransitionEnd(boxId, 'width', onBoxClosed)
+		// triggerOnTransitionEnd(boxId, 'width', onBoxClosed)
 	} 
 
 	// ==================== Close Content Container - finished
