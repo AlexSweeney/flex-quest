@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'; 
 import OpenCloseToggle from './../Buttons/OpenCloseToggle/OpenCloseToggle.jsx'; 
+import { triggerOnTransitionEnd } from './../../utils.js';
 import './OpenCloseBox.css';
 
 export default function OpenCloseBox({
@@ -19,21 +20,31 @@ export default function OpenCloseBox({
 		* show open close toggle
 
 		* on press open close toggle
-			* close overflow the close box
-			* show width bar on open
-
-			* open box to previous size 
+			* Close - animate
+				* close overflow
+				* close box 
+				* close content container
+			* Open - animate
+				* open content container
+				* open box
+				* if width overflow show scroll bar on open box.  
+				* open box to previous size 
 	*/
-
-	// =========================== Id's ============================ //
+	// ======================================== Constants ========================================= //
+	// =================== Id's 
 	const boxId = `box-${i}`;
 	if(!boxBodyId) boxBodyId = `box-body-${i}`;
 	if(!contentContainerId) contentContainerId = `content-container-${i}`;
 	const displayContainerId = `display-container-${i}`;
 
-	// ======================= State ======================= // 
-	const [clickedOpen, setClickedOpen] = useState(null);
+	// =================== State
 	const [boxIsOpen, setBoxIsOpen] = useState(true);
+
+	const [widthIsOverflowing, setWidthIsOverflowing] = useState(false);
+
+	// =================== State Old
+	const [clickedOpen, setClickedOpen] = useState(null);
+	// const [boxIsOpen, setBoxIsOpen] = useState(true);
 
 	const [isAnimating, setIsAnimating] = useState(false);
 	const [toggleIsOpen, setToggleIsOpen] = useState(false);
@@ -42,19 +53,37 @@ export default function OpenCloseBox({
 	const [heightOverflowOnClose, setHeightOverflowOnClose] = useState(false);
 	const [savedHeight, setSavedHeight] = useState(null);
 
-	const [widthIsOverflowing, setWidthIsOverflowing] = useState(false);
+	// const [widthIsOverflowing, setWidthIsOverflowing] = useState(false);
 	const [heightIsOverflowing, setHeightIsOverflowing] = useState(false);
 	const [overflowIsShrinking, setOverflowIsShrinking] = useState(false);
 
 	const [boxWidthTransitionHasEnded, setBoxWidthTransitionHasEnded] = useState(false);
 
-	// ======================= Classes ======================= //
+	// ==================== Classes
 	const [boxOpenClass, setBoxOpenClass] = useState('box-open');
 	const [contentContainerOpenClass, setContentContainerOpenClass] = useState('content-container-open');
 
-	// ======================= Event Handlers ======================= //
+	// ======================================== Event Handlers ========================================= //
 	function onClickOpenCloseToggle() {
 		if(!isAnimating) {
+			setBoxIsOpen(oldVal => !oldVal)
+			setIsAnimating(true) 
+			handleToggleClick(!boxIsOpen, elementWidthIsOverflowing(boxBodyId), elementHeightIsOverflowing(boxBodyId))
+		} 
+	} 
+
+	function onCloseContentContainer() {
+		const thisWidthIsOverflowing = elementWidthIsOverflowing(boxBodyId); 
+		if(thisWidthIsOverflowing) closeWidthOverflow()
+
+		// const thisHeightIsOverflowing = elementHeightIsOverflowing(boxBodyId);
+		// if(thisHeightIsOverflowing) closeHeightOverflow() 
+	}
+
+	
+
+	/*function onClickOpenCloseToggleOld() {
+		if(!isAnimating) { 
 			let newValue;
 
 			if(clickedOpen === null) newValue = false;
@@ -64,166 +93,92 @@ export default function OpenCloseBox({
 			setClickedOpen(newValue) 
 			handleToggleClick(newValue, elementWidthIsOverflowing(boxBodyId), elementHeightIsOverflowing(boxBodyId))
 		} 
-	} 
-
-	function onPressBoxOpening() { 
-		setIsAnimating(true)
-		setBoxOpenClass('box-open')
-		
-		if(widthOverflowOnClose) setContentContainerOpenClass('content-container-opening-x')
-		if(!widthOverflowOnClose) setContentContainerOpenClass('content-container-opening-x-max-width')
-		removeInlineWidth(contentContainerId)
-		addListeners(boxId, 'width', () => { setBoxWidthTransitionHasEnded(true) })
-	}
-
-	function onPressBoxClosing() { 
-		setIsAnimating(true) 
-		
-		if(boxIsOpen) {
-			const thisWidthIsOverflowing = elementWidthIsOverflowing(boxBodyId); 
-			setWidthOverflowOnClose(thisWidthIsOverflowing) 
-
-			const thisHeightIsOverflowing = elementHeightIsOverflowing(boxBodyId);
-			setHeightOverflowOnClose(thisHeightIsOverflowing) 
-	  
-			if(thisWidthIsOverflowing || thisHeightIsOverflowing) setOverflowIsShrinking(true)
-			if(thisWidthIsOverflowing) closeWidthOverflow()
-			if(thisHeightIsOverflowing) {
-				saveHeight(contentContainerId)
-				closeHeightOverflow() 
-			}
-
-			if(!thisWidthIsOverflowing && !thisHeightIsOverflowing) onBoxClosing() 
-		}
-
-		if(!boxIsOpen) {
-			onBoxClosing() 
-		}
-	}
-
-	function onBoxClosing() { 
-		setBoxIsOpen(false)
-		setBoxOpenClass('box-closed')
-		setContentContainerOpenClass('content-container-closing-x')
-		addListeners(boxId, 'width', () => onBoxClosed())
-	}
-
-	function onBoxWidthOpen() { 
-		setToggleIsOpen(false)
-		addListeners(contentContainerId, 'min-height', () => { onContentContainerOpen() })
-
-		if(heightOverflowOnClose) {
-			setHeightTo(contentContainerId, '0') 
-			setHeightTo(contentContainerId, savedHeight)
-			setContentContainerOpenClass('content-container-opening-y')
-		}
-
-		if(!heightOverflowOnClose) {
-			setHeightTo(contentContainerId, '0') 
-			setHeightToFull(contentContainerId, boxBodyId)
-			setContentContainerOpenClass('content-container-opening-y')
-		}
-	} 
-
-	function onContentContainerOpen() { 
-		setIsAnimating(false)
-		removeInlineHeight(contentContainerId)
-		setContentContainerOpenClass('content-container-open')
-	}
-
-	function onContentContainerClosed() { 
-		setIsAnimating(false)
-	}
-
-	function onBoxClosed() {
-		setToggleIsOpen(true)
-		setContentContainerOpenClass('content-container-closing-y')
-		addListeners(contentContainerId, 'height', () => { onContentContainerClosed() })
-	}
-
-	function onOverflowClosed() { 
-		onBoxClosing()
-		handleOverflowHidden()
-	}
-
-	// ======================= Helper Fns ========================== //  
-	function addListeners(id, property, fn) { 
-		const element = document.getElementById(id);
-
-		function handleEnd(e) {
-			if(e.propertyName === property && e.srcElement.id === id) {
-				fn()
-				element.removeEventListener('transitionend', handleEnd)
-			}
-		}
-
-		element.addEventListener('transitionend', handleEnd)
-	}
-
-	function removeInlineHeight(id) {
-		const element = document.getElementById(id);
-		element.style.height = '';
-	}
-
-	function removeInlineWidth(id) {
-		const element = document.getElementById(id);
-		element.style.width = '';
-	}
-
-	function closeWidthOverflow() {
-		setWidthIsOverflowing(true)
-		addListeners(contentContainerId, 'width', () => { setWidthIsOverflowing(false)})
-		keepWidth(contentContainerId)
-		setWidthToFull(contentContainerId, boxBodyId)
-		setContentContainerOpenClass('content-container-closing-overflow') 
-	}
-
-	function closeHeightOverflow() {
-		setHeightIsOverflowing(true)
-		addListeners(contentContainerId, 'height', () => { setHeightIsOverflowing(false)})
-		keepHeight(contentContainerId)
-		setHeightToFull(contentContainerId, boxBodyId)
-		setContentContainerOpenClass('content-container-closing-overflow')
-	}
-
-	function keepWidth(id) {
-		const element = document.getElementById(id);
-		const width = element.clientWidth + 'px';
+	} */
  
-		element.style.width = width; 
-	}
+	
 
-	function keepHeight(id) {
-		const element = document.getElementById(id);  
-		const height = element.offsetHeight + 'px';  
-		element.style.height = height;
-	}
 
-	function saveHeight(id) {
-		const element = document.getElementById(id);  
-		const height = element.offsetHeight + 'px';   
-		setSavedHeight(height)
-	}
+	// function onPressBoxOpening() { 
+	// 	setIsAnimating(true)
+	// 	setBoxOpenClass('box-open')
+		
+	// 	if(widthOverflowOnClose) setContentContainerOpenClass('content-container-opening-x')
+	// 	if(!widthOverflowOnClose) setContentContainerOpenClass('content-container-opening-x-max-width')
+	// 	removeInlineWidth(contentContainerId)
+	// 	addListeners(boxId, 'width', () => { setBoxWidthTransitionHasEnded(true) })
+	// }
 
-	function setHeightTo(id, height) {
-		const element = document.getElementById(id);
-		element.style.height = height;
-	}
+	// function onPressBoxClosing() { 
+	// 	setIsAnimating(true) 
+		
+	// 	if(boxIsOpen) {
+	// 		const thisWidthIsOverflowing = elementWidthIsOverflowing(boxBodyId); 
+	// 		setWidthOverflowOnClose(thisWidthIsOverflowing) 
 
-	function setHeightToFull(id, heightId) {
-		const element = document.getElementById(id);
-		const heightElement = document.getElementById(heightId); 
-		const height = heightElement.clientHeight;  
-		element.style.height = height + 'px';
-	}
+	// 		const thisHeightIsOverflowing = elementHeightIsOverflowing(boxBodyId);
+	// 		setHeightOverflowOnClose(thisHeightIsOverflowing) 
+	  
+	// 		if(thisWidthIsOverflowing || thisHeightIsOverflowing) setOverflowIsShrinking(true)
+	// 		if(thisWidthIsOverflowing) closeWidthOverflow()
+	// 		if(thisHeightIsOverflowing) {
+	// 			saveHeight(contentContainerId)
+	// 			closeHeightOverflow() 
+	// 		}
 
-	function setWidthToFull(id, widthId) {
-		const element = document.getElementById(id);
-		const widthElement = document.getElementById(widthId); 
-		const width = widthElement.offsetWidth; 
-		element.style.width = width + 'px';
-	}
+	// 		if(!thisWidthIsOverflowing && !thisHeightIsOverflowing) onBoxClosing() 
+	// 	}
 
+	// 	if(!boxIsOpen) {
+	// 		onBoxClosing() 
+	// 	}
+	// }
+
+	// function onBoxClosing() { 
+	// 	setBoxIsOpen(false)
+	// 	setBoxOpenClass('box-closed')
+	// 	setContentContainerOpenClass('content-container-closing-x')
+	// 	addListeners(boxId, 'width', () => onBoxClosed())
+	// }
+
+	// function onBoxWidthOpen() { 
+	// 	setToggleIsOpen(false)
+	// 	addListeners(contentContainerId, 'min-height', () => { onContentContainerOpen() })
+
+	// 	if(heightOverflowOnClose) {
+	// 		setHeightTo(contentContainerId, '0') 
+	// 		setHeightTo(contentContainerId, savedHeight)
+	// 		setContentContainerOpenClass('content-container-opening-y')
+	// 	}
+
+	// 	if(!heightOverflowOnClose) {
+	// 		setHeightTo(contentContainerId, '0') 
+	// 		setHeightToFull(contentContainerId, boxBodyId)
+	// 		setContentContainerOpenClass('content-container-opening-y')
+	// 	}
+	// } 
+
+	// function onContentContainerOpen() { 
+	// 	setIsAnimating(false)
+	// 	removeInlineHeight(contentContainerId)
+	// 	setContentContainerOpenClass('content-container-open')
+	// }
+
+	// function onContentContainerClosed() { 
+	// 	setIsAnimating(false)
+	// }
+
+	// function onBoxClosed() {
+	// 	setToggleIsOpen(true)
+	// 	setContentContainerOpenClass('content-container-closing-y')
+	// 	addListeners(contentContainerId, 'height', () => { onContentContainerClosed() })
+	// }
+
+	// function onOverflowClosed() { 
+	// 	onBoxClosing()
+	// 	handleOverflowHidden()
+	// }
+
+	// ======================================== Helper Fns ========================================= //
 	function elementWidthIsOverflowing(id) {
 		const element = document.getElementById(id);
 		if(!element) return;
@@ -238,38 +193,136 @@ export default function OpenCloseBox({
 	  return element.scrollHeight > element.clientHeight;
 	}
 
-	function checkIfOverflowing(id) {
-		return elementWidthIsOverflowing(id) || elementHeightIsOverflowing(id);
+	function closeWidthOverflow() { 
+		listenForWidthOverflowShrink()
+		keepWidth(contentContainerId)
+		setWidthToFull(contentContainerId, boxBodyId)
+		setContentContainerOpenClass('content-container-closing-overflow') 
 	}
 
-	// ======================= Event Detects ======================= //
-	// toggle click triggers
+	function listenForWidthOverflowShrink() {
+		setWidthIsOverflowing(true)
+		triggerOnTransitionEnd(contentContainerId, 'width', () => { setWidthIsOverflowing(false)})
+	}
+
+	function keepWidth(id) {
+		const element = document.getElementById(id);
+		const width = element.clientWidth + 'px';
+ 
+		element.style.width = width; 
+	}
+
+	function setHeightToFull(id, heightId) {
+		const element = document.getElementById(id);
+		const heightElement = document.getElementById(heightId); 
+		const height = heightElement.clientHeight;  
+		element.style.height = height + 'px';
+	}
+
+
+	function setWidthToFull(id, widthId) {
+		const element = document.getElementById(id);
+		const widthElement = document.getElementById(widthId); 
+		const width = widthElement.offsetWidth; 
+		element.style.width = width + 'px';
+	}
+
+	// function addListeners(id, property, fn) { 
+	// 	const element = document.getElementById(id);
+
+	// 	function handleEnd(e) {
+	// 		if(e.propertyName === property && e.srcElement.id === id) {
+	// 			fn()
+	// 			element.removeEventListener('transitionend', handleEnd)
+	// 		}
+	// 	}
+
+	// 	element.addEventListener('transitionend', handleEnd)
+	// }
+
+	// function removeInlineHeight(id) {
+	// 	const element = document.getElementById(id);
+	// 	element.style.height = '';
+	// }
+
+	// function removeInlineWidth(id) {
+	// 	const element = document.getElementById(id);
+	// 	element.style.width = '';
+	// } 
+
+	// function closeHeightOverflow() {
+	// 	setHeightIsOverflowing(true)
+	// 	addListeners(contentContainerId, 'height', () => { setHeightIsOverflowing(false)})
+	// 	keepHeight(contentContainerId)
+	// 	setHeightToFull(contentContainerId, boxBodyId)
+	// 	setContentContainerOpenClass('content-container-closing-overflow')
+	// }
+
+	
+
+	// function keepHeight(id) {
+	// 	const element = document.getElementById(id);  
+	// 	const height = element.offsetHeight + 'px';  
+	// 	element.style.height = height;
+	// }
+
+	// function saveHeight(id) {
+	// 	const element = document.getElementById(id);  
+	// 	const height = element.offsetHeight + 'px';   
+	// 	setSavedHeight(height)
+	// }
+
+	// function setHeightTo(id, height) {
+	// 	const element = document.getElementById(id);
+	// 	element.style.height = height;
+	// }
+
+	
+
+
+	
+
+	
+
+	// function checkIfOverflowing(id) {
+	// 	return elementWidthIsOverflowing(id) || elementHeightIsOverflowing(id);
+	// }
+
+	// ======================================== Listen / Trigger ================================== //
+	// =================== open / close content container
 	useEffect(() => {
+		// if(isAnimating && boxIsOpen) openContentContainer()
+		if(isAnimating && !boxIsOpen) onCloseContentContainer()
+	}, [boxIsOpen, isAnimating])
+
+	// =================== open / close box
+
+	/*useEffect(() => {
 		if(clickedOpen === true) onPressBoxOpening()
 		if(clickedOpen === false) onPressBoxClosing()
 		if(clickedOpen === null) onContentContainerOpen()
-	}, [clickedOpen]) 
+	}, [clickedOpen]) */
 
 	// detect box resized
-	useEffect(() => {
-		if(overflowIsShrinking) {
-			if(!widthIsOverflowing && !heightIsOverflowing) { 
-				onOverflowClosed()
-				setOverflowIsShrinking(false)
-			}
-		}
-	}, [overflowIsShrinking, widthIsOverflowing, heightIsOverflowing])
+	// useEffect(() => {
+	// 	if(overflowIsShrinking) {
+	// 		if(!widthIsOverflowing && !heightIsOverflowing) { 
+	// 			onOverflowClosed()
+	// 			setOverflowIsShrinking(false)
+	// 		}
+	// 	}
+	// }, [overflowIsShrinking, widthIsOverflowing, heightIsOverflowing])
 
 	// detect box open 
-	useEffect(() => { 
-		if(clickedOpen && boxWidthTransitionHasEnded) {
-			onBoxWidthOpen()
-			setBoxWidthTransitionHasEnded(false)
-			setBoxIsOpen(true)
-		}
-	}, [clickedOpen, boxWidthTransitionHasEnded])
+	// useEffect(() => { 
+	// 	if(clickedOpen && boxWidthTransitionHasEnded) {
+	// 		onBoxWidthOpen()
+	// 		setBoxWidthTransitionHasEnded(false)
+	// 		setBoxIsOpen(true)
+	// 	}
+	// }, [clickedOpen, boxWidthTransitionHasEnded])
 
-	// =========================== Output ============================ //
+	// ======================================== Output =========================================== //
 	return (
 		<div className={`box ${boxOpenClass}`} id={boxId}>
 			<div className="box-header">
@@ -283,7 +336,6 @@ export default function OpenCloseBox({
 					<OpenCloseToggle 	
 						handleClick={onClickOpenCloseToggle}
 						toggleIsOpen={toggleIsOpen}
-						parentIsAnimating={isAnimating}
 						i={i}
 					/>
 				</div>
