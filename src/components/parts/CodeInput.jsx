@@ -4,7 +4,13 @@ import RefreshButton from './Buttons/RefreshButton/RefreshButton.jsx';
 import {onTransition} from './../utils.js';
 import './CodeInput.css';
 
-export default function CodeInput({title, i, code, setCode, originalCode}) {
+export default function CodeInput({
+	title, 
+	i, 
+	code, 
+	setCode, 
+	originalCode
+}) {
 	/*
 		* show title
 
@@ -12,16 +18,13 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 
 		* update code on user input
 	
-		- reset to original code on refresh press
+		* reset to original code on refresh press
 
 		* open and close on toggle press 
 		
 		* scroll on overflow
 
 		* animate on open and close
- 
-		- trim spaces on open
-		- refocus to previous area on open
 	*/
 	
 	// ===================================== Ids ===================================== //
@@ -43,6 +46,11 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 	const buttons = [<RefreshButton onClick={onRefreshClick}/>];
 	
 	// ===================================== Event Handlers ===================================== //
+	function onTextChange(e) { 
+		sizeElementToContent(e.target)
+		updateCode(e.target.value)  
+	}
+
 	function onRefreshClick() {
 		if(code !== originalCode) {
 			listenForEndOfFade()
@@ -53,31 +61,9 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 	function onTextFadeEnd() { 
 		resetCode()
 		unfadeCode()
-	}
+	} 
 
-	/*function onTextChange(e) {   
-		const isOverflowing = e.target.scrollHeight > e.target.clientHeight; 
-		setIsOverflowing(isOverflowing)
-
-		setCode(e.target.value)
-	}*/
-
-	// function handleTransitionEnd(e) {
-	// 	if(e.propertyName === 'color') setColorHasTransitioned(true)
-	// } 
-
-	// ===================================== Helper Fns ===================================== //
-	// function refreshCode() {
-	// 	if(code !== originalCode) {
-	// 		listenForEndOfFade()
-	// 		fadeCode()
-			
-	// 		setRefreshClicked(true)
-	// 		setColorHasTransitioned(false)
-	// 		setFadeClass('code-display-fade')
-	// 	} 
-	// }
-
+	// ===================================== Helper Fns ===================================== //  
 	function fadeCode() {
 		setFadeClass('code-display-fade')
 	}
@@ -94,45 +80,9 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 		setCode(originalCode)
 	}
 
-	/*function setInnerText(id, value) {
-		const element = document.getElementById(id);
-		element.innerText = value;
-	}*/
- 
-	// ===================================== Update Classes ===================================== //
-	// update openClass
-	// useEffect(() => {
-	// 	let newClass = '';
-
-	// 	if(boxStatus === 'box-open') {
-	// 		if(contentContainerStatus !== 'content-container-open') {
-	// 			newClass = isOverflowing ? 'code-display-opening-overflow' : 'code-display-opening';
-	// 		} else if (contentContainerStatus === 'content-container-open') {
-	// 			newClass = 'code-display-open';
-	// 		}
-	// 	} else {
-	// 		newClass = 'code-display-closed';
-	// 	}
-
-	// 	setOpenClass(newClass)
-	// }, [boxStatus, contentContainerStatus])
-
-	// ===================================== Add Event Listeners ===================================== 
-	// listen for transition end
-	// useEffect(() => {
-	// 	const codeDisplayElement = document.getElementById(codeDisplayId);
-
-	// 	if(refreshClicked) codeDisplayElement.addEventListener('transitionend', handleTransitionEnd)
-	// 	return () => { codeDisplayElement.removeEventListener ('transitionend', handleTransitionEnd)}
-	// }, [refreshClicked])
-
-	// ===================================== Listen for transition end ===================================== //
-	// handle color transition end
-	// useEffect(() => { 
-	// 	if(refreshClicked && colorHasTransitioned) {
-	// 		onTextFaded()
-	// 	} 
-	// }, [refreshClicked, colorHasTransitioned])
+	function updateCode(code) {
+		setCode(code)
+	}
 
 	function sizeElementToContent(element) { 
 		element.style.width = '';
@@ -145,13 +95,8 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 		if(element.scrollHeight > element.clientHeight) {
 			element.style.height = element.scrollHeight + 'px';
 		}  
-	}
-
-	function onTextChange(e) { 
-		sizeElementToContent(e.target)
-		setCode(e.target.value)  
-	}
- 
+	} 
+	
 	// ===================================== Output ===================================== //
 	return (
 		<OpenCloseBox title={title} i={i} buttons={buttons}>
@@ -164,22 +109,3 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 		</OpenCloseBox>
 	)
 }
-
-{/*
-<code className="code-display" id={codeDisplayId} onKeyUp={onTextChange} contenteditable="true"> 
-				<pre>{code}</pre>
-			</code>
-	
-*/}
-
-{/* 
-		<div contenteditable="true" className={`code-display ${openClass} ${fadeClass}`} onChange={onCodeChange} value={code}>{code}</div>
-
-	<div className="code-display-container">
-				<textarea className={`code-display ${openClass} ${fadeClass}`} id={codeDisplayId} value={code} onChange={onTextChange}> 
-				</textarea>
-			</div>
-	
-	<code className={`code-display ${openClass} ${fadeClass}`} id={codeDisplayId} contenteditable="true" onKeyDown={onCodeChange}>   
-			</code>
-*/}
