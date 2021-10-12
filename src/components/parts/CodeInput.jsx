@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'; 
 import OpenCloseBox from './OpenCloseBox/OpenCloseBox.jsx';
 import RefreshButton from './Buttons/RefreshButton/RefreshButton.jsx';
+import {onTransition} from './../utils.js';
 import './CodeInput.css';
 
 export default function CodeInput({title, i, code, setCode, originalCode}) {
@@ -39,22 +40,19 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 	const [openClass, setOpenClass] = useState('code-display-open');
 	
 	// ===================================== Buttons ===================================== //
-	// const buttons = [<RefreshButton onClick={handleRefreshClick}/>];
-	const buttons = [];
-
+	const buttons = [<RefreshButton onClick={onRefreshClick}/>];
+	
 	// ===================================== Event Handlers ===================================== //
-	function handleRefreshClick() {
-		// if(code !== originalCode) {
-		// 	setRefreshClicked(true)
-		// 	setColorHasTransitioned(false)
-		// 	setFadeClass('code-display-fade')
-		// } 
+	function onRefreshClick() {
+		if(code !== originalCode) {
+			listenForEndOfFade()
+			fadeCode()
+		} 
 	}
 
-	function onTextFaded() {
-		// setRefreshClicked(false)
-		// setCode(originalCode)
-		// setFadeClass('code-display-no-fade')
+	function onTextFadeEnd() { 
+		resetCode()
+		unfadeCode()
 	}
 
 	/*function onTextChange(e) {   
@@ -69,10 +67,37 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 	// } 
 
 	// ===================================== Helper Fns ===================================== //
-	function setInnerText(id, value) {
+	// function refreshCode() {
+	// 	if(code !== originalCode) {
+	// 		listenForEndOfFade()
+	// 		fadeCode()
+			
+	// 		setRefreshClicked(true)
+	// 		setColorHasTransitioned(false)
+	// 		setFadeClass('code-display-fade')
+	// 	} 
+	// }
+
+	function fadeCode() {
+		setFadeClass('code-display-fade')
+	}
+
+	function unfadeCode() {
+		setFadeClass('code-display-no-fade')
+	}
+
+	function listenForEndOfFade() {
+		onTransition(codeDisplayId, 'color', () => {}, onTextFadeEnd)
+	}
+
+	function resetCode() {
+		setCode(originalCode)
+	}
+
+	/*function setInnerText(id, value) {
 		const element = document.getElementById(id);
 		element.innerText = value;
-	}
+	}*/
  
 	// ===================================== Update Classes ===================================== //
 	// update openClass
