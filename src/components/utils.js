@@ -11,12 +11,10 @@ export function onTransition(id, propertyName, onStart = null, onEnd = null) {
 	element.addEventListener('transitionend', thisEndFn, {once: true})
 }
 
-export function triggerOnTransitionEnd(id, propertyName, onEnd = null) {
-	const element = document.getElementById(id); 
- 
-	const thisEndFn = transitionEndHandler.bind(null, id, propertyName, onEnd);
- 
-	element.addEventListener('transitionend', thisEndFn)
+export function triggerOnTransitionEnd(id, propertyName, onEnd = null) { 
+	const element = document.getElementById(id);  
+	const thisEndFn = transitionEndHandler.bind(null, id, propertyName, onEnd); 
+	element.addEventListener('transitionend', thisEndFn, {once: true})  
 }
 
 function transitionStartHandler(id, propertyName, onStart, e) { 
@@ -25,9 +23,13 @@ function transitionStartHandler(id, propertyName, onStart, e) {
 	}
 }
 
-function transitionEndHandler(id, propertyName, onEnd, e) {
-	if(e.propertyName === propertyName && e.srcElement.id === id) { 
-		onEnd && onEnd() 
+function transitionEndHandler(id, propertyName, onEnd, e) {  
+	// if pass call function
+	if(e.propertyName === propertyName && e.srcElement.id === id) {   
+		onEnd && onEnd()   
+	// if fail try again 
+	} else {
+		triggerOnTransitionEnd(id, propertyName, onEnd)
 	}
 }
 
