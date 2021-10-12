@@ -137,11 +137,11 @@ export default function LevelText({
 	// ======================================= Output ======================================= //
 	return ( 
 		<OpenCloseBox title={title} i={i} buttons={buttons} handleToggleClick={handleToggleClick} handleOverflowHidden={onOverflowHidden}>
-			{/*<BurgerMenu isOpen={burgerIsOpen} setIsOpen={setBurgerIsOpen} options={titles} handleClick={handleBurgerClick}/>
+			<BurgerMenu isOpen={burgerIsOpen} setIsOpen={setBurgerIsOpen} options={titles} handleClick={handleBurgerClick}/>
 			
 			<div className={`text-body ${textBodyOpenClass}`} id={textBodyId}>
 			 	<Text levelNum={levelNum} setSelectedStyle={setSelectedStyle}/> 
-			</div> */}
+			</div> 
 		</OpenCloseBox> 
 	)
 }

@@ -25,6 +25,8 @@ export default function CodeInput({
 		* scroll on overflow
 
 		* animate on open and close
+
+		fix - click second refresh = color sticks
 	*/
 	
 	// ===================================== Ids ===================================== //
@@ -35,7 +37,7 @@ export default function CodeInput({
 	const [openClass, setOpenClass] = useState('code-display-open');
 	
 	// ===================================== Buttons ===================================== //
-	const buttons = [<RefreshButton onClick={onRefreshClick}/>];
+	const buttons = [<RefreshButton onClick={onRefreshClick} i={i}/>];
 	
 	// ===================================== Event Handlers ===================================== //
 	function onTextChange(e) { 
