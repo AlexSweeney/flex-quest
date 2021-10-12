@@ -1,3 +1,4 @@
+/* =============== Container =============== */
 .open-close-toggle {
 	width: 22px;
 	height: 22px;
@@ -11,15 +12,7 @@
 	cursor: pointer; 
 }
 
-/*.open-close-toggle:hover {
-	cursor: pointer;
-	background: blue;
-}
-
-.open-close-toggle:active {
-	background: red;
-}*/
-
+/* =============== Line =============== */
 .line {
 	background: #272727;
 	position: absolute; 
@@ -30,7 +23,7 @@
  	z-index: -1; 
 }
 
-/* =============== Over =============== */
+/* ======= Over */
 .line-over {
 	background: #2196f3;
 }
@@ -39,6 +32,7 @@
 	transition: background 500ms;
 }
 
+/* ======= Out */
 .line-out {
 	background: #272727; 
 }
@@ -47,10 +41,12 @@
 	transition: background 1000ms;
 } 
 
+/* ======= Down */
 .line-down-transition {
 	transition: background 250ms;
 }
 
+/* ======= Open */
 .line-open {
 	background: #3f51b5;
 }
@@ -63,6 +59,7 @@
 	transform: rotate(90deg);  
 }
 
+/* ======= Closed */
 .line-closed {
 	background: #3f51b5;
 }
@@ -74,6 +71,7 @@
 .line-closed-transform {
 }
 
+/* ======= Animating */
 .line-animating {
 	background: #3f51b5; 
 }

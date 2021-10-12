@@ -4,8 +4,7 @@ import {triggerOnTransitionEnd} from './../../../utils.js';
 import './OpenCloseToggleStyle.css';
 
 export default function OpenCloseToggle({
-	toggleIsOpen = false, 
-	parentIsAnimating = false, 
+	toggleIsOpen = false,
 	handleClick = () => {}, 
 	i = 0}) { 
 	/*
@@ -16,16 +15,12 @@ export default function OpenCloseToggle({
 		* change color on over, down, animating 
 		* revert color on out / animation over 
 		* fade color changes
-
-		use proper colors
+ 
 		fix triggerOnTransitionEnd => not triggered by other transitions (once => doesn't work)
 
 		tidy 
 		push
-	*/
-
-	/*  
-	*/
+	*/ 
 
 	// ==================================== Constants ==================================== //
 	// ================== Ids 
@@ -33,12 +28,7 @@ export default function OpenCloseToggle({
 	const horizLineId = 'horiz-line-' + i;
 	const openCloseToggleId = 'open-close-toggle' + i;
 
-	// ================== Status
-	/*const [cursorLocation, setCursorLocation] = useState('');
-	const [cursorStatus, setCursorStatus] = useState('up'); 
-	const [animationStatus, setAnimationStatus] = useState('');
-
-	const [lineIsAnimating, setLineIsAnimating] = useState(false);*/
+	// ================== Status 
 	const [isOver, setIsOver] = useState(false);
 	const [lineIsTransforming, setLineIsTransforming] = useState(false);
 	const [isAnimating, setIsAnimating] = useState(false);
@@ -47,11 +37,6 @@ export default function OpenCloseToggle({
 	const [colorClass, setColorClass] = useState('line-out');
 	const [transitionClass, setTransitionClass] = useState('');
 	const [transformClass, setTransformClass] = useState('');
-	// const [vertLineClass, setVertLineClass] = useState('line-out');
-	/*const [lineDirectionClass, setLineDirectionClass] = useState(null);
-	const [lineAnimatingClass, setLineAnimatingClass] = useState('line-not-animating');
-	const [linePositionClass, setLinePositionClass] = useState('line-out');
-*/
 
 	// ==================================== Event Handlers =============================== //
 	function onMouseOver() { 
@@ -73,28 +58,23 @@ export default function OpenCloseToggle({
 		} 
 	}
 
-	function onTransformEnd() {
-		console.log('animation over ----')
+	function onTransformEnd() { 
 		setIsAnimating(false)
 	}
 
-	function onToggleOpening() {
-		console.log('toggle opening')
+	function onToggleOpening() { 
 		setLineOpeningClasses()
 	}
 
-	function onToggleOpen() {
-		console.log('toggle open') 
+	function onToggleOpen() { 
 		setLineAnimationFinishedClasses()
 	}
 
-	function onToggleClosing() {
-		console.log('toggle closing')
+	function onToggleClosing() { 
 		setLineClosingClasses()
 	}
 
-	function onToggleClosed() {
-		console.log('toggle closed')
+	function onToggleClosed() { 
 		setLineAnimationFinishedClasses() 
 	} 
 
@@ -154,86 +134,6 @@ export default function OpenCloseToggle({
 		}
 	}, [toggleIsOpen, isAnimating])
 
-	// useEffect(() => {
-		/*if(isAnimating) {
-			if(toggleIsOpen) onToggleOpen()
-			if(!toggleIsOpen) onToggleClosed()
-		}
-*/
-		/*if(!isAnimating) {
-			if(toggleIsOpen) onToggleOpen()
-			if(!toggleIsOpen) onToggleClosed()
-		}
-	}, [isAnimating, toggleIsOpen])*/
-	/*useEffect(() => { 
-		console.log('animation trigger ====================') 
-		console.log('lineIsTransforming', lineIsTransforming)
-		console.log('parentIsAnimating', parentIsAnimating)
-		if(!lineIsTransforming && parentIsAnimating || lineIsTransforming && !parentIsAnimating) onAnimationStart()
-		if(!lineIsTransforming && !parentIsAnimating) onAnimationEnd() 
-	}, [lineIsTransforming, parentIsAnimating])
-*/
-
-
-	// ============ Line Classes
-	/*useEffect(() => {
-		// over
-		if(cursorLocation === 'over' && cursorStatus === 'up' && !isAnimating) {
-			setHorizLineClass('line-over')
-			setVertLineClass('line-over')
-		}
-		// out
-		if(cursorLocation === 'out' && !isAnimating) {
-			setHorizLineClass('line-out')
-			setVertLineClass('line-out')
-		}
-		// down
-
-		// opening 
-
-		// closing
-	}, [cursorLocation, cursorStatus, isAnimating])*/
-	/*useEffect(() => {
-		detectTransition(vertLineId, 'transform', setLineIsAnimating)
-	}, [])*/
-
-	// ================== Set Classes ================== //
-	// ========== Line Color Class 
-/*	useEffect(() => {	
-		// cursor
-		if(cursorLocation === 'over' && cursorStatus === '') {
-			setLinePositionClass('line-over');
-		} else if(cursorLocation === 'out' && !isAnimating) {
-			setLinePositionClass('line-out');
-		} else if(cursorLocation === 'over' && cursorStatus === 'up') {
-			setLinePositionClass('line-up');
-		} else if(cursorStatus === 'down' && cursorLocation === 'over') {
-			setLinePositionClass('line-down'); 
-		}
-
-	 	if(isAnimating && cursorLocation === 'out') {
-			setLinePositionClass('line-animating');
-		} 
-	}, [cursorStatus, cursorLocation, isAnimating])*/
-
-	// ========== Line direction class 
-	/*useEffect(() => {
-		if(toggleIsOpen) {
-			setLineDirectionClass('line-open');
-		} else {
-			setLineDirectionClass('line-closed');
-		} 
-	}, [toggleIsOpen]);*/
-
-	// ========== Set Is Animating
-	/*useEffect(() => {
-		if(parentIsAnimating || lineIsAnimating) {
-			setIsAnimating(true)
-		} else {	
-			setIsAnimating(false)
-		}
-	}, [parentIsAnimating, lineIsAnimating]) 
-*/
 	// ================== Output ================== //
 	return (
 		<Button>
@@ -248,117 +148,3 @@ export default function OpenCloseToggle({
 		</Button>
 	)
 }
-
-/*
-
-
-
-	// function handleDown() {
-	// 	handleClick();
-	// 	// setCursorStatus('down'); 
-	// }
-
-	// function handleUp() {
-	// 	// setCursorStatus('up'); 
-	// }
-
-	// function handleOut(e) {  
-	// 	// if(e.target.id !== vertLineId && e.target.id !== horizLineId &&
-	// 	// 	e.relatedTarget.id !== vertLineId && e.relatedTarget.id !== horizLineId) { 
-	// 	// 	setCursorLocation('out'); 
-	// 	// 	setCursorStatus(''); 
-	// 	// }
-	// }
-
-
-<div className={`line ${linePositionClass} ${lineAnimatingClass}`} id={horizLineId}></div>
-				<div className={`line ${linePositionClass} ${lineAnimatingClass} ${lineDirectionClass}`} id={vertLineId}></div>
-
-<div className="open-close-toggle" 	
-			id={openCloseToggleId}
-			onMouseOver={handleOver}
-			onMouseOut={handleOut}
-			onMouseDown={handleDown}
-			onMouseUp={handleUp}>
-			<div className={`line ${linePositionClass}`} id={horizLineId}></div>
-			<div className={`line ${linePositionClass} ${lineDirectionClass}`} id={vertLineId}></div>
-		</div> 
-*/
-/* ==================== Bin
-	/*const [linePositionClass, setLinePositionClass] = useState('');
-	const [lineAnimationClass, setLineAnimationClass] = useState('');
-
-	const [animationStatus, setAnimationStatus] = useState('');
-
-	const [cursorLocation, setCursorLocation] = useState('out')
-	const [cursorStatus, setCursorStatus] = useState('up');
-
-	const openingDelay = 1000;
-	const closingDelay = 0;
-	const animationTime = 1000;
-
-	function handleOver() {
-		setCursorLocation('over');
-	}
-
-	function handleOut() {
-		setCursorLocation('out');
-		setCursorStatus('up');
-	}
-
-	function handleDown() {
-		handleClick();
-		setCursorStatus('down');	 
-		animate();
-	}
-
-	function handleUp() {
-		setCursorStatus('up');
-	}
-
-	function animate() {
-		const newStatus = isOpen ? 'closing' : 'opening';
-		setAnimationStatus(newStatus);
-
-		setTimeout(() => {
-			setAnimationStatus('');
-		}, animationDelay + animationTime)
-	}
-
-	useEffect(() => { 
-		let newlinePositionClass = '';  
-
-		// over
-		if(cursorLocation === 'over') {
-			if(cursorStatus === 'up') {
-				newlinePositionClass = 'line-over';
-			// down
-			} else if(cursorStatus === 'down') {
-				newlinePositionClass = 'line-down';
-			}
-		// out
-		}/* else {
-			if(animationStatus === 'opening' || animationStatus === 'closing') {
-				newlinePositionClass = 'line-animating ';
-			} 
-		} 
-
-		setLinePositionClass(newlinePositionClass);
-	}, [cursorStatus, cursorLocation, animationStatus])
-
-	useEffect(() => {
-		if(animationStatus === 'closing') {
-			setLineAnimationClass('line-closing');
-		} else if (animationStatus === 'opening') {
-			setLineAnimationClass('line-opening');
-		} 
-	}, [animationStatus])*/
-
-	{/* 
-		onMouseOver={handleOver}
-			onMouseOut={handleOut}
-			
-			onMouseUp={handleUp}
-
-			${linePositionClass}
-	*/}
