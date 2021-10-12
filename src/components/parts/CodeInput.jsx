@@ -9,7 +9,7 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 
 		* show code
 
-		- update code on user input
+		* update code on user input
 	
 		- reset to original code on refresh press
 
@@ -18,6 +18,9 @@ export default function CodeInput({title, i, code, setCode, originalCode}) {
 		* scroll on overflow
 
 		* animate on open and close
+ 
+		- trim spaces on open
+		- refocus to previous area on open
 	*/
 	
 	// ===================================== Ids ===================================== //
