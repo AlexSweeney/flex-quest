@@ -29,14 +29,6 @@ export default function CodeInput({
 	
 	// ===================================== Ids ===================================== //
 	const codeDisplayId = `code-display-${i}`;
-	const codeDisplayContainerId = `code-display-container-${i}`;
-	
-	// ===================================== Status ===================================== //
-	const [boxStatus, setBoxStatus] = useState('');
-	const [contentContainerStatus, setContentContainerStatus] = useState('');
-	const [isOverflowing, setIsOverflowing] = useState(false);
-	const [refreshClicked, setRefreshClicked] = useState(false);
-	const [colorHasTransitioned, setColorHasTransitioned] = useState(false);
 
 	// ===================================== Classes ===================================== //
 	const [fadeClass, setFadeClass] = useState('code-display-no-fade');
