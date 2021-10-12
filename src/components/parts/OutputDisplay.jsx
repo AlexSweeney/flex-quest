@@ -57,15 +57,17 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	const [outputDisplayClass, setOutputDisplayClass] = useState('output-display-open');
 
 	// ================ Buttons ===================== //
+	// const buttons = [
+	// 	<RefreshButton onClick={onRefreshClick} i={i}/>,
+	// 	<GridButton 
+	// 		handleClick={onGridClick} 
+	// 		gridStatus={gridStatus} 
+	// 		setGridStatus={setGridStatus}
+	// 		showGrid={showGrid}
+	// 		setShowGrid={setShowGrid}/>
+	// ];	 
 	const buttons = [
-		<RefreshButton onClick={onRefreshClick} i={i}/>,
-		<GridButton 
-			handleClick={onGridClick} 
-			gridStatus={gridStatus} 
-			setGridStatus={setGridStatus}
-			showGrid={showGrid}
-			setShowGrid={setShowGrid}/>
-	];	 
+	];
 
 	// ================ Click Handlers ===================== //
 	function onGridClick() {
@@ -207,7 +209,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 			buttons={buttons}>  
 			<div className={`output-display ${outputDisplayClass}`} id={outputDisplayId}>
 				<iframe srcDoc={source} className="iFrame"/> 
-				<GridOverlay gridStatus={gridStatus} showGrid={showGrid}/>
+			{/*	<GridOverlay gridStatus={gridStatus} showGrid={showGrid}/>*/}
 			</div>  
 		</OpenCloseBox>
 	)

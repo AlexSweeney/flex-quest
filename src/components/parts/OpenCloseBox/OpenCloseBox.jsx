@@ -6,8 +6,8 @@ import './OpenCloseBox.css';
 export default function OpenCloseBox({
 	title = '',
 	i,
-	boxBodyId = null,
-	contentContainerId = null,
+	/*boxBodyId = null,
+	contentContainerId = null,*/
 	buttons = [],   
 	handleToggleClick = () => {},
 	handleOverflowHidden = () => {},
@@ -36,15 +36,17 @@ export default function OpenCloseBox({
 	// ======================================== Constants ========================================= //
 	// =================== Id's 
 	const boxId = `box-${i}`;
-	if(!boxBodyId) boxBodyId = `box-body-${i}`;
-	if(!contentContainerId) contentContainerId = `content-container-${i}`;
+	// if(!boxBodyId) boxBodyId = `box-body-${i}`;
+	// if(!contentContainerId) contentContainerId = `content-container-${i}`;
+	const boxBodyId = `box-body-${i}`;
+	const contentContainerId = `content-container-${i}`;
 	const displayContainerId = `display-container-${i}`;
 
 	// =================== State
 	const [boxIsOpen, setBoxIsOpen] = useState(true);
 
-	const [widthIsOverflowing, setWidthIsOverflowing] = useState(false);
-	const [heightIsOverflowing, setHeightIsOverflowing] = useState(false);
+	const [widthOverflowClosed, setWidthOverflowClosed] = useState(false);
+	const [heightOverflowClosed, setHeightOverflowClosed] = useState(false);
 	const [overflowIsShrinking, setOverflowIsShrinking] = useState(false);
 
 	// =================== State Old
@@ -54,8 +56,8 @@ export default function OpenCloseBox({
 	const [isAnimating, setIsAnimating] = useState(false);
 	const [toggleIsOpen, setToggleIsOpen] = useState(false);
 
-	const [widthOverflowOnClose, setWidthOverflowOnClose] = useState(false);
-	const [heightOverflowOnClose, setHeightOverflowOnClose] = useState(false);
+	// const [widthOverflowOnClose, setWidthOverflowOnClose] = useState(false);
+	// const [heightOverflowOnClose, setHeightOverflowOnClose] = useState(false);
 	const [savedHeight, setSavedHeight] = useState(null);
 
 	// const [widthIsOverflowing, setWidthIsOverflowing] = useState(false);
@@ -69,48 +71,60 @@ export default function OpenCloseBox({
 	const [contentContainerOpenClass, setContentContainerOpenClass] = useState('content-container-open');
 
 	// ======================================== Event Handlers ========================================= //
+	// ==================== Press open / close
 	function onClickOpenCloseToggle() {
-		if(!isAnimating) {
-			setBoxIsOpen(oldVal => !oldVal)
-			setIsAnimating(true) 
+		if(!isAnimating) { 
+			setIsAnimating(true)
+ 
+			if(boxIsOpen) onClose()
+			if(!boxIsOpen) 
+
 			handleToggleClick(!boxIsOpen, elementWidthIsOverflowing(boxBodyId), elementHeightIsOverflowing(boxBodyId))
 		} 
 	} 
 
-	function onCloseContentContainer() {
-		const [thisWidthIsOverflowing, thisHeightIsOverflowing] = checkForOverflow(boxBodyId);
-		
-		if(thisWidthIsOverflowing || thisHeightIsOverflowing) onCloseOverflow()
-		if(thisWidthIsOverflowing) onCloseWidthOverflow()
-		if(thisHeightIsOverflowing) onCloseHeightOverflow()  
-		if(!thisWidthIsOverflowing && !thisHeightIsOverflowing) onCloseBox()
-	} 
+	// ==================== On Close =============== //
+	function onClose() {
+		const isOverflowing = elementIsOverflowing(boxBodyId); 
 
-	function onCloseOverflow() {
-		setOverflowIsShrinking(true)
-		setContentContainerOpenClass('content-container-closing-overflow') 
+		if(isOverflowing) onClosingOverflow()
+		if(!isOverflowing) onClosedOverflow()
 	}
 	
-	function onCloseWidthOverflow() { 
-		listenForWidthOverflowShrink()
-		closeWidthOverflow()  
+	// ==================== Close Overflow -> then
+	function onClosingOverflow() { 
+		updateOverflowStatus() 
+		setContentContainerOpenClass('content-container-closing-overflow') 
+		closeOverflow(contentContainerId, boxBodyId)
 	}
+ 
+	function onClosedOverflow() {
+		console.log('overflow closed ----------')
+		setOverflowIsShrinking(false)
+		onCloseBox() 
+	} 
 
-	function onCloseHeightOverflow() {
-		listenForHeightOverflowShrink()
-		closeHeightOverflow() 
-	}
-
+	// ==================== Close Box -> then
 	function onCloseBox() {
+		setBoxIsOpen(false)
 		setBoxOpenClass('box-closed')
 		setContentContainerOpenClass('content-container-closing-x')
 		triggerOnTransitionEnd(boxId, 'width', onBoxClosed)
-	}
-	
-	function onBoxClosed() {
+	} 
+
+	// ==================== Close Content Container - finished
+ 	function onBoxClosed() {
 		console.log('closed')
-		onCloseContentContainer()
+		// onCloseContentContainer()
 	}
+
+	// function onCloseBox() {
+	// 	setBoxOpenClass('box-closed')
+	// 	setContentContainerOpenClass('content-container-closing-x')
+	// 	triggerOnTransitionEnd(boxId, 'width', onBoxClosed)
+	// }
+	
+	
 
 	/*function onClickOpenCloseToggleOld() {
 		if(!isAnimating) { 
@@ -209,69 +223,106 @@ export default function OpenCloseBox({
 	// }
 
 	// ======================================== Helper Fns ========================================= //
-	function elementWidthIsOverflowing(id) {
-		const element = document.getElementById(id);
-		if(!element) return;
+	/*function closeContentContainerOverflow() {  
+		const [thisWidthIsOverflowing, thisHeightIsOverflowing] = checkForOverflow(boxBodyId);
+		
+		if(thisWidthIsOverflowing || thisHeightIsOverflowing) onClosingOverflow()
+		if(thisWidthIsOverflowing) closeWidthOverflow()
+		if(thisHeightIsOverflowing) closeHeightOverflow()  
+		if(!thisWidthIsOverflowing && !thisHeightIsOverflowing) onClosedOverflow()
+	} */
 
-	  return element.scrollWidth > element.clientWidth;
-	}
-
-	function elementHeightIsOverflowing(id) {
-		const element = document.getElementById(id);
-		if(!element) return;
-
-	  return element.scrollHeight > element.clientHeight;
+	// =============== Detect Overflow
+	function elementIsOverflowing(id) { 
+		return elementWidthIsOverflowing(id) || elementHeightIsOverflowing(id);
 	}
 
 	function checkForOverflow(id) {
 		return [elementWidthIsOverflowing(id), elementHeightIsOverflowing(id)];
 	}
- 
-	function listenForHeightOverflowShrink() {
-		setHeightIsOverflowing(true)
-		triggerOnTransitionEnd(contentContainerId, 'height', () => { setHeightIsOverflowing(false)})
-	}
 
-	function listenForWidthOverflowShrink() {
-		setWidthIsOverflowing(true)
-		triggerOnTransitionEnd(contentContainerId, 'width', () => { setWidthIsOverflowing(false)})
-	}
-
-	function closeWidthOverflow() {
-		keepWidth(contentContainerId)
-		setWidthToFull(contentContainerId, boxBodyId)
-	}
-
-	function closeHeightOverflow() {
-		keepHeight(contentContainerId)
-		setHeightToFull(contentContainerId, boxBodyId)
-	}
-
-	function keepWidth(id) {
-		const element = document.getElementById(id);
-		const width = element.clientWidth + 'px';
- 
-		element.style.width = width; 
-	}
-
-	function keepHeight(id) {
+	function elementWidthIsOverflowing(id) {
 		const element = document.getElementById(id);  
-		const height = element.offsetHeight + 'px';  
-		element.style.height = height;
+
+	  return element.scrollWidth > element.clientWidth;
 	}
 
-	function setHeightToFull(id, heightId) {
-		const element = document.getElementById(id);
-		const heightElement = document.getElementById(heightId); 
-		const height = heightElement.clientHeight;  
-		element.style.height = height + 'px';
+	function elementHeightIsOverflowing(id) {
+		const element = document.getElementById(id); 
+
+	  return element.scrollHeight > element.clientHeight;
+	} 
+
+	function setOverflowStatus(parentId) {
+		const [thisWidthIsOverflowing, thisHeightIsOverflowing] = checkForOverflow(parentId);
+		
+		setWidthOverflowClosed(!thisWidthIsOverflowing)
+		setHeightOverflowClosed(!thisHeightIsOverflowing)
 	}
 
-	function setWidthToFull(id, widthId) {
+	// =============== Close Overflow
+	function closeOverflow(id, parentId) {
+		const [thisWidthIsOverflowing, thisHeightIsOverflowing] = checkForOverflow(parentId);
+
+		if(thisWidthIsOverflowing || thisHeightIsOverflowing) setOverflowIsShrinking(true)
+		if(thisWidthIsOverflowing) closeWidthOverflow(id, parentId)
+		if(thisHeightIsOverflowing) closeHeightOverflow(id, parentId)  
+	}
+
+	function closeWidthOverflow(id, parentId) { 
+		setWidthInPx(id)
+		setToParentWidth(id, parentId)
+	}
+
+	function closeHeightOverflow(id, parentId) { 
+		setHeightInPx(id)
+		setToParentHeight(id, parentId)
+	}  
+
+	// =============== Listen for transition end
+	function updateOverflowStatus() {
+		setOverflowStatus(boxBodyId)
+		updateOverflowStatusOnTransition(contentContainerId, boxBodyId)
+	}
+
+	function updateOverflowStatusOnTransition(id, parentId) {
+		const [thisWidthIsOverflowing, thisHeightIsOverflowing] = checkForOverflow(parentId);
+
+		if(thisWidthIsOverflowing) listenForWidthTransition(id) 
+		if(thisHeightIsOverflowing) listenForHeightTransition(id)  
+	}
+
+	function listenForWidthTransition(id) {   
+		triggerOnTransitionEnd(id, 'width', () => { setWidthOverflowClosed(true) })
+	}
+
+	function listenForHeightTransition(id) {  
+		triggerOnTransitionEnd(id, 'height', () => { setHeightOverflowClosed(true)})
+	} 
+
+	// =============== Change Size
+	function setWidthInPx(id) {
 		const element = document.getElementById(id);
-		const widthElement = document.getElementById(widthId); 
-		const width = widthElement.offsetWidth; 
-		element.style.width = width + 'px';
+		element.style.width = element.clientWidth + 'px';
+	}
+
+	function setHeightInPx(id) {
+		const element = document.getElementById(id);  
+		element.style.height = element.offsetHeight + 'px';
+	}
+
+	function setToParentHeight(id, parentId) {
+		const element = document.getElementById(id);
+		const parentElement = document.getElementById(parentId); 
+
+		element.style.height = window.getComputedStyle(parentElement).height;
+	}
+
+	function setToParentWidth(id, parentId) {
+		const element = document.getElementById(id);
+		const parentElement = document.getElementById(parentId); 
+ 		 
+		element.style.width = window.getComputedStyle(parentElement).width;
 	}
 
 	// function addListeners(id, property, fn) { 
@@ -326,18 +377,46 @@ export default function OpenCloseBox({
 
 	// ======================================== Listen / Trigger ================================== //
 	// =================== open / close content container
-	useEffect(() => {
-		// if(isAnimating && boxIsOpen) openContentContainer()
-		if(isAnimating && !boxIsOpen) onCloseContentContainer()
-	}, [boxIsOpen, isAnimating])
+	// useEffect(() => {
+	// 	// if(isAnimating && boxIsOpen) openContentContainer()
+	// 	if(isAnimating && !boxIsOpen) onCloseContentContainer()
+	// }, [boxIsOpen, isAnimating])
 
-	// =================== open / close box
-	useEffect(() => {
-		if(overflowIsShrinking && !widthIsOverflowing && !heightIsOverflowing) {
-			onCloseBox()
+	// =================== overflow closed
+	useEffect(() => { 
+		if(overflowIsShrinking && widthOverflowClosed && heightOverflowClosed) {
+			onClosedOverflow()
 		}
-	}, [overflowIsShrinking, widthIsOverflowing, heightIsOverflowing])
+	}, [overflowIsShrinking, widthOverflowClosed, heightOverflowClosed])
 
+	// useEffect(() => {
+	// 	console.log('overflowIsShrinking', overflowIsShrinking) 
+	// }, [overflowIsShrinking])
+
+	// useEffect(() => {
+	// 	console.log('widthOverflowClosed', widthOverflowClosed) 
+	// }, [widthOverflowClosed])
+
+	// useEffect(() => {
+	// 	console.log('heightOverflowClosed', heightOverflowClosed) 
+	// }, [heightOverflowClosed])
+
+	// useEffect(() => {
+	// 	document.addEventListener('transitionstart', (e) => {
+	// 		if(e.propertyName === 'width') {
+	// 			console.log('width trans start')
+	// 			console.log(e)
+	// 		}
+			
+	// 	})
+
+	// 	document.addEventListener('transitionend', (e) => {
+	// 		if(e.propertyName === 'width') {
+	// 			console.log('width trans end')
+	// 			console.log(e)
+	// 		} 
+	// 	})
+	// }, [])
 
 	/*useEffect(() => {
 		if(clickedOpen === true) onPressBoxOpening()
@@ -385,7 +464,9 @@ export default function OpenCloseBox({
 
 			<div className={`box-body`} id={boxBodyId}> 
 				<div className={`content-container ${contentContainerOpenClass}`} id={contentContainerId}>
-					{children}
+					{/*{children}*/}
+					<p>hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello</p>
+
 				</div>
 			</div>
 		</div>

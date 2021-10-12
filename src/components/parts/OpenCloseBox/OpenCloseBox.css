@@ -90,7 +90,7 @@
 
 /* =================== Content Container  */
 .content-container { 
-	transition: height 1s, min-height 1s, width 1s;
+	transition: height 1s, width 1s;
  
 	box-sizing: border-box;
 	
@@ -107,9 +107,14 @@
  /* align-items: stretch;*/
 
   /*border: 8px solid #E8E4E4;*/
+  white-space: nowrap;
 }  
 
 .content-container-closing-overflow {
+	overflow: hidden; 
+}
+
+/*.content-container-closing-overflow {
 	overflow: hidden;
 	min-height: 100%;
 }
@@ -148,7 +153,7 @@
 
 .content-container-open {
 	
-}
+}*/
 
 /* =================== Content Container  */
 .box-body::-webkit-scrollbar { 
