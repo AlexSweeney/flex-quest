@@ -1,4 +1,6 @@
 // ================ trigger fn on transition start and end, one time
+
+// ____________ fix = other transition can trigger = misses
 export function onTransition(id, propertyName, onStart = null, onEnd = null) {
 	const element = document.getElementById(id); 
 
@@ -14,7 +16,7 @@ export function triggerOnTransitionEnd(id, propertyName, onEnd = null) {
  
 	const thisEndFn = transitionEndHandler.bind(null, id, propertyName, onEnd);
  
-	element.addEventListener('transitionend', thisEndFn, {once: true})
+	element.addEventListener('transitionend', thisEndFn)
 }
 
 function transitionStartHandler(id, propertyName, onStart, e) { 

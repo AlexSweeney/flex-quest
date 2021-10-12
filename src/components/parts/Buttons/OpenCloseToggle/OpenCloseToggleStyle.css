@@ -1,14 +1,132 @@
 .open-close-toggle {
-	height: 22px;
 	width: 22px;
+	height: 22px;
 	border-radius: 100%;
 	background: #E8E4E4; 
-	position: relative;
+	position: relative; 
+	z-index: 2;
 }
 
 .open-close-toggle:hover {
-	cursor: pointer;
+	cursor: pointer; 
 }
+
+/*.open-close-toggle:hover {
+	cursor: pointer;
+	background: blue;
+}
+
+.open-close-toggle:active {
+	background: red;
+}*/
+
+.line {
+	background: #272727;
+	position: absolute; 
+	width: 12px;
+  height: 4px;
+ 	top: 9px;
+ 	left: 5px;
+ 	z-index: -1; 
+}
+
+/* =============== Over =============== */
+.line-over {
+	background: #2196f3;
+}
+
+.line-over-transition {
+	transition: background 500ms;
+}
+
+.line-out {
+	background: #272727; 
+}
+
+.line-out-transition {
+	transition: background 1000ms;
+} 
+
+.line-down-transition {
+	transition: background 250ms;
+}
+
+.line-open {
+	background: #3f51b5;
+}
+
+.line-open-transition {
+	transition: transform 1s;
+}
+
+.line-open-transform {
+	transform: rotate(90deg);  
+}
+
+.line-closed {
+	background: #3f51b5;
+}
+
+.line-closed-transition {
+	transition: transform 1s;
+}
+
+.line-closed-transform {
+}
+
+.line-animating {
+	background: #3f51b5; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*.line-over,
+.line-out {
+	transition: background 500ms, transform 1s;
+}
+
+.line-down,
+.line-up {
+	transition: background 250ms, transform 1s;
+}
+*/
+/*.line-over {
+	background: #2196f3; 
+}
+
+.line-out {
+
+}*/
+
+/*.line-down {
+	background: #3f51b5;
+}
+
+.line-animating {
+	background: #3f51b5;
+}
+
+.line-opening {
+	transform: rotate(90deg);  
+	transition: transform 1s;
+}
+
+.line-closing {
+	transition: transform 1s;
+}
+*/
+
+
+/*
 
 .line {
 	position: absolute;
@@ -51,4 +169,4 @@
 .line-down,
 .line-up {
 	transition: background 250ms, transform 1s;
-}
+}*/

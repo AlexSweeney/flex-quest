@@ -77,17 +77,14 @@ export default function OpenCloseBox({
 	}
 
 	function onPressBoxClosing() { 
-		setIsAnimating(true)
-		console.log('press closing ----------------------')
+		setIsAnimating(true) 
 		
 		if(boxIsOpen) {
-			const thisWidthIsOverflowing = elementWidthIsOverflowing(boxBodyId);
-			console.log('thisWidthIsOverflowing --', thisWidthIsOverflowing)
+			const thisWidthIsOverflowing = elementWidthIsOverflowing(boxBodyId); 
 			setWidthOverflowOnClose(thisWidthIsOverflowing) 
 
 			const thisHeightIsOverflowing = elementHeightIsOverflowing(boxBodyId);
-			setHeightOverflowOnClose(thisHeightIsOverflowing)
-			console.log('thisHeightIsOverflowing ===========', thisHeightIsOverflowing)
+			setHeightOverflowOnClose(thisHeightIsOverflowing) 
 	  
 			if(thisWidthIsOverflowing || thisHeightIsOverflowing) setOverflowIsShrinking(true)
 			if(thisWidthIsOverflowing) closeWidthOverflow()
