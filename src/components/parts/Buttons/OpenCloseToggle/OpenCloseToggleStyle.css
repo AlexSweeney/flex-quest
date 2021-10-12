@@ -52,7 +52,3 @@
 .line-up {
 	transition: background 250ms, transform 1s;
 }
-
-/*.line-animated {
-	transition: background 1s, transform 1s;
-}*/

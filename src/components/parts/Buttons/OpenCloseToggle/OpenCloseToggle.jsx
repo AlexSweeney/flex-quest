@@ -1,28 +1,38 @@
 import React, {useState, useEffect} from 'react';
+import Button from './../Button.jsx';
+// import {detectTransition} from './../../../utils.js';
 import './OpenCloseToggleStyle.css';
-import {detectTransition} from './../../utils.js';
 
 export default function OpenCloseToggle({
 	toggleIsOpen = false, 
 	parentIsAnimating = false, 
-	handleClick = () => { console.log('no function passed to OpenCloseToggle')}, 
+	handleClick = () => {}, 
 	i = 0}) { 
-	// ================== Ids ================== //
+	/*
+		* when Toggle is closed = plus sign
+		* when Toggle is open = minus sign
+		* animate rotatation between plus and minus sign
+		* call handleClick on click
+		* change color on over, down, animating 
+	*/
+
+	// ==================================== Constants ==================================== //
+	// ================== Ids 
 	const vertLineId = 'vert-line-' + i;
 	const horizLineId = 'horiz-line-' + i;
 	const openCloseToggleId = 'open-close-toggle' + i;
 
-	// ================== Status ================== //
+	// ================== Status
 	const [lineIsAnimating, setLineIsAnimating] = useState(false);
 	const [cursorLocation, setCursorLocation] = useState('');
 	const [cursorStatus, setCursorStatus] = useState(''); 
 	const [isAnimating, setIsAnimating] = useState(false);
 
-	// ================== Classes ================== //
+	// ================== Classes
 	const [lineDirectionClass, setLineDirectionClass] = useState(toggleIsOpen ? 'line-open' : 'line-closed');
 	const [lineColorClass, setLineColorClass] = useState('line-out');
 
-	// ================== Event Handlers ================== //
+	// ==================================== Event Handlers =============================== //
 	function handleDown() {
 		handleClick();
 		setCursorStatus('down'); 
@@ -44,14 +54,16 @@ export default function OpenCloseToggle({
 		}
 	} 
 
+	// ==================================== Listen / Trigger ============================= //
+
 	// ================== Detect Events ================== //
-	useEffect(() => {
+	/*useEffect(() => {
 		detectTransition(vertLineId, 'transform', setLineIsAnimating)
-	}, [])
+	}, [])*/
 
 	// ================== Set Classes ================== //
-	// ========== Line Color Class //
-	useEffect(() => {	
+	// ========== Line Color Class 
+/*	useEffect(() => {	
 		// cursor
 		if(cursorLocation === 'over' && cursorStatus === '') {
 			setLineColorClass('line-over');
@@ -66,34 +78,36 @@ export default function OpenCloseToggle({
 	 	if(isAnimating && cursorLocation === 'out') {
 			setLineColorClass('line-animating');
 		} 
-	}, [cursorStatus, cursorLocation, isAnimating])
+	}, [cursorStatus, cursorLocation, isAnimating])*/
 
-	// ========== Line direction class //
-	useEffect(() => {
+	// ========== Line direction class 
+	/*useEffect(() => {
 		if(toggleIsOpen) {
 			setLineDirectionClass('line-open');
 		} else {
 			setLineDirectionClass('line-closed');
 		} 
-	}, [toggleIsOpen]);
+	}, [toggleIsOpen]);*/
 
-	// ================== Set Status ================== //
-	useEffect(() => {
+	// ========== Set Is Animating
+	/*useEffect(() => {
 		if(parentIsAnimating || lineIsAnimating) {
 			setIsAnimating(true)
 		} else {	
 			setIsAnimating(false)
 		}
-	}, [parentIsAnimating, lineIsAnimating])
+	}, [parentIsAnimating, lineIsAnimating]) */
 
-	// ================== Console logs ================== //
-	// useEffect(() => {
-	// 	console.log('lineIsAnimating', lineIsAnimating)
-	// }, [lineIsAnimating])
-
-	// ================== Componenet ================== //
+	// ================== Output ================== //
 	return (
-		<div className="open-close-toggle" 	
+		<Button>
+
+		</Button>
+	)
+}
+
+/*
+<div className="open-close-toggle" 	
 			id={openCloseToggleId}
 			onMouseOver={handleOver}
 			onMouseOut={handleOut}
@@ -102,9 +116,7 @@ export default function OpenCloseToggle({
 			<div className={`line ${lineColorClass}`} id={horizLineId}></div>
 			<div className={`line ${lineColorClass} ${lineDirectionClass}`} id={vertLineId}></div>
 		</div> 
-	)
-}
-
+*/
 /* ==================== Bin
 	/*const [lineColorClass, setLineColorClass] = useState('');
 	const [lineAnimationClass, setLineAnimationClass] = useState('');

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'; 
-import OpenCloseToggle from './../OpenCloseToggle/OpenCloseToggle.jsx'; 
+import OpenCloseToggle from './../Buttons/OpenCloseToggle/OpenCloseToggle.jsx'; 
 import './OpenCloseBox.css';
 
 export default function OpenCloseBox({
