@@ -109,14 +109,18 @@ export default function OpenCloseBox({
 		setBoxIsOpen(false)
 		setBoxOpenClass('box-closed')
 		setContentContainerOpenClass('content-container-closing-x')
-		// triggerOnTransitionEnd(boxId, 'width', onBoxClosed)
+		triggerOnTransitionEnd(boxId, 'width', onBoxClosed)
 	} 
 
-	// ==================== Close Content Container - finished
- 	function onBoxClosed() {
-		console.log('closed')
-		// onCloseContentContainer()
+	function onBoxClosed() { 
+		setToggleIsOpen(true)
+		onCloseContentContainer()
 	}
+
+	// ==================== Close Content Container - finished
+ 	function onCloseContentContainer() {
+ 		setContentContainerOpenClass('content-container-closing-y')
+ 	}
 
 	// function onCloseBox() {
 	// 	setBoxOpenClass('box-closed')

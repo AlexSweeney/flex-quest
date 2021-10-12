@@ -64,14 +64,12 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+
+	position: absolute; 
 	right: 0;
 	z-index: 1000;
 
-	background: #272727;
-	
-	position: absolute;
-	
-	background: red;
+	background: #272727; 
 }
 
 /* =================== Body */
@@ -95,7 +93,7 @@
 
 /* =================== Content Container  */
 .content-container { 
-	transition: height 1s, width 1s;
+	transition: height 1s, min-height 1s, width 1s;
  
 	box-sizing: border-box;
 	
@@ -123,6 +121,13 @@
 	overflow: hidden;
 	max-width: 100%;
 	height: 100%; 
+}
+
+.content-container-closing-y {
+	height: 0 !important;
+	min-height: 0;
+  overflow: hidden;
+  max-width: 100%; 
 }
 
 /*.content-container-closing-overflow {
