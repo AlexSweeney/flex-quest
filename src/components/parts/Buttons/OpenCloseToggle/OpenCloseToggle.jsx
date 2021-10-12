@@ -14,12 +14,7 @@ export default function OpenCloseToggle({
 		* call handleClick on click
 		* change color on over, down, animating 
 		* revert color on out / animation over 
-		* fade color changes
- 
-		fix triggerOnTransitionEnd => not triggered by other transitions (once => doesn't work)
-
-		tidy 
-		push
+		* fade color changes 
 	*/ 
 
 	// ==================================== Constants ==================================== //
@@ -39,6 +34,7 @@ export default function OpenCloseToggle({
 	const [transformClass, setTransformClass] = useState('');
 
 	// ==================================== Event Handlers =============================== //
+	// ================== Mouse
 	function onMouseOver() { 
 		setIsOver(true)	 
 		if(!isAnimating) setLineOverClasses()
@@ -58,10 +54,12 @@ export default function OpenCloseToggle({
 		} 
 	}
 
+	// ================== Transform (rotate)
 	function onTransformEnd() { 
 		setIsAnimating(false)
 	}
 
+	// ================== Toggle 
 	function onToggleOpening() { 
 		setLineOpeningClasses()
 	}
