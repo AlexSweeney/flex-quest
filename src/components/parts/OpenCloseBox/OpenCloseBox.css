@@ -130,6 +130,25 @@
   max-width: 100%; 
 }
 
+.content-container-opening-x-overflow {
+	height: 1px !important;
+	min-height: 0;
+	/*overflow: hidden;*/
+	visibility: hidden;
+}
+
+.content-container-opening-x {
+	height: 0 !important; 
+	min-height: 0;
+	overflow: hidden;
+	max-width: 100%;
+}
+
+.content-container-opening-y {
+	overflow: hidden;   
+	min-height: 100%;
+}
+
 /*.content-container-closing-overflow {
 	overflow: hidden;
 	min-height: 100%;
@@ -144,19 +163,7 @@
   min-height: 0; 
 }
 
-.content-container-opening-x {
-	height: 1px !important;
-	min-height: 0;
-	overflow: hidden;
-	visibility: hidden;
-}
 
-.content-container-opening-x-max-width {
-	height: 0 !important; 
-	min-height: 0;
-	overflow: hidden;
-	max-width: 100%;
-}
 
 .content-container-opening-y {
 	overflow: hidden;   

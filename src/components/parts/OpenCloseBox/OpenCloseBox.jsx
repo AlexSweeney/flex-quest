@@ -28,11 +28,12 @@ export default function OpenCloseBox({
 				* open content container
 				* open box
 				* if width overflow show scroll bar on open box.  
-				* open box to previous size 
+				* open box to previous size  
 
+		try -> can promise.All to return when overflow is shrunk
 
-		use promises?  only return when finished = cleaner code
 	*/
+
 	// ======================================== Constants ========================================= //
 	// =================== Id's 
 	const boxId = `box-${i}`;
@@ -44,19 +45,21 @@ export default function OpenCloseBox({
 
 	// =================== State
 	const [boxIsOpen, setBoxIsOpen] = useState(true);
+	const [toggleIsOpen, setToggleIsOpen] = useState(false);
 
 	const [widthOverflowClosed, setWidthOverflowClosed] = useState(false);
 	const [heightOverflowClosed, setHeightOverflowClosed] = useState(false);
 	const [overflowIsShrinking, setOverflowIsShrinking] = useState(false);
 
+	const [widthOverflowOnClose, setWidthOverflowOnClose] = useState(false);
 	// =================== State Old
-	const [clickedOpen, setClickedOpen] = useState(null);
+	// const [clickedOpen, setClickedOpen] = useState(null);
 	// const [boxIsOpen, setBoxIsOpen] = useState(true);
 
 	const [isAnimating, setIsAnimating] = useState(false);
-	const [toggleIsOpen, setToggleIsOpen] = useState(false);
+	// const [toggleIsOpen, setToggleIsOpen] = useState(false);
 
-	// const [widthOverflowOnClose, setWidthOverflowOnClose] = useState(false);
+	
 	// const [heightOverflowOnClose, setHeightOverflowOnClose] = useState(false);
 	const [savedHeight, setSavedHeight] = useState(null);
 
@@ -64,7 +67,7 @@ export default function OpenCloseBox({
 	// const [heightIsOverflowing, setHeightIsOverflowing] = useState(false);
 	// const [overflowIsShrinking, setOverflowIsShrinking] = useState(false);
 
-	const [boxWidthTransitionHasEnded, setBoxWidthTransitionHasEnded] = useState(false);
+	// const [boxWidthTransitionHasEnded, setBoxWidthTransitionHasEnded] = useState(false);
 
 	// ==================== Classes
 	const [boxOpenClass, setBoxOpenClass] = useState('box-open');
@@ -77,7 +80,7 @@ export default function OpenCloseBox({
 			setIsAnimating(true)
  
 			if(boxIsOpen) onClose()
-			if(!boxIsOpen) 
+			if(!boxIsOpen) onOpen()
 
 			handleToggleClick(!boxIsOpen, elementWidthIsOverflowing(boxBodyId), elementHeightIsOverflowing(boxBodyId))
 		} 
@@ -89,6 +92,8 @@ export default function OpenCloseBox({
 
 		if(isOverflowing) onClosingOverflow()
 		if(!isOverflowing) onClosedOverflow()
+
+		saveWidthOverflowStatus(boxBodyId)
 	}
 	
 	// ==================== Close Overflow -> then
@@ -99,7 +104,6 @@ export default function OpenCloseBox({
 	}
  
 	function onClosedOverflow() {
-		console.log('overflow closed ----------')
 		setOverflowIsShrinking(false)
 		onCloseBox() 
 	} 
@@ -120,6 +124,56 @@ export default function OpenCloseBox({
 	// ==================== Close Content Container - finished
  	function onCloseContentContainer() {
  		setContentContainerOpenClass('content-container-closing-y')
+ 		setIsAnimating(false)
+ 	}
+
+
+ 	// ==================== On Open ===> =============== //
+ 	function onOpen() {
+ 		console.log('onOpen')
+ 		setIsAnimating(true)
+ 		if(widthOverflowOnClose) onOpenBoxOverflow()
+ 		if(!widthOverflowOnClose) onOpenBox()
+ 	}
+
+ 	// ==================== Open Box =================== //
+ 	function onOpenBoxOverflow() {
+ 		console.log('onOpenBoxOverflow ------------------')
+ 		setBoxOpenClass('box-open')
+ 		setContentContainerOpenClass('content-container-opening-x-overflow')
+ 		triggerOnTransitionEnd(boxId, 'width', onBoxOpen)
+ 	// 		setIsAnimating(true)
+		// setBoxOpenClass('box-open')
+		
+		// if(widthOverflowOnClose) setContentContainerOpenClass('content-container-opening-x')
+		// if(!widthOverflowOnClose) setContentContainerOpenClass('content-container-opening-x-max-width')
+		// removeInlineWidth(contentContainerId)
+		// addListeners(boxId, 'width', () => { setBoxWidthTransitionHasEnded(true) })
+ 	}
+
+ 	function onOpenBox() {
+ 		console.log('onOpenBox -----------------------')
+ 		//document.addEventListener('transitionend', (e) => { console.log('trans end', e)})
+ 		// triggerOnTransitionEnd(boxId, 'width', () => {console.log('trans end')})
+ 		setBoxOpenClass('box-open') 
+ 		setContentContainerOpenClass('content-container-opening-x') 
+ 		triggerOnTransitionEnd(boxId, 'width', onBoxOpen)
+ 	}
+
+ 	function onBoxOpen() {
+ 		console.log('boxOpen ========================')
+ 		onOpenContentContainer()
+ 	}
+
+ 	// ==================== Open ContentContainer =================== //
+ 	function onOpenContentContainer() {
+ 		removeInlineWidth(contentContainerId)
+ 		triggerOnTransitionEnd(contentContainerId, 'min-height', onContentContainerOpen)
+ 		setContentContainerOpenClass('content-container-opening-y')	
+ 	}
+
+ 	function onContentContainerOpen() {
+ 		setIsAnimating(false) 
  	}
 
 	// function onCloseBox() {
@@ -264,6 +318,11 @@ export default function OpenCloseBox({
 		setHeightOverflowClosed(!thisHeightIsOverflowing)
 	}
 
+	function saveWidthOverflowStatus(parentId) {
+		const thisWidthIsOverflowing = elementWidthIsOverflowing(parentId);
+		setWidthOverflowOnClose(thisWidthIsOverflowing)
+	}
+
 	// =============== Close Overflow
 	function closeOverflow(id, parentId) {
 		const [thisWidthIsOverflowing, thisHeightIsOverflowing] = checkForOverflow(parentId);
@@ -329,6 +388,12 @@ export default function OpenCloseBox({
 		element.style.width = window.getComputedStyle(parentElement).width;
 	}
 
+	function removeInlineWidth(id) {
+		const element = document.getElementById(id);
+		element.style.width = '';
+	} 
+
+
 	// function addListeners(id, property, fn) { 
 	// 	const element = document.getElementById(id);
 
@@ -347,10 +412,6 @@ export default function OpenCloseBox({
 	// 	element.style.height = '';
 	// }
 
-	// function removeInlineWidth(id) {
-	// 	const element = document.getElementById(id);
-	// 	element.style.width = '';
-	// } 
 
 
 	
@@ -392,18 +453,7 @@ export default function OpenCloseBox({
 			onClosedOverflow()
 		}
 	}, [overflowIsShrinking, widthOverflowClosed, heightOverflowClosed])
-
-	// useEffect(() => {
-	// 	console.log('overflowIsShrinking', overflowIsShrinking) 
-	// }, [overflowIsShrinking])
-
-	// useEffect(() => {
-	// 	console.log('widthOverflowClosed', widthOverflowClosed) 
-	// }, [widthOverflowClosed])
-
-	// useEffect(() => {
-	// 	console.log('heightOverflowClosed', heightOverflowClosed) 
-	// }, [heightOverflowClosed])
+ 
 
 	// useEffect(() => {
 	// 	document.addEventListener('transitionstart', (e) => {
@@ -470,7 +520,7 @@ export default function OpenCloseBox({
 				<div className={`content-container ${contentContainerOpenClass}`} id={contentContainerId}>
 					{/*{children}*/}
 					<p>hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello</p>
-
+					{/*<p>hellohellohello</p>*/}
 				</div>
 			</div>
 		</div>

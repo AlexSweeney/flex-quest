@@ -24,9 +24,7 @@ function transitionStartHandler(id, propertyName, onStart, e) {
 }
 
 function transitionEndHandler(id, propertyName, onEnd, e) {  
-	// if pass call function
-	console.log('end', id)
-	console.log('e.propertyName', e.propertyName)
+	// if pass call function 
 	if(e.propertyName === propertyName && e.srcElement.id === id) {   
 		onEnd && onEnd()   
 	// if fail try again 
