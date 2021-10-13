@@ -97,7 +97,6 @@
 	box-sizing: border-box;
 	
   min-width: 100%;
-  min-height: 100%;
   background: pink;
 	/*min-width: 100%;
   min-height: 100%; */
@@ -132,27 +131,26 @@
 }
  
 .content-container-opening-x-overflow {
-	height: 1px !important;
-	min-height: 0;
+	height: 1px !important; 
 	overflow: hidden;
 	visibility: hidden;
 }
 
 .content-container-opening-x {
-	height: 0 !important; 
-	min-height: 0;
+	height: 0 !important;  
 	overflow: hidden;
 	max-width: 100%;
 }
 
 .content-container-opening-y {
-	height: 0;
+	height: 0; 
 	overflow: hidden;  
+
 	/* set height with js */  
 }
   
 .content-container-open {
-
+	min-height: 100%;
 }
 
 /*.content-container-closing-overflow {
