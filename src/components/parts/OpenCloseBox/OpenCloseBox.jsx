@@ -29,7 +29,11 @@ export default function OpenCloseBox({
 				* open box
 				* if width overflow show scroll bar on open box.  
 				* open box to previous size  
-
+			
+		* normal 
+		width overflow = jerky on open
+		height overflow = broken
+		width + height
 		try -> can promise.All to return when overflow is shrunk
 
 	*/
@@ -59,208 +63,91 @@ export default function OpenCloseBox({
 
 	// ======================================== Event Handlers ========================================= //
 	// ==================== Press open / close
-	function onClickOpenCloseToggle() {
-		console.log('click toggler')
-		console.log('box is open', boxIsOpen)
+	function onClickOpenCloseToggle() { 
 		if(!isAnimating) { 
 			setIsAnimating(true)
- 
-			if(boxIsOpen) onClose()
-			if(!boxIsOpen) onOpen()
 
-			handleToggleClick(!boxIsOpen, elementWidthIsOverflowing(boxBodyId), elementHeightIsOverflowing(boxBodyId))
+			if(boxIsOpen) closeBox()
+			// if(!boxIsOpen) onOpen()
+
+			// handleToggleClick(!boxIsOpen, elementWidthIsOverflowing(boxBodyId), elementHeightIsOverflowing(boxBodyId))
 		} 
 	} 
 
-	// ==================== On Close =============== //
-	function onClose() {
-		const isOverflowing = elementIsOverflowing(boxBodyId); 
-
-		if(isOverflowing) onClosingOverflow()
-		if(!isOverflowing) onClosedOverflow()
-
-		saveWidthOverflowStatus(boxBodyId)
-	}
-	
-	// ==================== Close Overflow -> then
-	function onClosingOverflow() { 
-		updateOverflowStatus() 
-		setContentContainerOpenClass('content-container-closing-overflow') 
-		closeOverflow(contentContainerId, boxBodyId)
-	}
- 
-	function onClosedOverflow() {
-		setOverflowIsShrinking(false)
-		onCloseBox() 
-	} 
-
-	// ==================== Close Box -> then
-	function onCloseBox() {
-		setBoxIsOpen(false)
-		setBoxOpenClass('box-closed')
-		setContentContainerOpenClass('content-container-closing-x')
-		triggerOnTransitionEnd(boxId, 'width', onBoxClosed)
-	} 
-
-	function onBoxClosed() { 
-		setToggleIsOpen(true)
-		onCloseContentContainer()
+	function closeBox() {
+		closeOverflow().then(() => {
+			console.log('overflow closed')
+		})
+		// .then(closeBoxWidth).then(closeContentContainerHeight).then(onClosed);
 	}
 
-	// ==================== Close Content Container - finished
- 	function onCloseContentContainer() {
- 		setContentContainerOpenClass('content-container-closing-y')
- 		setIsAnimating(false)
- 	} 
+	function closeOverflow() {
+		return new Promise(resolve => {
+			setContentContainerOpenClass('content-container-closing-overflow') 
 
- 	// ==================== On Open ===> =============== //
- 	function onOpen() { 
- 		setIsAnimating(true)
- 		if(widthOverflowOnClose) onOpenBoxOverflow()
- 		if(!widthOverflowOnClose) onOpenBox()
+			const widthPromise = shrinkToParentSize(contentContainerId, 'width');
+			const heightPromise = shrinkToParentSize(contentContainerId, 'height');
+ 			
+			Promise.all([widthPromise, heightPromise]).then(resolve)
+		})  
  	}
 
- 	// ==================== Open Box =================== //
- 	function onOpenBoxOverflow() {
- 		setBoxOpenClass('box-open')
- 		setContentContainerOpenClass('content-container-opening-x-overflow')
- 		triggerOnTransitionEnd(boxId, 'width', onBoxOpen)
+ 	function shrinkToParentSize(id, property) {
+ 		return new Promise(resolve => {
+ 			const isOverflowing = elementIsOverflowing(id, property)
+ 			
+ 			if(!isOverflowing) resolve()
+ 			
+ 			if(isOverflowing) {
+ 				triggerOnTransitionEnd(id, property, resolve)
+ 				setSizeInPx(id, property)
+ 				setToParentSize(id, property)
+ 			}
+ 		})
  	}
 
- 	function onOpenBox() {
- 		setBoxOpenClass('box-open') 
- 		setContentContainerOpenClass('content-container-opening-x') 
- 		triggerOnTransitionEnd(boxId, 'width', onBoxOpen)
+ 	function elementIsOverflowing(id, property) {
+ 		const parentElement = getParentElement(id);
+ 		
+ 		if(property === 'width') {
+ 			return parentElement.scrollWidth > parentElement.clientWidth;
+ 		}
+
+ 		if(property === 'height') {
+ 			return parentElement.scrollHeight > parentElement.clientHeight;
+ 		}
  	}
 
- 	function onBoxOpen() {
- 		console.log('boxOpen ========================')
- 		onOpenContentContainer()
- 		setBoxIsOpen(true)
- 	}
-
- 	// ==================== Open ContentContainer =================== //
- 	function onOpenContentContainer() {
- 		setToggleIsOpen(false)
- 		removeInlineWidth(contentContainerId)
- 		triggerOnTransitionEnd(contentContainerId, 'min-height', onContentContainerOpen)
- 		setContentContainerOpenClass('content-container-opening-y')	
- 	}
-
- 	function onContentContainerOpen() {
- 		setIsAnimating(false) 
- 	} 
-
-	// =============== Detect Overflow
-	function elementIsOverflowing(id) { 
-		return elementWidthIsOverflowing(id) || elementHeightIsOverflowing(id);
-	}
-
-	function checkForOverflow(id) {
-		return [elementWidthIsOverflowing(id), elementHeightIsOverflowing(id)];
-	}
-
-	function elementWidthIsOverflowing(id) {
-		const element = document.getElementById(id);  
-
-	  return element.scrollWidth > element.clientWidth;
-	}
-
-	function elementHeightIsOverflowing(id) {
-		const element = document.getElementById(id); 
-
-	  return element.scrollHeight > element.clientHeight;
-	} 
-
-	function setOverflowStatus(parentId) {
-		const [thisWidthIsOverflowing, thisHeightIsOverflowing] = checkForOverflow(parentId);
+ 	function setSizeInPx(id, property) {
+		const element = document.getElementById(id);
 		
-		setWidthOverflowClosed(!thisWidthIsOverflowing)
-		setHeightOverflowClosed(!thisHeightIsOverflowing)
-	}
-
-	function saveWidthOverflowStatus(parentId) {
-		const thisWidthIsOverflowing = elementWidthIsOverflowing(parentId);
-		setWidthOverflowOnClose(thisWidthIsOverflowing)
-	}
-
-	// =============== Close Overflow
-	function closeOverflow(id, parentId) {
-		const [thisWidthIsOverflowing, thisHeightIsOverflowing] = checkForOverflow(parentId);
-
-		if(thisWidthIsOverflowing || thisHeightIsOverflowing) setOverflowIsShrinking(true)
-		if(thisWidthIsOverflowing) closeWidthOverflow(id, parentId)
-		if(thisHeightIsOverflowing) closeHeightOverflow(id, parentId)  
-	}
-
-	function closeWidthOverflow(id, parentId) { 
-		setWidthInPx(id)
-		setToParentWidth(id, parentId)
-	}
-
-	function closeHeightOverflow(id, parentId) { 
-		setHeightInPx(id)
-		setToParentHeight(id, parentId)
-	}  
-
-	// =============== Listen for transition end
-	function updateOverflowStatus() {
-		setOverflowStatus(boxBodyId)
-		updateOverflowStatusOnTransition(contentContainerId, boxBodyId)
-	}
-
-	function updateOverflowStatusOnTransition(id, parentId) {
-		const [thisWidthIsOverflowing, thisHeightIsOverflowing] = checkForOverflow(parentId);
-
-		if(thisWidthIsOverflowing) listenForWidthTransition(id) 
-		if(thisHeightIsOverflowing) listenForHeightTransition(id)  
-	}
-
-	function listenForWidthTransition(id) {   
-		triggerOnTransitionEnd(id, 'width', () => { setWidthOverflowClosed(true) })
-	}
-
-	function listenForHeightTransition(id) {  
-		triggerOnTransitionEnd(id, 'height', () => { setHeightOverflowClosed(true)})
-	} 
-
-	// =============== Change Size
-	function setWidthInPx(id) {
-		const element = document.getElementById(id);
-		element.style.width = element.clientWidth + 'px';
-	}
-
-	function setHeightInPx(id) {
-		const element = document.getElementById(id);  
-		element.style.height = element.offsetHeight + 'px';
-	}
-
-	function setToParentHeight(id, parentId) {
-		const element = document.getElementById(id);
-		const parentElement = document.getElementById(parentId); 
-
-		element.style.height = window.getComputedStyle(parentElement).height;
-	}
-
-	function setToParentWidth(id, parentId) {
-		const element = document.getElementById(id);
-		const parentElement = document.getElementById(parentId); 
- 		 
-		element.style.width = window.getComputedStyle(parentElement).width;
-	}
-
-	function removeInlineWidth(id) {
-		const element = document.getElementById(id);
-		element.style.width = '';
-	} 
-
-	// ======================================== Listen / Trigger ================================== //
-	// =================== overflow closed
-	useEffect(() => { 
-		if(overflowIsShrinking && widthOverflowClosed && heightOverflowClosed) {
-			onClosedOverflow()
+		if(property === 'width') {
+			element.style.width = element.clientWidth + 'px';
 		}
-	}, [overflowIsShrinking, widthOverflowClosed, heightOverflowClosed])
+		
+		if(property === 'height') {
+			element.style.height = element.clientHeight + 'px';
+		}
+	}
+
+	function setToParentSize(id, property) {
+		const element = document.getElementById(id);
+		const parentElement = getParentElement(id); 
+		const parentStyle = window.getComputedStyle(parentElement);
+
+		if(property === 'width') {
+			element.style.width = parentStyle.width;
+		}
+		
+		if(property === 'height') {
+			element.style.height = parentStyle.height;
+		}
+	}
+
+	function getParentElement(id) {
+		const parentId = document.getElementById(id).parentElement.id;
+		return document.getElementById(parentId);   
+	}
  
 	// ======================================== Output =========================================== //
 	return (
