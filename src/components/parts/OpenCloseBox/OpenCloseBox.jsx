@@ -74,11 +74,9 @@ export default function OpenCloseBox({
 		} 
 	} 
 
-	function closeBox() {
-		closeOverflow().then(() => {
-			console.log('overflow closed')
-		})
-		// .then(closeBoxWidth).then(closeContentContainerHeight).then(onClosed);
+	function closeBox() { 
+		closeOverflow().then(closeBoxWidth).then(() => console.log('box closed ----------'))
+		// .then(closeContentContainerHeight).then(onClosed);
 	}
 
 	function closeOverflow() {
@@ -105,6 +103,25 @@ export default function OpenCloseBox({
  			}
  		})
  	}
+
+ 	function closeBoxWidth() {
+ 		return new Promise(resolve => {
+ 			triggerOnTransitionEnd(boxId, 'width', () => {
+ 				onBoxClosed()
+ 				resolve()
+ 			})
+
+ 			setBoxOpenClass('box-closed')
+ 			setContentContainerOpenClass('content-container-closing-x')
+ 		})
+ 	}
+
+ 	function onBoxClosed() {
+ 		setBoxIsOpen(false)
+ 	}
+
+ 	// ======================================== Utils =========================================== //
+ 	
 
  	function elementIsOverflowing(id, property) {
  		const parentElement = getParentElement(id);
