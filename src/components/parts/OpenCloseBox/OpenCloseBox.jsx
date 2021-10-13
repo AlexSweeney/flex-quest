@@ -74,23 +74,39 @@ export default function OpenCloseBox({
 		} 
 	} 
 
+	function onBoxClosed() {
+ 		setBoxIsOpen(false)
+ 	}
+
+ 	function onBoxOpen() {
+ 		setBoxIsOpen(true)
+ 	}
+
+ 	function onContentContainerClosed() {
+ 		setIsAnimating(false)
+ 	}
+
+ 	function onContentContainerOpened() {
+ 		setIsAnimating(false)
+ 	}
+
+ 	// ==================== Close Box
 	function closeBox() { 
-		closeOverflow().then(closeBoxWidth).then(() => console.log('box closed ----------'))
-		// .then(closeContentContainerHeight).then(onClosed);
+		closeContentContainerOverflow().then(closeBoxWidth).then(closeContentContainerHeight)
 	}
 
-	function closeOverflow() {
+	function closeContentContainerOverflow() {
 		return new Promise(resolve => {
 			setContentContainerOpenClass('content-container-closing-overflow') 
 
-			const widthPromise = shrinkToParentSize(contentContainerId, 'width');
-			const heightPromise = shrinkToParentSize(contentContainerId, 'height');
+			const widthPromise = closeOverflow(contentContainerId, 'width');
+			const heightPromise = closeOverflow(contentContainerId, 'height');
  			
 			Promise.all([widthPromise, heightPromise]).then(resolve)
 		})  
- 	}
+ 	} 
 
- 	function shrinkToParentSize(id, property) {
+ 	function closeOverflow(id, property) {
  		return new Promise(resolve => {
  			const isOverflowing = elementIsOverflowing(id, property)
  			
@@ -116,9 +132,13 @@ export default function OpenCloseBox({
  		})
  	}
 
- 	function onBoxClosed() {
- 		setBoxIsOpen(false)
+ 	function closeContentContainerHeight() {
+ 		triggerOnTransitionEnd(contentContainerId, 'height', onContentContainerClosed)
+ 		setContentContainerOpenClass('content-container-closing-y')
  	}
+
+ 	// ==================== Open Box
+ 	
 
  	// ======================================== Utils =========================================== //
  	
