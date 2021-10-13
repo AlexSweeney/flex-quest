@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'; 
 import OpenCloseToggle from './../Buttons/OpenCloseToggle/OpenCloseToggle.jsx'; 
-import { triggerOnTransitionEnd } from './../../utils.js';
+import { triggerOnTransitionEnd, getElementHeight } from './../../utils.js';
 import './OpenCloseBox.css';
 
 export default function OpenCloseBox({
@@ -30,11 +30,9 @@ export default function OpenCloseBox({
 				* if width overflow show scroll bar on open box.  
 				* open box to previous size  
 			
-		- normal 
-		- width overflow 
-		- height overflow  
-		- width + height
-
+		tidy
+		push 
+		commit
 	*/
 
 	// ======================================== Constants ========================================= //
@@ -48,9 +46,9 @@ export default function OpenCloseBox({
 	const [boxIsOpen, setBoxIsOpen] = useState(true);
 	const [toggleIsOpen, setToggleIsOpen] = useState(false);
 
-	const [widthOverflowClosed, setWidthOverflowClosed] = useState(false);
-	const [heightOverflowClosed, setHeightOverflowClosed] = useState(false);
-	const [overflowIsShrinking, setOverflowIsShrinking] = useState(false);
+	// const [widthOverflowClosed, setWidthOverflowClosed] = useState(false);
+	// const [heightOverflowClosed, setHeightOverflowClosed] = useState(false);
+	// const [overflowIsShrinking, setOverflowIsShrinking] = useState(false);
 
 	const [widthOverflowOnClose, setWidthOverflowOnClose] = useState(false);
 	const [isAnimating, setIsAnimating] = useState(false);
@@ -85,10 +83,14 @@ export default function OpenCloseBox({
 
  	function onContentContainerClosed() {
  		setIsAnimating(false)
+ 		removeInlineSize(contentContainerId)
+ 		setContentContainerOpenClass('content-container-closed')
  	}
 
- 	function onContentContainerOpened() {
+ 	function onContentContainerOpen() {
  		setIsAnimating(false)
+ 		removeInlineSize(contentContainerId)
+ 		setContentContainerOpenClass('content-container-open')
  	}
 
  	// ==================== Close Box
@@ -99,6 +101,9 @@ export default function OpenCloseBox({
 	function closeContentContainerOverflow() {
 		return new Promise(resolve => {
 			setContentContainerOpenClass('content-container-closing-overflow') 
+			
+			setWidthOverflowOnClose(elementIsOverflowing(contentContainerId, 'width'))
+			setSavedHeight(getElementHeight(contentContainerId))
 
 			const widthPromise = closeOverflow(contentContainerId, 'width');
 			const heightPromise = closeOverflow(contentContainerId, 'height');
@@ -149,12 +154,17 @@ export default function OpenCloseBox({
  				onBoxOpen()
  				resolve()
  			})
+
+ 			const newContentContainerOpenClass = widthOverflowOnClose ? 'content-container-opening-x-overflow' : 'content-container-opening-x';
+ 			setContentContainerOpenClass(newContentContainerOpenClass)
  			setBoxOpenClass('box-open')
  		})
  	}
 
  	function openContainerHeight() {
- 		triggerOnTransitionEnd(contentContainerId, 'height', onContentContainerOpened)
+ 		triggerOnTransitionEnd(contentContainerId, 'height', onContentContainerOpen)
+
+ 		setElementHeight(contentContainerId, savedHeight)
  		setContentContainerOpenClass('content-container-opening-y')
  	}
 
@@ -201,6 +211,23 @@ export default function OpenCloseBox({
 		const parentId = document.getElementById(id).parentElement.id;
 		return document.getElementById(parentId);   
 	}
+
+	function removeInlineSize(id) {
+		const element = document.getElementById(id);
+		element.style.width = '';
+		element.style.height = '';
+	}
+
+	function getElementHeight(id) {
+		const element = document.getElementById(id);
+		return window.getComputedStyle(element).height;
+	}
+
+	function setElementHeight(id, height) {
+		console.log('setElementHeight', id, height)
+		const element = document.getElementById(id);
+		element.style.height = height;
+	}
  
 	// ======================================== Output =========================================== //
 	return (
@@ -223,7 +250,45 @@ export default function OpenCloseBox({
 
 			<div className={`box-body`} id={boxBodyId}> 
 				<div className={`content-container ${contentContainerOpenClass}`} id={contentContainerId}>
-					{children}
+					<div>
+						<p> aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa </p>
+						<p>aaaaaaaaa</p>
+						<p>aaaaaaaaa</p>
+						<p>aaaaaaaaa</p>
+						<p>aaaaaaaaa</p>
+						<p>aaaaaaaaa</p>
+						<p>aaaaaaaaa</p>
+						<p>aaaaaaaaa</p>
+						<p>aaaaaaaaa</p>
+						<p>aaaaaaaaa</p>
+						<p>aaaaaaaaa</p>
+						<p>aaaaaaaaa</p>
+						<p>aaaaaaaaa</p>
+						<p>aaaaaaaaa</p>
+						<p>aaaaaaaaa</p>
+						<p>aaaaaaaaa</p>
+						<p>aaaaaaaaa</p>
+						<p>aaaaaaaaa</p>
+						<p>aaaaaaaaa</p>
+						<p>aaaaaaaaa</p>
+						<p>aaaaaaaaa</p>
+						<p>aaaaaaaaa</p>
+						<p>aaaaaaaaa</p>
+						<p>aaaaaaaaa</p>
+						<p>aaaaaaaaa</p>
+						<p>aaaaaaaaa</p>
+						<p>aaaaaaaaa</p>
+						<p>aaaaaaaaa</p>
+						<p>aaaaaaaaa</p>
+						<p>aaaaaaaaa</p>
+						<p>aaaaaaaaa</p>
+						<p>aaaaaaaaa</p>
+						<p>aaaaaaaaa</p>
+						<p>aaaaaaaaa</p>
+						<p>aaaaaaaaa</p>
+						<p>aaaaaaaaa</p>
+					</div>
+					{/*{children}*/}
 				</div>
 			</div>
 		</div>
