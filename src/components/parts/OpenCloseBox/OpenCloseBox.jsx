@@ -61,7 +61,7 @@ export default function OpenCloseBox({
 	// ==================== Press open / close
 	function onClickOpenCloseToggle() {
 		console.log('click toggler')
-		console.log('box is open')
+		console.log('box is open', boxIsOpen)
 		if(!isAnimating) { 
 			setIsAnimating(true)
  
@@ -136,6 +136,7 @@ export default function OpenCloseBox({
  	function onBoxOpen() {
  		console.log('boxOpen ========================')
  		onOpenContentContainer()
+ 		setBoxIsOpen(true)
  	}
 
  	// ==================== Open ContentContainer =================== //
