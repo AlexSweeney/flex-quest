@@ -84,18 +84,15 @@
 	box-sizing: border-box;
 	position: relative;
 } 
-
+/*
 .box-body-closing {
 	overflow: hidden;
 }
-
-.box-body-refresh {
-	overflow: overlay; 
-}
-
+ */
 /* =================== Content Container  */
 .content-container { 
-	transition: height 1s, min-height 1s, width 1s;
+	/*transition: height 1s, min-height 1s, width 1s;*/
+	transition: height 1s, width 1s;
  
 	box-sizing: border-box;
 	
@@ -108,15 +105,16 @@
   position: absolute;
  /* float: left; */
 
-  display: flex;
- /* align-items: stretch;*/
+ 	display: flex;
+  /*
+  align-items: stretch;*/
+  background: red; 
 
-  /*border: 8px solid #E8E4E4;*/
-  white-space: nowrap;
+  /*border: 8px solid #E8E4E4;*/ 
 }  
 
 .content-container-closing-overflow {
-	overflow: hidden; 
+	/*overflow: hidden; */
 }
 
 .content-container-closing-x {
@@ -184,9 +182,10 @@
 
 /* =================== Content Container  */
 .box-body::-webkit-scrollbar { 
-  height: 16px;
-  width: 16px;
+ /* height: 16px;
+  width: 16px;*/
   background: transparent; 
+/*  padding-right: 1px;*/
 }
 
 .box-body::-webkit-scrollbar-corner {

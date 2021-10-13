@@ -29,7 +29,16 @@ export default function OpenCloseBox({
 				* open box
 				* if width overflow show scroll bar on open box.  
 				* open box to previous size  
-			
+		 
+		fix - open Content container y
+ 		feat - save scroll position, scroll to same place on open
+				
+		test
+			normal
+			width
+			height
+			both
+
 		tidy
 		push 
 		commit
@@ -44,11 +53,7 @@ export default function OpenCloseBox({
 
 	// =================== State
 	const [boxIsOpen, setBoxIsOpen] = useState(true);
-	const [toggleIsOpen, setToggleIsOpen] = useState(false);
-
-	// const [widthOverflowClosed, setWidthOverflowClosed] = useState(false);
-	// const [heightOverflowClosed, setHeightOverflowClosed] = useState(false);
-	// const [overflowIsShrinking, setOverflowIsShrinking] = useState(false);
+	const [toggleIsOpen, setToggleIsOpen] = useState(false); 
 
 	const [widthOverflowOnClose, setWidthOverflowOnClose] = useState(false);
 	const [isAnimating, setIsAnimating] = useState(false);
@@ -62,7 +67,7 @@ export default function OpenCloseBox({
 	// ==================== Press open / close
 	function onClickOpenCloseToggle() { 
 		if(!isAnimating) { 
-			setIsAnimating(true)
+			setIsAnimating(true) 
 
 			if(boxIsOpen) closeBox()
 			if(!boxIsOpen) openBox()
@@ -95,7 +100,74 @@ export default function OpenCloseBox({
 
  	// ==================== Close Box
 	function closeBox() { 
-		closeContentContainerOverflow().then(closeBoxWidth).then(closeContentContainerHeight)
+		// save box height
+
+		scrollToTopLeft(boxBodyId, 200).then(closeContentContainerOverflow).then(closeBoxWidth).then(closeContentContainerHeight)
+	}
+
+	function scrollToTopLeft(id, time) { 
+		return new Promise(resolve => {
+			const horizPromise = resetHorizontalScrollBar(id, time);
+			const vertPromise = resetVerticalScrollBar(id, time);
+
+			return Promise.all([horizPromise, vertPromise]).then(resolve);
+		})  
+	}
+
+	function resetHorizontalScrollBar(id, time) {
+		if(!hasHorizontalScroll(id)) return new Promise(resolve => resolve());
+
+		const element = document.getElementById(id);
+		const intervalTime = 4;
+		const numSteps = time / intervalTime; 
+		const stepSize = element.scrollLeft / numSteps; 
+
+		return new Promise(resolve => {
+			moveScrollBarLeft(element, intervalTime, stepSize, resolve)
+		})
+	}
+
+	function resetVerticalScrollBar(id, time) {
+		if(!hasVerticalScroll(id)) return new Promise(resolve => resolve());
+
+		const element = document.getElementById(id);
+		const intervalTime = 4;
+		const numSteps = time / intervalTime; 
+		const stepSize = element.scrollTop / numSteps; 
+
+		return new Promise(resolve => {
+			moveScrollBarUp(element, intervalTime, stepSize, resolve)
+		})
+	}
+
+	function hasHorizontalScroll(id) {
+		const element = document.getElementById(id);
+		return element.scrollWidth > element.clientWidth;
+	}
+
+	function hasVerticalScroll(id) {
+		const element = document.getElementById(id);
+		return element.scrollHeight > element.clientHeight;
+	}
+ 
+	function moveScrollBarLeft(element, intervalTime, stepSize, resolve) { 
+		if(element.scrollLeft <= 0) return resolve();
+
+		element.scrollLeft = element.scrollLeft - stepSize;	
+
+		setTimeout(() => {
+			moveScrollBarLeft(element, intervalTime, stepSize, resolve)
+		}, intervalTime)
+	} 
+
+	function moveScrollBarUp(element, intervalTime, stepSize, resolve) {
+		if(element.scrollTop <= 0) return resolve();
+
+		element.scrollTop = element.scrollTop - stepSize;	
+
+		setTimeout(() => {
+			moveScrollBarUp(element, intervalTime, stepSize, resolve)
+		}, intervalTime)
 	}
 
 	function closeContentContainerOverflow() {
@@ -104,7 +176,7 @@ export default function OpenCloseBox({
 			
 			setWidthOverflowOnClose(elementIsOverflowing(contentContainerId, 'width'))
 			setSavedHeight(getElementHeight(contentContainerId))
-
+ 
 			const widthPromise = closeOverflow(contentContainerId, 'width');
 			const heightPromise = closeOverflow(contentContainerId, 'height');
  			
@@ -162,9 +234,9 @@ export default function OpenCloseBox({
  	}
 
  	function openContainerHeight() {
- 		triggerOnTransitionEnd(contentContainerId, 'height', onContentContainerOpen)
+ 		// triggerOnTransitionEnd(contentContainerId, 'height', onContentContainerOpen)
 
- 		setElementHeight(contentContainerId, savedHeight)
+ 		setElementHeight(contentContainerId, '1000px')
  		setContentContainerOpenClass('content-container-opening-y')
  	}
 
@@ -223,8 +295,7 @@ export default function OpenCloseBox({
 		return window.getComputedStyle(element).height;
 	}
 
-	function setElementHeight(id, height) {
-		console.log('setElementHeight', id, height)
+	function setElementHeight(id, height) { 
 		const element = document.getElementById(id);
 		element.style.height = height;
 	}
@@ -250,45 +321,17 @@ export default function OpenCloseBox({
 
 			<div className={`box-body`} id={boxBodyId}> 
 				<div className={`content-container ${contentContainerOpenClass}`} id={contentContainerId}>
-					<div>
-						<p> aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa </p>
-						<p>aaaaaaaaa</p>
-						<p>aaaaaaaaa</p>
-						<p>aaaaaaaaa</p>
-						<p>aaaaaaaaa</p>
-						<p>aaaaaaaaa</p>
-						<p>aaaaaaaaa</p>
-						<p>aaaaaaaaa</p>
-						<p>aaaaaaaaa</p>
-						<p>aaaaaaaaa</p>
-						<p>aaaaaaaaa</p>
-						<p>aaaaaaaaa</p>
-						<p>aaaaaaaaa</p>
-						<p>aaaaaaaaa</p>
-						<p>aaaaaaaaa</p>
-						<p>aaaaaaaaa</p>
-						<p>aaaaaaaaa</p>
-						<p>aaaaaaaaa</p>
-						<p>aaaaaaaaa</p>
-						<p>aaaaaaaaa</p>
-						<p>aaaaaaaaa</p>
-						<p>aaaaaaaaa</p>
-						<p>aaaaaaaaa</p>
-						<p>aaaaaaaaa</p>
-						<p>aaaaaaaaa</p>
-						<p>aaaaaaaaa</p>
-						<p>aaaaaaaaa</p>
-						<p>aaaaaaaaa</p>
-						<p>aaaaaaaaa</p>
-						<p>aaaaaaaaa</p>
-						<p>aaaaaaaaa</p>
-						<p>aaaaaaaaa</p>
-						<p>aaaaaaaaa</p>
-						<p>aaaaaaaaa</p>
-						<p>aaaaaaaaa</p>
-						<p>aaaaaaaaa</p>
+					{/*<div style={{width: '500px', height: '500px', background: 'pink'}}>
+						abc
+						defaultadf
+						setIsAnimatingfad
+						setIsAnimatingfadsfda
+						setIsAnimatingfadsfdasfda
+						setIsAnimatingfadsfdasfda
+						setIsAnimatingfadsfdasfda
 					</div>
-					{/*{children}*/}
+					*/}
+					{children}
 				</div>
 			</div>
 		</div>

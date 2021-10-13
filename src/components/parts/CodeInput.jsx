@@ -37,7 +37,8 @@ export default function CodeInput({
 	const [openClass, setOpenClass] = useState('code-display-open');
 	
 	// ===================================== Buttons ===================================== //
-	const buttons = [<RefreshButton onClick={onRefreshClick} i={i}/>];
+/*	const buttons = [<RefreshButton onClick={onRefreshClick} i={i}/>];*/
+	const buttons = [];
 	
 	// ===================================== Event Handlers ===================================== //
 	function onTextChange(e) { 

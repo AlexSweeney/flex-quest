@@ -20,6 +20,10 @@
 	outline: none;
 }
 
+.code-display:focus {
+	outline: 2px solid red;
+}
+
 .code-display-fade {
 	color: #272727; 
 }
