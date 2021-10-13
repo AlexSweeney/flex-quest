@@ -30,11 +30,10 @@ export default function OpenCloseBox({
 				* if width overflow show scroll bar on open box.  
 				* open box to previous size  
 			
-		* normal 
-		width overflow = jerky on open
-		height overflow = broken
-		width + height
-		try -> can promise.All to return when overflow is shrunk
+		- normal 
+		- width overflow 
+		- height overflow  
+		- width + height
 
 	*/
 
@@ -68,7 +67,7 @@ export default function OpenCloseBox({
 			setIsAnimating(true)
 
 			if(boxIsOpen) closeBox()
-			// if(!boxIsOpen) onOpen()
+			if(!boxIsOpen) openBox()
 
 			// handleToggleClick(!boxIsOpen, elementWidthIsOverflowing(boxBodyId), elementHeightIsOverflowing(boxBodyId))
 		} 
@@ -76,10 +75,12 @@ export default function OpenCloseBox({
 
 	function onBoxClosed() {
  		setBoxIsOpen(false)
+ 		setToggleIsOpen(true)
  	}
 
  	function onBoxOpen() {
  		setBoxIsOpen(true)
+ 		setToggleIsOpen(false)
  	}
 
  	function onContentContainerClosed() {
@@ -138,11 +139,26 @@ export default function OpenCloseBox({
  	}
 
  	// ==================== Open Box
- 	
+ 	function openBox() {
+ 		openBoxWidth().then(openContainerHeight)
+ 	}
+
+ 	function openBoxWidth() {
+ 		return new Promise(resolve => {
+ 			triggerOnTransitionEnd(boxId, 'width', () => {
+ 				onBoxOpen()
+ 				resolve()
+ 			})
+ 			setBoxOpenClass('box-open')
+ 		})
+ 	}
+
+ 	function openContainerHeight() {
+ 		triggerOnTransitionEnd(contentContainerId, 'height', onContentContainerOpened)
+ 		setContentContainerOpenClass('content-container-opening-y')
+ 	}
 
  	// ======================================== Utils =========================================== //
- 	
-
  	function elementIsOverflowing(id, property) {
  		const parentElement = getParentElement(id);
  		
