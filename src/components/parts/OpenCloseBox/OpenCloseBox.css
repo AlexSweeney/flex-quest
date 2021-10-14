@@ -13,7 +13,7 @@
 }
  
 .box-open {
-	width: 100%;
+	width: 100%; 
 }
    
 .box-closed {
@@ -137,13 +137,25 @@
 	overflow: hidden;   
 	/* set inline height with js */  
 }
-   
+ 
 /* =================== Content Container  */
-.box-body::-webkit-scrollbar { 
- /* height: 16px;
-  width: 16px;*/
+.box-body::-webkit-scrollbar {  
+  background: transparent;  
+}
+
+.box-body::-webkit-scrollbar-corner {
+	background: #a7a7a7;
+}
+
+.box-body::-webkit-scrollbar-thumb { 
+	background: #a7a7a7;  
+}
+
+/*.box-body::-webkit-scrollbar { 
+  height: 16px;
+  width: 16px;
   background: transparent; 
-/*  padding-right: 1px;*/
+  padding-right: 1px;
 }
 
 .box-body::-webkit-scrollbar-corner {
@@ -156,4 +168,4 @@
 
 .box-body::-webkit-scrollbar-thumb:hover { 
 	background: #d6d1d1;
-}
+}*/

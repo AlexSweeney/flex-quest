@@ -5,7 +5,7 @@ import LevelText from './parts/LevelText.jsx';
 import CodeInput from './parts/CodeInput.jsx';
 import OutputDisplay from './parts/OutputDisplay.jsx';
 
-// import OpenCloseBox from './parts/OpenCloseBox/OpenCloseBox.jsx';
+import OpenCloseBox from './parts/OpenCloseBox/OpenCloseBox.jsx';
 // import CodeBox from './CodeBox.jsx';  
 
 // import DisplayBox from './DisplayBox.jsx';
@@ -105,10 +105,15 @@ export default function Learn() {
 
 	return (
 		<section className="learn-container"> 
-			<LevelText i="1" titles={menuOptions} setStyle={setCssString} defaultStyle={defaultCssString} levelNum={levelNum} setLevelNum={setLevelNum}/>
-			<CodeInput i="2" title="index.html" code={htmlString} setCode={setHtmlString} originalCode={htmlStrings[levelNum]}/>
-			<CodeInput i="3" title="style.css" code={cssString} setCode={setCssString} originalCode={cssStrings[levelNum]}/>
-			<OutputDisplay i="4" title="display" htmlString={htmlString} cssString={cssString} />
+			<OpenCloseBox i="1" title="level - name"></OpenCloseBox>
+			<OpenCloseBox i="2" title="code 1"></OpenCloseBox>
+			<OpenCloseBox i="3" title="code 2"></OpenCloseBox>
+			<OpenCloseBox i="4" title="display"></OpenCloseBox>
+			{/*<LevelText i="1" titles={menuOptions} setStyle={setCssString} defaultStyle={defaultCssString} levelNum={levelNum} setLevelNum={setLevelNum}/>*/}
+			
+			{/*<CodeInput i="2" title="index.html" code={htmlString} setCode={setHtmlString} originalCode={htmlStrings[levelNum]}/>
+			<CodeInput i="3" title="style.css" code={cssString} setCode={setCssString} originalCode={cssStrings[levelNum]}/>*/}
+			{/*<OutputDisplay i="4" title="display" htmlString={htmlString} cssString={cssString} />*/}
 		</section>
 	)
 }

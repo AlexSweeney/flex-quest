@@ -37,11 +37,7 @@ export default function OpenCloseBox({
 				* if width overflow show scroll bar on open box.  
 				* open box to previous size  
 		  
-		tidy
-		fix - reset scroll postion
-			start 
-			mid
-			end
+		tidy 
 
 		scroll bar edge issue
 		move to utils
