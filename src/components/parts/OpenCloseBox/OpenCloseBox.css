@@ -39,6 +39,10 @@
   padding-right: 6px;
 } 
 
+.box-buttons-container .box-button {
+	margin-left: 6px;
+}
+
 /* =================== Title */
 .box .title {
 	flex-grow: 1; 
