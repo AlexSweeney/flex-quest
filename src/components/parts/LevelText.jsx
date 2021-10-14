@@ -25,8 +25,12 @@ export default function LevelText({
 		* show text
 		* show burger
 
-		* on close box - keep text width
-		* on open box - text adjusts to fit new width
+		* on close box 	
+			* keep text width
+			- close burger if open
+		* on open box 
+			* text adjusts to fit new width
+			- open burger if was open
 	
 		* on click burger 
 			* burger animate

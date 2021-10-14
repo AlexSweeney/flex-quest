@@ -8,9 +8,8 @@ import {style_4} from './style_4.jsx';
 import {style_5} from './style_5.jsx'; 
 import {style_6} from './style_6.jsx';
 
-function Text({setSelectedStyle}) {  
-	const [selectedHeader, setSelectedHeader] = useState(null);
-	const props = {selectedHeader, setSelectedHeader, setSelectedStyle};
+function Text({handleStyleOptionClick}) {
+	const props = {handleStyleOptionClick};
 
 	return (
 		<div> 

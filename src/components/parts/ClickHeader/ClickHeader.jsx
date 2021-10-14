@@ -3,13 +3,17 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import './ClickHeaderStyle.css'; 
 
 export default function ClickHeader({
-	title, 
+	/*title, 
 	i, 
 	selectedHeader,
 	setSelectedHeader, 
 	setSelectedStyle, 
-	thisStyle, 
-	children}) {  
+	thisStyle, */
+	title,
+	thisStyle,
+	handleStyleOptionClick,
+	children,
+}) {  
 	/* 
 		* title, i 
 
@@ -22,134 +26,139 @@ export default function ClickHeader({
 	*/
 
 	// ================================= Ids ============================== // 
-	const playIconId = `play-icon-${i}`;
-	const childContainerId = `child-container-${i}`; 
-	const headerId = `info-header-${i}`;
+	// const playIconId = `play-icon-${i}`;
+	// const childContainerId = `child-container-${i}`; 
+	// const headerId = `info-header-${i}`;
 
 	// ================================= State ============================== // 
-	const [showChildren, setShowChildren] = useState(false); 
-	const [playIconAnimating, setPlayIconAnimating] = useState(false);
-	const [containerHeight, setContainerHeight] = useState(null);
+	// const [showChildren, setShowChildren] = useState(false); 
+	// const [playIconAnimating, setPlayIconAnimating] = useState(false);
+	// const [containerHeight, setContainerHeight] = useState(null);
 
 	// ================================= Class ============================== // 
-	const [playIconClass, setPlayIconClass] = useState('play-icon');
-	const [headerSelectedClass, setHeaderSelectedClass] = useState('info-header-unselected')
-	const [showChildrenClass, setShowChildrenClass] = useState('children-init')
+	// const [playIconClass, setPlayIconClass] = useState('play-icon');
+	// const [headerSelectedClass, setHeaderSelectedClass] = useState('info-header-unselected')
+	// const [showChildrenClass, setShowChildrenClass] = useState('children-init')
 
 	// ================================= Event Handlers ============================== // 
-	function onHeaderClick() {
-		toggleSelectedHeader()
-	}
+	// function onHeaderClick() {
+	// 	toggleSelectedHeader()
+	// }
 
-	function onIconClick() {
-		setShowChildren(oldVal => !oldVal);
-		setPlayIconAnimating(true);
-	}
+	// function onIconClick() {
+	// 	setShowChildren(oldVal => !oldVal);
+	// 	setPlayIconAnimating(true);
+	// }
 
-	function handleTransitionEnd(e) { 
-		if(e.propertyName === 'transform') setPlayIconAnimating(false)
-	}
+	// function handleTransitionEnd(e) { 
+	// 	if(e.propertyName === 'transform') setPlayIconAnimating(false)
+	// }
 
-	function onShowChildren() {
-		setShowChildrenClass('children-visible') 
-		setContainerHeightToFull()
-	}
+	// function onShowChildren() {
+	// 	setShowChildrenClass('children-visible') 
+	// 	setContainerHeightToFull()
+	// }
 
-	function onHideChildren() {
-		setShowChildrenClass('children-hidden')  
-		setContainerHeightToZero()
-	} 
+	// function onHideChildren() {
+	// 	setShowChildrenClass('children-hidden')  
+	// 	setContainerHeightToZero()
+	// } 
 
-	function onSelectHeader() {
-		setHeaderSelectedClass('info-header-selected')
-		setSelectedStyle(thisStyle)
-	}
+	// function onSelectHeader() {
+	// 	setHeaderSelectedClass('info-header-selected')
+	// 	setSelectedStyle(thisStyle)
+	// }
 
-	function onDeselectHeader() {
-		setHeaderSelectedClass('info-header-unselected')
-		setSelectedStyle(null)
-	}
+	// function onDeselectHeader() {
+	// 	setHeaderSelectedClass('info-header-unselected')
+	// 	setSelectedStyle(null)
+	// }
 
 	// ================================= Helper Fns ============================== // 
-	function getContainerHeight() {
-		const childContainerElement = document.getElementById(childContainerId);
+	// function getContainerHeight() {
+	// 	const childContainerElement = document.getElementById(childContainerId);
 
-		const height = getComputedStyle(childContainerElement).height;
-		setContainerHeight(height)
-	}
+	// 	const height = getComputedStyle(childContainerElement).height;
+	// 	setContainerHeight(height)
+	// }
 
-	function setContainerHeightToFull() {
-		const childContainerElement = document.getElementById(childContainerId);
-		childContainerElement.style.height = containerHeight;
-	}
+	// function setContainerHeightToFull() {
+	// 	const childContainerElement = document.getElementById(childContainerId);
+	// 	childContainerElement.style.height = containerHeight;
+	// }
 
-	function setContainerHeightToZero() {
-		const childContainerElement = document.getElementById(childContainerId);
-		childContainerElement.style.height = 0;
-	} 
+	// function setContainerHeightToZero() {
+	// 	const childContainerElement = document.getElementById(childContainerId);
+	// 	childContainerElement.style.height = 0;
+	// } 
 
-	function toggleSelectedHeader() {
-		setSelectedHeader(newVal => {
-			if(newVal === headerId) return '';
-			return headerId;
-		})
-	}
+	// function toggleSelectedHeader() {
+	// 	setSelectedHeader(newVal => {
+	// 		if(newVal === headerId) return '';
+	// 		return headerId;
+	// 	})
+	// }
 
 	// ================================= Detect Transition End ============================== // 
-	useEffect(() => {
-		const playIconElement = document.getElementById(playIconId);
+	// useEffect(() => {
+	// 	const playIconElement = document.getElementById(playIconId);
 
-		if(playIconAnimating) playIconElement.addEventListener('transitionend', handleTransitionEnd)
+	// 	if(playIconAnimating) playIconElement.addEventListener('transitionend', handleTransitionEnd)
 		
-		return () => { playIconElement.removeEventListener('transitionend', handleTransitionEnd) }
-	}, [playIconAnimating])
+	// 	return () => { playIconElement.removeEventListener('transitionend', handleTransitionEnd) }
+	// }, [playIconAnimating])
 
 	// ================================= Get Container Height ============================== //
-	useEffect(() => {
-		getContainerHeight()
-	}, [])
+	// useEffect(() => {
+	// 	getContainerHeight()
+	// }, [])
 
 	// ================================= Trigger handlers ============================== //
 	// select header
-	useEffect(() => { 
-		if(selectedHeader === headerId) onSelectHeader()
-		else onDeselectHeader()
-	}, [selectedHeader])
+	// useEffect(() => { 
+	// 	if(selectedHeader === headerId) onSelectHeader()
+	// 	else onDeselectHeader()
+	// }, [selectedHeader])
 
-	// show / hide children
-	useEffect(() => {
-		if(showChildren) onShowChildren()
-		if(!showChildren) onHideChildren()
-	}, [showChildren])
+	// // show / hide children
+	// useEffect(() => {
+	// 	if(showChildren) onShowChildren()
+	// 	if(!showChildren) onHideChildren()
+	// }, [showChildren])
  
 	// ================================= Set Classes ============================== //
 	// play icon
-	useEffect(() => { 
-		let newClass = 'play-icon';
+	// useEffect(() => { 
+	// 	let newClass = 'play-icon';
 
-		if(playIconAnimating) { 
-			newClass += ' play-icon-animating';
-		} 
+	// 	if(playIconAnimating) { 
+	// 		newClass += ' play-icon-animating';
+	// 	} 
 
-		if(showChildren) {
-			newClass += ' play-icon-selected';
-		}
+	// 	if(showChildren) {
+	// 		newClass += ' play-icon-selected';
+	// 	}
 
-		setPlayIconClass(newClass);
-	}, [playIconAnimating, showChildren])
+	// 	setPlayIconClass(newClass);
+	// }, [playIconAnimating, showChildren])
+	const [isSelected, setIsSelected] = useState(false);
+
+	function onHeaderClick() {
+		handleStyleOptionClick(thisStyle, setIsSelected)
+	}
 
 	// ================================= Output ============================== //
 	return (
 		<div className='click-header'>
 			<div className='header-container'> 
-				<h2 className={`info-header ${headerSelectedClass}`} 
-						onClick={onHeaderClick} 
-						id={headerId}>{title}</h2>
-				<PlayArrowIcon className={playIconClass} onClick={onIconClick} id={playIconId}/>
+				<h2 className={`info-header`} 
+						onClick={onHeaderClick}>{title}</h2>
+				{/*<PlayArrowIcon className={playIconClass} onClick={onIconClick} id={playIconId}/>*/}
 			</div> 
-			<div className={`child-container ${showChildrenClass}`} id={childContainerId}>
+
+			{/*<div className={`child-container ${showChildrenClass}`} id={childContainerId}>
 				{children}
-			</div>
+			</div>*/}
 		</div>
 	)
 }
