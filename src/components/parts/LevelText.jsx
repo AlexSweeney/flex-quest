@@ -43,11 +43,7 @@ export default function LevelText({
   	* on click style option = add / remove styl 
   		* inline clicker 
   		* click header
-		
- 
-		- fix option click = going to wrong option
-
-  	tidy
+		 
   	move to utils
   	update
 
@@ -116,38 +112,6 @@ export default function LevelText({
 		setIsSelected(isSelected)  
 	}
 
-	// function handleToggleClick(boxIsOpen, widthIsOverflowing, heightIsOverflowing) { 
-	// 	if(boxIsOpen) onBoxOpening()
-	// 	if(!boxIsOpen) onBoxClosing(heightIsOverflowing) 
-	// }
-
-	// function onOverflowHidden() {
-	// 	setTextBodyOpenClass('text-body-closing-overflow-hidden')
-	// }
-
-	// function onBoxClosing(heightIsOverflowing) { 
-	// 	fixContainerWidth(textBodyId)
-	// 	if(!heightIsOverflowing) setTextBodyOpenClass('text-body-closing-no-overflow')
-	// }
-
-	// function onBoxOpening() {
-	// 	removeInlineWidth(textBodyId)
-	// 	setTextBodyOpenClass('text-body-opening')
-	// }
-
-	/*function onBoxOpening() { 
-		if(boxHasClosed) resetContainerWidth()
-	} 
-
-	function onBoxOpen() {
-		setBoxHasClosed(false)
-		setOverflowOpenClass('overflow-barrier-opening')
-	}
-
-	function onBoxClosed() {
-		setBoxHasClosed(true)
-	}*/
-
 	// ======================================= Helper Fns ================================== //
 	function keepTextWidth() {
 		setSizeInPx(textBodyId, 'width')
@@ -178,13 +142,6 @@ export default function LevelText({
 	  setTitle(titles[newLevelNum]) 
 	}
 
-	/*function changeLevelText(option) {
-		return new Promise(resolve => {
-			const newLevelNum = getLevelNum(option);
-
-		})
-	}*/
-
 	function fadeOut() {
 		return new Promise(resolve => {
 			triggerOnTransitionEnd(titleId, 'opacity', resolve)
@@ -206,36 +163,6 @@ export default function LevelText({
 		if(burgerWasOpen) setBurgerIsOpen(true)
 	}
 
-	/*function fixContainerWidth(id) { 
-		const element = document.getElementById(id);
-		const elementWidth = getComputedWidth(element); 
-
-		element.style.width = elementWidth; 
-		element.style['max-width'] = elementWidth;
-	}
-
-	function removeInlineWidth(id) {
-		const element = document.getElementById(id);
-		element.style.width = '';
-		element.style['max-width'] = '';
-	}
-
-	function getComputedWidth(element) {
-		const style = window.getComputedStyle(element);
-		return style.width;
-	} */
-
-	// ======================================= Update ======================================= //
-	// useEffect(() => {
-	// 	console.log(selectedStyle)
-	// 	if(selectedStyle) setStyle(selectedStyle)
-	// 	if(!selectedStyle) setStyle(defaultStyle)
-	// }, [selectedStyle])
-
-	/*useEffect(() => { 
-		setTitle(titles[levelNum]) 
-	}, [levelNum])*/
- 
 	// ======================================= Output ======================================= //
 	return ( 
 		<OpenCloseBox 
@@ -257,16 +184,3 @@ export default function LevelText({
 		</OpenCloseBox> 
 	)
 }
-
-{/* 
-<OpenCloseBox title={title} i={i} buttons={buttons}>
-<div className={`overflow-barrier ${overflowOpenClass}`}> 	</div> 
-		<div className="text-container" id={textContainerId}>
-			<BurgerMenu isOpen={burgerIsOpen} setIsOpen={setBurgerIsOpen} options={titles} handleClick={handleBurgerClick}/>
-			<div className={"text-body"} id={textBodyId}>
-				<Text setSelectedStyle={setSelectedStyle}/>
-			</div>
-		</div> 
-</OpenCloseBox>
-
-*/}
