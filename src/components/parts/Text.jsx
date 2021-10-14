@@ -15,7 +15,7 @@ import Text_12 from './../data/text/Text_12.jsx';
 import Text_13 from './../data/text/Text_13.jsx';*/
 
 
-export default function Text({levelNum, setSelectedStyle}) {  
+export default function Text({levelNum, handleStyleOptionClick}) {  
 	const allText = [
 		Text_1,
 		Text_2,
@@ -34,5 +34,5 @@ export default function Text({levelNum, setSelectedStyle}) {
 
 	const ThisText = allText[levelNum];  
 
-	return <ThisText setSelectedStyle={setSelectedStyle}/>
+	return <ThisText handleStyleOptionClick={handleStyleOptionClick}/>
 }
