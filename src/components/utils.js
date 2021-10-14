@@ -57,12 +57,17 @@ function transitionEndHandler(id, propertyName, onEnd, e) {
 }
 */
 // ================ Scrollbar
-export function resetScrollBars(id, time) {
-	if(elementHasScrollBar(id, 'horiz')) moveScrollBar(id, 'horiz', 0, time)
-	if(elementHasScrollBar(id, 'vert')) moveScrollBar(id, 'vert', 0, time)
+// move scrollbars to 0, call onFinish when complete
+export function resetScrollBars(id, time, onFinish = () => {}) {
+	const horizPromise = moveScrollBar(id, 'horiz', 0, time);
+	const vertPromise = moveScrollBar(id, 'vert', 0, time); 
+
+	Promise.all([horizPromise, vertPromise]).then(onFinish)
 }
 
 export function moveScrollBar(id, scrollbar, target, time) {
+	if(!elementHasScrollBar(id, scrollbar)) return new Promise(resolve => resolve())
+
 	const property = (scrollbar === 'horiz') ? 'scrollLeft' : 'scrollTop';
 	const element = document.getElementById(id);
 	
@@ -73,17 +78,20 @@ export function moveScrollBar(id, scrollbar, target, time) {
 	const stepSize = distance / numSteps; 
 
 	const count = 0;
-	incrementScrollBar(element, property, timeoutInterval, stepSize, target, count)
+
+	return new Promise(resolve => { 
+		incrementScrollBar(element, property, timeoutInterval, stepSize, target, count, resolve)
+	})
 }
 
-function incrementScrollBar(element, property, timeoutInterval, stepSize, target, count) {
+function incrementScrollBar(element, property, timeoutInterval, stepSize, target, count, resolve) {
 	count += 1;
-	if(element[property] === target || count === 500) return;
+	if(element[property] === target || count === 500) return resolve();
 
 	element[property] -= stepSize;
 
 	setTimeout(() => {
-		incrementScrollBar(element, property, timeoutInterval, stepSize, target, count)
+		incrementScrollBar(element, property, timeoutInterval, stepSize, target, count, resolve)
 	}, timeoutInterval) 
 }
 

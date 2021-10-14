@@ -102,8 +102,14 @@ export default function OpenCloseBox({
 	function closeBox() { 
 		// save box height
 
-		resetScrollBars(boxBodyId, 200)
+		moveScrollBarsTopLeft(boxBodyId, 200).then(() => { console.log('fin')})
 		// scrollToTopLeft(boxBodyId, 200)//.then(closeContentContainerOverflow).then(closeBoxWidth).then(closeContentContainerHeight)
+	}
+
+	function moveScrollBarsTopLeft(id, time) {
+		return new Promise(resolve => {
+			resetScrollBars(id, time, resolve)
+		})
 	}
 
 
