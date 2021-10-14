@@ -100,6 +100,8 @@ export default function Learn() {
 	const [cssString, setCssString] = useState(cssStrings[levelNum]); 
 	const [defaultCssString, setDefaultCssString] = useState(cssStrings[levelNum]);
 	
+	const [fade, setFade] = useState(false);
+
 	useEffect(() => {
 		setHtmlString(htmlStrings[levelNum])
 		setCssString(cssStrings[levelNum])
@@ -109,7 +111,7 @@ export default function Learn() {
 
 	return (
 		<section className="learn-container"> 
-			<LevelText i="1" titles={menuOptions} setStyle={setCssString} defaultStyle={defaultCssString} levelNum={levelNum} setLevelNum={setLevelNum}/>
+			<LevelText i="1" titles={menuOptions} fade={fade} setFade={setFade} setStyle={setCssString} defaultStyle={defaultCssString} levelNum={levelNum} setLevelNum={setLevelNum}/>
 			<CodeInput i="2" title="index.html" code={htmlString} setCode={setHtmlString} originalCode={htmlStrings[levelNum]}/>
 			<CodeInput i="3" title="style.css" code={cssString} setCode={setCssString} originalCode={cssStrings[levelNum]}/>
 			<OpenCloseBox i="4" title="display"></OpenCloseBox>

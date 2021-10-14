@@ -5,7 +5,8 @@ import Text from './Text.jsx';
 import OpenCloseBox from './OpenCloseBox/OpenCloseBox.jsx'; 
 import {
 	setSizeInPx,
-	removeInlineSize
+	removeInlineSize,
+	triggerOnTransitionEnd,
 } from './../utils.js';
 import './LevelText.css';
 
@@ -15,35 +16,29 @@ export default function LevelText({
 	levelNum, 
 	setLevelNum, 
 	setStyle, 
-	defaultStyle
+	fade,
+	setFade,
+	defaultStyle,
 }) {
 	/*
 		* show title
 		* show text
 		* show burger
 
-		- on close box - keep text width
-		- on open box - text adjusts to fit new width
-
-
-
-		* when new style selected change css string
-		* when new style unselected change back css string
-
-		* burger
-			* show all titles when clicked
-
-			* change level and close when click title
-
-		animate on open / close box
-			* full
-			* when press before closed
-			* make so no bottom scroll
-			make so has vert scroll - make content box expand 
-
-		fix - adjust width when box size changes
-			this
-			other boxes
+		* on close box - keep text width
+		* on open box - text adjusts to fit new width
+	
+		* on click burger 
+			* burger animate
+			* option menu show / hide
+  	
+  	* on click level option 
+ 			* change text and code
+ 			- animate change
+  	
+  	* on click style option inside text 
+  		- add style
+  		- remove style
 	*/
 	// ======================================= Ids ======================================= //
 	const textContainerId = `text-container-${i}`;
@@ -58,15 +53,28 @@ export default function LevelText({
 
 	// ======================================= Class ======================================= //
 	const [textBodyOpenClass, setTextBodyOpenClass] = useState(''); 
+	const [textBodyFadeClass, setTextBodyFadeClass] = useState('text-body-no-fade');
 
 	// ======================================= Event Handlers ================================== //
-	function onClickOption(option) { 
-		const newLevelNum = titles.indexOf(option);
-		setLevelNum(newLevelNum)
+	function onClickLevelOption(option) {
+		if(isDifferentLevel(option))
+		fadeTextOut() 
+			.then(() => updateLevel(option))
+			.then(fadeTextIn)
+	}   
+
+	function fadeTextOut() {
+		return new Promise(resolve => {
+			triggerOnTransitionEnd(textBodyId, 'opacity', resolve)
+
+			setFade(true)
+			setTextBodyFadeClass('text-body-fade') 
+		}) 
 	}
 
-	function onChangeOption() {
-
+	function fadeTextIn() {
+		setFade(false)
+		setTextBodyFadeClass('text-body-no-fade')
 	}
 
 	function handleToggleClick(boxIsOpen) {
@@ -80,8 +88,7 @@ export default function LevelText({
 	}
 
 	function onBoxOpening() {
-		adjustTextWidthToBoxSize()
-		// removeInlineWidth(textBodyId)
+		adjustTextWidthToBoxSize() 
 	}
 
 	// function handleToggleClick(boxIsOpen, widthIsOverflowing, heightIsOverflowing) { 
@@ -127,6 +134,20 @@ export default function LevelText({
 		setTextBodyOpenClass('text-body-opening')
 	}
 
+	function getLevelNum(option) {
+		return titles.indexOf(option);
+	}
+
+	function isDifferentLevel(option) {
+		const newLevelNum = getLevelNum(option);
+		return newLevelNum !== levelNum;
+	}
+
+	function updateLevel(option) {
+		const newLevelNum = getLevelNum(option);
+		setLevelNum(newLevelNum)
+	}
+
 	/*function fixContainerWidth(id) { 
 		const element = document.getElementById(id);
 		const elementWidth = getComputedWidth(element); 
@@ -168,10 +189,10 @@ export default function LevelText({
 
 	// ======================================= Output ======================================= //
 	return ( 
-		<OpenCloseBox title={title} i={i} buttons={buttons} handleToggleClick={handleToggleClick}>
-			<BurgerMenu isOpen={burgerIsOpen} setIsOpen={setBurgerIsOpen} options={titles} handleClick={onClickOption}/>
+		<OpenCloseBox title={title} i={i} buttons={buttons} handleToggleClick={handleToggleClick} fade={fade}>
+			<BurgerMenu isOpen={burgerIsOpen} setIsOpen={setBurgerIsOpen} options={titles} handleClick={onClickLevelOption}/>
 			
-			<div className={`text-body ${textBodyOpenClass}`} id={textBodyId}>
+			<div className={`text-body ${textBodyOpenClass} ${textBodyFadeClass}`} id={textBodyId}>
 			 	<Text levelNum={levelNum} setSelectedStyle={setSelectedStyle}/> 
 			</div> 
 		</OpenCloseBox> 

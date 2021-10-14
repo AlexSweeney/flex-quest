@@ -1,18 +1,29 @@
 .text-body { 
+	transition: opacity 500ms;
+
 	padding: 0.5em;
   background: #E8E4E4; 
+  color: black;
   min-height: 100%;
   width: 100%;
   box-sizing: border-box; 
   flex-grow: 1;
 }
 
+.text-body-no-fade {
+	opacity: 1;
+}
+
+.text-body-fade {
+	opacity: 0;
+} 
+
 .text-body-closing {
 	position: absolute;
 }
 
 .text-body-opening {
-	
+
 }
 
 .text-body p {

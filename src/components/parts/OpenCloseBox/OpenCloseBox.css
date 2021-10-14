@@ -45,18 +45,28 @@
 
 /* =================== Title */
 .box .title {
+	transition: opacity 500ms;
+
 	flex-grow: 1; 
 	min-width: 0;
 	display: flex;
 	justify-content: center; 
 	white-space: nowrap; 
 	position: absolute;
-	color: #E8E4E4;
 	font-size: 1.2em; 
 	font-family: BaiJamjuree-Medium, Verdana, sans-serif; 
+	color: #E8E4E4;
 	width: 100%;
 	cursor: default;
 } 
+
+.box .title-fade {
+	opacity: 0;
+}
+
+.box .title-no-fade {
+	opacity: 1;
+}
 
 /* =================== Open close toggle */ 
 .box .open-close-toggle-container {

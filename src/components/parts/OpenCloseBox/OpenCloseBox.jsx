@@ -19,6 +19,7 @@ export default function OpenCloseBox({
 	i,
 	buttons = [],
 	handleToggleClick = () => {},
+	fade = null,
 	children,
 }) {  
 	/*
@@ -56,6 +57,7 @@ export default function OpenCloseBox({
 	const [savedScrollPositions, setSavedScrollPositions] = useState(null);
 
 	// ==================== Classes
+	const [titleFadeClass, setTitleFadeClass] = useState('title-no-fade');
 	const [boxOpenClass, setBoxOpenClass] = useState('box-open');
 	const [contentContainerOpenClass, setContentContainerOpenClass] = useState('content-container-open');
 
@@ -92,6 +94,14 @@ export default function OpenCloseBox({
  		setIsAnimating(false)
  		removeInlineSize(contentContainerId)
  		setContentContainerOpenClass('content-container-open')
+ 	}
+
+ 	function onFadeStart() {
+ 		setTitleFadeClass('title-fade')
+ 	}
+
+ 	function onFadeEnd() {
+ 		setTitleFadeClass('title-no-fade')
  	}
 
  	// ==================== Close Box
@@ -182,6 +192,12 @@ export default function OpenCloseBox({
  		moveScrollBars(boxBodyId, savedScrollPositions, 200)
  	}
 
+ 	// ======================================== Listen / Trigger ================================= //
+ 	useEffect(() => {
+ 		if(fade) onFadeStart()
+ 		if(!fade) onFadeEnd()
+ 	}, [fade])
+
 	// ======================================== Output =========================================== //
 	return (
 		<div className={`box ${boxOpenClass}`} id={boxId}>
@@ -190,7 +206,7 @@ export default function OpenCloseBox({
 					{buttons.map(button => button)}
 				</div>
 
-				<div className="title">{title}</div>
+				<div className={`title ${titleFadeClass}`}>{title}</div>
 
 				<div className="open-close-toggle-container">
 					<OpenCloseToggle 	
