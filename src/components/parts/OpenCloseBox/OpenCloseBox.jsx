@@ -5,21 +5,20 @@ import {
 	resetScrollBars, 
 	getScrollPositions, 
 	moveScrollBars,
-	shrinkElementOverflow, 
-	getElementHeight 
+	shrinkElementOverflow,  
+	elementIsOverflowing,
+	getParentElement,
+	removeInlineSize,
+	getElementHeight,
+	setElementHeight,
 } from './../../utils.js';
 import './OpenCloseBox.css';
 
 export default function OpenCloseBox({
 	title = '',
 	i,
-	/*boxBodyId = null,
-	contentContainerId = null,*/
-	buttons = [],   
-	/*handleToggleClick = () => {},*/
-	/*handleOverflowHidden = () => {},
-	setContentContainerStatus = () => {}, */
-	children
+	buttons = [],
+	children,
 }) {  
 	/*
 		* show title   	
@@ -37,9 +36,6 @@ export default function OpenCloseBox({
 				* if width overflow show scroll bar on open box.  
 				* open box to previous size  
 		  
-		tidy 
-
-		scroll bar edge issue
 		move to utils
 		push 
 		commit
@@ -74,8 +70,6 @@ export default function OpenCloseBox({
 
 			if(boxIsOpen) closeBox()
 			if(!boxIsOpen) openBox()
-
-			// handleToggleClick(!boxIsOpen, elementWidthIsOverflowing(boxBodyId), elementHeightIsOverflowing(boxBodyId))
 		} 
 	} 
 
@@ -189,40 +183,6 @@ export default function OpenCloseBox({
  		moveScrollBars(boxBodyId, savedScrollPositions, 200)
  	}
 
- 	// ======================================== Utils =========================================== //
- 	function elementIsOverflowing(id, property) {
- 		const parentElement = getParentElement(id);
- 		
- 		if(property === 'width') {
- 			return parentElement.scrollWidth > parentElement.clientWidth;
- 		}
-
- 		if(property === 'height') {
- 			return parentElement.scrollHeight > parentElement.clientHeight;
- 		}
- 	}
- 
-	function getParentElement(id) {
-		const parentId = document.getElementById(id).parentElement.id;
-		return document.getElementById(parentId);   
-	}
-
-	function removeInlineSize(id) {
-		const element = document.getElementById(id);
-		element.style.width = '';
-		element.style.height = '';
-	}
-
-	function getElementHeight(id) {
-		const element = document.getElementById(id);
-		return window.getComputedStyle(element).height;
-	}
-
-	function setElementHeight(id, height) { 
-		const element = document.getElementById(id);
-		element.style.height = height;
-	}
- 
 	// ======================================== Output =========================================== //
 	return (
 		<div className={`box ${boxOpenClass}`} id={boxId}>
@@ -243,10 +203,8 @@ export default function OpenCloseBox({
 			</div>
 
 			<div className={`box-body`} id={boxBodyId}> 
-				<div className={`content-container ${contentContainerOpenClass}`} id={contentContainerId}>
-					 <div style={{width: '500px', height: '500px', background: 'pink'}}></div>
-					
-					{/*{children}*/}
+				<div className={`content-container ${contentContainerOpenClass}`} id={contentContainerId}>	
+					{children}
 				</div>
 			</div>
 		</div>

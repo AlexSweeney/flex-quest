@@ -40,6 +40,10 @@ import {style as style_2} from './data/learn/Level_2/style.jsx';
 // import {style_13} from './data/css/style_13.jsx';
 
 export default function Learn() {  
+	/*
+		set to 64px / 4em = scroll to edge of 2nd box rounding error => try flex solution
+
+	*/
 	const [levelNum, setLevelNum] = useState(0);
 
 	const htmlStrings = [

@@ -7,9 +7,7 @@
 	margin-right: 30px; 
 	overflow: hidden;
 	background: #E8E4E4;
-	transition: 1s width ease-in-out; 
-
-	height: 200px;
+	transition: 1s width ease-in-out;  
 }
  
 .box-open {
@@ -90,7 +88,7 @@
  
 	box-sizing: border-box;  
   position: absolute;  
- 	display: flex; 
+ 	display: flex;  
 }  
 
 .content-container-open {
@@ -151,21 +149,6 @@
 	background: #a7a7a7;  
 }
 
-/*.box-body::-webkit-scrollbar { 
-  height: 16px;
-  width: 16px;
-  background: transparent; 
-  padding-right: 1px;
-}
-
-.box-body::-webkit-scrollbar-corner {
-	background: #a7a7a7;
-}
- 
-.box-body::-webkit-scrollbar-thumb { 
-	background: #a7a7a7;  
-}
-
 .box-body::-webkit-scrollbar-thumb:hover { 
 	background: #d6d1d1;
-}*/
+}
