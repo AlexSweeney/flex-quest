@@ -43,10 +43,7 @@ export default function LevelText({
   	* on click style option = add / remove styl 
   		* inline clicker 
   		* click header
-		 
-  	move to utils
-  	update
-
+		   
   	refactor parts
   		- burger 
   			- link burger color with option colors on click
