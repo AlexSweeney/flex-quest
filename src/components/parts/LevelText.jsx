@@ -44,8 +44,7 @@ export default function LevelText({
   		* inline clicker 
   		* click header
 		
-
-		- don't fade text - trigger end with something else
+ 
 		- fix option click = going to wrong option
 
   	tidy
@@ -88,10 +87,10 @@ export default function LevelText({
 		if(isDifferentLevel(option)) {
 			updateLevel(option)
 			fadeOut().then(() => {
-				changeTitle()
+				changeTitle(option)
 				fadeIn()
 			})
-		} 
+		}
 	}   
  
 	function handleToggleClick(boxIsOpen) {
@@ -176,7 +175,7 @@ export default function LevelText({
 
 	function changeTitle(option) { 
 		const newLevelNum = getLevelNum(option);
-	  setTitle(titles[levelNum]) 
+	  setTitle(titles[newLevelNum]) 
 	}
 
 	/*function changeLevelText(option) {
