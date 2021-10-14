@@ -236,7 +236,7 @@ export default function OpenCloseBox({
  	function openContainerHeight() {
  		// triggerOnTransitionEnd(contentContainerId, 'height', onContentContainerOpen)
 
- 		setElementHeight(contentContainerId, '1000px')
+ 		setElementHeight(contentContainerId, savedHeight)
  		setContentContainerOpenClass('content-container-opening-y')
  	}
 

@@ -1,7 +1,31 @@
-// ================ trigger fn on transition start and end, one time
+// ============================== Transitions - call fn on ================================ //
+ export function onTransition(id, propertyName, onStart = null, onEnd = null) {
+	if(onStart) triggerOnTransitionStart(id, propertyName, onStart)
+	if(onEnd) triggerOnTransitionEnd(id, propertyName, onEnd)
+}
 
-// ____________ fix = other transition can trigger = misses
-export function onTransition(id, propertyName, onStart = null, onEnd = null) {
+export function triggerOnTransitionStart(id, propertyName, onStart = null) {
+	const element = document.getElementById(id);  
+	const thisStartFn = transitionHandler.bind(null, id, propertyName, onStart);
+	element.addEventListener('transitionstart', thisStartFn, {once: true})
+}
+
+export function triggerOnTransitionEnd(id, propertyName, onEnd = null) { 
+	const element = document.getElementById(id);  
+	const thisEndFn = transitionHandler.bind(null, id, propertyName, onEnd); 
+	element.addEventListener('transitionend', thisEndFn, {once: true})  
+}
+
+function transitionHandler(id, propertyName, fn, e) {
+	if(e.propertyName === propertyName && e.srcElement.id === id) {
+		fn && fn()
+	// if fail try again 
+	} else {
+		transitionHandler(id, propertyName, fn)
+	} 
+}
+
+/* export function onTransition(id, propertyName, onStart = null, onEnd = null) {
 	const element = document.getElementById(id); 
 
 	const thisStartFn = transitionStartHandler.bind(null, id, propertyName, onStart);
@@ -10,16 +34,15 @@ export function onTransition(id, propertyName, onStart = null, onEnd = null) {
 	element.addEventListener('transitionstart', thisStartFn, {once: true})
 	element.addEventListener('transitionend', thisEndFn, {once: true})
 }
+*/
 
-export function triggerOnTransitionEnd(id, propertyName, onEnd = null) { 
-	const element = document.getElementById(id);  
-	const thisEndFn = transitionEndHandler.bind(null, id, propertyName, onEnd); 
-	element.addEventListener('transitionend', thisEndFn, {once: true})  
-}
-
-function transitionStartHandler(id, propertyName, onStart, e) { 
+/*function transitionStartHandler(id, propertyName, onStart, e) { 
+	// if pass call function 
 	if(e.propertyName === propertyName && e.srcElement.id === id) {
 		onStart && onStart()
+	// if fail try again 
+	} else {
+		triggerOnTransitionStart(id, propertyName, onStart)
 	}
 }
 
@@ -32,6 +55,10 @@ function transitionEndHandler(id, propertyName, onEnd, e) {
 		triggerOnTransitionEnd(id, propertyName, onEnd)
 	}
 }
+*/
+// ================ Scrollbar
+
+
 
 // ================ check if overflowing
 export function elementWidthIsOverflowing(id) {
