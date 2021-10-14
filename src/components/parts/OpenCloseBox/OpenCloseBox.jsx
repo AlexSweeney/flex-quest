@@ -18,6 +18,7 @@ export default function OpenCloseBox({
 	title = '',
 	i,
 	buttons = [],
+	handleToggleClick = () => {},
 	children,
 }) {  
 	/*
@@ -66,6 +67,8 @@ export default function OpenCloseBox({
 
 			if(boxIsOpen) closeBox()
 			if(!boxIsOpen) openBox()
+
+			handleToggleClick(boxIsOpen)
 		} 
 	} 
 

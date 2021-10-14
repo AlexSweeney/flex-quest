@@ -3,6 +3,10 @@ import Burger from './Burger/Burger.jsx';
 import BurgerMenu from './Burger/BurgerMenu.jsx';
 import Text from './Text.jsx';
 import OpenCloseBox from './OpenCloseBox/OpenCloseBox.jsx'; 
+import {
+	setSizeInPx,
+	removeInlineSize
+} from './../utils.js';
 import './LevelText.css';
 
 export default function LevelText({
@@ -15,8 +19,13 @@ export default function LevelText({
 }) {
 	/*
 		* show title
-		
 		* show text
+		* show burger
+
+		- on close box - keep text width
+		- on open box - text adjusts to fit new width
+
+
 
 		* when new style selected change css string
 		* when new style unselected change back css string
@@ -45,41 +54,54 @@ export default function LevelText({
 	const buttons = [<Burger burgerIsOpen={burgerIsOpen} setBurgerIsOpen={setBurgerIsOpen}/>]; 
  
 	const [title, setTitle] = useState(titles[levelNum]);
-	const [selectedStyle, setSelectedStyle] = useState('');
-
-	// const [boxHasClosed, setBoxHasClosed] = useState(false);
+	const [selectedStyle, setSelectedStyle] = useState(''); 
 
 	// ======================================= Class ======================================= //
-	const [textBodyOpenClass, setTextBodyOpenClass] = useState('');
-	// const [boxStatus, setBoxStatus] = useState('');
-	// const [overflowOpenClass, setOverflowOpenClass] = useState('');
+	const [textBodyOpenClass, setTextBodyOpenClass] = useState(''); 
 
 	// ======================================= Event Handlers ================================== //
-	function handleBurgerClick(option) { 
+	function onClickOption(option) { 
 		const newLevelNum = titles.indexOf(option);
 		setLevelNum(newLevelNum)
 	}
 
-	function handleToggleClick(boxIsOpen, widthIsOverflowing, heightIsOverflowing) {
-		console.log('toggle clicked === level text')
-		console.log('heightIsOverflowing', heightIsOverflowing)
-		if(boxIsOpen) onBoxOpening()
-		if(!boxIsOpen) onBoxClosing(heightIsOverflowing) 
+	function onChangeOption() {
+
 	}
 
-	function onOverflowHidden() {
-		setTextBodyOpenClass('text-body-closing-overflow-hidden')
+	function handleToggleClick(boxIsOpen) {
+		if(boxIsOpen) onBoxClosing()
+		if(!boxIsOpen) onBoxOpening() 
 	}
 
-	function onBoxClosing(heightIsOverflowing) { 
-		fixContainerWidth(textBodyId)
-		if(!heightIsOverflowing) setTextBodyOpenClass('text-body-closing-no-overflow')
+	function onBoxClosing() {
+		console.log('on closing')
+		keepTextWidth()
 	}
 
 	function onBoxOpening() {
-		removeInlineWidth(textBodyId)
-		setTextBodyOpenClass('text-body-opening')
+		adjustTextWidthToBoxSize()
+		// removeInlineWidth(textBodyId)
 	}
+
+	// function handleToggleClick(boxIsOpen, widthIsOverflowing, heightIsOverflowing) { 
+	// 	if(boxIsOpen) onBoxOpening()
+	// 	if(!boxIsOpen) onBoxClosing(heightIsOverflowing) 
+	// }
+
+	// function onOverflowHidden() {
+	// 	setTextBodyOpenClass('text-body-closing-overflow-hidden')
+	// }
+
+	// function onBoxClosing(heightIsOverflowing) { 
+	// 	fixContainerWidth(textBodyId)
+	// 	if(!heightIsOverflowing) setTextBodyOpenClass('text-body-closing-no-overflow')
+	// }
+
+	// function onBoxOpening() {
+	// 	removeInlineWidth(textBodyId)
+	// 	setTextBodyOpenClass('text-body-opening')
+	// }
 
 	/*function onBoxOpening() { 
 		if(boxHasClosed) resetContainerWidth()
@@ -95,7 +117,17 @@ export default function LevelText({
 	}*/
 
 	// ======================================= Helper Fns ================================== //
-	function fixContainerWidth(id) { 
+	function keepTextWidth() {
+		setSizeInPx(textBodyId, 'width')
+		setTextBodyOpenClass('text-body-closing')
+	}
+
+	function adjustTextWidthToBoxSize() {
+		removeInlineSize(textBodyId)
+		setTextBodyOpenClass('text-body-opening')
+	}
+
+	/*function fixContainerWidth(id) { 
 		const element = document.getElementById(id);
 		const elementWidth = getComputedWidth(element); 
 
@@ -112,7 +144,7 @@ export default function LevelText({
 	function getComputedWidth(element) {
 		const style = window.getComputedStyle(element);
 		return style.width;
-	} 
+	} */
 
 	// ======================================= Update ======================================= //
 	useEffect(() => {
@@ -136,8 +168,8 @@ export default function LevelText({
 
 	// ======================================= Output ======================================= //
 	return ( 
-		<OpenCloseBox title={title} i={i} buttons={buttons} handleToggleClick={handleToggleClick} handleOverflowHidden={onOverflowHidden}>
-			<BurgerMenu isOpen={burgerIsOpen} setIsOpen={setBurgerIsOpen} options={titles} handleClick={handleBurgerClick}/>
+		<OpenCloseBox title={title} i={i} buttons={buttons} handleToggleClick={handleToggleClick}>
+			<BurgerMenu isOpen={burgerIsOpen} setIsOpen={setBurgerIsOpen} options={titles} handleClick={onClickOption}/>
 			
 			<div className={`text-body ${textBodyOpenClass}`} id={textBodyId}>
 			 	<Text levelNum={levelNum} setSelectedStyle={setSelectedStyle}/> 

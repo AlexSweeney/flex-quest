@@ -119,7 +119,7 @@ function shrinkOverflow(id, property) {
 	})
 }
 
-function setSizeInPx(id, property) { 
+export function setSizeInPx(id, property) { 
 	const element = getElement(id); 
 
 	if(property === 'width') {

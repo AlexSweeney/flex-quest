@@ -7,12 +7,12 @@
   flex-grow: 1;
 }
 
-.text-body-closing-overflow-hidden {
+.text-body-closing {
 	position: absolute;
 }
- 
-.text-body-closing-no-overflow {
-	position: absolute; 
+
+.text-body-opening {
+	
 }
 
 .text-body p {
