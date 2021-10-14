@@ -27,10 +27,10 @@ export default function LevelText({
 
 		* on close box 	
 			* keep text width
-			- close burger if open
+			* close burger if open
 		* on open box 
 			* text adjusts to fit new width
-			- open burger if was open
+			* open burger if was open
 	
 		* on click burger 
 			* burger animate
@@ -40,43 +40,44 @@ export default function LevelText({
  			* change text and code
  			* animate change
   	
-  	* on click style option inside text 
-  		* inline clicker
-  		* add style
-  		* remove style
-
-  		- click header
+  	* on click style option = add / remove styl 
+  		* inline clicker 
+  		* click header
 		
 		- don't show vert scroll when burger open
   	- fade codeInput in out on level change
   	- add box around options & option text
+		- don't fade text - trigger end with something else
 
   	tidy
   	move to utils
   	update
 
   	refactor parts
-  		- burger
-  		- burger display
+  		- burger 
+  		- burger display - open seperately from content container -> overlay?
   		- click header
   		- inline click header
 	*/
-	// ======================================= Ids ======================================= //
+	// ======================================= Ids ========================================= //
 	const textContainerId = `text-container-${i}`;
 	const textBodyId = `text-body-${i}`;
 
 	// ======================================= State ======================================= //
+	const [burgerWasOpen, setBurgerWasOpen] = useState(false);
 	const [burgerIsOpen, setBurgerIsOpen] = useState(false);
-	const buttons = [<Burger burgerIsOpen={burgerIsOpen} setBurgerIsOpen={setBurgerIsOpen}/>]; 
- 
+
 	const [title, setTitle] = useState(titles[levelNum]);
 	const [selectedStyle, setSelectedStyle] = useState(''); 
+
+	// ======================================= Buttons ===================================== //
+	const buttons = [<Burger burgerIsOpen={burgerIsOpen} setBurgerIsOpen={setBurgerIsOpen}/>]; 
 
 	// ======================================= Class ======================================= //
 	const [textBodyOpenClass, setTextBodyOpenClass] = useState(''); 
 	const [textBodyFadeClass, setTextBodyFadeClass] = useState('text-body-no-fade');
 
-	// ======================================= Event Handlers ================================== //
+	// ======================================= Event Handlers ============================== //
 	function onClickLevelOption(option) {
 		if(isDifferentLevel(option))
 		fadeTextOut() 
@@ -91,11 +92,13 @@ export default function LevelText({
 
 	function onBoxClosing() { 
 		keepTextWidth()
+		closeBurgerIfOpen()
 	}
 
 	function onBoxOpening() {
-		adjustTextWidthToBoxSize() 
-	}
+		adjustTextWidthToBoxSize()
+		openBurgerIfWasOpen()  
+	} 
 
 	function handleStyleOptionClick(thisStyle, setIsSelected) {
 		const isSelected = (thisStyle !== selectedStyle);
@@ -176,6 +179,15 @@ export default function LevelText({
 		setTextBodyFadeClass('text-body-no-fade')
 	}
 
+	function closeBurgerIfOpen() {
+		setBurgerWasOpen(burgerIsOpen)
+		if(burgerIsOpen) setBurgerIsOpen(false)
+	}
+
+	function openBurgerIfWasOpen() {
+		if(burgerWasOpen) setBurgerIsOpen(true)
+	}
+
 	/*function fixContainerWidth(id) { 
 		const element = document.getElementById(id);
 		const elementWidth = getComputedWidth(element); 
@@ -212,7 +224,7 @@ export default function LevelText({
 			title={title} 
 			i={i} 
 			buttons={buttons} 
-			handleToggleClick={handleToggleClick} 
+			handleToggleClick={handleToggleClick}  
 			fade={fade}>
 			<BurgerMenu 
 				isOpen={burgerIsOpen} 

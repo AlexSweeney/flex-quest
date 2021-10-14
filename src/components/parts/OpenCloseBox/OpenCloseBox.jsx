@@ -18,7 +18,7 @@ export default function OpenCloseBox({
 	title = '',
 	i,
 	buttons = [],
-	handleToggleClick = () => {},
+	handleToggleClick = () => {}, 
 	fade = null,
 	children,
 }) {  
@@ -78,10 +78,10 @@ export default function OpenCloseBox({
  		setBoxIsOpen(false)
  		setToggleIsOpen(true)
  	}
-
+ 
  	function onBoxOpen() {
- 		setBoxIsOpen(true)
- 		setToggleIsOpen(false)
+ 		setBoxIsOpen(true) 
+ 		setToggleIsOpen(false) 
  	}
  
  	function onContentContainerClosed() {
@@ -165,7 +165,7 @@ export default function OpenCloseBox({
  				onBoxOpen()
  				resolve()
  			})
-
+ 
  			setContentContainerOpenClass(getContentContainerOpeningXClass())
  			setBoxOpenClass('box-open')
  		})
