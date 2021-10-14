@@ -16,7 +16,8 @@ import './OpenCloseBox.css';
 
 export default function OpenCloseBox({
 	title = '',
-	i,
+	titleId,
+	i = Date.now(),
 	buttons = [],
 	handleToggleClick = () => {}, 
 	fade = null,
@@ -41,6 +42,7 @@ export default function OpenCloseBox({
 
 	// ======================================== Constants ========================================= //
 	// =================== Id's 
+	if(!titleId) titleId = `title-id-${i}`;
 	const boxId = `box-${i}`;
 	const boxBodyId = `box-body-${i}`;
 	const contentContainerId = `content-container-${i}`;
@@ -206,7 +208,7 @@ export default function OpenCloseBox({
 					{buttons.map(button => button)}
 				</div>
 
-				<div className={`title ${titleFadeClass}`}>{title}</div>
+				<div className={`title ${titleFadeClass}`} id={titleId}>{title}</div>
 
 				<div className="open-close-toggle-container">
 					<OpenCloseToggle 	
