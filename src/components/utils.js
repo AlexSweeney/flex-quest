@@ -6,22 +6,22 @@
 
 export function triggerOnTransitionStart(id, propertyName, onStart = null) {
 	const element = document.getElementById(id);  
-	const thisStartFn = transitionHandler.bind(null, id, propertyName, onStart);
+	const thisStartFn = transitionHandler.bind(null, id, propertyName, onStart, triggerOnTransitionStart);
 	element.addEventListener('transitionstart', thisStartFn, {once: true})
 }
 
 export function triggerOnTransitionEnd(id, propertyName, onEnd = null) { 
 	const element = document.getElementById(id);  
-	const thisEndFn = transitionHandler.bind(null, id, propertyName, onEnd); 
+	const thisEndFn = transitionHandler.bind(null, id, propertyName, onEnd, triggerOnTransitionEnd); 
 	element.addEventListener('transitionend', thisEndFn, {once: true})  
 }
 
-function transitionHandler(id, propertyName, fn, e) {
+function transitionHandler(id, propertyName, passFn, failFn, e) {
 	if(e.propertyName === propertyName && e.srcElement.id === id) {
-		fn && fn()
+		passFn && passFn()
 	// if fail try again 
 	} else {
-		transitionHandler(id, propertyName, fn)
+		failFn(id, propertyName, passFn)
 	} 
 }
 
