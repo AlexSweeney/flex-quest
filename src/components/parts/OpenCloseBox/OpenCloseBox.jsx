@@ -42,7 +42,7 @@ export default function OpenCloseBox({
 			start 
 			mid
 			end
-			
+
 		scroll bar edge issue
 		move to utils
 		push 
@@ -122,7 +122,8 @@ export default function OpenCloseBox({
 	}
 
 	function saveScrollPositions() {
-		setSavedScrollPositions(getScrollPositions(boxBodyId))
+		const newScrollPositions = getScrollPositions(boxBodyId); 
+		setSavedScrollPositions(newScrollPositions)
 	}
 
 	function moveScrollBarsToTopLeft() {

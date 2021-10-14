@@ -27,45 +27,47 @@ function transitionHandler(id, propertyName, passFn, failFn, e) {
 
 // ================ Scrollbar
 // move scrollbars to 0, call onFinish when complete
-export function resetScrollBars(id, time, onFinish = () => {}) {
+export function resetScrollBars(id, time) {
 	const horizPromise = moveScrollBar(id, 'horiz', 0, time);
 	const vertPromise = moveScrollBar(id, 'vert', 0, time); 
 
-	return Promise.all([horizPromise, vertPromise]).then(onFinish)
+	return Promise.all([horizPromise, vertPromise])
 }
 
 export function moveScrollBars(id, targetObject, time) {
-	moveScrollBar(id, 'horiz', targetObject.scrollLeft, time)
-	moveScrollBar(id, 'vert', targetObject.scrollTop, time)
+	const horizPromise = moveScrollBar(id, 'horiz', targetObject.scrollLeft, time)
+	const vertPromise = moveScrollBar(id, 'vert', targetObject.scrollTop, time)
+
+	return Promise.all([horizPromise, vertPromise])
 }
 
 export function moveScrollBar(id, scrollbar, target, time) {
-	if(!elementHasScrollBar(id, scrollbar)) return new Promise(resolve => resolve())
-
 	const property = (scrollbar === 'horiz') ? 'scrollLeft' : 'scrollTop';
 	const element = document.getElementById(id);
-	
+
 	const timeoutInterval = 4;
 	const numSteps = time / timeoutInterval; 
-	const distance = element[property] - target;
 
+	const position = element[property];
+	const distance = target - position;
 	const stepSize = distance / numSteps; 
 
-	const count = 0;
+	if(distance === 0 || !elementHasScrollBar(id)) return new Promise(resolve => resolve())
 
 	return new Promise(resolve => { 
-		incrementScrollBar(element, property, timeoutInterval, stepSize, target, count, resolve)
+		incrementScrollBar(element, property, timeoutInterval, stepSize, target, resolve)
 	})
 }
 
-function incrementScrollBar(element, property, timeoutInterval, stepSize, target, count, resolve) {
-	count += 1;
-	if(element[property] === target || count === 500) return resolve();
 
-	element[property] -= stepSize;
+function incrementScrollBar(element, property, timeoutInterval, stepSize, target, resolve) {
+	if(stepSize > 0 && element[property] >= target) return resolve()
+	if(stepSize < 0 && element[property] <= target) return resolve()
+
+	element[property] += stepSize;
 
 	setTimeout(() => {
-		incrementScrollBar(element, property, timeoutInterval, stepSize, target, count, resolve)
+		incrementScrollBar(element, property, timeoutInterval, stepSize, target, resolve)
 	}, timeoutInterval) 
 }
 
