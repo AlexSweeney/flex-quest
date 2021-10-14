@@ -57,10 +57,75 @@ function transitionEndHandler(id, propertyName, onEnd, e) {
 }
 */
 // ================ Scrollbar
+export function resetScrollBars(id, time) {
+	if(elementHasScrollBar(id, 'horiz')) moveScrollBar(id, 'horiz', 0, time)
+	if(elementHasScrollBar(id, 'vert')) moveScrollBar(id, 'vert', 0, time)
+}
 
+export function moveScrollBar(id, scrollbar, target, time) {
+	const property = (scrollbar === 'horiz') ? 'scrollLeft' : 'scrollTop';
+	const element = document.getElementById(id);
+	
+	const timeoutInterval = 4;
+	const numSteps = time / timeoutInterval; 
+	const distance = element[property] - target;
 
+	const stepSize = distance / numSteps; 
+
+	const count = 0;
+	incrementScrollBar(element, property, timeoutInterval, stepSize, target, count)
+}
+
+function incrementScrollBar(element, property, timeoutInterval, stepSize, target, count) {
+	count += 1;
+	if(element[property] === target || count === 500) return;
+
+	element[property] -= stepSize;
+
+	setTimeout(() => {
+		incrementScrollBar(element, property, timeoutInterval, stepSize, target, count)
+	}, timeoutInterval) 
+}
 
 // ================ check if overflowing
+function elementHasScrollBar(id, property = null) { 
+	const element = getElement(id);
+	const hasHoriz = element.scrollWidth > element.clientWidth;
+	const hasVert = element.scrollHeight > element.clientHeight;
+
+	if(property === 'horiz') return hasHoriz;
+	if(property === 'vert') return hasVert;
+	if(!property) return hasHoriz || hasVert; 
+}
+
+function elementIsOverflowing(id, property = null) {
+ 		const parentElement = getParentElement(id);
+ 		const widthIsOverflowing = parentElement.scrollWidth > parentElement.clientWidth;
+ 		const heightIsOverflowing = parentElement.scrollHeight > parentElement.clientHeight;
+ 		
+ 		if(property === 'width') return widthIsOverflowing;
+ 		if(property === 'height') return heightIsOverflowing;
+		if(!property) return widthIsOverflowing || heightIsOverflowing;
+ 	}
+
+// ================ get element
+function getParentElement(id) {
+	const parentId = document.getElementById(id).parentElement.id;
+	return document.getElementById(parentId);   
+}
+
+function getElement(id) {
+	return document.getElementById(id);
+}
+
+
+
+
+
+
+
+
+
 export function elementWidthIsOverflowing(id) {
 	const element = document.getElementById(id);
 	return element.scrollWidth > element.clientWidth;

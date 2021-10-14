@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'; 
 import OpenCloseToggle from './../Buttons/OpenCloseToggle/OpenCloseToggle.jsx'; 
-import { triggerOnTransitionEnd, getElementHeight } from './../../utils.js';
+import { triggerOnTransitionEnd, resetScrollBars, getElementHeight } from './../../utils.js';
 import './OpenCloseBox.css';
 
 export default function OpenCloseBox({
@@ -102,73 +102,10 @@ export default function OpenCloseBox({
 	function closeBox() { 
 		// save box height
 
-		scrollToTopLeft(boxBodyId, 200).then(closeContentContainerOverflow).then(closeBoxWidth).then(closeContentContainerHeight)
+		resetScrollBars(boxBodyId, 200)
+		// scrollToTopLeft(boxBodyId, 200)//.then(closeContentContainerOverflow).then(closeBoxWidth).then(closeContentContainerHeight)
 	}
 
-	function scrollToTopLeft(id, time) { 
-		return new Promise(resolve => {
-			const horizPromise = resetHorizontalScrollBar(id, time);
-			const vertPromise = resetVerticalScrollBar(id, time);
-
-			return Promise.all([horizPromise, vertPromise]).then(resolve);
-		})  
-	}
-
-	function resetHorizontalScrollBar(id, time) {
-		if(!hasHorizontalScroll(id)) return new Promise(resolve => resolve());
-
-		const element = document.getElementById(id);
-		const intervalTime = 4;
-		const numSteps = time / intervalTime; 
-		const stepSize = element.scrollLeft / numSteps; 
-
-		return new Promise(resolve => {
-			moveScrollBarLeft(element, intervalTime, stepSize, resolve)
-		})
-	}
-
-	function resetVerticalScrollBar(id, time) {
-		if(!hasVerticalScroll(id)) return new Promise(resolve => resolve());
-
-		const element = document.getElementById(id);
-		const intervalTime = 4;
-		const numSteps = time / intervalTime; 
-		const stepSize = element.scrollTop / numSteps; 
-
-		return new Promise(resolve => {
-			moveScrollBarUp(element, intervalTime, stepSize, resolve)
-		})
-	}
-
-	function hasHorizontalScroll(id) {
-		const element = document.getElementById(id);
-		return element.scrollWidth > element.clientWidth;
-	}
-
-	function hasVerticalScroll(id) {
-		const element = document.getElementById(id);
-		return element.scrollHeight > element.clientHeight;
-	}
- 
-	function moveScrollBarLeft(element, intervalTime, stepSize, resolve) { 
-		if(element.scrollLeft <= 0) return resolve();
-
-		element.scrollLeft = element.scrollLeft - stepSize;	
-
-		setTimeout(() => {
-			moveScrollBarLeft(element, intervalTime, stepSize, resolve)
-		}, intervalTime)
-	} 
-
-	function moveScrollBarUp(element, intervalTime, stepSize, resolve) {
-		if(element.scrollTop <= 0) return resolve();
-
-		element.scrollTop = element.scrollTop - stepSize;	
-
-		setTimeout(() => {
-			moveScrollBarUp(element, intervalTime, stepSize, resolve)
-		}, intervalTime)
-	}
 
 	function closeContentContainerOverflow() {
 		return new Promise(resolve => {
@@ -337,3 +274,72 @@ export default function OpenCloseBox({
 		</div>
 	)
 }
+
+/*
+
+function scrollToTopLeft(id, time) { 
+		return new Promise(resolve => {
+			const horizPromise = resetHorizontalScrollBar(id, time);
+			const vertPromise = resetVerticalScrollBar(id, time);
+
+			return Promise.all([horizPromise, vertPromise]).then(resolve);
+		})  
+	}
+
+	function resetHorizontalScrollBar(id, time) {
+		if(!hasHorizontalScroll(id)) return new Promise(resolve => resolve());
+
+		const element = document.getElementById(id);
+		const intervalTime = 4;
+		const numSteps = time / intervalTime; 
+		const stepSize = element.scrollLeft / numSteps; 
+
+		return new Promise(resolve => {
+			moveScrollBarLeft(element, intervalTime, stepSize, resolve)
+		})
+	}
+
+	function resetVerticalScrollBar(id, time) {
+		if(!hasVerticalScroll(id)) return new Promise(resolve => resolve());
+
+		const element = document.getElementById(id);
+		const intervalTime = 4;
+		const numSteps = time / intervalTime; 
+		const stepSize = element.scrollTop / numSteps; 
+
+		return new Promise(resolve => {
+			moveScrollBarUp(element, intervalTime, stepSize, resolve)
+		})
+	}
+
+	function hasHorizontalScroll(id) {
+		const element = document.getElementById(id);
+		return element.scrollWidth > element.clientWidth;
+	}
+
+	function hasVerticalScroll(id) {
+		const element = document.getElementById(id);
+		return element.scrollHeight > element.clientHeight;
+	}
+ 
+	function moveScrollBarLeft(element, intervalTime, stepSize, resolve) { 
+		if(element.scrollLeft <= 0) return resolve();
+
+		element.scrollLeft = element.scrollLeft - stepSize;	
+
+		setTimeout(() => {
+			moveScrollBarLeft(element, intervalTime, stepSize, resolve)
+		}, intervalTime)
+	} 
+
+	function moveScrollBarUp(element, intervalTime, stepSize, resolve) {
+		if(element.scrollTop <= 0) return resolve();
+
+		element.scrollTop = element.scrollTop - stepSize;	
+
+		setTimeout(() => {
+			moveScrollBarUp(element, intervalTime, stepSize, resolve)
+		}, intervalTime)
+	}
+
+*/
