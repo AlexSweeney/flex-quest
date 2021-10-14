@@ -25,37 +25,6 @@ function transitionHandler(id, propertyName, passFn, failFn, e) {
 	} 
 }
 
-/* export function onTransition(id, propertyName, onStart = null, onEnd = null) {
-	const element = document.getElementById(id); 
-
-	const thisStartFn = transitionStartHandler.bind(null, id, propertyName, onStart);
-	const thisEndFn = transitionEndHandler.bind(null, id, propertyName, onEnd);
-
-	element.addEventListener('transitionstart', thisStartFn, {once: true})
-	element.addEventListener('transitionend', thisEndFn, {once: true})
-}
-*/
-
-/*function transitionStartHandler(id, propertyName, onStart, e) { 
-	// if pass call function 
-	if(e.propertyName === propertyName && e.srcElement.id === id) {
-		onStart && onStart()
-	// if fail try again 
-	} else {
-		triggerOnTransitionStart(id, propertyName, onStart)
-	}
-}
-
-function transitionEndHandler(id, propertyName, onEnd, e) {  
-	// if pass call function 
-	if(e.propertyName === propertyName && e.srcElement.id === id) {   
-		onEnd && onEnd()   
-	// if fail try again 
-	} else {
-		triggerOnTransitionEnd(id, propertyName, onEnd)
-	}
-}
-*/
 // ================ Scrollbar
 // move scrollbars to 0, call onFinish when complete
 export function resetScrollBars(id, time, onFinish = () => {}) {
@@ -63,6 +32,11 @@ export function resetScrollBars(id, time, onFinish = () => {}) {
 	const vertPromise = moveScrollBar(id, 'vert', 0, time); 
 
 	return Promise.all([horizPromise, vertPromise]).then(onFinish)
+}
+
+export function moveScrollBars(id, targetObject, time) {
+	moveScrollBar(id, 'horiz', targetObject.scrollLeft, time)
+	moveScrollBar(id, 'vert', targetObject.scrollTop, time)
 }
 
 export function moveScrollBar(id, scrollbar, target, time) {
@@ -93,6 +67,15 @@ function incrementScrollBar(element, property, timeoutInterval, stepSize, target
 	setTimeout(() => {
 		incrementScrollBar(element, property, timeoutInterval, stepSize, target, count, resolve)
 	}, timeoutInterval) 
+}
+
+export function getScrollPositions(id) {
+	const element = document.getElementById(id);
+ 	
+ 	return {
+ 		scrollLeft: element.scrollLeft,
+ 		scrollTop: element.scrollTop,
+ 	} 
 }
 
 // ================ check if overflowing
@@ -272,3 +255,37 @@ export function setToParentSize(id) {
 // 		}
 // 	})
 // }
+
+
+
+/* export function onTransition(id, propertyName, onStart = null, onEnd = null) {
+	const element = document.getElementById(id); 
+
+	const thisStartFn = transitionStartHandler.bind(null, id, propertyName, onStart);
+	const thisEndFn = transitionEndHandler.bind(null, id, propertyName, onEnd);
+
+	element.addEventListener('transitionstart', thisStartFn, {once: true})
+	element.addEventListener('transitionend', thisEndFn, {once: true})
+}
+*/
+
+/*function transitionStartHandler(id, propertyName, onStart, e) { 
+	// if pass call function 
+	if(e.propertyName === propertyName && e.srcElement.id === id) {
+		onStart && onStart()
+	// if fail try again 
+	} else {
+		triggerOnTransitionStart(id, propertyName, onStart)
+	}
+}
+
+function transitionEndHandler(id, propertyName, onEnd, e) {  
+	// if pass call function 
+	if(e.propertyName === propertyName && e.srcElement.id === id) {   
+		onEnd && onEnd()   
+	// if fail try again 
+	} else {
+		triggerOnTransitionEnd(id, propertyName, onEnd)
+	}
+}
+*/

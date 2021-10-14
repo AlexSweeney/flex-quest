@@ -1,6 +1,13 @@
 import React, {useState, useEffect} from 'react'; 
 import OpenCloseToggle from './../Buttons/OpenCloseToggle/OpenCloseToggle.jsx'; 
-import { triggerOnTransitionEnd, resetScrollBars, shrinkElementOverflow, getElementHeight } from './../../utils.js';
+import { 
+	triggerOnTransitionEnd, 
+	resetScrollBars, 
+	getScrollPositions, 
+	moveScrollBars,
+	shrinkElementOverflow, 
+	getElementHeight 
+} from './../../utils.js';
 import './OpenCloseBox.css';
 
 export default function OpenCloseBox({
@@ -58,6 +65,8 @@ export default function OpenCloseBox({
 	const [isAnimating, setIsAnimating] = useState(false);
 	const [savedHeight, setSavedHeight] = useState(null);
 
+	const [savedScrollPositions, setSavedScrollPositions] = useState(null);
+
 	// ==================== Classes
 	const [boxOpenClass, setBoxOpenClass] = useState('box-open');
 	const [contentContainerOpenClass, setContentContainerOpenClass] = useState('content-container-open');
@@ -99,14 +108,23 @@ export default function OpenCloseBox({
 
  	// ==================== Close Box
 	function closeBox() {   
-		setSavedHeight(getElementHeight(contentContainerId))
-		setWidthOverflowOnClose(elementIsOverflowing(contentContainerId, 'width'))
-
+		saveSize()
+		saveScrollPositions()
+		 
 		moveScrollBarsToTopLeft()
 			.then(closeContentContainerOverflow)
-			.then(closeBoxWidth)
-			.then(closeContentContainerHeight)
+			.then(closeBoxWidth) 
+			.then(closeContentContainerHeight) 
 	} 
+
+	function saveSize() {
+		setSavedHeight(getElementHeight(contentContainerId))
+		setWidthOverflowOnClose(elementIsOverflowing(contentContainerId, 'width'))
+	}
+
+	function saveScrollPositions() {
+		setSavedScrollPositions(getScrollPositions(boxBodyId))
+	}
 
 	function moveScrollBarsToTopLeft() {
 		return resetScrollBars(boxBodyId, 200);
@@ -137,8 +155,9 @@ export default function OpenCloseBox({
 
  	// ==================== Open Box
  	function openBox() {
- 		openBoxWidth()
- 			.then(openContainerHeight)
+ 		openBoxWidth() 
+ 			.then(openContainerHeight) 
+ 			.then(moveScrollBarsToSavedPosition)
  	}
 
  	function openBoxWidth() {
@@ -158,12 +177,20 @@ export default function OpenCloseBox({
  	}
 
  	function openContainerHeight() { 
- 		triggerOnTransitionEnd(contentContainerId, 'height', onContentContainerOpen)
+ 		return new Promise(resolve => {
+ 			triggerOnTransitionEnd(contentContainerId, 'height', () => {
+ 				onContentContainerOpen()
+ 				resolve()
+ 			})
 
- 		setContentContainerOpenClass('content-container-opening-y')
+	 		setContentContainerOpenClass('content-container-opening-y')
+	 
+	 		setElementHeight(contentContainerId, savedHeight)
+ 		}) 
+ 	}
 
- 		setElementHeight(contentContainerId, 0)
- 		setElementHeight(contentContainerId, savedHeight)
+ 	function moveScrollBarsToSavedPosition() {
+ 		moveScrollBars(boxBodyId, savedScrollPositions, 200)
  	}
 
  	// ======================================== Utils =========================================== //
@@ -222,6 +249,7 @@ export default function OpenCloseBox({
 			<div className={`box-body`} id={boxBodyId}> 
 				<div className={`content-container ${contentContainerOpenClass}`} id={contentContainerId}>
 					 <div style={{width: '500px', height: '500px', background: 'pink'}}></div>
+					
 					{/*{children}*/}
 				</div>
 			</div>
