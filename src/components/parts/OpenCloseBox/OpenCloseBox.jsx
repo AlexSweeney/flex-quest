@@ -85,11 +85,7 @@ export default function OpenCloseBox({
  		setBoxIsOpen(true)
  		setToggleIsOpen(false)
  	}
-
- 	function onClosingContentContainer() {
-
- 	}
-
+ 
  	function onContentContainerClosed() {
  		setIsAnimating(false)
  		removeInlineSize(contentContainerId)
@@ -104,9 +100,16 @@ export default function OpenCloseBox({
 
  	// ==================== Close Box
 	function closeBox() {   
-		resetScrollBars(boxBodyId, 200).then(closeContentContainerOverflow).then(() => { console.log('fin')})
-		// scrollToTopLeft(boxBodyId, 200)//.then(closeContentContainerOverflow).then(closeBoxWidth).then(closeContentContainerHeight)
+		moveScrollBarsToTopLeft()
+			.then(closeContentContainerOverflow)
+			.then(closeBoxWidth)
+			.then(closeContentContainerHeight)
+			.then(() => { console.log('fin')}) 
 	} 
+
+	function moveScrollBarsToTopLeft() {
+		return resetScrollBars(boxBodyId, 200);
+	}
 
 	function closeContentContainerOverflow() {
 		setContentContainerOpenClass('content-container-closing-overflow')
@@ -126,8 +129,14 @@ export default function OpenCloseBox({
  	}
 
  	function closeContentContainerHeight() {
- 		triggerOnTransitionEnd(contentContainerId, 'height', onContentContainerClosed)
- 		setContentContainerOpenClass('content-container-closing-y')
+ 		return new Promise(resolve => {
+ 			triggerOnTransitionEnd(contentContainerId, 'height', () => {
+ 				onContentContainerClosed()
+ 				resolve()
+ 			})
+
+ 			setContentContainerOpenClass('content-container-closing-y')
+ 		}) 
  	}
 
  	// ==================== Open Box
@@ -220,7 +229,7 @@ export default function OpenCloseBox({
 						setIsAnimatingfadsfdasfda
 					</div>
 					*/}
-					{children}
+					{/*{children}*/}
 				</div>
 			</div>
 		</div>

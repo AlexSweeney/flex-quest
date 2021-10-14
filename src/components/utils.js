@@ -126,8 +126,11 @@ export function shrinkElementOverflow(id, onFinish = () => {}) {
 
 function shrinkOverflow(id, property) {
 	return new Promise(resolve => {
-		if(!elementIsOverflowing(id, property)) resolve()
- 
+		if(!elementIsOverflowing(id, property)) {
+			console.log('not overflowing ', property)
+			resolve()
+ 		}
+
 		triggerOnTransitionEnd(id, property, resolve)
  		setSizeInPx(id, property)
  		setToParentSize(id, property)
