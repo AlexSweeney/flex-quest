@@ -29,15 +29,14 @@ export default function OpenCloseBox({
 				* open box
 				* if width overflow show scroll bar on open box.  
 				* open box to previous size  
-		 
-		fix - open Content container y
+		  
  		feat - save scroll position, scroll to same place on open
 				
 		test
-			normal
-			width
-			height
-			both
+			* normal 
+			* width
+			* height
+			* both
 
 		tidy
 		push 
@@ -100,11 +99,13 @@ export default function OpenCloseBox({
 
  	// ==================== Close Box
 	function closeBox() {   
+		setSavedHeight(getElementHeight(contentContainerId))
+		setWidthOverflowOnClose(elementIsOverflowing(contentContainerId, 'width'))
+
 		moveScrollBarsToTopLeft()
 			.then(closeContentContainerOverflow)
 			.then(closeBoxWidth)
 			.then(closeContentContainerHeight)
-			.then(() => { console.log('fin')}) 
 	} 
 
 	function moveScrollBarsToTopLeft() {
@@ -118,30 +119,26 @@ export default function OpenCloseBox({
   
  	function closeBoxWidth() {
  		return new Promise(resolve => {
- 			triggerOnTransitionEnd(boxId, 'width', () => {
- 				onBoxClosed()
- 				resolve()
- 			})
+	 		triggerOnTransitionEnd(boxId, 'width', () => {
+	 			onBoxClosed()
+	 			resolve()
+	 		})
 
- 			setBoxOpenClass('box-closed')
- 			setContentContainerOpenClass('content-container-closing-x')
- 		})
+	 		setBoxOpenClass('box-closed')
+	 		setContentContainerOpenClass('content-container-closing-x')
+	 	}) 
  	}
 
  	function closeContentContainerHeight() {
- 		return new Promise(resolve => {
- 			triggerOnTransitionEnd(contentContainerId, 'height', () => {
- 				onContentContainerClosed()
- 				resolve()
- 			})
+ 		triggerOnTransitionEnd(contentContainerId, 'height', onContentContainerClosed)
 
- 			setContentContainerOpenClass('content-container-closing-y')
- 		}) 
+ 		setContentContainerOpenClass('content-container-closing-y')
  	}
 
  	// ==================== Open Box
  	function openBox() {
- 		openBoxWidth().then(openContainerHeight)
+ 		openBoxWidth()
+ 			.then(openContainerHeight)
  	}
 
  	function openBoxWidth() {
@@ -151,17 +148,22 @@ export default function OpenCloseBox({
  				resolve()
  			})
 
- 			const newContentContainerOpenClass = widthOverflowOnClose ? 'content-container-opening-x-overflow' : 'content-container-opening-x';
- 			setContentContainerOpenClass(newContentContainerOpenClass)
+ 			setContentContainerOpenClass(getContentContainerOpeningXClass())
  			setBoxOpenClass('box-open')
  		})
  	}
 
- 	function openContainerHeight() {
- 		// triggerOnTransitionEnd(contentContainerId, 'height', onContentContainerOpen)
+ 	function getContentContainerOpeningXClass() {
+ 		return widthOverflowOnClose ? 'content-container-opening-x-overflow' : 'content-container-opening-x';
+ 	}
 
- 		setElementHeight(contentContainerId, savedHeight)
+ 	function openContainerHeight() { 
+ 		triggerOnTransitionEnd(contentContainerId, 'height', onContentContainerOpen)
+
  		setContentContainerOpenClass('content-container-opening-y')
+
+ 		setElementHeight(contentContainerId, 0)
+ 		setElementHeight(contentContainerId, savedHeight)
  	}
 
  	// ======================================== Utils =========================================== //
@@ -219,16 +221,7 @@ export default function OpenCloseBox({
 
 			<div className={`box-body`} id={boxBodyId}> 
 				<div className={`content-container ${contentContainerOpenClass}`} id={contentContainerId}>
-					{/*<div style={{width: '500px', height: '500px', background: 'pink'}}>
-						abc
-						defaultadf
-						setIsAnimatingfad
-						setIsAnimatingfadsfda
-						setIsAnimatingfadsfdasfda
-						setIsAnimatingfadsfdasfda
-						setIsAnimatingfadsfdasfda
-					</div>
-					*/}
+					 <div style={{width: '500px', height: '500px', background: 'pink'}}></div>
 					{/*{children}*/}
 				</div>
 			</div>

@@ -84,11 +84,11 @@
 	box-sizing: border-box;
 	position: relative;
 } 
-/*
-.box-body-closing {
+
+/*.box-body-closing {
 	overflow: hidden;
-}
- */
+}*/
+ 
 /* =================== Content Container  */
 .content-container { 
 	/*transition: height 1s, min-height 1s, width 1s;*/
@@ -152,10 +152,9 @@
 }
 
 .content-container-opening-y {
-	height: 0; 
-	overflow: hidden;  
-
-	/* set height with js */  
+	min-width: 100%;
+	overflow: hidden;   
+	/* set inline height with js */  
 }
   
 

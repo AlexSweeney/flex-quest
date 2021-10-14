@@ -100,7 +100,7 @@ function elementHasScrollBar(id, property = null) {
 	const element = getElement(id);
 	const hasHoriz = element.scrollWidth > element.clientWidth;
 	const hasVert = element.scrollHeight > element.clientHeight;
-
+ 
 	if(property === 'horiz') return hasHoriz;
 	if(property === 'vert') return hasVert;
 	if(!property) return hasHoriz || hasVert; 
@@ -126,10 +126,7 @@ export function shrinkElementOverflow(id, onFinish = () => {}) {
 
 function shrinkOverflow(id, property) {
 	return new Promise(resolve => {
-		if(!elementIsOverflowing(id, property)) {
-			console.log('not overflowing ', property)
-			resolve()
- 		}
+		if(!elementIsOverflowing(id, property))  return resolve()
 
 		triggerOnTransitionEnd(id, property, resolve)
  		setSizeInPx(id, property)
