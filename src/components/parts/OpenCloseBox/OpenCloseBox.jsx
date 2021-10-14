@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'; 
 import OpenCloseToggle from './../Buttons/OpenCloseToggle/OpenCloseToggle.jsx'; 
-import { triggerOnTransitionEnd, resetScrollBars, getElementHeight } from './../../utils.js';
+import { triggerOnTransitionEnd, resetScrollBars, shrinkElementOverflow, getElementHeight } from './../../utils.js';
 import './OpenCloseBox.css';
 
 export default function OpenCloseBox({
@@ -86,6 +86,10 @@ export default function OpenCloseBox({
  		setToggleIsOpen(false)
  	}
 
+ 	function onClosingContentContainer() {
+
+ 	}
+
  	function onContentContainerClosed() {
  		setIsAnimating(false)
  		removeInlineSize(contentContainerId)
@@ -99,48 +103,16 @@ export default function OpenCloseBox({
  	}
 
  	// ==================== Close Box
-	function closeBox() { 
-		// save box height
-
-		moveScrollBarsTopLeft(boxBodyId, 200).then(() => { console.log('fin')})
+	function closeBox() {   
+		resetScrollBars(boxBodyId, 200).then(closeContentContainerOverflow).then(() => { console.log('fin')})
 		// scrollToTopLeft(boxBodyId, 200)//.then(closeContentContainerOverflow).then(closeBoxWidth).then(closeContentContainerHeight)
-	}
-
-	function moveScrollBarsTopLeft(id, time) {
-		return new Promise(resolve => {
-			resetScrollBars(id, time, resolve)
-		})
-	}
-
+	} 
 
 	function closeContentContainerOverflow() {
-		return new Promise(resolve => {
-			setContentContainerOpenClass('content-container-closing-overflow') 
-			
-			setWidthOverflowOnClose(elementIsOverflowing(contentContainerId, 'width'))
-			setSavedHeight(getElementHeight(contentContainerId))
- 
-			const widthPromise = closeOverflow(contentContainerId, 'width');
-			const heightPromise = closeOverflow(contentContainerId, 'height');
- 			
-			Promise.all([widthPromise, heightPromise]).then(resolve)
-		})  
- 	} 
-
- 	function closeOverflow(id, property) {
- 		return new Promise(resolve => {
- 			const isOverflowing = elementIsOverflowing(id, property)
- 			
- 			if(!isOverflowing) resolve()
- 			
- 			if(isOverflowing) {
- 				triggerOnTransitionEnd(id, property, resolve)
- 				setSizeInPx(id, property)
- 				setToParentSize(id, property)
- 			}
- 		})
- 	}
-
+		setContentContainerOpenClass('content-container-closing-overflow')
+		return shrinkElementOverflow(contentContainerId);
+	}
+  
  	function closeBoxWidth() {
  		return new Promise(resolve => {
  			triggerOnTransitionEnd(boxId, 'width', () => {
@@ -195,33 +167,7 @@ export default function OpenCloseBox({
  			return parentElement.scrollHeight > parentElement.clientHeight;
  		}
  	}
-
- 	function setSizeInPx(id, property) {
-		const element = document.getElementById(id);
-		
-		if(property === 'width') {
-			element.style.width = element.clientWidth + 'px';
-		}
-		
-		if(property === 'height') {
-			element.style.height = element.clientHeight + 'px';
-		}
-	}
-
-	function setToParentSize(id, property) {
-		const element = document.getElementById(id);
-		const parentElement = getParentElement(id); 
-		const parentStyle = window.getComputedStyle(parentElement);
-
-		if(property === 'width') {
-			element.style.width = parentStyle.width;
-		}
-		
-		if(property === 'height') {
-			element.style.height = parentStyle.height;
-		}
-	}
-
+ 
 	function getParentElement(id) {
 		const parentId = document.getElementById(id).parentElement.id;
 		return document.getElementById(parentId);   
@@ -348,4 +294,32 @@ function scrollToTopLeft(id, time) {
 		}, intervalTime)
 	}
 
+
+function closeContentContainerOverflowOld() {
+		return new Promise(resolve => {
+			setContentContainerOpenClass('content-container-closing-overflow') 
+			
+			setWidthOverflowOnClose(elementIsOverflowing(contentContainerId, 'width'))
+			setSavedHeight(getElementHeight(contentContainerId))
+ 
+			const widthPromise = closeOverflow(contentContainerId, 'width');
+			const heightPromise = closeOverflow(contentContainerId, 'height');
+ 			
+			Promise.all([widthPromise, heightPromise]).then(resolve)
+		})  
+ 	} 
+
+ 	function closeOverflow(id, property) {
+ 		return new Promise(resolve => {
+ 			const isOverflowing = elementIsOverflowing(id, property)
+ 			
+ 			if(!isOverflowing) resolve()
+ 			
+ 			if(isOverflowing) {
+ 				triggerOnTransitionEnd(id, property, resolve)
+ 				setSizeInPx(id, property)
+ 				setToParentSize(id, property)
+ 			}
+ 		})
+ 	}
 */

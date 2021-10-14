@@ -62,7 +62,7 @@ export function resetScrollBars(id, time, onFinish = () => {}) {
 	const horizPromise = moveScrollBar(id, 'horiz', 0, time);
 	const vertPromise = moveScrollBar(id, 'vert', 0, time); 
 
-	Promise.all([horizPromise, vertPromise]).then(onFinish)
+	return Promise.all([horizPromise, vertPromise]).then(onFinish)
 }
 
 export function moveScrollBar(id, scrollbar, target, time) {
@@ -116,6 +116,44 @@ function elementIsOverflowing(id, property = null) {
 		if(!property) return widthIsOverflowing || heightIsOverflowing;
  	}
 
+// ================ change element size
+export function shrinkElementOverflow(id, onFinish = () => {}) {
+	const widthPromise = shrinkOverflow(id, 'width');
+	const heightPromise = shrinkOverflow(id, 'height');
+
+	return Promise.all([widthPromise, heightPromise]).then(onFinish);
+}
+
+function shrinkOverflow(id, property) {
+	return new Promise(resolve => {
+		if(!elementIsOverflowing(id, property)) resolve()
+ 
+		triggerOnTransitionEnd(id, property, resolve)
+ 		setSizeInPx(id, property)
+ 		setToParentSize(id, property)
+	})
+}
+
+function setSizeInPx(id, property) { 
+	const element = getElement(id); 
+
+	if(property === 'width') {
+		element.style.width = element.clientWidth + 'px';
+	}
+	
+	if(property === 'height') {
+		element.style.height = element.clientHeight + 'px';
+	}
+}
+
+function setToParentSize(id, property) {
+	const element = document.getElementById(id);
+	const parentElement = getParentElement(id); 
+	const parentStyle = window.getComputedStyle(parentElement);
+
+	element.style[property] = parentStyle[property];
+}
+
 // ================ get element
 function getParentElement(id) {
 	const parentId = document.getElementById(id).parentElement.id;
@@ -126,34 +164,11 @@ function getElement(id) {
 	return document.getElementById(id);
 }
 
-
-
-
-
-
-
-
-
-export function elementWidthIsOverflowing(id) {
-	const element = document.getElementById(id);
-	return element.scrollWidth > element.clientWidth;
-}
-
-export function elementHeightIsOverflowing(id) {
-	const element = document.getElementById(id);
-	return element.scrollHeight > element.clientHeight;
-}
-
+// ================ query element
 export function elementHasInlineSize(id) {
 	const element = document.getElementById(id); 
 
 	return !(element.style.width === '' && element.style.height === '');
-}
-
-export function removeInlineSize(id) { 
-	const element = document.getElementById(id);  
-	element.style.width = '';
-	element.style.height = ''; 
 }
 
 export function setToElementSize(idOne, idTwo) {
@@ -165,6 +180,27 @@ export function setToElementSize(idOne, idTwo) {
 	elementOne.style.width = elementTwoStyle.width;
 	elementOne.style.height = elementTwoStyle.height;
 }
+/*
+
+export function elementWidthIsOverflowing(id) {
+	const element = document.getElementById(id);
+	return element.scrollWidth > element.clientWidth;
+}
+
+export function elementHeightIsOverflowing(id) {
+	const element = document.getElementById(id);
+	return element.scrollHeight > element.clientHeight;
+}
+
+
+
+export function removeInlineSize(id) { 
+	const element = document.getElementById(id);  
+	element.style.width = '';
+	element.style.height = ''; 
+}
+
+*/
 
 /*export function setToCurrentSize(id) {
 	const element = document.getElementById(id);

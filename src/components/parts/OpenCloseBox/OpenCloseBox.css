@@ -96,7 +96,7 @@
  
 	box-sizing: border-box;
 	
-  min-width: 100%;
+  /*min-width: 100%;*/
   background: pink;
 	/*min-width: 100%;
   min-height: 100%; */
@@ -112,8 +112,15 @@
   /*border: 8px solid #E8E4E4;*/ 
 }  
 
+.content-container-open {
+	min-height: 100%;
+	min-width: 100%;
+}
+
 .content-container-closing-overflow {
-	/*overflow: hidden; */
+	overflow: hidden; 
+	min-height: 100%;
+	min-width: 100%;
 }
 
 .content-container-closing-x {
@@ -148,9 +155,7 @@
 	/* set height with js */  
 }
   
-.content-container-open {
-	min-height: 100%;
-}
+
 
 /*.content-container-closing-overflow {
 	overflow: hidden;
