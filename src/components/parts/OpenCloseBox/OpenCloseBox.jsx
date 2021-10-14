@@ -35,10 +35,6 @@ export default function OpenCloseBox({
 				* open box
 				* if width overflow show scroll bar on open box.  
 				* open box to previous size  
-		  
-		move to utils
-		push 
-		commit
 	*/
 
 	// ======================================== Constants ========================================= //
