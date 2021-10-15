@@ -3,28 +3,45 @@ import './BurgerMenu.css';
 
 export default function BurgerMenu({isOpen, setIsOpen, options, handleClick}) { 
 	/*
-		*	if isOpen show options
+		*	on isOpen 
+			* show options
+			* animate
 
-		* if !isOpen don't show options
+		* on !isOpen 
+			* hide options
+			* animate
 
 		* animate show and hide
 
-		* if click option call handle click and hide options 
-	
+		* on click option 
+			* call handle click 
+			* hide options  
 	*/
-
+	// ================================ Constants ================================= //
 	const [menuOpenClass, setMenuOpenClass] = useState('burger-menu-closed');
 	
+	// ================================ Event Handlers ============================ //
 	function onOptionClick(option) {
 		handleClick(option)
 		setIsOpen(false)
 	}
 
+	// ================================ Helper Fns ================================= //
+	function openMenu() {
+		setMenuOpenClass('burger-menu-open')
+	}
+
+	function closeMenu() {
+		setMenuOpenClass('burger-menu-closed')
+	}
+
+	// ================================ Listen / Trigger =========================== //
 	useEffect(() => {
-		if(isOpen) setMenuOpenClass('burger-menu-open')
-		if(!isOpen) setMenuOpenClass('burger-menu-closed')
+		if(isOpen) openMenu()
+		if(!isOpen) closeMenu()
 	}, [isOpen])
 
+	// ================================ Output ===================================== //
 	return ( 
 		<div className={`burger-menu ${menuOpenClass}`}>
 			{options && options.map(option => (

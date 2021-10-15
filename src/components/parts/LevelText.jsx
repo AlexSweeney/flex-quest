@@ -44,8 +44,7 @@ export default function LevelText({
   		* inline clicker 
   		* click header
 		   
-  	refactor parts
-  		- burger  
+  	refactor parts 
   		- burger display 
   				- open with burger on click open => open seperately from content container -> overlay?
   				- don't show vert scroll when burger open
