@@ -49,9 +49,7 @@ export default function LevelText({
 		  - add / remove highlight 
 
   	refactor parts    
-			- hover text = normal cursor
-			
-			- sync so that burger display opens same time as box
+			- hover text = normal cursor 
 
 	  	- Code Input
 	  		- fade codeInput in out on level change

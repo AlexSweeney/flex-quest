@@ -28,6 +28,7 @@
 
 .text-body p {
 	margin-bottom: 0.5em;
+	cursor: default;
 }
 
 .text-body p:last-child {
