@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import {Text as Text_1} from './../data/learn/Level_1/text.jsx';
 import {Text as Text_2} from './../data/learn/Level_2/text.jsx';
@@ -16,6 +16,11 @@ import Text_13 from './../data/text/Text_13.jsx';*/
 
 
 export default function Text({levelNum, handleStyleOptionClick}) {  
+	/*
+		* Display Text that matches levelNum
+
+	*/
+
 	const allText = [
 		Text_1,
 		Text_2,
@@ -32,7 +37,7 @@ export default function Text({levelNum, handleStyleOptionClick}) {
 		Text_13,*/
 	];
 
-	const ThisText = allText[levelNum];  
-
+	const ThisText = allText[levelNum]; 
+	
 	return <ThisText handleStyleOptionClick={handleStyleOptionClick}/>
 }

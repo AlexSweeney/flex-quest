@@ -46,11 +46,14 @@ export default function LevelText({
 		   
   	refactor parts 
   		- burger display 
-  				- open with burger on click open => open seperately from content container -> overlay?
-  				- don't show vert scroll when burger open
+  				- don't show vert scroll when burger open 
+			
+			- inline click header
+
   		- click header
   			- add box around options & option text
-  		- inline click header
+
+	  	other els.	
 
   		- fade codeInput in out on level change
 	*/
