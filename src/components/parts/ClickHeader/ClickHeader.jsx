@@ -34,10 +34,8 @@ export default function ClickHeader({
 			* open / close text
 			* animate text open / close
 
-		- on selected / deselected
-			- add / remove highlight color to target 
-  
-		- tidy
+		* on selected / deselected (set by handleStyleOptionClick)
+			* add / remove highlight color to target  
 	*/
 
 	/* =================================== Constants ======================================= */
@@ -51,6 +49,7 @@ export default function ClickHeader({
 	const [textContainerHeight, setTextContainerHeight] = useState(null);
 
 	/* ===================== Classes */ 
+	const [titleSelectedClass, setTitleSelectedClass] = useState('title-not-selected');
 	const [playIconAnimatingClass, setPlayIconAnimatingClass] = useState('play-icon-not-animating');
 	const [playIconDownClass, setPlayIconDownClass] = useState('play-icon-up');
 	const [showTextClass, setShowTextClass] = useState('text-container-init');
@@ -77,21 +76,21 @@ export default function ClickHeader({
 			openTextContainer() 
 		}
 	}
-
-	// function onIconOpen() {
-	// 	console.log('icon open')
-	// 	setPlayIconAnimatingClass('play-icon-not-animating')
-	// }
-
-	function onIconClosed() {
-		console.log('icon closed')
+ 
+	function onIconClosed() { 
 		setPlayIconAnimatingClass('play-icon-not-animating')
 	}
 
-	/* =================================== Helper Fns ======================================= */
-	function openIcon() {
-		// triggerOnTransitionEnd(playIconId, 'transform', onIconOpen)
+	function onTitleSelected() {
+		setTitleSelectedClass('title-selected')
+	}
 
+	function onTitleDeselected() {
+		setTitleSelectedClass('title-not-selected')
+	}
+
+	/* =================================== Helper Fns ======================================= */
+	function openIcon() { 
 		setPlayIconDownClass('play-icon-down')
 	}
 
@@ -127,11 +126,16 @@ export default function ClickHeader({
 		onRender()
 	}, [])
 
+	useEffect(() => {
+		if(isSelected) onTitleSelected()
+		if(!isSelected) onTitleDeselected()
+	}, [isSelected])
+
 	/* =================================== Output ============================================= */
 	return (
 		<div className='click-header'>
 			<div className='header-container'> 
-				<h2 className={`info-header`} onClick={onHeaderClick}>{title}</h2>
+				<h2 className={`info-header ${titleSelectedClass}`} onClick={onHeaderClick}>{title}</h2>
 				<PlayArrowIcon className={`play-icon ${playIconDownClass} ${playIconAnimatingClass}`} onClick={onIconClick} id={playIconId}/>
 			</div> 
 
