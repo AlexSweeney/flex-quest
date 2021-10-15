@@ -1,5 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import {
+	getElementHeight,
+	setElementHeight,
+	removeInlineSize,
+} from './../../utils.js';
 import './ClickHeaderStyle.css'; 
 
 export default function ClickHeader({
@@ -9,21 +14,109 @@ export default function ClickHeader({
 	setSelectedHeader, 
 	setSelectedStyle, 
 	thisStyle, */
+	i,
 	title,
 	thisStyle,
 	handleStyleOptionClick,
 	children,
 }) {  
 	/* 
-		* title, i 
+		* show header
+		* show open close icon
 
-		* show header and icon
+		* on click header
+			* call handleStyleOptionClick
 		
-		* on click icon = toggle body text on / off
+		- on click icon 
+			* animate icon 90deg down / up
+			- change icon color when animating
+			* open / close text
+			* animate text open / close
 
-		* on click header = apply header style + add color to header
-		* on reclick header = remove header style  + remove color from header
+		- on selected / deselected
+			- add / remove highlight color to target 
 	*/
+	const playIconId = `play-icon-${i}`;
+	const textContainerId = `text-container-${i}`;
+
+	const [playIconClass, setPlayIconClass] = useState('play-icon');
+	const [playIconDownClass, setPlayIconDownClass] = useState('play-icon-up');
+	const [showTextClass, setShowTextClass] = useState('text-container-init');
+
+	const [isSelected, setIsSelected] = useState(false);
+	const [showText, setShowText] = useState(false);
+	const [textContainerHeight, setTextContainerHeight] = useState();
+
+	function onRender() {
+		// ? fade text
+		saveTextContainerHeight() 
+		hideTextContainer() 
+		// ? showText 
+	}
+ 
+	function onHeaderClick() {
+		handleStyleOptionClick(thisStyle, setIsSelected)
+	}
+
+	function handleIconClick() {
+		if(showText) {
+			closeIcon()
+			closeTextContainer()
+		}
+		if(!showText) {
+			openIcon()
+			openTextContainer() 
+		}
+	}
+
+	function closeIcon() {
+		setPlayIconDownClass('play-icon-up')
+	}
+
+	function closeTextContainer() {
+		setShowText(false)
+		removeInlineSize(textContainerId)
+		setShowTextClass('text-container-hide-text') 
+	}
+
+	function openIcon() {
+		setPlayIconDownClass('play-icon-down')
+	}
+
+	function openTextContainer() {
+		setShowText(true)
+		setElementHeight(textContainerId, textContainerHeight)
+		setShowTextClass('text-container-show-text')
+	}
+
+	function saveTextContainerHeight() {
+		const height = getElementHeight(textContainerId);
+		console.log('height', height)
+		setTextContainerHeight(height)
+	}
+
+	function hideTextContainer() { 
+		setShowTextClass('text-container-hide-text')
+	}
+
+	useEffect(() => {
+		onRender()
+	}, [])
+
+	// ================================= Output ============================== //
+	return (
+		<div className='click-header'>
+			<div className='header-container'> 
+				<h2 className={`info-header`} onClick={onHeaderClick}>{title}</h2>
+				<PlayArrowIcon className={`play-icon ${playIconDownClass}`} onClick={handleIconClick}/>
+			</div> 
+
+			<div className={`text-container ${showTextClass}`} id={textContainerId}>
+				{children}
+			</div>
+		</div>  
+	)
+}
 
 	// ================================= Ids ============================== // 
 	// const playIconId = `play-icon-${i}`;
@@ -141,24 +234,3 @@ export default function ClickHeader({
 
 	// 	setPlayIconClass(newClass);
 	// }, [playIconAnimating, showChildren])
-	const [isSelected, setIsSelected] = useState(false);
-
-	function onHeaderClick() {
-		handleStyleOptionClick(thisStyle, setIsSelected)
-	}
-
-	// ================================= Output ============================== //
-	return (
-		<div className='click-header'>
-			<div className='header-container'> 
-				<h2 className={`info-header`} 
-						onClick={onHeaderClick}>{title}</h2>
-				{/*<PlayArrowIcon className={playIconClass} onClick={onIconClick} id={playIconId}/>*/}
-			</div> 
-
-			{/*<div className={`child-container ${showChildrenClass}`} id={childContainerId}>
-				{children}
-			</div>*/}
-		</div>
-	)
-}

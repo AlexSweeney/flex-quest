@@ -1,9 +1,20 @@
+
+
+.click-header-container {
+/* background: grey;
+ padding: 5px;
+ margin-bottom: 1px;*/
+}
+
 /* ================== Header ================== */
 .header-container {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	margin-bottom: 12px;
+	background: grey;
+	padding: 5px;
+	margin-bottom: 1px;
 }
 
 .info-header {
@@ -49,29 +60,41 @@ div .play-icon-animating {
 	color: #495fda;
 }
 
-div .play-icon-selected {
+div .play-icon-down {
   color: #495fda; 
 	transform: rotate(90deg);
 }
 
 /* ================== Text ================== */  
-.click-header {
- 
+.text-container {
+	overflow: hidden;
+	transition: height 1000ms;
 }
 
+.text-container-init {
+	visibility: hidden;
+}
+
+.text-container-hide-text {
+	height: 0; 
+}
+
+.text-container-show-text {
+	/*overflow: visible;*/
+}
+
+.text-container:hover {
+	cursor: default;
+}
+ 
 .info-text {
 	padding: 0.5em 0.75em; 
 }
 
-.child-container {
-	transition: height 1000ms; 
-	overflow: hidden; 
-}
 
-.child-container:hover {
-	cursor: default;
-}
+/*
+
 
 .children-init {
 	opacity: 0;
-} 
+} */

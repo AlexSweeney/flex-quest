@@ -49,15 +49,16 @@ export default function LevelText({
 		  - add / remove highlight 
 
   	refactor parts 
+  		- click header
+  			- add box around options & option text 
+
   		- burger display 
   				- don't show vert scroll when burger open 
- 
-  		- click header
-  			- add box around options & option text
+		
+			- hover text = normal cursor
 
-	  	other els.	
-
-  		- fade codeInput in out on level change
+	  	- Code Input
+	  		- fade codeInput in out on level change
 	*/
 	// ======================================= Ids ========================================= //
 	const titleId = `title-${i}`;

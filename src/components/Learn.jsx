@@ -44,7 +44,7 @@ export default function Learn() {
 		set to 64px / 4em = scroll to edge of 2nd box rounding error => try flex solution
 
 	*/
-	const [levelNum, setLevelNum] = useState(0);
+	const [levelNum, setLevelNum] = useState(1);
 
 	const htmlStrings = [
 		html_1,
