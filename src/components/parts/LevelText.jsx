@@ -51,9 +51,7 @@ export default function LevelText({
   	refactor parts 
   		- burger display 
   				- don't show vert scroll when burger open 
-			
-			- inline clicker
-
+ 
   		- click header
   			- add box around options & option text
 
