@@ -1,10 +1,9 @@
-
 .click-header {
  	margin-bottom: 1px;
 }
 
-/* ================== Header ================== */
-.header-container {
+/* ================== Title ================== */
+.click-header-title-container {
 	display: flex;
 	align-items: center;
 	justify-content: space-between; 
@@ -12,26 +11,26 @@
 	padding: 5px; 
 }
 
-.info-header {
+.click-header-title {
 	font-weight: bold; 
 }
  
-.info-header:hover {
+.click-header-title:hover {
 	color: #2196f3;
 	cursor: pointer;
 }
 
-.info-header:active {
+.click-header-title:active {
 	color: #3f51b5;
 	cursor: pointer;
 }
 
-.title-selected {
+.click-header-title-selected {
 	color: #3f51b5; 
 }
 
 /* ================== Icon ================== */
-div .play-icon {
+div .click-header-play-icon {
 	background: #272727;
   color: #E8E4E4;
   width: 20px;
@@ -42,26 +41,26 @@ div .play-icon {
   transition: transform 500ms ease-in-out, color 500ms;
 } 
 
-div .play-icon:hover {
+div .click-header-play-icon:hover {
 	color: #2196f3;
 	cursor: pointer;
 }
 
-div .play-icon:active {
+div .click-header-play-icon:active {
 	color: #495fda;
 }
 
-div .play-icon-animating {
+div .click-header-play-icon-animating {
 	color: #495fda; 
 }
 
-div .play-icon-down {
+div .click-header-play-icon-down {
   color: #495fda; 
 	transform: rotate(90deg);
 }
 
 /* ================== Text ================== */  
-.text-container {
+.click-header-text-container {
 	transition: height 500ms, padding-top 500ms, padding-bottom 500ms;
 	overflow: hidden;
 	background: #C4C4C4; 
@@ -70,16 +69,16 @@ div .play-icon-down {
 	padding-right: 5px;
 }
 
-.text-container-init {
+.click-header-text-container-init {
 	visibility: hidden;
 }
 
-.text-container-hide-text {
+.click-header-text-container-hide-text {
 	height: 0; 
 	padding-top: 0; 
 }
 
-.text-container-show-text { 
+.click-header-text-container-show-text { 
 	padding-top: 5px;
 	padding-bottom: 5px;
 } 
@@ -87,11 +86,4 @@ div .play-icon-down {
 .info-text { 
 	padding: 0.5em 0.75em; 
 }
-
-
-/*
-
-
-.children-init {
-	opacity: 0;
-} */
+ 

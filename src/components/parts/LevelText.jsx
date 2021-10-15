@@ -106,7 +106,7 @@ export default function LevelText({
 		openBurgerIfWasOpen()  
 	} 
 
-	function handleStyleOptionClick(thisStyle, setIsSelected) {
+	function onStyleOptionClick(thisStyle, setIsSelected) {
 		const isSelected = (thisStyle !== selectedStyle);
 		const newStyle = isSelected ? thisStyle : defaultStyle;
 
@@ -169,7 +169,7 @@ export default function LevelText({
 	return ( 
 		<OpenCloseBox  title={title} titleId={titleId} i={i} buttons={buttons} handleToggleClick={handleToggleClick} fade={fade} bodyOverlay={bodyOverlay}>
 			<div className={`text-body ${textBodyOpenClass}`} id={textBodyId}> 
-			 	<Text levelNum={levelNum} handleStyleOptionClick={handleStyleOptionClick}/> 
+			 	<Text levelNum={levelNum} handleStyleOptionClick={onStyleOptionClick}/> 
 			</div> 
 		</OpenCloseBox> 
 	)

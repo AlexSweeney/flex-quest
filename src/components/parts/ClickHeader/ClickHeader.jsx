@@ -8,13 +8,7 @@ import {
 } from './../../utils.js';
 import './ClickHeaderStyle.css'; 
 
-export default function ClickHeader({
-	/*title, 
-	i, 
-	selectedHeader,
-	setSelectedHeader, 
-	setSelectedStyle, 
-	thisStyle, */
+export default function ClickHeader({ 
 	i,
 	title,
 	thisStyle,
@@ -40,19 +34,19 @@ export default function ClickHeader({
 
 	/* =================================== Constants ======================================= */
 	/* ===================== Ids */
-	const playIconId = `play-icon-${i}`;
-	const textContainerId = `text-container-${i}`;
+	const playIconId = `click-header-play-icon-${i}`;
+	const textContainerId = `click-header-text-container-${i}`;
 
 	/* ===================== Status */
-	const [isSelected, setIsSelected] = useState(false);
+	const [titleIsSelected, setTitleIsSelected] = useState(false);
 	const [showText, setShowText] = useState(false); 
 	const [textContainerHeight, setTextContainerHeight] = useState(null);
 
 	/* ===================== Classes */ 
-	const [titleSelectedClass, setTitleSelectedClass] = useState('title-not-selected');
-	const [playIconAnimatingClass, setPlayIconAnimatingClass] = useState('play-icon-not-animating');
-	const [playIconDownClass, setPlayIconDownClass] = useState('play-icon-up');
-	const [showTextClass, setShowTextClass] = useState('text-container-init');
+	const [titleSelectedClass, setTitleSelectedClass] = useState('click-header-title-not-selected');
+	const [playIconAnimatingClass, setPlayIconAnimatingClass] = useState('click-header-play-icon-not-animating');
+	const [playIconDownClass, setPlayIconDownClass] = useState('click-header-play-icon-up');
+	const [showTextClass, setShowTextClass] = useState('click-header-text-container-init');
 
 	/* =================================== Event Handlers =================================== */
 	function onRender() {  
@@ -62,54 +56,54 @@ export default function ClickHeader({
 		} 
 	}
  
-	function onHeaderClick() {
-		handleStyleOptionClick(thisStyle, setIsSelected)
+	function onTitleClick() {
+		handleStyleOptionClick(thisStyle, setTitleIsSelected)
 	}
 
-	function onIconClick() {
+	function onPlayIconClick() {
 		if(showText) {
-			closeIcon()
+			closePlayIcon()
 			closeTextContainer()
 		}
 		if(!showText) {
-			openIcon()
+			openPlayIcon()
 			openTextContainer() 
 		}
 	}
  
-	function onIconClosed() { 
-		setPlayIconAnimatingClass('play-icon-not-animating')
+	function onPlayIconClosed() { 
+		setPlayIconAnimatingClass('click-header-play-icon-not-animating')
 	}
 
 	function onTitleSelected() {
-		setTitleSelectedClass('title-selected')
+		setTitleSelectedClass('click-header-title-selected')
 	}
 
 	function onTitleDeselected() {
-		setTitleSelectedClass('title-not-selected')
+		setTitleSelectedClass('click-header-title-not-selected')
 	}
 
 	/* =================================== Helper Fns ======================================= */
-	function openIcon() { 
-		setPlayIconDownClass('play-icon-down')
+	function openPlayIcon() { 
+		setPlayIconDownClass('click-header-play-icon-down')
 	}
 
-	function closeIcon() {
-		triggerOnTransitionEnd(playIconId, 'transform', onIconClosed)
-		setPlayIconAnimatingClass('play-icon-animating')
-		setPlayIconDownClass('play-icon-up')
+	function closePlayIcon() {
+		triggerOnTransitionEnd(playIconId, 'transform', onPlayIconClosed)
+		setPlayIconAnimatingClass('click-header-play-icon-animating')
+		setPlayIconDownClass('click-header-play-icon-up')
 	}
 
 	function openTextContainer() {
 		setShowText(true)
 		setElementHeight(textContainerId, textContainerHeight)
-		setShowTextClass('text-container-show-text')
+		setShowTextClass('click-header-text-container-show-text')
 	}
 
 	function closeTextContainer() {
 		setShowText(false)
 		removeInlineSize(textContainerId)
-		setShowTextClass('text-container-hide-text') 
+		setShowTextClass('click-header-text-container-hide-text') 
 	}
 
 	function saveTextContainerHeight() {
@@ -118,7 +112,7 @@ export default function ClickHeader({
 	}
 
 	function hideTextContainer() { 
-		setShowTextClass('text-container-hide-text')
+		setShowTextClass('click-header-text-container-hide-text')
 	}
 
 	/* =================================== Listen / Trigger =================================== */
@@ -127,138 +121,21 @@ export default function ClickHeader({
 	}, [])
 
 	useEffect(() => {
-		if(isSelected) onTitleSelected()
-		if(!isSelected) onTitleDeselected()
-	}, [isSelected])
+		if(titleIsSelected) onTitleSelected()
+		if(!titleIsSelected) onTitleDeselected()
+	}, [titleIsSelected])
 
 	/* =================================== Output ============================================= */
 	return (
 		<div className='click-header'>
-			<div className='header-container'> 
-				<h2 className={`info-header ${titleSelectedClass}`} onClick={onHeaderClick}>{title}</h2>
-				<PlayArrowIcon className={`play-icon ${playIconDownClass} ${playIconAnimatingClass}`} onClick={onIconClick} id={playIconId}/>
+			<div className='click-header-title-container'> 
+				<h2 className={`click-header-title ${titleSelectedClass}`} onClick={onTitleClick}>{title}</h2>
+				<PlayArrowIcon className={`click-header-play-icon ${playIconDownClass} ${playIconAnimatingClass}`} onClick={onPlayIconClick} id={playIconId}/>
 			</div> 
 
-			<div className={`text-container ${showTextClass}`} id={textContainerId}>
+			<div className={`click-header-text-container ${showTextClass}`} id={textContainerId}>
 				{children}
 			</div>
 		</div>  
 	)
 }
-
-	// ================================= Ids ============================== // 
-	// const playIconId = `play-icon-${i}`;
-	// const childContainerId = `child-container-${i}`; 
-	// const headerId = `info-header-${i}`;
-
-	// ================================= State ============================== // 
-	// const [showChildren, setShowChildren] = useState(false); 
-	// const [playIconAnimating, setPlayIconAnimating] = useState(false);
-	// const [containerHeight, setContainerHeight] = useState(null);
-
-	// ================================= Class ============================== // 
-	// const [playIconClass, setPlayIconClass] = useState('play-icon');
-	// const [headerSelectedClass, setHeaderSelectedClass] = useState('info-header-unselected')
-	// const [showChildrenClass, setShowChildrenClass] = useState('children-init')
-
-	// ================================= Event Handlers ============================== // 
-	// function onHeaderClick() {
-	// 	toggleSelectedHeader()
-	// }
-
-	// function onIconClick() {
-	// 	setShowChildren(oldVal => !oldVal);
-	// 	setPlayIconAnimating(true);
-	// }
-
-	// function handleTransitionEnd(e) { 
-	// 	if(e.propertyName === 'transform') setPlayIconAnimating(false)
-	// }
-
-	// function onShowChildren() {
-	// 	setShowChildrenClass('children-visible') 
-	// 	setContainerHeightToFull()
-	// }
-
-	// function onHideChildren() {
-	// 	setShowChildrenClass('children-hidden')  
-	// 	setContainerHeightToZero()
-	// } 
-
-	// function onSelectHeader() {
-	// 	setHeaderSelectedClass('info-header-selected')
-	// 	setSelectedStyle(thisStyle)
-	// }
-
-	// function onDeselectHeader() {
-	// 	setHeaderSelectedClass('info-header-unselected')
-	// 	setSelectedStyle(null)
-	// }
-
-	// ================================= Helper Fns ============================== // 
-	// function getContainerHeight() {
-	// 	const childContainerElement = document.getElementById(childContainerId);
-
-	// 	const height = getComputedStyle(childContainerElement).height;
-	// 	setContainerHeight(height)
-	// }
-
-	// function setContainerHeightToFull() {
-	// 	const childContainerElement = document.getElementById(childContainerId);
-	// 	childContainerElement.style.height = containerHeight;
-	// }
-
-	// function setContainerHeightToZero() {
-	// 	const childContainerElement = document.getElementById(childContainerId);
-	// 	childContainerElement.style.height = 0;
-	// } 
-
-	// function toggleSelectedHeader() {
-	// 	setSelectedHeader(newVal => {
-	// 		if(newVal === headerId) return '';
-	// 		return headerId;
-	// 	})
-	// }
-
-	// ================================= Detect Transition End ============================== // 
-	// useEffect(() => {
-	// 	const playIconElement = document.getElementById(playIconId);
-
-	// 	if(playIconAnimating) playIconElement.addEventListener('transitionend', handleTransitionEnd)
-		
-	// 	return () => { playIconElement.removeEventListener('transitionend', handleTransitionEnd) }
-	// }, [playIconAnimating])
-
-	// ================================= Get Container Height ============================== //
-	// useEffect(() => {
-	// 	getContainerHeight()
-	// }, [])
-
-	// ================================= Trigger handlers ============================== //
-	// select header
-	// useEffect(() => { 
-	// 	if(selectedHeader === headerId) onSelectHeader()
-	// 	else onDeselectHeader()
-	// }, [selectedHeader])
-
-	// // show / hide children
-	// useEffect(() => {
-	// 	if(showChildren) onShowChildren()
-	// 	if(!showChildren) onHideChildren()
-	// }, [showChildren])
- 
-	// ================================= Set Classes ============================== //
-	// play icon
-	// useEffect(() => { 
-	// 	let newClass = 'play-icon';
-
-	// 	if(playIconAnimating) { 
-	// 		newClass += ' play-icon-animating';
-	// 	} 
-
-	// 	if(showChildren) {
-	// 		newClass += ' play-icon-selected';
-	// 	}
-
-	// 	setPlayIconClass(newClass);
-	// }, [playIconAnimating, showChildren])
