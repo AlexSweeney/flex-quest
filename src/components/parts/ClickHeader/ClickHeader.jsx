@@ -4,6 +4,7 @@ import {
 	getElementHeight,
 	setElementHeight,
 	removeInlineSize,
+	triggerOnTransitionEnd,
 } from './../../utils.js';
 import './ClickHeaderStyle.css'; 
 
@@ -27,33 +28,35 @@ export default function ClickHeader({
 		* on click header
 			* call handleStyleOptionClick
 		
-		- on click icon 
+		* on click icon 
 			* animate icon 90deg down / up
-			- change icon color when animating
+			* change icon color when animating
 			* open / close text
 			* animate text open / close
 
 		- on selected / deselected
 			- add / remove highlight color to target 
-
-		- style 
-			- add box around text container
-
+  
 		- tidy
 	*/
+
+	/* =================================== Constants ======================================= */
+	/* ===================== Ids */
 	const playIconId = `play-icon-${i}`;
 	const textContainerId = `text-container-${i}`;
 
-	const [playIconClass, setPlayIconClass] = useState('play-icon');
+	/* ===================== Status */
+	const [isSelected, setIsSelected] = useState(false);
+	const [showText, setShowText] = useState(false); 
+	const [textContainerHeight, setTextContainerHeight] = useState(null);
+
+	/* ===================== Classes */ 
+	const [playIconAnimatingClass, setPlayIconAnimatingClass] = useState('play-icon-not-animating');
 	const [playIconDownClass, setPlayIconDownClass] = useState('play-icon-up');
 	const [showTextClass, setShowTextClass] = useState('text-container-init');
 
-	const [isSelected, setIsSelected] = useState(false);
-	const [showText, setShowText] = useState(false);
-	const [textContainerHeight, setTextContainerHeight] = useState(null);
-
-	function onRender() { 
-		console.log('render --------------------------------')
+	/* =================================== Event Handlers =================================== */
+	function onRender() {  
 		if(!textContainerHeight) {
 			saveTextContainerHeight() 
 			hideTextContainer() 
@@ -64,7 +67,7 @@ export default function ClickHeader({
 		handleStyleOptionClick(thisStyle, setIsSelected)
 	}
 
-	function handleIconClick() {
+	function onIconClick() {
 		if(showText) {
 			closeIcon()
 			closeTextContainer()
@@ -75,18 +78,27 @@ export default function ClickHeader({
 		}
 	}
 
-	function closeIcon() {
-		setPlayIconDownClass('play-icon-up')
+	// function onIconOpen() {
+	// 	console.log('icon open')
+	// 	setPlayIconAnimatingClass('play-icon-not-animating')
+	// }
+
+	function onIconClosed() {
+		console.log('icon closed')
+		setPlayIconAnimatingClass('play-icon-not-animating')
 	}
 
-	function closeTextContainer() {
-		setShowText(false)
-		removeInlineSize(textContainerId)
-		setShowTextClass('text-container-hide-text') 
-	}
-
+	/* =================================== Helper Fns ======================================= */
 	function openIcon() {
+		// triggerOnTransitionEnd(playIconId, 'transform', onIconOpen)
+
 		setPlayIconDownClass('play-icon-down')
+	}
+
+	function closeIcon() {
+		triggerOnTransitionEnd(playIconId, 'transform', onIconClosed)
+		setPlayIconAnimatingClass('play-icon-animating')
+		setPlayIconDownClass('play-icon-up')
 	}
 
 	function openTextContainer() {
@@ -95,9 +107,14 @@ export default function ClickHeader({
 		setShowTextClass('text-container-show-text')
 	}
 
+	function closeTextContainer() {
+		setShowText(false)
+		removeInlineSize(textContainerId)
+		setShowTextClass('text-container-hide-text') 
+	}
+
 	function saveTextContainerHeight() {
-		const height = getElementHeight(textContainerId);
-		console.log('height', height)
+		const height = getElementHeight(textContainerId); 
 		setTextContainerHeight(height)
 	}
 
@@ -105,16 +122,17 @@ export default function ClickHeader({
 		setShowTextClass('text-container-hide-text')
 	}
 
+	/* =================================== Listen / Trigger =================================== */
 	useEffect(() => {
 		onRender()
 	}, [])
 
-	// ================================= Output ============================== //
+	/* =================================== Output ============================================= */
 	return (
 		<div className='click-header'>
 			<div className='header-container'> 
 				<h2 className={`info-header`} onClick={onHeaderClick}>{title}</h2>
-				<PlayArrowIcon className={`play-icon ${playIconDownClass}`} onClick={handleIconClick}/>
+				<PlayArrowIcon className={`play-icon ${playIconDownClass} ${playIconAnimatingClass}`} onClick={onIconClick} id={playIconId}/>
 			</div> 
 
 			<div className={`text-container ${showTextClass}`} id={textContainerId}>

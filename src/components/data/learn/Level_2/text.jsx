@@ -28,7 +28,7 @@ function Text({handleStyleOptionClick}) {
 				<p>If writing mode is from right to left, the start of the writing-mode direction will be the left side.</p> 
 			</ClickHeader> 
  
-			{/*<ClickHeader i="2.4" thisStyle={style_4} title="justify-content: space-between;" {...props}>
+			<ClickHeader i="2.4" thisStyle={style_4} title="justify-content: space-between;" {...props}>
 				<p>Child elements will be spread out across the x-axis.</p>
 				<p>The first and last child elements will touch the edges of the x-axis.</p>
 				<p>Space will be added between the other child elements along the x-axis.</p>
@@ -47,7 +47,7 @@ function Text({handleStyleOptionClick}) {
 				<p>The space will be distributed to give an evenly spaced appearence.</p>
 				<p>The spacse between the edges of the flex container and the first and last child elements will be the same size as the spaces between the child elements.</p>
 				<p>Text is not affected.</p>
-			</ClickHeader>*/}
+			</ClickHeader>
 		</div>
 	)
 }

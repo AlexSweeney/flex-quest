@@ -39,8 +39,8 @@ div .play-icon {
   border-radius: 100%;
   padding: 1px;
   display: inline-block;
-  transition: transform 500ms ease-in-out;
-}
+  transition: transform 500ms ease-in-out, color 500ms;
+} 
 
 div .play-icon:hover {
 	color: #2196f3;
@@ -52,7 +52,7 @@ div .play-icon:active {
 }
 
 div .play-icon-animating {
-	color: #495fda;
+	color: #495fda; 
 }
 
 div .play-icon-down {
@@ -62,7 +62,7 @@ div .play-icon-down {
 
 /* ================== Text ================== */  
 .text-container {
-	transition: height 1000ms, padding-top 1000ms, padding-bottom 1000ms;
+	transition: height 500ms, padding-top 500ms, padding-bottom 500ms;
 	overflow: hidden;
 	background: #C4C4C4; 
 	cursor: default;
