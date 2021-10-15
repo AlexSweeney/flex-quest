@@ -45,8 +45,7 @@ export default function LevelText({
   		* click header
 		   
   	refactor parts
-  		- burger 
-  			- link burger color with option colors on click
+  		- burger  
   		- burger display 
   				- open with burger on click open => open seperately from content container -> overlay?
   				- don't show vert scroll when burger open
