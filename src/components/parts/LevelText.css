@@ -30,3 +30,7 @@
 	margin-bottom: 0.5em;
 }
 
+.text-body p:last-child {
+	margin-bottom: 0;
+}
+

@@ -35,6 +35,11 @@ export default function ClickHeader({
 
 		- on selected / deselected
 			- add / remove highlight color to target 
+
+		- style 
+			- add box around text container
+
+		- tidy
 	*/
 	const playIconId = `play-icon-${i}`;
 	const textContainerId = `text-container-${i}`;
@@ -45,13 +50,14 @@ export default function ClickHeader({
 
 	const [isSelected, setIsSelected] = useState(false);
 	const [showText, setShowText] = useState(false);
-	const [textContainerHeight, setTextContainerHeight] = useState();
+	const [textContainerHeight, setTextContainerHeight] = useState(null);
 
-	function onRender() {
-		// ? fade text
-		saveTextContainerHeight() 
-		hideTextContainer() 
-		// ? showText 
+	function onRender() { 
+		console.log('render --------------------------------')
+		if(!textContainerHeight) {
+			saveTextContainerHeight() 
+			hideTextContainer() 
+		} 
 	}
  
 	function onHeaderClick() {
