@@ -69,6 +69,7 @@ export default function LevelText({
 
 	// ======================================= Buttons ===================================== //
 	const buttons = [<Burger burgerIsOpen={burgerIsOpen} setBurgerIsOpen={setBurgerIsOpen}/>]; 
+	const bodyOverlay = [<BurgerMenu isOpen={burgerIsOpen} setIsOpen={setBurgerIsOpen} options={titles} handleClick={onClickLevelOption}/>];
 
 	// ======================================= Class ======================================= //
 	const [textBodyOpenClass, setTextBodyOpenClass] = useState(''); 
@@ -160,20 +161,8 @@ export default function LevelText({
 
 	// ======================================= Output ======================================= //
 	return ( 
-		<OpenCloseBox 
-			title={title} 
-			titleId={titleId}
-			i={i} 
-			buttons={buttons} 
-			handleToggleClick={handleToggleClick}  
-			fade={fade}>
-			<BurgerMenu 
-				isOpen={burgerIsOpen} 
-				setIsOpen={setBurgerIsOpen} 
-				options={titles} 
-				handleClick={onClickLevelOption}/>
-			
-			<div className={`text-body ${textBodyOpenClass}`} id={textBodyId}>
+		<OpenCloseBox  title={title} titleId={titleId} i={i} buttons={buttons} handleToggleClick={handleToggleClick} fade={fade} bodyOverlay={bodyOverlay}>
+			<div className={`text-body ${textBodyOpenClass}`} id={textBodyId}> 
 			 	<Text levelNum={levelNum} handleStyleOptionClick={handleStyleOptionClick}/> 
 			</div> 
 		</OpenCloseBox> 
