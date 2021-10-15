@@ -48,17 +48,18 @@ export default function LevelText({
   		- add / remove style 
 		  - add / remove highlight 
 
-  	refactor parts   
-  		- burger display 
-  				- don't show vert scroll when burger open -> click burger = set boxBody overflow hidden
-		
+  	refactor parts    
 			- hover text = normal cursor
+			
+			- sync so that burger display opens same time as box
 
 	  	- Code Input
 	  		- fade codeInput in out on level change
 
 	  	- Code Input
-	  		- show overflow (make code-display expand with content)
+	  		- show overflow (make code-display expand with content
+
+	  		)
 	*/
 	// ======================================= Ids ========================================= //
 	const titleId = `title-${i}`;
