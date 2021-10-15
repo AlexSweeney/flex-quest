@@ -42,17 +42,16 @@ export default function LevelText({
  			* animate change
   	
   	* on click inline clicker
-  		- add / remove style 
-  		- add / remove highlight 
+  		* add / remove style 
+  		* add / remove highlight 
   	
   	* on click click header
-  		- add / remove style 
-		  - add / remove highlight 
+  		* add / remove style 
+		  * add / remove highlight 
 
-  	refactor parts     
-			- fix - remove all other highlights when click new 
-					-> pass down style, highlight when style === thisStyle
-
+  	refactor parts       
+			- tidy - clickhandler names for inline click / header clicker 
+			
 	  	- Code Input
 	  		- fade codeInput in out on level change
 
@@ -107,16 +106,12 @@ export default function LevelText({
 		openBurgerIfWasOpen()  
 	} 
 
-	function onStyleOptionClick(thisStyle, setIsSelected) {
-		console.log('style option click ----------------')
-		console.log('thisStyle', thisStyle)
+	function onStyleOptionClick(thisStyle) { 
 		const isSelected = (thisStyle !== style);
-		const newStyle = isSelected ? thisStyle : defaultStyle;
- 		console.log('isSelected', isSelected)
-		console.log('newStyle', newStyle)
-
+		const newStyle = isSelected ? thisStyle : defaultStyle; 
+		
 		setStyle(newStyle)
-		setIsSelected(isSelected)  
+		// setIsSelected(isSelected)  
 	}
 
 	// ======================================= Helper Fns ================================== //
@@ -174,7 +169,7 @@ export default function LevelText({
 	return ( 
 		<OpenCloseBox  title={title} titleId={titleId} i={i} buttons={buttons} handleToggleClick={handleToggleClick} fade={fade} bodyOverlay={bodyOverlay} showOverlay={burgerIsOpen}>
 			<div className={`text-body ${textBodyOpenClass}`} id={textBodyId}> 
-			 	<Text levelNum={levelNum} handleStyleOptionClick={onStyleOptionClick}/> 
+			 	<Text levelNum={levelNum} handleStyleOptionClick={onStyleOptionClick} selectedStyle={style}/> 
 			</div> 
 		</OpenCloseBox> 
 	)

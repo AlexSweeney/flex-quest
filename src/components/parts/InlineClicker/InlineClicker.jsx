@@ -3,6 +3,7 @@ import './InlineClicker.css';
 
 export default function InlineClicker({ 
 	thisStyle,
+	selectedStyle,
 	handleClick,
 	children,
 }) {   
@@ -17,12 +18,16 @@ export default function InlineClicker({
 			* remove highlight color 
 	*/
 	// =========================== Constants =========================== //
-	const [isSelected, setIsSelected] = useState(false);
 	const [selectedClass, setSelectedClass] = useState(null);
 
 	// =========================== Event Handlers ====================== //
 	function onClick() {
-		handleClick(thisStyle, setIsSelected)
+		handleClick(thisStyle)
+	}
+
+	function onSelectedStyleChange(selectedStyle) {
+		if(selectedStyle === thisStyle) onSelected()
+		if(selectedStyle !== thisStyle) onDeselected()
 	}
 
 	function onSelected() {
@@ -33,11 +38,10 @@ export default function InlineClicker({
 		setSelectedClass('inline-clicker-not-selected')
 	}
 
-	// =========================== Listen / Trigger ==================== //
-	useEffect(() => {
-		if(isSelected) onSelected()
-		if(!isSelected) onDeselected()
-	}, [isSelected])
+	// =========================== Listen / Trigger ==================== // 
+	useEffect(() => { 
+		onSelectedStyleChange(selectedStyle)
+	}, [selectedStyle])
 
 	// =========================== Outputs =========================== //
 	return (

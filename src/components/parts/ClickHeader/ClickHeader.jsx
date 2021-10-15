@@ -12,6 +12,7 @@ export default function ClickHeader({
 	i,
 	title,
 	thisStyle,
+	selectedStyle,
 	handleStyleOptionClick,
 	children,
 }) {  
@@ -57,7 +58,7 @@ export default function ClickHeader({
 	}
  
 	function onTitleClick() {
-		handleStyleOptionClick(thisStyle, setTitleIsSelected)
+		handleStyleOptionClick(thisStyle)
 	}
 
 	function onPlayIconClick() {
@@ -73,6 +74,11 @@ export default function ClickHeader({
  
 	function onPlayIconClosed() { 
 		setPlayIconAnimatingClass('click-header-play-icon-not-animating')
+	}
+
+	function onSelectedStyleChange(selectedStyle) {
+		if(selectedStyle === thisStyle) onTitleSelected()
+		if(selectedStyle !== thisStyle) onTitleDeselected()
 	}
 
 	function onTitleSelected() {
@@ -119,11 +125,10 @@ export default function ClickHeader({
 	useEffect(() => {
 		onRender()
 	}, [])
-
-	useEffect(() => {
-		if(titleIsSelected) onTitleSelected()
-		if(!titleIsSelected) onTitleDeselected()
-	}, [titleIsSelected])
+ 
+	useEffect(() => { 
+		onSelectedStyleChange(selectedStyle)
+	}, [selectedStyle])
 
 	/* =================================== Output ============================================= */
 	return (

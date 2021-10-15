@@ -8,14 +8,14 @@ import {style_4} from './style_4.jsx';
 import {style_5} from './style_5.jsx'; 
 import {style_6} from './style_6.jsx';
 
-function Text({handleStyleOptionClick}) {
-	const props = {handleStyleOptionClick};
+function Text({handleStyleOptionClick, selectedStyle}) {
+	const props = {handleStyleOptionClick, selectedStyle};
 
 	return (
 		<div> 
 			<p>Use 'justify-content' to control where child elements are placed along the x-axis of the flex container and where text is placed along the x-axis of the content area of the flex container.</p>
 
-			<p>Any<InlineClicker i="2.1" thisStyle={style_1} {...props}> padding you add to an element</InlineClicker> will be outside of the content area, and so will add space between any text and the edge of the element.</p>   
+			<p>Any<InlineClicker i="2.1" thisStyle={style_1} selectedStyle={selectedStyle} handleClick={handleStyleOptionClick}> padding you add to an element</InlineClicker> will be outside of the content area, and so will add space between any text and the edge of the element.</p>   
 
 			<ClickHeader i="2.2" thisStyle={style_2} {...props} title="justify-content: flex-start; (default)"> 
 				<p>Child elements and text will be placed at the start of the x-axis.</p>

@@ -15,7 +15,7 @@ import Text_12 from './../data/text/Text_12.jsx';
 import Text_13 from './../data/text/Text_13.jsx';*/
 
 
-export default function Text({levelNum, handleStyleOptionClick}) {  
+export default function Text({levelNum, handleStyleOptionClick, selectedStyle}) {  
 	/*
 		* Display Text that matches levelNum
 
@@ -39,5 +39,5 @@ export default function Text({levelNum, handleStyleOptionClick}) {
 
 	const ThisText = allText[levelNum]; 
 	
-	return <ThisText handleStyleOptionClick={handleStyleOptionClick}/>
+	return <ThisText handleStyleOptionClick={handleStyleOptionClick} selectedStyle={selectedStyle}/>
 }
