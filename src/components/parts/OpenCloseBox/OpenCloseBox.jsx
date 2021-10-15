@@ -21,6 +21,7 @@ export default function OpenCloseBox({
 	buttons = [],
 	handleToggleClick = () => {}, 
 	fade = null,
+	showOverlay = false,
 	bodyOverlay = null,
 	children,
 }) {  
@@ -219,11 +220,15 @@ export default function OpenCloseBox({
 					/>
 				</div>
 			</div>
+			<div className="body-container">
+				<div className="body-overlay-container">
+					{ bodyOverlay && bodyOverlay }
+				</div> 
 
-			<div className={`box-body`} id={boxBodyId}> 
-				{ bodyOverlay && bodyOverlay }
-				<div className={`content-container ${contentContainerOpenClass}`} id={contentContainerId}>	
-					{children}
+				<div className={`box-body`} id={boxBodyId}> 
+					<div className={`content-container ${contentContainerOpenClass}`} id={contentContainerId}>	
+						{children}
+					</div>
 				</div>
 			</div>
 		</div>

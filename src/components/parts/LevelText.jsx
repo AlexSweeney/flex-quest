@@ -48,17 +48,17 @@ export default function LevelText({
   		- add / remove style 
 		  - add / remove highlight 
 
-  	refactor parts 
-  		- click header
-  			- add box around options & option text 
-
+  	refactor parts   
   		- burger display 
-  				- don't show vert scroll when burger open 
+  				- don't show vert scroll when burger open -> click burger = set boxBody overflow hidden
 		
 			- hover text = normal cursor
 
 	  	- Code Input
 	  		- fade codeInput in out on level change
+
+	  	- Code Input
+	  		- show overflow (make code-display expand with content)
 	*/
 	// ======================================= Ids ========================================= //
 	const titleId = `title-${i}`;
@@ -167,7 +167,7 @@ export default function LevelText({
 
 	// ======================================= Output ======================================= //
 	return ( 
-		<OpenCloseBox  title={title} titleId={titleId} i={i} buttons={buttons} handleToggleClick={handleToggleClick} fade={fade} bodyOverlay={bodyOverlay}>
+		<OpenCloseBox  title={title} titleId={titleId} i={i} buttons={buttons} handleToggleClick={handleToggleClick} fade={fade} bodyOverlay={bodyOverlay} showOverlay={burgerIsOpen}>
 			<div className={`text-body ${textBodyOpenClass}`} id={textBodyId}> 
 			 	<Text levelNum={levelNum} handleStyleOptionClick={onStyleOptionClick}/> 
 			</div> 
