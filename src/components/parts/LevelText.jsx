@@ -15,6 +15,7 @@ export default function LevelText({
 	titles, 
 	levelNum, 
 	setLevelNum, 
+	style,
 	setStyle, 
 	fade,
 	setFade,
@@ -48,8 +49,9 @@ export default function LevelText({
   		- add / remove style 
 		  - add / remove highlight 
 
-  	refactor parts    
-			- hover text = normal cursor 
+  	refactor parts     
+			- fix - remove all other highlights when click new 
+					-> pass down style, highlight when style === thisStyle
 
 	  	- Code Input
 	  		- fade codeInput in out on level change
@@ -70,7 +72,7 @@ export default function LevelText({
 
 	const [title, setTitle] = useState(titles[levelNum]);
 
-	const [selectedStyle, setSelectedStyle] = useState(''); 
+	// const [selectedStyle, setSelectedStyle] = useState(''); 
 
 	// ======================================= Buttons ===================================== //
 	const buttons = [<Burger burgerIsOpen={burgerIsOpen} setBurgerIsOpen={setBurgerIsOpen}/>]; 
@@ -106,10 +108,14 @@ export default function LevelText({
 	} 
 
 	function onStyleOptionClick(thisStyle, setIsSelected) {
-		const isSelected = (thisStyle !== selectedStyle);
+		console.log('style option click ----------------')
+		console.log('thisStyle', thisStyle)
+		const isSelected = (thisStyle !== style);
 		const newStyle = isSelected ? thisStyle : defaultStyle;
+ 		console.log('isSelected', isSelected)
+		console.log('newStyle', newStyle)
 
-		setSelectedStyle(newStyle)
+		setStyle(newStyle)
 		setIsSelected(isSelected)  
 	}
 

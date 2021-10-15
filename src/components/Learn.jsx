@@ -44,7 +44,7 @@ export default function Learn() {
 		set to 64px / 4em = scroll to edge of 2nd box rounding error => try flex solution
 
 	*/
-	const [levelNum, setLevelNum] = useState(1);
+	const [levelNum, setLevelNum] = useState(0);
 
 	const htmlStrings = [
 		html_1,
@@ -105,13 +105,12 @@ export default function Learn() {
 	useEffect(() => {
 		setHtmlString(htmlStrings[levelNum])
 		setCssString(cssStrings[levelNum])
-		setDefaultCssString(cssStrings[levelNum])
-
+		setDefaultCssString(cssStrings[levelNum]) 
 	}, [levelNum])
 
 	return (
 		<section className="learn-container"> 
-			<LevelText i="1" titles={menuOptions} fade={fade} setFade={setFade} setStyle={setCssString} defaultStyle={defaultCssString} levelNum={levelNum} setLevelNum={setLevelNum}/>
+			<LevelText i="1" titles={menuOptions} fade={fade} setFade={setFade} style={cssString} setStyle={setCssString} defaultStyle={defaultCssString} levelNum={levelNum} setLevelNum={setLevelNum}/>
 			<CodeInput i="2" title="index.html" code={htmlString} setCode={setHtmlString} originalCode={htmlStrings[levelNum]}/>
 			<CodeInput i="3" title="style.css" code={cssString} setCode={setCssString} originalCode={cssStrings[levelNum]}/>
 			<OpenCloseBox i="4" title="display"></OpenCloseBox>
