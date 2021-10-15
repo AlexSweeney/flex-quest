@@ -9,7 +9,4 @@ export const style =
 
   justify-content: center;  
   background: blue; 
-}`;
-
-
-// ".item_1 {" + <br> + "display: flex";
+}`; 

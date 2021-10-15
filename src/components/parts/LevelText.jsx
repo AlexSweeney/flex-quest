@@ -40,15 +40,19 @@ export default function LevelText({
  			* change text and code
  			* animate change
   	
-  	* on click style option = add / remove styl 
-  		* inline clicker 
-  		* click header
-		   
+  	* on click inline clicker
+  		- add / remove style 
+  		- add / remove highlight 
+  	
+  	* on click click header
+  		- add / remove style 
+		  - add / remove highlight 
+
   	refactor parts 
   		- burger display 
   				- don't show vert scroll when burger open 
 			
-			- inline click header
+			- inline clicker
 
   		- click header
   			- add box around options & option text

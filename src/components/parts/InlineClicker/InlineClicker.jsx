@@ -1,64 +1,26 @@
 import React, {useState, useEffect} from 'react';
 import './InlineClicker.css';
 
-export default function InlineClicker({
-	/*newStyle, 
-	i, 
-	selectedHeader, 
-	setSelectedHeader, 
-	setSelectedStyle, */
+export default function InlineClicker({ 
 	thisStyle,
 	handleClick,
 	children,
 }) {   
 	/*
 		on click 
-			* add highlight color
-			* select this style
+			* call handle click
 	
-		on reclick
-			* remove highlight color
-			* revert style
+		on selected
+			* add highlight color
+		
+		on deselected
+			* remove highlight color 
 	*/
-	// const headerName = children; 
-
-	// const [clickerSelected, setClickerSelected] = useState(false);
-	// const [clickerSelectedClass, setClickerSelectedClass] = useState(null);
-
-	// =========================== Event Handlers =========================== //
-	// function onClick() {
-	// 	toggleSelectedHeader()
-	// }
-
-	// function onHeaderSelected() {
-	// 	setClickerSelectedClass('inline-clicker-selected')
-	// 	setSelectedStyle(newStyle)
-	// }
-
-	// function onHeaderDeselected() {
-	// 	setClickerSelectedClass('inline-clicker-not-selected')
-	// 	setSelectedStyle(null)
-	// }
-
-	// =========================== Helper fns =========================== //
-	// function toggleSelectedHeader() {
-	// 	let newHeader;
-
-	// 	if(selectedHeader === headerName) newHeader = '';
-	// 	if(selectedHeader !== headerName) newHeader = headerName; 
-
-	// 	setSelectedHeader(newHeader)
-	// } 
-
-	// =========================== Trigger Selected =========================== //
-	// useEffect(() => {
-	// 	if(selectedHeader === headerName) onHeaderSelected() 
-	// 	if(selectedHeader !== headerName) onHeaderDeselected()
-	// }, [selectedHeader])
-
+	// =========================== Constants =========================== //
 	const [isSelected, setIsSelected] = useState(false);
 	const [selectedClass, setSelectedClass] = useState(null);
 
+	// =========================== Event Handlers ====================== //
 	function onClick() {
 		handleClick(thisStyle, setIsSelected)
 	}
@@ -71,6 +33,7 @@ export default function InlineClicker({
 		setSelectedClass('inline-clicker-not-selected')
 	}
 
+	// =========================== Listen / Trigger ==================== //
 	useEffect(() => {
 		if(isSelected) onSelected()
 		if(!isSelected) onDeselected()
@@ -82,8 +45,4 @@ export default function InlineClicker({
 			{children}
 		</div>
 	)
-}  
-
-{/*<div className={`inline-clicker ${clickerSelectedClass}`} onClick={onClick}>
-			{headerName}
-		</div>*/}
+}
