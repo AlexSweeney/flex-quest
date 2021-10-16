@@ -41,25 +41,20 @@ export default function CodeInput({
 			- set focus to previous position
  
 		* on original code change
-			- if isFade 
-				- fade out
-				- change code to original code
-				- fade in
-
-			- if !isFade
-				- change code to original code
-
+			* fade out
+			* change code to original code
+			* fade in
+		
 
 	 - text box 
 	 	- sync fade with menu close
  		- fix - change style 
-
-	 - on click refresh 
-			- refactor  - if !changing level = change code
-			- if changing level = wait to change code
-	  			- fade out scroll bars ?
-	  	
-	  	- on press open = refocus to same point
+	
+	 	- click style header
+	 		- change to new code
+	 		- when unclicked = revert? 
+		
+		- save code between level changes  
 
 	  -	refactor Refresh ?
 	*/
@@ -78,8 +73,9 @@ export default function CodeInput({
 	const buttons = [<RefreshButton onClick={onRefreshClick} i={i}/>];
 	
 	// ===================================== Event Handlers ===================================== //
-	function onLevelChange(newOriginalCode) {
-		fadeThenUpdateCode(newOriginalCode)
+	function onCodeChangedOutside(newCode, isFade) {
+		if(isFade) fadeThenUpdateCode(newCode)
+		if(!isFade) updateCode(newCode)
 	}
 
 	function onTextChange(e) {  
@@ -147,12 +143,8 @@ export default function CodeInput({
 	} 
 	// ===================================== Listen / Trigger =========================== //
 	useEffect(() => {
-		if(isFade) onLevelChange(originalCode) 
-	}, [originalCode])
-
-	useEffect(() => {
-
-	})
+		onCodeChangedOutside(code, isFade)
+	}, [code])
 	
 	// ===================================== Output ===================================== //
 	return (
