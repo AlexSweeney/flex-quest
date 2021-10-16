@@ -96,35 +96,60 @@ function elementHasScrollBar(id, property = null) {
 	if(!property) return hasHoriz || hasVert; 
 }
 
-export function elementIsOverflowing(id, property = null) {
-	const element = getElement(id);
+export function elementIsOverflowing(id, property = null) { 
 	const parentElement = getParentElement(id);
-	const widthIsOverflowing = parentElement.scrollWidth > element.clientWidth;
-	const heightIsOverflowing = parentElement.scrollHeight > element.clientHeight;
+	
+	const widthIsOverflowing = parentElement.scrollWidth > parentElement.clientWidth;
+	const heightIsOverflowing = parentElement.scrollHeight > parentElement.clientHeight;
 
 	if(property === 'width') return widthIsOverflowing;
 	if(property === 'height') return heightIsOverflowing;
 	if(!property) return widthIsOverflowing || heightIsOverflowing;
 }
 
+function elementIsSameSizeAsParent(id) {
+	const parentId = getParentId(id);
+
+	const elementWidth = getElementWidth(id);
+	const elementHeight = getElementHeight(id);
+
+	const parentWidth = getElementWidth(parentId);
+	const parentHeight = getElementHeight(parentId);
+
+	return elementWidth === parentWidth && elementHeight === parentHeight;
+}
+
+function elementIsBiggerThanParent(id) {
+	const parentId = getParentId(id);
+
+	const elementWidth = getElementWidth(id);
+	const elementHeight = getElementHeight(id);
+
+	const parentWidth = getElementWidth(parentId);
+	const parentHeight = getElementHeight(parentId);
+
+	return elementWidth > parentWidth || elementHeight > parentHeight;
+}
+
 // ================ change element size
 export function setToContainerSize(id) { 
-	const containerId = getContainerId(id);
+	const containerId = getOverflowContainerId(id);
 	const newWidth = getElementWidth(containerId);
 	const newHeight = getElementHeight(containerId);
- 
+ 	console.log('containerId', containerId)
+
 	setSizeInPx(id)
 	setElementHeight(id, newHeight)
 	setElementWidth(id, newWidth)
 }
 
-function getContainerId(id) { 
-	const isOverflowing = elementIsOverflowing(id);
-	const parentId = getParentId(id);
+function getOverflowContainerId(id) { 
+	const isSameSizeAsParent = elementIsSameSizeAsParent(id); 
+	const parentId = getParentId(id); 
 
-	if(!isOverflowing) return parentId;
-	if(isOverflowing) return getContainerId(parentId);
-}
+	if(!isSameSizeAsParent) return parentId;
+	if(isSameSizeAsParent) return getOverflowContainerId(parentId); 
+} 
 
 export function shrinkElementOverflow(id, onFinish = () => {}) {
 	const widthPromise = shrinkOverflow(id, 'width');
@@ -135,6 +160,8 @@ export function shrinkElementOverflow(id, onFinish = () => {}) {
 
 function shrinkOverflow(id, property) {
 	return new Promise(resolve => {
+		
+
 		if(!elementIsOverflowing(id, property))  return resolve()
 
 		triggerOnTransitionEnd(id, property, resolve)
@@ -142,6 +169,7 @@ function shrinkOverflow(id, property) {
  		setToParentSize(id, property)
 	})
 }
+ 
 
 export function setSizeInPx(id, property) { 
 	const element = getElement(id); 
