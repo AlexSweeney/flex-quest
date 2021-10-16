@@ -59,15 +59,3 @@ export default function GridOverlay({gridStatus}) {
 		</div>
 	)
 }
-
-/*
-				[...Array(numLines - 1).keys()].map(() => {
-					return <div className={`grid-line grid-line-horiz ${gridColorClass}`}></div>
-				})
-			
-			
-				[...Array(numLines - 1).keys()].map((i) => {
-					const leftValue = getLeftOffset(i);
-					return <div className={`grid-line grid-line-vert ${gridColorClass}`} style={{left: leftValue}}></div>	
-				})
-			*/
