@@ -48,6 +48,7 @@ export default function ClickHeader({
 	const [playIconAnimatingClass, setPlayIconAnimatingClass] = useState('click-header-play-icon-not-animating');
 	const [playIconDownClass, setPlayIconDownClass] = useState('click-header-play-icon-up');
 	const [showTextClass, setShowTextClass] = useState('click-header-text-container-init');
+	const [textBackgroundColorClass, setTextBackgroundColorClass] = useState('click-header-title-container-not-selected');
 
 	/* =================================== Event Handlers =================================== */
 	function onRender() {  
@@ -83,10 +84,12 @@ export default function ClickHeader({
 
 	function onTitleSelected() {
 		setTitleSelectedClass('click-header-title-selected')
+		setTextBackgroundColorClass('click-header-title-container-selected')
 	}
 
 	function onTitleDeselected() {
 		setTitleSelectedClass('click-header-title-not-selected')
+		setTextBackgroundColorClass('click-header-title-container-not-selected')
 	}
 
 	/* =================================== Helper Fns ======================================= */
@@ -133,7 +136,7 @@ export default function ClickHeader({
 	/* =================================== Output ============================================= */
 	return (
 		<div className='click-header'>
-			<div className='click-header-title-container'> 
+			<div className={`click-header-title-container ${textBackgroundColorClass}`}> 
 				<h2 className={`click-header-title ${titleSelectedClass}`} onClick={onTitleClick}>{title}</h2>
 				<PlayArrowIcon className={`click-header-play-icon ${playIconDownClass} ${playIconAnimatingClass}`} onClick={onPlayIconClick} id={playIconId}/>
 			</div> 

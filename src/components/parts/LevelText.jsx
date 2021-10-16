@@ -49,8 +49,7 @@ export default function LevelText({
   		* add / remove style 
 		  * add / remove highlight 
 
-  	refactor parts       
-			- tidy - clickhandler names for inline click / header clicker 
+  	refactor parts        
 			- add #afadad background to highlighted box
 			- add hover color on title background
 			
