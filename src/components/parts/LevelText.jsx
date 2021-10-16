@@ -49,10 +49,7 @@ export default function LevelText({
   		* add / remove style 
 		  * add / remove highlight 
 
-  	refactor parts        
-			- add #afadad background to highlighted box
-			- add hover color on title background
-			
+  	refactor parts         
 	  	- Code Input
 	  		- fade codeInput in out on level change
 

@@ -6,7 +6,8 @@ import './CodeInput.css';
 
 export default function CodeInput({
 	title, 
-	i, 
+	i,  
+	isFade,
 	code, 
 	setCode, 
 	originalCode
@@ -29,14 +30,17 @@ export default function CodeInput({
 		fix - click second refresh = color sticks
 	*/
 	
-	// ===================================== Ids ===================================== //
+	// ===================================== Ids ================================================ //
 	const codeDisplayId = `code-display-${i}`;
 
-	// ===================================== Classes ===================================== //
+	// ===================================== State ============================================== //
+	const [displayCode, setDisplayCode] = useState('');
+
+	// ===================================== Classes ============================================ //
 	const [fadeClass, setFadeClass] = useState('code-display-no-fade');
 	const [openClass, setOpenClass] = useState('code-display-open');
 	
-	// ===================================== Buttons ===================================== //
+	// ===================================== Buttons ============================================ //
 	const buttons = [<RefreshButton onClick={onRefreshClick} i={i}/>];
 	
 	// ===================================== Event Handlers ===================================== //
@@ -56,6 +60,15 @@ export default function CodeInput({
 		resetCode()
 		unfadeCode()
 	} 
+
+	function onIsFadeTrue() {
+		fadeCode()
+	}
+
+	function onIsFadeFalse() {
+		updateDisplayCode()
+		unfadeCode()
+	}
 
 	// ===================================== Helper Fns ===================================== //  
 	function fadeCode() {
@@ -78,6 +91,10 @@ export default function CodeInput({
 		setCode(code)
 	}
 
+	function updateDisplayCode() {
+		setDisplayCode(code)
+	}
+
 	function sizeElementToContent(element) { 
 		element.style.width = '';
 		element.style.height = '';
@@ -90,6 +107,17 @@ export default function CodeInput({
 			element.style.height = element.scrollHeight + 'px';
 		}  
 	} 
+	// ===================================== Listen / Trigger =========================== //
+	useEffect(() => {
+		if(isFade) onIsFadeTrue()
+		if(!isFade) onIsFadeFalse() 
+	}, [isFade])
+
+	useEffect(() => {
+		if(!isFade) {
+			if(displayCode !== code) updateDisplayCode()
+		}
+	}, [code, displayCode, isFade])
 	
 	// ===================================== Output ===================================== //
 	return (
@@ -97,7 +125,7 @@ export default function CodeInput({
 			<textarea 
 				className={`code-display ${openClass} ${fadeClass}`} 
 				id={codeDisplayId} 
-				value={code} 
+				value={displayCode} 
 				onChange={onTextChange}> 
 			</textarea>
 		</OpenCloseBox>
