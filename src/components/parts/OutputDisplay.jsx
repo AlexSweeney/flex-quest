@@ -30,8 +30,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 			* toggle grid on / off
 		 
 		* on press refresh
-			* revert to original size
-		  
+			* revert to original size 
 	*/
 
 	// ====================================== Constants ================================== //
@@ -114,8 +113,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 		const height = transitionendPromise(outputDisplayId, 'height');
 		Promise.all([width, height]).then(onRefreshEnd)
 	}
-
-
+ 
 	// ====================================== Listen / Trigger ================================== //
 	// ======== Code Change //
 	useEffect(() => {  
