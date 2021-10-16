@@ -51,14 +51,14 @@ export default function LevelText({
 
   	refactor parts       
 			- tidy - clickhandler names for inline click / header clicker 
+			- add #afadad background to highlighted box
+			- add hover color on title background
 			
 	  	- Code Input
 	  		- fade codeInput in out on level change
 
 	  	- Code Input
-	  		- show overflow (make code-display expand with content
-
-	  		)
+	  		- on click refresh = resize
 	*/
 	// ======================================= Ids ========================================= //
 	const titleId = `title-${i}`;
@@ -69,9 +69,7 @@ export default function LevelText({
 	const [burgerWasOpen, setBurgerWasOpen] = useState(false);
 	const [burgerIsOpen, setBurgerIsOpen] = useState(false);
 
-	const [title, setTitle] = useState(titles[levelNum]);
-
-	// const [selectedStyle, setSelectedStyle] = useState(''); 
+	const [title, setTitle] = useState(titles[levelNum]); 
 
 	// ======================================= Buttons ===================================== //
 	const buttons = [<Burger burgerIsOpen={burgerIsOpen} setBurgerIsOpen={setBurgerIsOpen}/>]; 
@@ -110,8 +108,7 @@ export default function LevelText({
 		const isSelected = (thisStyle !== style);
 		const newStyle = isSelected ? thisStyle : defaultStyle; 
 		
-		setStyle(newStyle)
-		// setIsSelected(isSelected)  
+		setStyle(newStyle) 
 	}
 
 	// ======================================= Helper Fns ================================== //
@@ -169,7 +166,7 @@ export default function LevelText({
 	return ( 
 		<OpenCloseBox  title={title} titleId={titleId} i={i} buttons={buttons} handleToggleClick={handleToggleClick} fade={fade} bodyOverlay={bodyOverlay} showOverlay={burgerIsOpen}>
 			<div className={`text-body ${textBodyOpenClass}`} id={textBodyId}> 
-			 	<Text levelNum={levelNum} handleStyleOptionClick={onStyleOptionClick} selectedStyle={style}/> 
+			 	<Text levelNum={levelNum} handleClick={onStyleOptionClick} selectedStyle={style}/> 
 			</div> 
 		</OpenCloseBox> 
 	)

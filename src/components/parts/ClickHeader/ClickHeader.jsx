@@ -13,7 +13,7 @@ export default function ClickHeader({
 	title,
 	thisStyle,
 	selectedStyle,
-	handleStyleOptionClick,
+	handleClick,
 	children,
 }) {  
 	/* 
@@ -21,7 +21,7 @@ export default function ClickHeader({
 		* show open close icon
 
 		* on click header
-			* call handleStyleOptionClick
+			* call handleClick
 		
 		* on click icon 
 			* animate icon 90deg down / up
@@ -29,7 +29,7 @@ export default function ClickHeader({
 			* open / close text
 			* animate text open / close
 
-		* on selected / deselected (set by handleStyleOptionClick)
+		* on selected / deselected (set by handleClick)
 			* add / remove highlight color to target  
 	*/
 
@@ -58,7 +58,7 @@ export default function ClickHeader({
 	}
  
 	function onTitleClick() {
-		handleStyleOptionClick(thisStyle)
+		handleClick(thisStyle)
 	}
 
 	function onPlayIconClick() {
