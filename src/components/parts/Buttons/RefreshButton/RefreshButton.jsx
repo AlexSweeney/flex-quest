@@ -6,11 +6,18 @@ import './RefreshButton.css';
 
 export default function RefreshButton({onClick, i}) {
 	/* 
-		* spin when clicked
-		* trigger onClick when clicked
-		* change color on over
-		* change color on down
-		* change color when animating
+		* on click
+			* spin
+			* call onClick
+
+		* on animating
+			* change color
+
+		* on Over
+			* change color
+
+		* on Down 
+			* change color 
 	*/	
 
 	// ====================== Constants ============================== //
@@ -44,30 +51,31 @@ export default function RefreshButton({onClick, i}) {
 	}
 
 	function onMouseDown() {
-		onClick()
 		setCursorIsDown(true)
-		setIsAnimating(true)
-		setRotateNum(oldVal => oldVal + 360)
+		transformIcon()
+		onTransformStart()
+		onClick()
 	}
 
 	function onMouseUp() {
 		setCursorIsDown(false)
 	} 
 
-	function onTransitionEnd() {
+	function onTransformStart() {
+		setIsAnimating(true)
+		triggerOnTransitionEnd(refreshIconId, 'transform', onTransformEnd) 
+	}
+
+	function onTransformEnd() {
 		setIsAnimating(false)
 	} 
 
-	// ====================== Listen / Trigger ====================== //
-	// =========== Animation End
-	useEffect(() => {
-		if(cursorIsDown) {
-			triggerOnTransitionEnd(refreshIconId, 'transform', onTransitionEnd) 
-		} 
-	}, [isAnimating])
+	// ====================== Helper Fns ============================ //
+	function transformIcon() {
+		setRotateNum(oldVal => oldVal + 360)
+	}
 
-	// =========== Set Color Class
-	useEffect(() => {  
+	function updateIconColor(cursorIsDown, cursorIsOver, isAnimating) {
 		let newClass;
 
 		if(cursorIsOver) {
@@ -81,6 +89,11 @@ export default function RefreshButton({onClick, i}) {
 		} 
 
 		setRefreshColorClass(newClass);
+	}
+
+	// ====================== Listen / Trigger ====================== //
+	useEffect(() => {  
+		updateIconColor(cursorIsDown, cursorIsOver, isAnimating)
 	}, [cursorIsDown, cursorIsOver, isAnimating]) 
  
 	// ====================== Output =============================== //
