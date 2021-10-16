@@ -128,7 +128,7 @@ export default function CodeInput({
 			<textarea 
 				className={`code-display ${openClass} ${fadeClass}`} 
 				id={codeDisplayId} 
-				value={displayCode} 
+				value={code} 
 				onChange={onTextChange}> 
 			</textarea>
 		</OpenCloseBox>

@@ -51,7 +51,10 @@ export default function LevelText({
 
   	refactor parts          
 	  	- Code Input 
-	  		- on click refresh - fade out scroll bars
+	  		- on click refresh 
+					- refactor  - if !changing level = change code
+											- if changing level = wait to change code
+	  			- fade out scroll bars
 				- space on first line = jumps to next line
 	  	- on press open = refocus to same point
 
