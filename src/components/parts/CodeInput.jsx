@@ -4,14 +4,15 @@ import RefreshButton from './Buttons/RefreshButton/RefreshButton.jsx';
 import {
 	onTransition,
 	removeInlineSize, 
+	triggerOnTransitionEnd,
 } from './../utils.js';
 import './CodeInput.css';
 
 export default function CodeInput({
 	title, 
-	i,  
+	i,   
+	code,
 	isFade,
-	code, 
 	setCode, 
 	originalCode
 }) {
@@ -20,24 +21,54 @@ export default function CodeInput({
 
 		* show code
 
-		* update code on user input
-	
-		* reset to original code on refresh press
+		* on user input
+			* update code
+			* expand if content overflows
+			* shrink if content reduces overflow
 
-		* open and close on toggle press 
-		
-		* scroll on overflow
+		* on refresh press
+			* fade out
+			* change to orignal code
+			* fade in 
 
-		* animate on open and close
+		* on close box
+			* close scroll bars
+			* animate close
 
-		fix - click second refresh = color sticks
+		* on open box
+			* animate open
+			* animate to original size
+			- set focus to previous position
+ 
+		* on original code change
+			- if isFade 
+				- fade out
+				- change code to original code
+				- fade in
+
+			- if !isFade
+				- change code to original code
+
+
+	 - text box 
+	 	- sync fade with menu close
+ 		- fix - change style 
+
+	 - on click refresh 
+			- refactor  - if !changing level = change code
+			- if changing level = wait to change code
+	  			- fade out scroll bars ?
+	  	
+	  	- on press open = refocus to same point
+
+	  -	refactor Refresh ?
 	*/
 	
 	// ===================================== Ids ================================================ //
 	const codeDisplayId = `code-display-${i}`;
 
 	// ===================================== State ============================================== //
-	const [displayCode, setDisplayCode] = useState('');
+	const [displayCode, setDisplayCode] = useState(code);
 
 	// ===================================== Classes ============================================ //
 	const [fadeClass, setFadeClass] = useState('code-display-no-fade');
@@ -47,7 +78,11 @@ export default function CodeInput({
 	const buttons = [<RefreshButton onClick={onRefreshClick} i={i}/>];
 	
 	// ===================================== Event Handlers ===================================== //
-	function onTextChange(e) { 
+	function onLevelChange(newOriginalCode) {
+		fadeThenUpdateCode(newOriginalCode)
+	}
+
+	function onTextChange(e) {  
 		sizeElementToContent(e.target)
 		updateCode(e.target.value)  
 	}
@@ -59,24 +94,18 @@ export default function CodeInput({
 		} 
 	}
 
-	function onTextFadeEnd() { 
+	function onRefreshFadeOut() { 
 		removeInlineSize(codeDisplayId)
 		resetCode()
 		unfadeCode()
 	} 
 
-	function onIsFadeTrue() {
-		fadeCode()
-	}
-
-	function onIsFadeFalse() {
-		updateDisplayCode()
-		unfadeCode()
-	}
-
 	// ===================================== Helper Fns ===================================== //  
 	function fadeCode() {
-		setFadeClass('code-display-fade')
+		return new Promise(resolve => {
+			triggerOnTransitionEnd(codeDisplayId, 'color', resolve)
+			setFadeClass('code-display-fade')
+		}) 
 	}
 
 	function unfadeCode() {
@@ -84,20 +113,24 @@ export default function CodeInput({
 	}
 
 	function listenForEndOfFade() {
-		onTransition(codeDisplayId, 'color', () => {}, onTextFadeEnd)
+		triggerOnTransitionEnd(codeDisplayId, 'color', onRefreshFadeOut)
 	}
 
 	function resetCode() {
-		setCode(originalCode)
+		updateCode(originalCode)
 	}
 
 	function updateCode(code) {
 		setCode(code)
+		setDisplayCode(code)
 	}
 
-	function updateDisplayCode() {
-		setDisplayCode(code)
-		// move cursor highlight
+	function fadeThenUpdateCode(code) { 
+		fadeCode()
+			.then(() => {
+				updateCode(code)
+				unfadeCode()
+			})
 	}
 
 	function sizeElementToContent(element) { 
@@ -114,21 +147,20 @@ export default function CodeInput({
 	} 
 	// ===================================== Listen / Trigger =========================== //
 	useEffect(() => {
-		if(isFade) onIsFadeTrue()
-		if(!isFade) onIsFadeFalse() 
-	}, [isFade])
+		if(isFade) onLevelChange(originalCode) 
+	}, [originalCode])
 
 	useEffect(() => {
-		if(!isFade) updateDisplayCode()
-	}, [code, isFade])
+
+	})
 	
 	// ===================================== Output ===================================== //
 	return (
 		<OpenCloseBox title={title} i={i} buttons={buttons}>
 			<textarea 
 				className={`code-display ${openClass} ${fadeClass}`} 
-				id={codeDisplayId} 
-				value={code} 
+				id={codeDisplayId}  
+				value={displayCode}
 				onChange={onTextChange}> 
 			</textarea>
 		</OpenCloseBox>
