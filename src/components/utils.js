@@ -107,6 +107,21 @@ export function elementIsOverflowing(id, property = null) {
 	if(!property) return widthIsOverflowing || heightIsOverflowing;
 }
 
+function elementIsSmallerOrEqualThanParent(id) {
+	const parentId = getParentId(id);
+
+	const elementWidth = getElementWidth(id);
+	const elementHeight = getElementHeight(id);
+
+	const parentWidth = getElementWidth(parentId);
+	const parentHeight = getElementHeight(parentId);
+	console.log('elementWidth', elementWidth)
+	console.log('parentWidth', parentWidth)
+
+	return ( elementWidth < parentWidth && elementHeight < parentHeight 
+				|| elementIsSameSizeAsParent(id));
+}
+
 function elementIsSameSizeAsParent(id) {
 	const parentId = getParentId(id);
 
@@ -132,25 +147,28 @@ function elementIsBiggerThanParent(id) {
 }
 
 // ================ change element size
-export function setToContainerSize(id) { 
+export function setToContainerSize(id) {  
 	const containerId = getOverflowContainerId(id);
-	const newWidth = getElementWidth(containerId);
-	const newHeight = getElementHeight(containerId);
- 	console.log('containerId', containerId)
-
 	setSizeInPx(id)
-	setElementHeight(id, newHeight)
-	setElementWidth(id, newWidth)
+	setToElementSize(id, containerId) 
 }
 
-function getOverflowContainerId(id) { 
-	const isSameSizeAsParent = elementIsSameSizeAsParent(id); 
-	const parentId = getParentId(id); 
+function elementShowsOverflow(id) { 
+	const element = getElement(id);
+	const style = window.getComputedStyle(element);
+	const overflowStyle = style.overflow; 
+	return overflowStyle === 'auto' || overflowStyle === 'scroll';
+}
+ 
 
-	if(!isSameSizeAsParent) return parentId;
-	if(isSameSizeAsParent) return getOverflowContainerId(parentId); 
+function getOverflowContainerId(id) {  
+	const isOverflowContainer = elementShowsOverflow(id);
+	const parentId = getParentId(id);
+
+	if(isOverflowContainer) return id;
+	if(!isOverflowContainer) return getOverflowContainerId(parentId) 
 } 
-
+  
 export function shrinkElementOverflow(id, onFinish = () => {}) {
 	const widthPromise = shrinkOverflow(id, 'width');
 	const heightPromise = shrinkOverflow(id, 'height');
@@ -159,9 +177,7 @@ export function shrinkElementOverflow(id, onFinish = () => {}) {
 }
 
 function shrinkOverflow(id, property) {
-	return new Promise(resolve => {
-		
-
+	return new Promise(resolve => { 
 		if(!elementIsOverflowing(id, property))  return resolve()
 
 		triggerOnTransitionEnd(id, property, resolve)
@@ -253,9 +269,11 @@ export function setToElementSize(idOne, idTwo) {
 	const elementTwo = document.getElementById(idTwo);  
 
 	const elementTwoStyle = window.getComputedStyle(elementTwo);  
+	const newWidth = elementTwoStyle.width;
+	const newHeight = elementTwoStyle.height;
 
-	elementOne.style.width = elementTwoStyle.width;
-	elementOne.style.height = elementTwoStyle.height;
+	elementOne.style.width = newWidth;
+	elementOne.style.height = newHeight;
 }
 /*
 
