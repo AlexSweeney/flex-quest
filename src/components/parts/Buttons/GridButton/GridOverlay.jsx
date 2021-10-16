@@ -12,8 +12,7 @@ export default function GridOverlay({gridStatus}) {
 
 	// ====================================== Constants ====================================== //
 	// ================ Settings
-	const numLines = 10;
-	const showOnHover = true; 
+	const numLines = 10; 
 	const gridStatusToColorClass = {
 		'grid-over-on':  'grid-line-over',
 		'grid-over-off': 'grid-line-off',
