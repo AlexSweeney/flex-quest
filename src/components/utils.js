@@ -1,5 +1,5 @@
 // ============================== Transitions - call fn on ================================ //
- export function onTransition(id, propertyName, onStart = null, onEnd = null) {
+export function onTransition(id, propertyName, onStart = null, onEnd = null) {
 	if(onStart) triggerOnTransitionStart(id, propertyName, onStart)
 	if(onEnd) triggerOnTransitionEnd(id, propertyName, onEnd)
 }
@@ -13,7 +13,7 @@ export function triggerOnTransitionStart(id, propertyName, onStart = null) {
 export function triggerOnTransitionEnd(id, propertyName, onEnd = null) { 
 	const element = document.getElementById(id);  
 	const thisEndFn = transitionHandler.bind(null, id, propertyName, onEnd, triggerOnTransitionEnd); 
-	element.addEventListener('transitionend', thisEndFn, {once: true})  
+	element.addEventListener('transitionend', thisEndFn, {once: true}) 
 }
 
 function transitionHandler(id, propertyName, passFn, failFn, e) {
@@ -23,6 +23,12 @@ function transitionHandler(id, propertyName, passFn, failFn, e) {
 	} else {
 		failFn(id, propertyName, passFn)
 	} 
+}
+
+export function transitionendPromise(id, propertyName) {
+	return new Promise(resolve => {
+		triggerOnTransitionEnd(id, propertyName, resolve)
+	})
 }
 
 // ================ Scrollbar
@@ -58,8 +64,7 @@ export function moveScrollBar(id, scrollbar, target, time) {
 		incrementScrollBar(element, property, timeoutInterval, stepSize, target, resolve)
 	})
 }
-
-
+ 
 function incrementScrollBar(element, property, timeoutInterval, stepSize, target, resolve) {
 	if(stepSize > 0 && element[property] >= target) return resolve()
 	if(stepSize < 0 && element[property] <= target) return resolve()
@@ -92,9 +97,10 @@ function elementHasScrollBar(id, property = null) {
 }
 
 export function elementIsOverflowing(id, property = null) {
+	const element = getElement(id);
 	const parentElement = getParentElement(id);
-	const widthIsOverflowing = parentElement.scrollWidth > parentElement.clientWidth;
-	const heightIsOverflowing = parentElement.scrollHeight > parentElement.clientHeight;
+	const widthIsOverflowing = parentElement.scrollWidth > element.clientWidth;
+	const heightIsOverflowing = parentElement.scrollHeight > element.clientHeight;
 
 	if(property === 'width') return widthIsOverflowing;
 	if(property === 'height') return heightIsOverflowing;
@@ -102,6 +108,24 @@ export function elementIsOverflowing(id, property = null) {
 }
 
 // ================ change element size
+export function setToContainerSize(id) { 
+	const containerId = getContainerId(id);
+	const newWidth = getElementWidth(containerId);
+	const newHeight = getElementHeight(containerId);
+ 
+	setSizeInPx(id)
+	setElementHeight(id, newHeight)
+	setElementWidth(id, newWidth)
+}
+
+function getContainerId(id) { 
+	const isOverflowing = elementIsOverflowing(id);
+	const parentId = getParentId(id);
+
+	if(!isOverflowing) return parentId;
+	if(isOverflowing) return getContainerId(parentId);
+}
+
 export function shrinkElementOverflow(id, onFinish = () => {}) {
 	const widthPromise = shrinkOverflow(id, 'width');
 	const heightPromise = shrinkOverflow(id, 'height');
@@ -131,12 +155,22 @@ export function setSizeInPx(id, property) {
 	}
 }
 
-function setToParentSize(id, property) {
+export function setToParentSize(id, property) {
 	const element = document.getElementById(id);
 	const parentElement = getParentElement(id); 
 	const parentStyle = window.getComputedStyle(parentElement);
 
-	element.style[property] = parentStyle[property];
+	if(!property) {
+		const newWidth = parentStyle.width;
+		const newHeight = parentStyle.height;
+
+		element.style.width = newWidth;
+		element.style.height = newHeight;
+	}
+
+	if(property) {
+		element.style[property] = parentStyle[property];
+	} 
 }
 
 export function removeInlineSize(id) {
@@ -150,15 +184,29 @@ export function getElementHeight(id) {
 	return window.getComputedStyle(element).height;
 }
 
+export function getElementWidth(id) {
+	const element = document.getElementById(id);
+	return window.getComputedStyle(element).width;
+}
+
 export function setElementHeight(id, height) { 
 	const element = document.getElementById(id);
 	element.style.height = height;
 }
 
+export function setElementWidth(id, width) { 
+	const element = document.getElementById(id);
+	element.style.width = width;
+}
+
 // ================ get element
 export function getParentElement(id) {
-	const parentId = document.getElementById(id).parentElement.id;
+	const parentId =  getParentId(id);
 	return document.getElementById(parentId);   
+}
+
+function getParentId(id) {
+	return document.getElementById(id).parentElement.id;
 }
 
 function getElement(id) {

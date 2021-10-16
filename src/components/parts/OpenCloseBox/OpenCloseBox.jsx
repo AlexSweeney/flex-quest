@@ -17,9 +17,10 @@ import './OpenCloseBox.css';
 export default function OpenCloseBox({
 	title = '',
 	titleId,
-	i = Date.now(),
+	i,
 	buttons = [],
 	handleToggleClick = () => {}, 
+	handleBoxOpen = () => {},
 	fade = null,
 	showOverlay = false,
 	bodyOverlay = null,
@@ -86,6 +87,7 @@ export default function OpenCloseBox({
  	function onBoxOpen() {
  		setBoxIsOpen(true) 
  		setToggleIsOpen(false) 
+ 		handleBoxOpen()
  	}
  
  	function onContentContainerClosed() {
