@@ -49,12 +49,13 @@ export default function LevelText({
   		* add / remove style 
 		  * add / remove highlight 
 
-  	refactor parts         
-	  	- Code Input
-	  		- fade codeInput in out on level change
+  	refactor parts          
+	  	- Code Input 
+	  		- on click refresh - fade out scroll bars
+				- space on first line = jumps to next line
+	  	- on press open = refocus to same point
 
-	  	- Code Input
-	  		- on click refresh = resize
+	  refactor Refresh ?
 	*/
 	// ======================================= Ids ========================================= //
 	const titleId = `title-${i}`;

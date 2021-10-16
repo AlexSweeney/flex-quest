@@ -1,7 +1,10 @@
 import React, {useState, useEffect} from 'react'; 
 import OpenCloseBox from './OpenCloseBox/OpenCloseBox.jsx';
 import RefreshButton from './Buttons/RefreshButton/RefreshButton.jsx';
-import {onTransition} from './../utils.js';
+import {
+	onTransition,
+	removeInlineSize, 
+} from './../utils.js';
 import './CodeInput.css';
 
 export default function CodeInput({
@@ -52,11 +55,12 @@ export default function CodeInput({
 	function onRefreshClick() {
 		if(code !== originalCode) {
 			listenForEndOfFade()
-			fadeCode()
+			fadeCode() 
 		} 
 	}
 
 	function onTextFadeEnd() { 
+		removeInlineSize(codeDisplayId)
 		resetCode()
 		unfadeCode()
 	} 
@@ -93,6 +97,7 @@ export default function CodeInput({
 
 	function updateDisplayCode() {
 		setDisplayCode(code)
+		// move cursor highlight
 	}
 
 	function sizeElementToContent(element) { 
@@ -114,10 +119,8 @@ export default function CodeInput({
 	}, [isFade])
 
 	useEffect(() => {
-		if(!isFade) {
-			if(displayCode !== code) updateDisplayCode()
-		}
-	}, [code, displayCode, isFade])
+		if(!isFade) updateDisplayCode()
+	}, [code, isFade])
 	
 	// ===================================== Output ===================================== //
 	return (
