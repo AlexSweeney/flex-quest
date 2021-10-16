@@ -38,8 +38,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	const outputDisplayId = `output-display-${i}`; 
 
 	// ====== Grid //
-	const [gridStatus, setGridStatus] = useState('');
-	const [showGrid, setShowGrid] = useState(false); 
+	const [gridStatus, setGridStatus] = useState('grid-off'); 
 
 	// ====== Source //
 	const [source, setSource] = useState(null); 
@@ -50,13 +49,10 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 	// ================ Buttons ===================== //
 	const buttons = [
 		<RefreshButton onClick={onRefreshClick} i={i}/>,
-		<GridButton 
-			handleClick={onGridClick} 
+		<GridButton  
 			gridStatus={gridStatus} 
-			setGridStatus={setGridStatus}
-			showGrid={showGrid}
-			setShowGrid={setShowGrid}/>
-	];	  
+			setGridStatus={setGridStatus}/>
+	];
 
 	// ====================================== Constants ================================== //
 	function onCodeChange() {
@@ -70,11 +66,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 
 	function onBoxOpen() { 
 		setOutputDisplayOpenClass('output-display-open')
-	} 
-
-	function onGridClick() {
-		setShowGrid(oldVal => !oldVal)
-	} 
+	}  
 
 	function onRefreshClick() {  
 		if(elementHasInlineSize(outputDisplayId)) { 
@@ -130,7 +122,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 			buttons={buttons}>  
 			<div className={`output-display ${outputDisplayOpenClass}`} id={outputDisplayId}>
 				<iframe srcDoc={source} className="iFrame"/> 
-				<GridOverlay gridStatus={gridStatus} showGrid={showGrid}/>
+				{/*<GridOverlay gridStatus={gridStatus}/>*/}
 			</div>  
 		</OpenCloseBox>
 	)

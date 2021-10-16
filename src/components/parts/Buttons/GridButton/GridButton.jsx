@@ -3,89 +3,96 @@ import Button from './../Button.jsx';
 import GridOnIcon from '@material-ui/icons/GridOn';
 import './GridButton.css';
 
-export default function GridButton({handleClick, gridStatus, setGridStatus, setShowGrid}) {
-	// ====================  Status ========================= //
+export default function GridButton({gridStatus, setGridStatus}) {
+	/*
+		* on hover
+			* change color
+			* update Grid status
+
+		* on down
+			* change color 
+			* update Grid status
+	*/
+
+	// ======================================= Constants ============================================ //
+	// ====================  Status
 	const [isOver, setIsOver] = useState(false);
 	const [isDown, setIsDown] = useState(false);
 	const [isSelected, setIsSelected] = useState(false); 
-	const [gridStatusClass, setGridStatusClass] = useState('');
 
-	// ====================  Event Handlers ========================= //
-	function handleMouseOver() {
+	// ====================  Class
+	const [buttonColorClass, setButtonColorClass] = useState('');
+
+	// ======================================= Event Handlers ======================================= //
+	function onMouseOver() {
 		setIsOver(true)
 	}
 
-	function handleMouseOut() {
+	function onMouseOut() {
 		setIsOver(false)
 		setIsDown(false)
 	}
 
-	function handleMouseDown() {
+	function onMouseDown() {
 		setIsDown(true)
 		setIsSelected(oldVal => !oldVal)
 	}
 
-	function handleMouseUp() {
+	function onMouseUp() {
 		setIsDown(false)
 	}
+  
+	// ======================================= Helper Fns ============================================= //
+	function updateGridStatus(isOver, isDown, gridStatus) {
+		let newStatus;
 
-	// ====================  Update Status ========================= //
-	useEffect(() => {
 		if(isOver) {
-			if(isDown) setGridStatus('grid-down')
-			else setGridStatus('grid-over')
+			if(isDown) newStatus = 'grid-down';
+			if(!isDown) newStatus = 'grid-over';
 		}
 
 		if(!isOver) {
-			if(isSelected) setGridStatus('grid-selected')
-			else setGridStatus('grid-out')
+			if(isSelected) newStatus = 'grid-on';
+			if(!isSelected) newStatus = 'grid-off';
 		}
 
-	}, [isOver, isDown, isSelected])
+		setGridStatus(newStatus)
+	}
 
-
-	useEffect(() => {
-		setShowGrid(isSelected)
-	}, [isSelected])
-
-	// ====================  Update Class ========================= //
-	useEffect(() => {
+	function updateButtonColorClass(gridStatus) {
 		let newClass;
 
 		if(gridStatus === 'grid-over') newClass = 'grid-button-over';
-		if(gridStatus === 'grid-out') newClass = 'grid-button-out';
 		if(gridStatus === 'grid-down') newClass = 'grid-button-down';
-		if(gridStatus === 'grid-selected') newClass = 'grid-button-selected';
+		if(gridStatus === 'grid-on')   newClass = 'grid-button-on';
+		if(gridStatus === 'grid-off')  newClass = 'grid-button-off';
 
-		setGridStatusClass(newClass)
+		setButtonColorClass(newClass)
+	}
+
+	// ======================================= Listen / Trigger ======================================= //
+	// ========  Update Status
+	useEffect(() => {
+		updateGridStatus(isOver, isDown, gridStatus)
+	}, [isOver, isDown, isSelected])
+ 	
+
+	// ========  Update Color Class 
+	useEffect(() => {
+		updateButtonColorClass(gridStatus) 
 	}, [gridStatus])
 
-	// ====================  Console.logs ========================= //
-	// useEffect(() => {
-	// 	console.log('gridStatus', gridStatus)
-	// }, [gridStatus])
-
-	// ====================  Output ========================= //
+ 
+	// ======================================= Output ======================================= //
 	return ( 
 		<Button>
-			<div onMouseOver={handleMouseOver}
-					onMouseOut={handleMouseOut}
-					onMouseDown={handleMouseDown} 
-					onMouseUp={handleMouseUp}
-					className={`grid-button ${gridStatusClass}`}>
+			<div onMouseOver={onMouseOver}
+					onMouseOut={onMouseOut}
+					onMouseDown={onMouseDown} 
+					onMouseUp={onMouseUp}
+					className={`grid-button ${buttonColorClass}`}>
 				<GridOnIcon className="grid-icon" fontSize="inherit"/>
 			</div>
 		</Button>
 	)
 }
-/*
-<Button>
-			<div onMouseOver={handleMouseOver}
-				onMouseOut={handleMouseOut}
-				onMouseDown={handleMouseDown} 
-				onMouseUp={handleMouseUp}
-				className={`grid-button ${gridStatusClass}`}>
-				<GridOnIcon className="grid-icon" fontSize="inherit"/>
-			</div>
-		</Button>
-*/

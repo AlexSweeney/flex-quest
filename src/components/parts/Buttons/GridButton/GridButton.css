@@ -20,11 +20,11 @@
 	cursor: pointer;
 }
  
-.grid-button-selected {
+.grid-button-on {
 	color: #495fda; 
 }
 
-.grid-button-out {
+.grid-button-off {
 	transition: color 1000ms ease-in-out;
 	color: #272727;
 }
