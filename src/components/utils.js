@@ -1,3 +1,11 @@
+export function mapNumber(num, fn) {
+	return (
+		[...Array(num - 1).keys()].map((i) => {
+			return fn(i)
+		})
+	) 
+}
+
 // ============================== Transitions - call fn on ================================ //
 export function onTransition(id, propertyName, onStart = null, onEnd = null) {
 	if(onStart) triggerOnTransitionStart(id, propertyName, onStart)

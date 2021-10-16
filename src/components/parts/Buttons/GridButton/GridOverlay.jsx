@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'; 
+import { mapNumber } from './../../../utils.js';
 import './GridOverlayStyle.css';
 
 export default function GridOverlay({gridStatus}) {   
@@ -44,12 +45,13 @@ export default function GridOverlay({gridStatus}) {
 	return (
 		<div className="grid-overlay">
 			{
-				[...Array(numLines - 1).keys()].map(() => {
+				mapNumber(numLines, () => {
 					return <div className={`grid-line grid-line-horiz ${gridColorClass}`}></div>
 				})
 			}
-			{
-				[...Array(numLines - 1).keys()].map((i) => {
+
+			{	
+				mapNumber(numLines, (i) => {
 					const leftValue = getLeftOffset(i);
 					return <div className={`grid-line grid-line-vert ${gridColorClass}`} style={{left: leftValue}}></div>	
 				})
@@ -57,3 +59,15 @@ export default function GridOverlay({gridStatus}) {
 		</div>
 	)
 }
+
+/*
+				[...Array(numLines - 1).keys()].map(() => {
+					return <div className={`grid-line grid-line-horiz ${gridColorClass}`}></div>
+				})
+			
+			
+				[...Array(numLines - 1).keys()].map((i) => {
+					const leftValue = getLeftOffset(i);
+					return <div className={`grid-line grid-line-vert ${gridColorClass}`} style={{left: leftValue}}></div>	
+				})
+			*/
