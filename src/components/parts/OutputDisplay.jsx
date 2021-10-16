@@ -122,7 +122,7 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 			buttons={buttons}>  
 			<div className={`output-display ${outputDisplayOpenClass}`} id={outputDisplayId}>
 				<iframe srcDoc={source} className="iFrame"/> 
-				{/*<GridOverlay gridStatus={gridStatus}/>*/}
+				<GridOverlay gridStatus={gridStatus}/>
 			</div>  
 		</OpenCloseBox>
 	)

@@ -14,6 +14,11 @@ export default function GridButton({gridStatus, setGridStatus}) {
 			* update Grid status
 	*/
 
+	// if(gridStatus === 'grid-over-on' || gridStatus === 'grid-over-off') newClass = 'grid-button-over';
+	// 	if(gridStatus === 'grid-down-on' || gridStatus === 'grid-down-off') newClass = 'grid-button-down';
+	// 	if(gridStatus === 'grid-on')   newClass = 'grid-button-on';
+	// 	if(gridStatus === 'grid-off')  newClass = 'grid-button-off';
+
 	// ======================================= Constants ============================================ //
 	// ====================  Status
 	const [isOver, setIsOver] = useState(false);
@@ -21,6 +26,15 @@ export default function GridButton({gridStatus, setGridStatus}) {
 	const [isSelected, setIsSelected] = useState(false); 
 
 	// ====================  Class
+	const gridStatusToColorClass = {
+		'grid-over-on' : 'grid-button-over',
+		'grid-over-off': 'grid-button-over',
+		'grid-down-on' : 'grid-button-down',
+		'grid-down-off': 'grid-button-down',
+		'grid-on' 		 : 'grid-button-on',
+		'grid-off'		 : 'grid-button-off',
+	};
+
 	const [buttonColorClass, setButtonColorClass] = useState('');
 
 	// ======================================= Event Handlers ======================================= //
@@ -47,8 +61,15 @@ export default function GridButton({gridStatus, setGridStatus}) {
 		let newStatus;
 
 		if(isOver) {
-			if(isDown) newStatus = 'grid-down';
-			if(!isDown) newStatus = 'grid-over';
+			if(isDown) {
+				if(isSelected) newStatus = 'grid-down-on';
+				if(!isSelected) newStatus = 'grid-down-off';
+			}
+
+			if(!isDown) {
+				if(isSelected) newStatus = 'grid-over-on';
+				if(!isSelected) newStatus = 'grid-over-off';
+			}
 		}
 
 		if(!isOver) {
@@ -60,13 +81,7 @@ export default function GridButton({gridStatus, setGridStatus}) {
 	}
 
 	function updateButtonColorClass(gridStatus) {
-		let newClass;
-
-		if(gridStatus === 'grid-over') newClass = 'grid-button-over';
-		if(gridStatus === 'grid-down') newClass = 'grid-button-down';
-		if(gridStatus === 'grid-on')   newClass = 'grid-button-on';
-		if(gridStatus === 'grid-off')  newClass = 'grid-button-off';
-
+		const newClass = gridStatusToColorClass[gridStatus]; 
 		setButtonColorClass(newClass)
 	}
 

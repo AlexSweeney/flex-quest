@@ -29,22 +29,23 @@
 	transition: border-color 400ms ease-in-out; 
 } 
 
-.grid-line-horiz.grid-line-selected,
-.grid-line-vert.grid-line-selected {
-	border-color: #495fda;  
-	transition: border-color 1000ms ease-in-out;	
-}
-
-.grid-line-horiz.grid-line-out,
-.grid-line-vert.grid-line-out  { 
-	border-color: transparent; 
-	transition: border-color 400ms ease-in-out;	
-} 
-
 .grid-line-horiz.grid-line-down,
 .grid-line-vert.grid-line-down {
 	border-color: #3f51b5;
 	transition: border-color 400ms ease-in-out;
 }
+
+.grid-line-horiz.grid-line-on,
+.grid-line-vert.grid-line-on {
+	border-color: #495fda;  
+	transition: border-color 1000ms ease-in-out;	
+}
+
+.grid-line-horiz.grid-line-off,
+.grid-line-vert.grid-line-off  { 
+	border-color: transparent; 
+	transition: border-color 400ms ease-in-out;	
+} 
+
 
 
