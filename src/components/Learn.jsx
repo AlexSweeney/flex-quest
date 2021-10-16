@@ -111,8 +111,8 @@ export default function Learn() {
 	return (
 		<section className="learn-container"> 
 			<LevelText i="1" titles={menuOptions} fade={fade} setFade={setFade} style={cssString} setStyle={setCssString} defaultStyle={defaultCssString} levelNum={levelNum} setLevelNum={setLevelNum}/>
-			<CodeInput i="2" title="index.html" isFade={fade} code={htmlString} setCode={setHtmlString} originalCode={htmlStrings[levelNum]}/>
-			<CodeInput i="3" title="style.css"  isFade={fade} code={cssString} setCode={setCssString} originalCode={cssStrings[levelNum]}/>
+			<CodeInput i="2" title="index.html" fadeOnChange={fade} code={htmlString} setCode={setHtmlString} originalCode={htmlStrings[levelNum]}/>
+			<CodeInput i="3" title="style.css"  fadeOnChange={fade} code={cssString} setCode={setCssString} originalCode={cssStrings[levelNum]}/>
 			<OpenCloseBox i="4" title="display"></OpenCloseBox>
 			{/**/}
 			

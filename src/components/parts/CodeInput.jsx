@@ -12,7 +12,7 @@ export default function CodeInput({
 	title, 
 	i,   
 	code,
-	isFade,
+	fadeOnChange,
 	setCode, 
 	originalCode
 }) {
@@ -38,25 +38,15 @@ export default function CodeInput({
 		* on open box
 			* animate open
 			* animate to original size
-			- set focus to previous position
  
-		* on original code change
-			* fade out
-			* change code to original code
-			* fade in
-		
-
-	 - text box 
-	 	- sync fade with menu close
- 		- fix - change style 
-	
-	 	- click style header
-	 		- change to new code
-	 		- when unclicked = revert? 
-		
-		- save code between level changes  
-
-	  -	refactor Refresh ?
+		* on external code change
+			* if isFade
+				* fade out
+				* update code
+				* fade in
+			
+			* if !isFade
+				* update code
 	*/
 	
 	// ===================================== Ids ================================================ //
@@ -73,9 +63,9 @@ export default function CodeInput({
 	const buttons = [<RefreshButton onClick={onRefreshClick} i={i}/>];
 	
 	// ===================================== Event Handlers ===================================== //
-	function onCodeChangedOutside(newCode, isFade) {
-		if(isFade) fadeThenUpdateCode(newCode)
-		if(!isFade) updateCode(newCode)
+	function onCodeChangedOutside(newCode, fade) {
+		if(fade) fadeThenUpdateCode(newCode)
+		if(!fade) updateCode(newCode)
 	}
 
 	function onTextChange(e) {  
@@ -143,7 +133,7 @@ export default function CodeInput({
 	} 
 	// ===================================== Listen / Trigger =========================== //
 	useEffect(() => {
-		onCodeChangedOutside(code, isFade)
+		onCodeChangedOutside(code, fadeOnChange)
 	}, [code])
 	
 	// ===================================== Output ===================================== //
