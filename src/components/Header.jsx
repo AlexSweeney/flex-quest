@@ -10,13 +10,13 @@ export default function Header() {
 	} 
 
 	return (
-		<header class="header">
+		<header className="header">
 			<Link to="/">
 		  	<h1 className={activeLink === '/' ? 'link link-selected' : 'link'}  
 		  			onMouseDown={() => handleLinkClick('/')}>Flex Quest</h1>
 		  </Link>
 		  <nav>
-		  	<ul class="header-options">
+		  	<ul className="header-options">
 		  		{/*<li>Intro</li>*/}
 		  		<Link to="/learn">
 		  			<li className={activeLink === '/learn' ? 'link link-selected' : 'link'} 

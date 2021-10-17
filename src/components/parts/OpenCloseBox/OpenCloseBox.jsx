@@ -206,7 +206,7 @@ export default function OpenCloseBox({
 
 	// ======================================== Output =========================================== //
 	return (
-		<div className={`box ${boxOpenClass}`} id={boxId}>
+		<div className={`box ${boxOpenClass}`} id={boxId} key={boxId}>
 			<div className="box-header">
 				<div className="box-buttons-container">
 					{buttons.map(button => button)}

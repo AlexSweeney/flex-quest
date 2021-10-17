@@ -4,7 +4,7 @@ import {
 } from './../../utils.js';
 import './BurgerStyle.css';
 
-export default function Burger({burgerIsOpen, setBurgerIsOpen}) {
+export default function Burger({burgerIsOpen, setBurgerIsOpen, i = 0}) {
 	/*
 		* show burger icon
 
@@ -96,9 +96,9 @@ export default function Burger({burgerIsOpen, setBurgerIsOpen}) {
 		<div className={`burger ${burgerOpenClass}`} id={burgerId}
 			onMouseOver={onMouseOver} onMouseOut={onMouseOut}
 			onMouseDown={onMouseDown} onMouseUp={onMouseUp}>
-				<div className={`burger-bar ${burgerBarClass}`}></div>
-				<div className={`burger-bar ${burgerBarClass}`}></div>
-				<div className={`burger-bar ${burgerBarClass}`}></div>
+				<div className={`burger-bar ${burgerBarClass}`} key={`burger-bar-${i}-1`}></div>
+				<div className={`burger-bar ${burgerBarClass}`} key={`burger-bar-${i}-2`}></div>
+				<div className={`burger-bar ${burgerBarClass}`} key={`burger-bar-${i}-3`}></div>
 		</div> 
 	)
 } 
