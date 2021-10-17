@@ -48,8 +48,9 @@ export default function OutputDisplay({title, htmlString, cssString, i}) {
 
 	// ================ Buttons ===================== //
 	const buttons = [
-		<RefreshButton onClick={onRefreshClick} i={i}/>,
+		<RefreshButton onClick={onRefreshClick} i={i} key={`${outputDisplayId}-button-0`}/>,
 		<GridButton  
+			key={`${outputDisplayId}-button-1`}
 			gridStatus={gridStatus} 
 			setGridStatus={setGridStatus}/>
 	];

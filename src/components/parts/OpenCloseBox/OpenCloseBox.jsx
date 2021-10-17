@@ -213,7 +213,7 @@ export default function OpenCloseBox({
 				</div>
 
 				<div className={`title ${titleFadeClass}`} id={titleId}>{title}</div>
-
+	
 				<div className="open-close-toggle-container">
 					<OpenCloseToggle 	
 						handleClick={onClickOpenCloseToggle}

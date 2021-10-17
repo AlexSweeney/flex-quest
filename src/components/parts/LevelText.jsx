@@ -61,8 +61,8 @@ export default function LevelText({
 	const [title, setTitle] = useState(titles[levelNum]); 
 
 	// ======================================= Buttons ===================================== //
-	const buttons = [<Burger burgerIsOpen={burgerIsOpen} setBurgerIsOpen={setBurgerIsOpen}/>]; 
-	const bodyOverlay = [<BurgerMenu isOpen={burgerIsOpen} setIsOpen={setBurgerIsOpen} options={titles} handleClick={onClickLevelOption}/>];
+	const buttons = [<Burger burgerIsOpen={burgerIsOpen} setBurgerIsOpen={setBurgerIsOpen} key={`level-text-${i}-button-0`}/>]; 
+	const bodyOverlay = [<BurgerMenu isOpen={burgerIsOpen} setIsOpen={setBurgerIsOpen} options={titles} handleClick={onClickLevelOption} key={`level-text-${i}-overlay-0`}/>];
 
 	// ======================================= Class ======================================= //
 	const [textBodyOpenClass, setTextBodyOpenClass] = useState(''); 

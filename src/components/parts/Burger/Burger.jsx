@@ -22,7 +22,7 @@ export default function Burger({burgerIsOpen, setBurgerIsOpen, i = 0}) {
 	*/
 	// ============================== Constants ============================= //
 	// ================== Ids
-	const burgerId = 'burger';
+	const burgerId = `burger-${i}`;
 
 	// ================== State 
 	const [isOver, setIsOver] = useState(false);
@@ -80,6 +80,10 @@ export default function Burger({burgerIsOpen, setBurgerIsOpen, i = 0}) {
 
 		setBurgerBarClass(newClass)
 	}
+
+	function getBurgerBarKey(i) {
+		return `${burgerId}-bar-${i}`;
+	}
  
 	// ============================== Listen / Trigger ======================== //
 	useEffect(() => {
@@ -93,12 +97,12 @@ export default function Burger({burgerIsOpen, setBurgerIsOpen, i = 0}) {
 	
 	// ============================== Output ============================= //
 	return (
-		<div className={`burger ${burgerOpenClass}`} id={burgerId}
+		<div className={`burger ${burgerOpenClass}`} id={burgerId} key={burgerId}
 			onMouseOver={onMouseOver} onMouseOut={onMouseOut}
 			onMouseDown={onMouseDown} onMouseUp={onMouseUp}>
-				<div className={`burger-bar ${burgerBarClass}`} key={`burger-bar-${i}-1`}></div>
-				<div className={`burger-bar ${burgerBarClass}`} key={`burger-bar-${i}-2`}></div>
-				<div className={`burger-bar ${burgerBarClass}`} key={`burger-bar-${i}-3`}></div>
+				<div className={`burger-bar ${burgerBarClass}`} key={getBurgerBarKey(0)}></div>
+				<div className={`burger-bar ${burgerBarClass}`} key={getBurgerBarKey(1)}></div>
+				<div className={`burger-bar ${burgerBarClass}`} key={getBurgerBarKey(2)}></div>
 		</div> 
 	)
 } 

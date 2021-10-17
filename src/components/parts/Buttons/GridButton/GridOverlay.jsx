@@ -44,15 +44,15 @@ export default function GridOverlay({gridStatus}) {
 	return (
 		<div className="grid-overlay">
 			{
-				mapNumber(numLines, () => {
-					return <div className={`grid-line grid-line-horiz ${gridColorClass}`}></div>
+				mapNumber(numLines, (i) => {
+					return <div className={`grid-line grid-line-horiz ${gridColorClass}`} key={`grid-line-horiz-${i}`}></div>
 				})
 			}
 
 			{	
 				mapNumber(numLines, (i) => {
 					const leftValue = getLeftOffset(i);
-					return <div className={`grid-line grid-line-vert ${gridColorClass}`} style={{left: leftValue}}></div>	
+					return <div className={`grid-line grid-line-vert ${gridColorClass}`} style={{left: leftValue}} key={`grid-line-vert-${i}`}></div>	
 				})
 			}
 		</div>

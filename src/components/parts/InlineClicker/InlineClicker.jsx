@@ -45,8 +45,8 @@ export default function InlineClicker({
 
 	// =========================== Outputs =========================== //
 	return (
-		<div className={`inline-clicker ${selectedClass}`} onClick={onClick}>
+		<span className={`inline-clicker ${selectedClass}`} onClick={onClick}>
 			{children}
-		</div>
+		</span>
 	)
 }

@@ -60,7 +60,7 @@ export default function CodeInput({
 	const [openClass, setOpenClass] = useState('code-display-open');
 	
 	// ===================================== Buttons ============================================ //
-	const buttons = [<RefreshButton onClick={onRefreshClick} i={i}/>];
+	const buttons = [<RefreshButton onClick={onRefreshClick} i={i} key={`${codeDisplayId}-button-0`}/>];
 	
 	// ===================================== Event Handlers ===================================== //
 	function onCodeChangedOutside(newCode, fade) {
@@ -130,7 +130,7 @@ export default function CodeInput({
 		if(element.scrollHeight > element.clientHeight) {
 			element.style.height = element.scrollHeight + 'px';
 		}  
-	} 
+	}  
 	// ===================================== Listen / Trigger =========================== //
 	useEffect(() => {
 		onCodeChangedOutside(code, fadeOnChange)

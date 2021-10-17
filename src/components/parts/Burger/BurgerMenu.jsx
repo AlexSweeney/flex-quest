@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import './BurgerMenu.css';
 
-export default function BurgerMenu({isOpen, setIsOpen, options, handleClick}) { 
+export default function BurgerMenu({isOpen, setIsOpen, options, handleClick, i = 0}) { 
 	/*
 		*	on isOpen 
 			* show options
@@ -18,6 +18,7 @@ export default function BurgerMenu({isOpen, setIsOpen, options, handleClick}) {
 			* hide options  
 	*/
 	// ================================ Constants ================================= //
+	const burgerMenuId = `burger-menu-${i}`;
 	const [menuOpenClass, setMenuOpenClass] = useState('burger-menu-closed');
 	
 	// ================================ Event Handlers ============================ //
@@ -43,9 +44,9 @@ export default function BurgerMenu({isOpen, setIsOpen, options, handleClick}) {
 
 	// ================================ Output ===================================== //
 	return ( 
-		<div className={`burger-menu ${menuOpenClass}`}>
+		<div className={`burger-menu ${menuOpenClass}`} key={burgerMenuId}>
 			{options && options.map(option => (
-				<h3 className="menu-title" onClick={() => onOptionClick(option)}>
+				<h3 className="menu-title" onClick={() => onOptionClick(option)} key={`${burgerMenuId}-option-${option}`}>
 					{option}
 				</h3>
 			))}
