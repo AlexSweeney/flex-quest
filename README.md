@@ -1,4 +1,4 @@
-# ================ Flex Quest 
+# Flex Quest 
 
 Single Page App for learning flex-box
 
