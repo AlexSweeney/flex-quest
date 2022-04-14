@@ -20,22 +20,22 @@ export default function Header() {
 		setLogoClass(newClass)
 	}
 
-	const updateLearnClass = (activeLink) => {
-		let newClass;
+	const updateLinkClass = (activeLink, targetLink, setClass) => { 
+		let newClass; 
 
-		if(activeLink === '/learn') {
+		if(activeLink === targetLink) {
 			newClass = 'header-link header-link__selected';
 		} else {
 			newClass = 'header-link';
-		}
+		} 
 
-		setLearnClass(newClass);
-	};
+		setClass(newClass);
+	}
 
 	// ================== Event Handlers
 	const onChangeActiveLink = (activeLink) => {
 		updateLogoClass(activeLink);
-		updateLearnClass(activeLink); 
+		updateLinkClass(activeLink, '/learn', setLearnClass); 
 	}
  
 	const onLinkClick = (pathname) => {
