@@ -1,9 +1,27 @@
-.header { 
+@import '../../styles/colors.scss';
+
+.header {  
+	background: $dark-background;
 	display: flex;
-	background: #272727;
 	justify-content: flex-start;
 	align-items: baseline; 
 	padding: 1em;
+}
+
+.header-logo {
+	color: pink;
+}
+
+.header-logo__selected {
+	color: red;
+}
+
+.header-link {
+	color: pink;
+}
+
+.header-link__selected {
+	color: red;
 }
 
 .header h1 {
