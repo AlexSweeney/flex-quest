@@ -52,9 +52,7 @@ export default function Header() {
 		<header className="header">
 			<Link to="/" className='header-link'>
 				<h1 className={logoClass}  
-		  			onMouseDown={() => onLinkClick('/')}>Flex Quest</h1>
-		  	{/* <h1 className={activeLink === '/' ? 'link link-selected' : 'link'}  
-		  			onMouseDown={() => handleLinkClick('/')}>Flex Quest</h1> */}
+		  		onMouseDown={() => onLinkClick('/')}>Flex Quest</h1>
 		  </Link>
 		  <nav>
 		  	<ul className="header-link-container">

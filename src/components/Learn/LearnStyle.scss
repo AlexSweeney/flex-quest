@@ -1,0 +1,30 @@
+@import '../../styles/colors.scss';
+
+.learn-container {
+	background: $background-mid;
+	flex-grow: 1;
+	display: flex;
+	justify-content: space-between; 
+	padding: 63px;
+}
+
+// .four-box {
+// 	min-width: 250px;
+// 	height: 400px;
+// 	background: white;
+// 	border: 2px solid black;
+// }
+
+// .info-text-container {
+// 	padding: 0.5em 0.75em;
+// 	transition: opacity 500ms ease-in-out;
+// 	box-sizing: border-box;
+// }
+
+// .info-text-container p {
+// 	margin-bottom: 0.5em;
+// }
+
+// .info-text-container h2 { 
+//   margin-bottom: 0.2em;
+// }

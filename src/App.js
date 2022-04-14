@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './components/Header/Header.jsx';
 import Home from './pages/Home/Home.jsx';
-import Learn from './components/Learn.jsx';
+import Learn from './components/Learn/Learn.jsx';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import './styles/reset.css';
 import './styles/fonts.scss'; 
@@ -13,7 +13,7 @@ function App() {
     	<Router>
     		<Header/>
         	<Switch>
-            <Route path={["/", "/flex-quest/"]} exact component={Home}/>
+            <Route path={["/", "/home", "/flex-quest/"]} exact component={Home}/>
         		<Route path="/learn" component={Learn}/>
         	</Switch>
 	    </Router>
