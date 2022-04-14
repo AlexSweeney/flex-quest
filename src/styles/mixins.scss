@@ -1,0 +1,29 @@
+@import './colors.scss';
+@import './fonts.scss';
+
+@mixin default-cursor() {
+  cursor: default;  
+
+  &:hover {
+    cursor: default;
+  }
+}
+
+@mixin vertical-children() {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin main-heading-text {
+  font-family: $heading-font;
+	color: $default-text;
+  font-size: 3em; 
+  padding-bottom: 0.2em;
+}
+
+@mixin main-content-text {
+	font-family: $text-font;
+	color: $default-text;
+	font-size: 1.5em;
+	padding-top: 0.8em;
+}

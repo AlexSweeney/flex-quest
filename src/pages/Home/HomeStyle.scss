@@ -1,0 +1,37 @@
+@import '../../styles/colors.scss';
+@import '../../styles/mixins.scss';
+
+.home-wrapper {
+	background: $dark-background;
+	display: flex;
+	justify-content: space-between;
+	padding: 6em;
+	padding-bottom: 2em;
+	flex-grow: 1;
+}
+
+.home-box {
+	width: 50%;
+	padding-right: 1em;
+
+	@include default-cursor;
+	@include vertical-children;
+}
+
+.home-box--text {
+	padding-right: 2em;
+}
+
+.home-box--preview {
+	background-color: $light-background;
+	border-radius: 1em;
+	max-height: 30em;
+}
+
+.home-box__heading {
+	@include main-heading-text;
+}
+
+.home-box__text {
+	@include main-content-text;
+}
