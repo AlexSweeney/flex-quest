@@ -1,11 +1,26 @@
 @import './colors.scss';
 @import './fonts.scss';
+@import './transitions.scss';
 
 @mixin default-cursor() {
   cursor: default;  
 
   &:hover {
     cursor: default;
+  }
+}
+
+@mixin selectable-text() {
+  color: $text-default;
+  transition: $text-color-fade-transition; 
+
+  &:hover {
+    cursor: pointer;
+    color: $text-hover;
+  }
+
+  &:active {
+    color: $text-active;
   }
 }
 
@@ -16,14 +31,14 @@
 
 @mixin main-heading-text {
   font-family: $heading-font;
-	color: $default-text;
+	color: $text-default;
   font-size: 3em; 
   padding-bottom: 0.2em;
 }
 
 @mixin main-content-text {
 	font-family: $text-font;
-	color: $default-text;
+	color: $text-default;
 	font-size: 1.5em;
 	padding-top: 0.8em;
 }

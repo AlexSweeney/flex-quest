@@ -2,7 +2,7 @@
 @import '../../styles/mixins.scss';
 
 .home-wrapper {
-	background: $dark-background;
+	background: $background-dark;
 	display: flex;
 	justify-content: space-between;
 	padding: 6em;
@@ -23,7 +23,7 @@
 }
 
 .home-box--preview {
-	background-color: $light-background;
+	background-color: $background-light;
 	border-radius: 1em;
 	max-height: 30em;
 }

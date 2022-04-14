@@ -5,7 +5,7 @@ import './Header.scss';
 export default function Header() { 
 	const [activeLink, setActiveLink] = useState(window.location.pathname); 
 	const [logoClass, setLogoClass] = useState('header-logo');
-	const [learnClass, setLearnClass] = useState('header-link');
+	const [learnClass, setLearnClass] = useState('header-link-text');
 
 	// ================== Util Fns
 	const updateLogoClass = (activeLink) => {
@@ -24,9 +24,9 @@ export default function Header() {
 		let newClass; 
 
 		if(activeLink === targetLink) {
-			newClass = 'header-link header-link__selected';
+			newClass = 'header-link-text header-link-text__selected';
 		} else {
-			newClass = 'header-link';
+			newClass = 'header-link-text';
 		} 
 
 		setClass(newClass);
@@ -50,16 +50,16 @@ export default function Header() {
 	// ================== Output
 	return (
 		<header className="header">
-			<Link to="/">
+			<Link to="/" className='header-link'>
 				<h1 className={logoClass}  
 		  			onMouseDown={() => onLinkClick('/')}>Flex Quest</h1>
 		  	{/* <h1 className={activeLink === '/' ? 'link link-selected' : 'link'}  
 		  			onMouseDown={() => handleLinkClick('/')}>Flex Quest</h1> */}
 		  </Link>
 		  <nav>
-		  	<ul className="header-options">
+		  	<ul className="header-link-container">
 		  		{/*<li>Intro</li>*/}
-		  		<Link to="/learn">
+		  		<Link to="/learn" className='header-link'>
 		  			<li className={learnClass} 
 		  					onClick={() => onLinkClick('/learn')}>Learn</li>
 		  		</Link>
