@@ -9,7 +9,7 @@ $openCloseButton-width: $openCloseButton-size;
 $openCloseButton-height: $openCloseButton-size;
 $openCloseButton-symbol-width: 12px;
 $openCloseButton-symbol-height: 4px;
-$openCloseButton-border-width: 2px;
+$openCloseButton-border-width: 0px;
 
 /* =============== Fns =============== */
 @function getOpenCloseButtonLeft() {

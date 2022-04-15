@@ -3,12 +3,23 @@ import './OpenCloseButton.scss';
 
 interface OpenCloseButtonProps {
 	parentIsAnimating?: boolean;
+	handleClick: Function;
+	isOpen?: boolean;
+	isOrphan?: boolean;
 }
 
-export function OpenCloseButton({
+export default function OpenCloseButton({
 	parentIsAnimating = false,
+	isOpen = true,
+	handleClick = () => {},
+	isOrphan = false,
 }: OpenCloseButtonProps) { 
 	/*
+		* if open
+			* show minus
+		* if closed 
+			* show plus
+
 		* onClick
 			* if parent isn't animting
 				* animate between cross and minus sign
@@ -17,45 +28,54 @@ export function OpenCloseButton({
 			* animate between cross and minus sign
 	*/ 
 
-	// ==================================== Constants ==================================== //
-	const [lineIsVertical, setLineIsVertical] = useState(false);
+	// ==================================== Constants ==================================== // 
 	const [verticalLineClass, setVerticalLineClass] = useState('');
 
 	// =================================== Event Handlers //
 	const onMouseDown = () => {
-		if(!parentIsAnimating) {
-			turnVerticalLine(lineIsVertical);
-		}
+		handleClick()
+
+		if(isOrphan) toggleVerticalLineClass();
 	}
 
-	const onParentAnimationEnd = () => {
-		updateVerticalLineClass(lineIsVertical)
+	const onParentEndOpen = (isOpen: boolean) => { 
+		updateVerticalLineClass(isOpen)
+	}
+
+	const onParentEndClose = (isOpen: boolean) => { 
+		updateVerticalLineClass(isOpen)
 	}
 
 	// ==================================== Utils //
-	const turnVerticalLine = (lineIsVertical) => {
-		setLineIsVertical(!lineIsVertical)
-		updateVerticalLineClass(!lineIsVertical)
-	}
-
-	const updateVerticalLineClass = (isVertical) => {
+	const updateVerticalLineClass = (isOpen: boolean) => {
 		let newClass;
 
-		if(isVertical) newClass = 'openCloseButton-line__vertical';
-		else newClass = '';
+		if(isOpen) newClass = '';
+		else newClass = 'openCloseButton-line__vertical';
 		
+		setVerticalLineClass(newClass)
+	}
+
+	const toggleVerticalLineClass = () => {
+		let newClass;
+
+		if(verticalLineClass === '') newClass = 'openCloseButton-line__vertical';
+		else newClass = ''; 
+
 		setVerticalLineClass(newClass)
 	}
 
 	// ==================================== Listen / Trigger ============================= //
 	useEffect(() => {
-		if(!parentIsAnimating) onParentAnimationEnd();
+		if(!parentIsAnimating) {
+			if(isOpen) onParentEndOpen(isOpen)
+			else onParentEndClose(isOpen)
+		}
 	}, [parentIsAnimating])
 
 	// ================== Output ================== //
 	return (
-		<button className='openCloseButton'
-			onMouseDown={onMouseDown}> 
+		<button className='openCloseButton' onMouseDown={onMouseDown}> 
 			<div className='openCloseButton-line'/>
 			<div className={`openCloseButton-line ${verticalLineClass}`}/>
 		</button>

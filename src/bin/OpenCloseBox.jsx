@@ -11,7 +11,7 @@ import {
 	removeInlineSize,
 	getElementHeight,
 	setElementHeight,
-} from './../../utils.js';
+} from '../utils.js';
 import './OpenCloseBox.css';
 
 export default function OpenCloseBox({
