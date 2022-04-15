@@ -1,4 +1,4 @@
-import OpenCloseBox from './parts/OpenCloseBox/OpenCloseBox.jsx';
+import OpenCloseBox from './parts/OpenCloseBox/OpenCloseBox.jsx.js';
 
 export default function InfoBox({levelNum, setLevelNum}) {
 	const menuOptions = [

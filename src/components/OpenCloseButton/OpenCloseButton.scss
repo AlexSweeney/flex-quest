@@ -1,20 +1,21 @@
+@import '../../styles/colors.scss';
+@import '../../styles/mixins.scss';
+@import '../../styles/transitions.scss';
+
 /* =============== Container =============== */
-.open-close-toggle {
+.openCloseButton-container {
 	width: 22px;
 	height: 22px;
 	border-radius: 100%;
-	background: #E8E4E4; 
+	background: $background-light; 
 	position: relative; 
 	z-index: 2;
-}
-
-.open-close-toggle:hover {
-	cursor: pointer; 
-}
+	@include selectable-element;
+} 
 
 /* =============== Line =============== */
 .line {
-	background: #272727;
+	background: $background-dark;
 	position: absolute; 
 	width: 12px;
   height: 4px;
@@ -25,30 +26,30 @@
 
 /* ======= Over */
 .line-over {
-	background: #2196f3;
+	background-color: $element-hover;
 }
 
 .line-over-transition {
-	transition: background 500ms;
+	transition: $element-background-color-over;
 }
 
 /* ======= Out */
 .line-out {
-	background: #272727; 
+	background: $background-dark; 
 }
 
 .line-out-transition {
-	transition: background 1000ms;
+	transition: $element-background-color-out;
 } 
 
 /* ======= Down */
 .line-down-transition {
-	transition: background 250ms;
+	transition: $element-background-color-down;
 }
 
 /* ======= Open */
 .line-open {
-	background: #3f51b5;
+	background: $text-active;
 }
 
 .line-open-transition {
@@ -61,19 +62,16 @@
 
 /* ======= Closed */
 .line-closed {
-	background: #3f51b5;
+	background: $text-active;
 }
 
 .line-closed-transition {
 	transition: transform 1s;
 }
-
-.line-closed-transform {
-}
-
+ 
 /* ======= Animating */
 .line-animating {
-	background: #3f51b5; 
+	background: $text-active; 
 }
 
 

@@ -10,6 +10,12 @@
   }
 }
 
+@mixin selectable-element() { 
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 @mixin selectable-text() {
   color: $text-default;
   transition: $text-color-fade-transition; 

@@ -35,6 +35,7 @@
 .header-logo {
 	font-family: $logo-font;
 	font-size: $header-logo-size; 
+	white-space: nowrap;
 }
 
 .header-link-text {

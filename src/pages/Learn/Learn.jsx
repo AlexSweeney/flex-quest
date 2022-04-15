@@ -1,17 +1,17 @@
 import React, {useState, useEffect} from 'react'; 
-// import LevelText from '../parts/LevelText.jsx';
+// import LevelText from '../../components/parts/LevelText.jsx';
 // import CodeInput from '../parts/CodeInput.jsx';
 // import OutputDisplay from '../../parts/OutputDisplay.jsx'; 
 import './LearnStyle.scss'; 
 
 import * as htmlData from '../../data/learn/html.jsx';
-import * as styleData from '../../data/learn/style.jsx'; 
+import * as cssData from '../../data/learn/style.jsx'; 
 
 export default function Learn() {  
 	/*
 		set to 64px / 4em = scroll to edge of 2nd box rounding error => try flex solution
 	*/
-	const [levelNum, setLevelNum] = useState(0); 
+	const [levelNum, setLevelNum] = useState(1); 
 
 	const levels = [
 		'Level 1: display: flex',
@@ -28,16 +28,22 @@ export default function Learn() {
 		'Level 12: flex',
 		'Level 13: align-self',*/
 	]; 
-
-	const currentLevel = useState()
-
-	// const infoTitle = menuOptions[levelNum];
-
-	// const [htmlString, setHtmlString] = useState(htmlStrings[levelNum]);
-	// const [cssString, setCssString] = useState(cssStrings[levelNum]); 
-	// const [defaultCssString, setDefaultCssString] = useState(cssStrings[levelNum]);
+  
+	// console.log('htmlData', htmlData)
+	// const [htmlString, setHtmlString] = useState(gethtmlString(levelNum)); 
+	// const [cssString, setCssString] = useState(getCssString(levelNum)); 
+	// const [defaultCssString, setDefaultCssString] = useState(getCssString(levelNum));
 	
 	// const [fade, setFade] = useState(false);
+
+	// =========== Event Handlers
+	const gethtmlString = (levelNum) => {
+		// return htmlData[`level_${levelNum}`].html;
+	}
+
+	const getCssString = (levelNum) => {
+		// return cssData[`level_${levelNum}`].css;
+	}
 
 	// =========== Event Handlers
 	const onChangeLevel = (levelNum) => {
@@ -54,9 +60,9 @@ export default function Learn() {
 	// =========== Output
 	return (
 		<section className="learn-container"> 
-			{/* <LevelText 
+				{/* <LevelText 
 				i="1" 
-				titles={menuOptions} 
+				titles={levels} 
 				fade={fade} 
 				setFade={setFade} 
 				style={cssString} 
@@ -65,7 +71,7 @@ export default function Learn() {
 				levelNum={levelNum} 
 				setLevelNum={setLevelNum}
 			/>
-			<CodeInput i="2" title="index.html" fadeOnChange={fade} code={htmlString} setCode={setHtmlString} originalCode={htmlStrings[levelNum]}/>
+		<CodeInput i="2" title="index.html" fadeOnChange={fade} code={htmlString} setCode={setHtmlString} originalCode={htmlStrings[levelNum]}/>
 			<CodeInput i="3" title="style.css"  fadeOnChange={fade} code={cssString} setCode={setCssString} originalCode={cssStrings[levelNum]}/>
 			<OutputDisplay i="4" title="display" htmlString={htmlString} cssString={cssString}/> */}
 		</section>
