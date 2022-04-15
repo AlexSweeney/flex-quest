@@ -2,167 +2,66 @@
 @import '../../styles/mixins.scss';
 @import '../../styles/transitions.scss';
 
-/* =============== Container =============== */
-.openCloseButton-container {
-	width: 22px;
-	height: 22px;
+/* =============== Consts =============== */
+$openCloseButton-size: 22px;
+
+$openCloseButton-width: $openCloseButton-size;
+$openCloseButton-height: $openCloseButton-size;
+$openCloseButton-symbol-width: 12px;
+$openCloseButton-symbol-height: 4px;
+$openCloseButton-border-width: 2px;
+
+/* =============== Fns =============== */
+@function getOpenCloseButtonLeft() {
+	$totalSpace: $openCloseButton-width - $openCloseButton-symbol-width;
+
+	@return calc(($totalSpace / 2) - $openCloseButton-border-width);
+}
+
+@function getOpenCloseButtonTop() {
+	$totalSpace: $openCloseButton-height - $openCloseButton-symbol-height;
+
+	@return calc(($totalSpace / 2) - $openCloseButton-border-width);
+}
+
+/* =============== Button =============== */
+.openCloseButton {
+	box-sizing: border-box;
+	width: $openCloseButton-width;
+	height: $openCloseButton-height;
 	border-radius: 100%;
 	background: $background-light; 
 	position: relative; 
 	z-index: 2;
 	@include selectable-element;
+	border-color: $background-dark;
+	border-width: $openCloseButton-border-width;
+
+	transition: $element-background-color-out;
+
+	&:hover {
+		background-color: $element-hover;
+		transition: $element-background-color-over;
+	}
+
+	&:active {
+		background-color: $element-active;
+		transition: $element-background-color-down;
+	}
 } 
 
 /* =============== Line =============== */
-.line {
+.openCloseButton-line {
 	background: $background-dark;
 	position: absolute; 
-	width: 12px;
-  height: 4px;
- 	top: 9px;
- 	left: 5px;
- 	z-index: -1; 
-}
-
-/* ======= Over */
-.line-over {
-	background-color: $element-hover;
-}
-
-.line-over-transition {
-	transition: $element-background-color-over;
-}
-
-/* ======= Out */
-.line-out {
-	background: $background-dark; 
-}
-
-.line-out-transition {
-	transition: $element-background-color-out;
-} 
-
-/* ======= Down */
-.line-down-transition {
-	transition: $element-background-color-down;
-}
-
-/* ======= Open */
-.line-open {
-	background: $text-active;
-}
-
-.line-open-transition {
+	width: $openCloseButton-symbol-width;
+  height: $openCloseButton-symbol-height;
+ 	top: getOpenCloseButtonTop();
+ 	left: getOpenCloseButtonLeft();
+ 	z-index: 1; 
 	transition: transform 1s;
 }
 
-.line-open-transform {
-	transform: rotate(90deg);  
+.openCloseButton-line__vertical { 
+	transform: rotate(90deg);
 }
-
-/* ======= Closed */
-.line-closed {
-	background: $text-active;
-}
-
-.line-closed-transition {
-	transition: transform 1s;
-}
- 
-/* ======= Animating */
-.line-animating {
-	background: $text-active; 
-}
-
-
-
-
-
-
-
-
-
-
-
-
-/*.line-over,
-.line-out {
-	transition: background 500ms, transform 1s;
-}
-
-.line-down,
-.line-up {
-	transition: background 250ms, transform 1s;
-}
-*/
-/*.line-over {
-	background: #2196f3; 
-}
-
-.line-out {
-
-}*/
-
-/*.line-down {
-	background: #3f51b5;
-}
-
-.line-animating {
-	background: #3f51b5;
-}
-
-.line-opening {
-	transform: rotate(90deg);  
-	transition: transform 1s;
-}
-
-.line-closing {
-	transition: transform 1s;
-}
-*/
-
-
-/*
-
-.line {
-	position: absolute;
-	left: 5px;
-	top: 9px;
-	width: 12px;
-  height: 4px;
-	background: #272727;
-}
-
-.line-closed {
-	transition: transform 1s;
-}
-
-.line-open { 
-	transform: rotate(90deg);  
-	transition: transform 1s;
-}
-
-.line-over,
-.line-up {
-	background: #2196f3; 
-}
-
-.line-out,
-.line-animated {
-	background: #272727;
-}
-
-.line-down, 
-.line-animating {
-	background: #3f51b5;
-} 
-
-.line-over,
-.line-out {
-	transition: background 500ms, transform 1s;
-}
-
-.line-down,
-.line-up {
-	transition: background 250ms, transform 1s;
-}*/

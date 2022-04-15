@@ -4,9 +4,8 @@ import React, {useState, useEffect} from 'react';
 import './OpenCloseButton.scss';
 
 export function OpenCloseButton({
-	toggleIsOpen = false,
-	handleClick = () => {}, 
-	i = 0}) { 
+	parentIsAnimating = false,
+}) { 
 	/*
 		* Toggle closed = plus sign
 		* Toggle open = minus sign
@@ -18,6 +17,9 @@ export function OpenCloseButton({
 	*/ 
 
 	// ==================================== Constants ==================================== //
+	const [lineIsVertical, setLineIsVertical] = useState(false);
+	const [verticalLineClass, setVerticalLineClass] = useState('');
+
 	// ================== Ids 
 	// const vertLineId = 'vert-line-' + i;
 	// const horizLineId = 'horiz-line-' + i;
@@ -33,8 +35,29 @@ export function OpenCloseButton({
 	// const [transitionClass, setTransitionClass] = useState('');
 	// const [transformClass, setTransformClass] = useState('');
 
-	// ==================================== Event Handlers =============================== //
-	// ================== Mouse
+	// =================================== Event Handlers //
+	const onMouseDown = () => {
+		if(!parentIsAnimating) turnVerticalLine();
+	}
+
+	const onParentAnimationEnd = () => {
+
+	}
+
+	// ==================================== Utils //
+	const turnVerticalLine = () => {
+		setLineIsVertical(oldVal => !oldVal)
+	}
+
+	const updateVerticalLineClass = (isVertical) => {
+		let newClass;
+
+		if(isVertical) newClass = 'openCloseButton-line__vertical';
+		else newClass = '';
+		
+		setVerticalLineClass(newClass)
+	}
+
 	// function onMouseOver() { 
 	// 	setIsOver(true)	 
 	// 	if(!isAnimating) setLineOverClasses()
@@ -132,9 +155,21 @@ export function OpenCloseButton({
 	// 	}
 	// }, [toggleIsOpen, isAnimating])
 
+	useEffect(() => {
+		updateVerticalLineClass(lineIsVertical)
+	}, [lineIsVertical])
+
+	useEffect(() => {
+		if(!parentIsAnimating) onParentAnimationEnd();
+	}, [parentIsAnimating])
+
 	// ================== Output ================== //
 	return (
-		<button className='openCloseButton-container'>
+		<button className='openCloseButton'
+			onMouseDown={onMouseDown}> 
+			<div className='openCloseButton-line'/>
+			<div className={`openCloseButton-line ${verticalLineClass}`}/>
+			
 			{/* <div className="open-close-toggle" 	
 				id={openCloseToggleId}
 				onMouseOver={onMouseOver}
