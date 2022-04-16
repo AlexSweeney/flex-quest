@@ -2,57 +2,44 @@ import React, {useState, useEffect} from 'react';
 import './OpenCloseButton.scss';
 
 interface OpenCloseButtonProps {
-	parentIsAnimating?: boolean;
-	handleClick: Function;
-	isOpen?: boolean;
+	isCrossSymbol?: boolean;
+	handleClick: Function; 
 	isOrphan?: boolean;
 }
 
 export default function OpenCloseButton({
-	parentIsAnimating = false,
-	isOpen = true,
+	isCrossSymbol = false,
 	handleClick = () => {},
 	isOrphan = false,
 }: OpenCloseButtonProps) { 
 	/*
-		* if open
-			* show minus
-		* if closed 
-			* show plus
-
 		* onClick
-			* if parent isn't animting
+			* call handleClick
+			* if isOrphan
 				* animate between cross and minus sign
-
-		* on parent animation change
+		
+		* on isCrossSymbol change
 			* animate between cross and minus sign
 	*/ 
 
-	// ==================================== Constants ==================================== // 
+	// ==================================== Constants 
 	const [verticalLineClass, setVerticalLineClass] = useState('');
 
-	// =================================== Event Handlers //
+	// ==================================== Event Handlers
 	const onMouseDown = () => {
 		handleClick()
 
 		if(isOrphan) toggleVerticalLineClass();
 	}
 
-	const onParentEndOpen = (isOpen: boolean) => { 
-		updateVerticalLineClass(isOpen)
+	// ==================================== Utils
+	const showCross = () => {
+		let newClass = 'openCloseButton-line__vertical';
+		setVerticalLineClass(newClass)
 	}
 
-	const onParentEndClose = (isOpen: boolean) => { 
-		updateVerticalLineClass(isOpen)
-	}
-
-	// ==================================== Utils //
-	const updateVerticalLineClass = (isOpen: boolean) => {
-		let newClass;
-
-		if(isOpen) newClass = '';
-		else newClass = 'openCloseButton-line__vertical';
-		
+	const showMinus = () => {
+		let newClass = '';
 		setVerticalLineClass(newClass)
 	}
 
@@ -64,16 +51,14 @@ export default function OpenCloseButton({
 
 		setVerticalLineClass(newClass)
 	}
-
-	// ==================================== Listen / Trigger ============================= //
+	
+	// ==================================== Listen / Trigger
 	useEffect(() => {
-		if(!parentIsAnimating) {
-			if(isOpen) onParentEndOpen(isOpen)
-			else onParentEndClose(isOpen)
-		}
-	}, [parentIsAnimating])
-
-	// ================== Output ================== //
+		if(isCrossSymbol) showCross()
+		else showMinus()
+	}, [isCrossSymbol])
+	
+	// ==================================== Output
 	return (
 		<button className='openCloseButton' onMouseDown={onMouseDown}> 
 			<div className='openCloseButton-line'/>

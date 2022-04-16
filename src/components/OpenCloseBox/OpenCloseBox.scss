@@ -4,8 +4,6 @@
 	height: 100%;
 	display: flex;
 	flex-direction: column; 
-	overflow: hidden;
-	background: $background-light;
 	transition: 3s width ease-in-out;    
 }
 
@@ -17,6 +15,14 @@
 	width: 36px;
 }
 
+.overflow-auto {
+	overflow: auto;
+}
+
+.overflow-hidden {
+	overflow: hidden;
+}
+
 /* =================== Box Header =================== */
 .openCloseBox-header {
 	min-height: 40px;
@@ -26,6 +32,7 @@
 	display: flex;
 	align-items: center;
 	background: #272727; 
+	overflow: hidden;
 }
 
 .openCloseBox-title {
@@ -59,4 +66,40 @@
 
 	background: #272727; 
 }
- 
+
+/* =================== Box Body =================== */
+.openCloseBox-body { 
+	min-width: 100%;
+	min-height: 100%; 
+	background: $background-light;
+}
+
+.openCloseBox-contentWrapper { 
+	min-width: 100%; 
+	transition: height 2s; 
+}
+
+.openCloseBox-contentWrapper__open { 
+	height: 100%; 
+}
+
+.openCloseBox-contentWrapper__closed { 
+	height: 0; 
+}
+
+/* =================== Scrollbar =================== */
+.openCloseBox-contentWrapper::-webkit-scrollbar {
+	height: 16px;
+	width: 16px;
+	background: transparent;
+}
+
+.openCloseBox-contentWrapper::-webkit-scrollbar-corner, 
+.openCloseBox-contentWrapper::-webkit-scrollbar-thumb {
+	background: #a7a7a7;
+}
+
+.openCloseBox-contentWrapper::-webkit-scrollbar-corner, 
+.openCloseBox-contentWrapper::-webkit-scrollbar-thumb {
+	background: #a7a7a7;
+}

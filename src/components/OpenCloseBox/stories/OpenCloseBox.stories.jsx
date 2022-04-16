@@ -22,12 +22,70 @@ function Wrapper({children}) {
 
 // export const Default = () => <OpenCloseBox/>;
 
-export const Default = () => {
+export const Code = () => {
   const title = 'storybook title';
 
   return (
     <Wrapper>
-      <OpenCloseBox title={title}/>
+      <OpenCloseBox title={title}>
+        <div style={{padding: '1em', whiteSpace: 'nowrap'}}>
+          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corporis, quo, aliquam tempore pariatur, harum ea molestiae inventore vel placeat blanditiis maxime unde at aspernatur dolorem dicta! Reprehenderit quas porro ullam!</p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p> 
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p> 
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p>
+          <p>Lorem </p> 
+        </div>
+      </OpenCloseBox>
     </Wrapper>
   ) 
 }

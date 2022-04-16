@@ -41,7 +41,7 @@ export function transitionendPromise(id, propertyName) {
 
 // ================ Scrollbar
 // move scrollbars to 0, call onFinish when complete
-export function resetScrollBars(id, time) {
+export function resetScrollBars(id, time = 200) { 
 	const horizPromise = moveScrollBar(id, 'horiz', 0, time);
 	const vertPromise = moveScrollBar(id, 'vert', 0, time); 
 
