@@ -72,6 +72,7 @@
 	min-width: 100%;
 	min-height: 100%; 
 	background: $background-light;
+	position: relative;
 }
 
 .openCloseBox-contentWrapper { 
@@ -87,6 +88,46 @@
 	height: 0; 
 }
 
+/* =================== Wrappers =================== */
+/* used to cover scrollbars -> because can't use transition on scrollbars */
+.openCloseBox-maskWrapper { 
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%; 
+	display: flex;
+	flex-direction: column; 
+	align-items: flex-end; 
+	pointer-events: none;
+}
+
+.openCloseBox-verticalMask { 
+	width: 16px;
+	height: calc(100% - 16px);
+}
+
+.openCloseBox-horizontalMask {
+	height: 16px;
+	width: 100%; 
+}
+
+.openCloseBox-horizontalMask, 
+.openCloseBox-verticalMask {
+	background-color: $background-light;
+	transition: opacity 1000ms;
+}
+
+.openCloseBox-verticalMask__showScrollbar,
+.openCloseBox-horizontalMask__showScrollbar { 
+	opacity: 0;
+}
+
+.openCloseBox-verticalMask__hideScrollbar,
+.openCloseBox-horizontalMask__hideScrollbar { 
+	opacity: 1;
+}
+
 /* =================== Scrollbar =================== */
 .openCloseBox-contentWrapper::-webkit-scrollbar {
 	height: 16px;
@@ -94,12 +135,37 @@
 	background: transparent;
 }
 
-.openCloseBox-contentWrapper::-webkit-scrollbar-corner, 
-.openCloseBox-contentWrapper::-webkit-scrollbar-thumb {
-	background: #a7a7a7;
+// .openCloseBox-contentWrapper::-webkit-scrollbar-corner,
+// .openCloseBox-contentWrapper::-webkit-scrollbar-thumb {
+	
+// }
+
+.openCloseBox-mask {
+	width: 100%;
+	height: 100%;
+	background-color: yellow;
 }
 
-.openCloseBox-contentWrapper::-webkit-scrollbar-corner, 
-.openCloseBox-contentWrapper::-webkit-scrollbar-thumb {
-	background: #a7a7a7;
+.openCloseBox-contentWrapper {
+	transition: opacity 1000ms;
+}
+
+.openCloseBox-contentWrapper__showScrollbars {
+	opacity: 1;
+}
+
+.openCloseBox-contentWrapper__hideScrollbars {
+	opacity: 0;
+}
+
+.openCloseBox-contentWrapper__showScrollbars::-webkit-scrollbar-corner, 
+.openCloseBox-contentWrapper__showScrollbars::-webkit-scrollbar-thumb {
+	background-color: #a7a7a7;
+	transition: background-color 1000ms;
+}
+
+.openCloseBox-contentWrapper__hideScrollbars::-webkit-scrollbar-corner, 
+.openCloseBox-contentWrapper__hideScrollbars::-webkit-scrollbar-thumb {
+	background-color: transparent; 
+	transition: background-color 1000ms;
 }

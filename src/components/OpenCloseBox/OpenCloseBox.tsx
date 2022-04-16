@@ -16,11 +16,13 @@ export default function OpenCloseBox({
    * animations on open and close
    */
 
+  // skip fade if no overflow
   // resetScrollbar
 
   const boxId = 'openCloseBox';
   const bodyId = 'openCloseBoxBody';
   const contentWrapperId = 'contentWrapper';
+  const verticalMaskId = 'verticalMask';
 
   const [isButtonCrossSymbol, setIsButtonCrossSymbol] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(true); 
@@ -28,6 +30,9 @@ export default function OpenCloseBox({
   const [isOpenClass, setIsOpenClass] = useState('openCloseBox__open');
   const [isOpenContentClass, setIsOpenContentClass] = useState('openCloseBox-contentWrapper__open');
   const [overflowClass, setOverflowClass] = useState('overflow-auto');
+  const [scrollbarClass, setScrollbarClass] = useState('openCloseBox-contentWrapper__showScrollbars');
+  const [verticalScrollbarClass, setVerticalScrollbarClass] = useState('openCloseBox-verticalMask__showScrollbar');
+  const [horizontalScrollbarClass, setHorizontalScrollbarClass] = useState('openCloseBox-horizontalMask__showScrollbar');
 
   // ============== Master Fns
   const onClickOpenBox = () => {  
@@ -44,7 +49,7 @@ export default function OpenCloseBox({
     setIsOpen(false)
     
     resetScrollBars(contentWrapperId, 750) 
-      .then(hideOverflow)
+      .then(hideScrollBars)
       .then(closeBox)
       .then(showCrossOnButton) 
       .then(closeContentWrapper)
@@ -76,10 +81,12 @@ export default function OpenCloseBox({
     })
   }
 
-  const hideOverflow = () => { 
-    return new Promise(resolve => {
-      setOverflowClass('overflow-hidden')
-      resolve()
+  const hideScrollBars = () => { 
+    return new Promise(resolve => { 
+      setVerticalScrollbarClass('openCloseBox-verticalMask__hideScrollbar') 
+      setHorizontalScrollbarClass('openCloseBox-horizontalMask__hideScrollbar')
+
+      triggerOnFirstTransitionEnd([verticalMaskId, horizontalMaskId], 'opacity', resolve)
     })
   }
 
@@ -123,7 +130,6 @@ export default function OpenCloseBox({
   return (
     <div className={`openCloseBox ${isOpenClass}`} id={boxId}> 
       <div className='openCloseBox-header'>
-        
         <div className='openCloseBox-title'>{ title }</div>
         <div className='openCloseBox-buttonContainer'>
           <OpenCloseButton 
@@ -132,9 +138,14 @@ export default function OpenCloseBox({
         </div>
       </div>
       <div className={`openCloseBox-body ${overflowClass}`} id={bodyId}>
-        <div className={`openCloseBox-contentWrapper ${isOpenContentClass} ${overflowClass}`} id={contentWrapperId}>
-          {children}
+        <div className='openCloseBox-maskWrapper'>
+          <div className={`openCloseBox-verticalMask ${verticalScrollbarClass}`} id={verticalMaskId}/>
+          <div className={`openCloseBox-horizontalMask ${horizontalScrollbarClass}`}/>
         </div>
+        <div className={`openCloseBox-contentWrapper ${isOpenContentClass} ${scrollbarClass} ${overflowClass}`} 
+          id={contentWrapperId}>
+          {children}
+        </div>  
       </div>
     </div>
   )
