@@ -5,7 +5,7 @@ import {
 	setElementHeight,
 	removeInlineSize,
 	triggerOnTransitionEnd,
-} from './../../utils.js';
+} from '../../../utils/utils.js';
 import './ClickHeaderStyle.css'; 
 
 export default function ClickHeader({ 

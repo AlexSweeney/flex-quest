@@ -18,20 +18,32 @@ export function triggerOnTransitionStart(id, propertyName, onStart = null) {
 	element.addEventListener('transitionstart', thisStartFn, {once: true})
 }
 
-export function triggerOnTransitionEnd(id, propertyName, onEnd = null) { 
+export function triggerOnTransitionEnd(id: string, propertyName: string, onEnd: Function) { 
 	const element = document.getElementById(id);  
-	const thisEndFn = transitionHandler.bind(null, id, propertyName, onEnd, triggerOnTransitionEnd); 
-	element.addEventListener('transitionend', thisEndFn, {once: true}) 
+	if(!element) throw new Error(`triggerOnTransitionEnd() element not found for id: '${id}'`)
+
+	element.addEventListener('transitionend', (event) => {  
+		const isBubbling = event.eventPhase === 3;
+		const isSameProperty = event.propertyName === propertyName; 
+
+		if(isSameProperty && !isBubbling) onEnd()
+	})
 }
 
-function transitionHandler(id, propertyName, passFn, failFn, e) {
-	if(e.propertyName === propertyName && e.srcElement.id === id) {
-		passFn && passFn()
-	// if fail try again 
-	} else {
-		failFn(id, propertyName, passFn)
-	} 
+export function triggerOnFirstTransitionEnd(ids: string[], propertyName: string, onEnd: Function) {	
+	ids.forEach(id => {
+		triggerOnTransitionEnd(id, propertyName, onEnd)	
+	})
 }
+
+// function transitionHandler(id, propertyName, passFn, failFn, e) {
+// 	if(e.propertyName === propertyName && e.srcElement.id === id) {
+// 		passFn && passFn()
+// 	// if fail try again 
+// 	} else {
+// 		failFn(id, propertyName, passFn)
+// 	} 
+// }
 
 export function transitionendPromise(id, propertyName) {
 	return new Promise(resolve => {

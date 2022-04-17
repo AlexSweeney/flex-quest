@@ -5,7 +5,7 @@ import {
 	onTransition,
 	removeInlineSize, 
 	triggerOnTransitionEnd,
-} from './../utils.js';
+} from '../../utils/utils.js';
 import './CodeInput.css';
 
 export default function CodeInput({

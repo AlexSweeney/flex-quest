@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'; 
-import { mapNumber } from './../../../utils.js';
+import { mapNumber } from '../../../../utils/utils.js';
 import './GridOverlayStyle.css';
 
 export default function GridOverlay({gridStatus}) {   

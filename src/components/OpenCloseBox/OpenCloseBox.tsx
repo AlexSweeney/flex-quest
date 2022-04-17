@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import OpenCloseButton from '../OpenCloseButton/OpenCloseButton';
-import { resetScrollBars, triggerOnTransitionEnd } from '../utils';
+import { resetScrollBars, triggerOnTransitionEnd } from '../../utils/utils';
 import './OpenCloseBox.scss';
 
 export default function OpenCloseBox({
@@ -51,8 +51,10 @@ export default function OpenCloseBox({
     resetScrollBars(contentWrapperId, 750) 
       .then(hideScrollBars)
       .then(closeBox)
-      .then(showCrossOnButton) 
-      .then(closeContentWrapper)
+      .then(() => {
+        showCrossOnButton()
+        closeContentWrapper()
+      })
   };
 
   // ============== Util Fns

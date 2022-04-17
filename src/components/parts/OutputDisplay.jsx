@@ -8,7 +8,7 @@ import {
 	removeInlineSize,  
 	setToContainerSize,
 	transitionendPromise, 
-} from './../utils.js';
+} from '../../utils/utils.js';
 import './OutputDisplay.css';
 
 export default function OutputDisplay({title, htmlString, cssString, i}) {

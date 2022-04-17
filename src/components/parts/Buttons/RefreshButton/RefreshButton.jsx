@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Button from './../Button.jsx';
 import RefreshIcon from '@material-ui/icons/Refresh';
-import {triggerOnTransitionEnd} from './../../../utils.js';
+import {triggerOnTransitionEnd} from '../../../../utils/utils.js';
 import './RefreshButton.css';
 
 export default function RefreshButton({onClick, i}) {

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {
 	triggerOnTransitionEnd,
-} from './../../utils.js';
+} from '../../../utils/utils.js';
 import './BurgerStyle.css';
 
 export default function Burger({burgerIsOpen, setBurgerIsOpen, i = 0}) {
