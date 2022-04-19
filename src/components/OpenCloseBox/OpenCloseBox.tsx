@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import OpenCloseButton from '../OpenCloseButton/OpenCloseButton';
-import { resetScrollBars, triggerOnTransitionEnd, triggerOnFirstTransitionEnd } from '../../utils/utils';
+import { resetScrollBars, triggerOnTransitionEnd, triggerOnFirstTransitionEnd, getScrollPositions } from '../../utils/utils';
 import './OpenCloseBox.scss';
 
 export default function OpenCloseBox({
@@ -16,6 +16,8 @@ export default function OpenCloseBox({
    * animations on open and close
    */
 
+  // Test for no overflow / one overflow
+
   // ==== Ids
   const boxId = 'openCloseBox';
   const bodyId = 'openCloseBox-body';
@@ -26,12 +28,12 @@ export default function OpenCloseBox({
   // ==== Open / Close
   const [isButtonCrossSymbol, setIsButtonCrossSymbol] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(true); 
+  const [scrollbarPositions, setScrollbarPositions] = useState({});
 
   // ==== Classes
   const [isOpenClass, setIsOpenClass] = useState('openCloseBox__open');
   const [isOpenContentClass, setIsOpenContentClass] = useState('openCloseBox-contentWrapper__open');
-  const [overflowClass, setOverflowClass] = useState('overflow-auto');
-  // const [scrollbarClass, setScrollbarClass] = useState('openCloseBox-contentWrapper__showScrollbars');
+  const [overflowClass, setOverflowClass] = useState('overflow-auto'); 
   const [verticalMaskClass, setVerticalMaskClass] = useState('openCloseBox-verticalMask__showScrollbar');
   const [horizontalMaskClass, setHorizontalMaskClass] = useState('openCloseBox-horizontalMask__showScrollbar');
 
@@ -39,9 +41,10 @@ export default function OpenCloseBox({
   const onClickOpenBox = () => {  
     setIsOpen(true)
 
-    openContentWrapper()
-      .then(showMinusOnButton)
+    showMinusOnButton()
+    openContentWrapper() 
       .then(showOverflow)
+      .then(showScrollbars)
       .then(openBox)
       // .then(repositionScrollbars)
   };
@@ -49,8 +52,8 @@ export default function OpenCloseBox({
   const onClickCloseBox = () => {  
     setIsOpen(false)
     
-    resetScrollBars(contentWrapperId, 750) 
-      .then(hideScrollBars)
+    closeScrollbars()
+      .then(hideScrollbars)
       .then(closeBox)
       .then(() => {
         showCrossOnButton()
@@ -84,7 +87,18 @@ export default function OpenCloseBox({
     })
   }
 
-  const hideScrollBars = () => { 
+  const closeScrollbars = () => {
+    const currentPosition = getScrollPositions(contentWrapperId);
+    setScrollbarPositions(currentPosition)
+
+    console.log('current Position', currentPosition)
+
+    return new Promise(resolve => {
+      resetScrollBars(contentWrapperId, 750).then(resolve)
+    })
+  }
+
+  const hideScrollbars = () => { 
     return new Promise(resolve => { 
       setVerticalMaskClass('openCloseBox-verticalMask__hideScrollbar') 
       setHorizontalMaskClass('openCloseBox-horizontalMask__hideScrollbar')
@@ -94,7 +108,19 @@ export default function OpenCloseBox({
         resolve(null)
       }
 
+      // works for one / two overflows
       triggerOnFirstTransitionEnd([verticalMaskId, horizontalMaskId], 'opacity', onScrollbarFade)
+    })
+  }
+
+  const showScrollbars = () => {
+    return new Promise(resolve => {
+      setOverflowClass('overflow-auto')
+      setVerticalMaskClass('openCloseBox-verticalMask__showScrollbar') 
+      setHorizontalMaskClass('openCloseBox-horizontalMask__showScrollbar')
+
+      // works for one / two overflows
+      triggerOnFirstTransitionEnd([verticalMaskId, horizontalMaskId], 'opacity', resolve)
     })
   }
 
@@ -125,6 +151,12 @@ export default function OpenCloseBox({
     return new Promise(resolve => {
       setIsButtonCrossSymbol(false)
       resolve(null)
+    })
+  }
+
+  const repositionScrollbars = () => {
+    return new Promise(resolve => {
+
     })
   }
 

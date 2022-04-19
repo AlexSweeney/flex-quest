@@ -95,7 +95,7 @@ function incrementScrollBar(element, property, timeoutInterval, stepSize, target
 	}, timeoutInterval) 
 }
 
-export function getScrollPositions(id) {
+export function getScrollPositions(id: string) {
 	const element = document.getElementById(id);
  	
  	return {
