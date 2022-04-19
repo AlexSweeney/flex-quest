@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import OpenCloseButton from '../OpenCloseButton/OpenCloseButton';
-import { resetScrollBars, triggerOnTransitionEnd, triggerOnFirstTransitionEnd, getScrollPositions } from '../../utils/utils';
+import { resetScrollBars, triggerOnTransitionEnd, triggerOnFirstTransitionEnd, getScrollPositions, moveScrollBars } from '../../utils/utils';
 import './OpenCloseBox.scss';
 
 export default function OpenCloseBox({
@@ -46,7 +46,7 @@ export default function OpenCloseBox({
       .then(showOverflow)
       .then(showScrollbars)
       .then(openBox)
-      // .then(repositionScrollbars)
+      .then(repositionScrollbars)
   };
 
   const onClickCloseBox = () => {  
@@ -98,6 +98,13 @@ export default function OpenCloseBox({
     })
   }
 
+  const repositionScrollbars = () => {
+    return new Promise(resolve => {
+      console.log('repositionScrollbars')
+      moveScrollBars(contentWrapperId, scrollbarPositions, 750).then(resolve)
+    })
+  }
+
   const hideScrollbars = () => { 
     return new Promise(resolve => { 
       setVerticalMaskClass('openCloseBox-verticalMask__hideScrollbar') 
@@ -131,9 +138,7 @@ export default function OpenCloseBox({
     })
   }
 
-  const closeContentWrapper = () => {
-    console.log('close content wrapper')
-
+  const closeContentWrapper = () => { 
     return new Promise(resolve => { 
       setIsOpenContentClass('openCloseBox-contentWrapper__closed')
       triggerOnTransitionEnd(contentWrapperId, 'height', resolve)
@@ -154,11 +159,7 @@ export default function OpenCloseBox({
     })
   }
 
-  const repositionScrollbars = () => {
-    return new Promise(resolve => {
-
-    })
-  }
+  
 
   // ============== Event Handlers
   const handleButtonClick = () => {
