@@ -1,10 +1,9 @@
 import { triggerOnFirstTransitionEnd, triggerOnTransitionEnd } from './utils';
 import { EventEmitter } from 'events';
-import { cleanup, createEvent, fireEvent, getByRole, getByTestId } from '@testing-library/react';
+import { cleanup, createEvent, fireEvent, getByRole, render } from '@testing-library/react';
 
-afterEach(() => {
-
-  cleanup()
+afterEach(() => { 
+  cleanup() 
 })
 
 describe.only('triggerOnTransitionEnd', () => {
@@ -12,46 +11,44 @@ describe.only('triggerOnTransitionEnd', () => {
     const idOne = "el-one"; 
     const endFn = jest.fn();
 
-    // append Node -> util fn
-    const divOne = document.createElement("button");
-    divOne.id = idOne; 
-    document.body.appendChild(divOne) 
-
+    // append Node
+    const button = <button id={idOne}>Button</button>;
+    const { container } = render(button);
+  
     // listen
     triggerOnTransitionEnd(idOne, 'width', endFn)
 
     // trigger event 
-    const elOne = getByRole(document.body, 'button');
-    const event = createEvent.transitionEnd(elOne);   
+    const buttonNode = getByRole(container, 'button');
+    const event = createEvent.transitionEnd(buttonNode);   
     Object.defineProperty(event, 'propertyName', {
       value: 'width',
     })
 
-    fireEvent(elOne, event)
+    fireEvent(buttonNode, event) 
 
-    document.body.removeChild(divOne)
-
-    expect(endFn).toHaveBeenCalledTimes(1)
+    // check
+    expect(endFn).toHaveBeenCalledTimes(1) 
   })
 
   it('should not call function on transitionend event emitted from child', () => {
     const divId = 'div';
-    const endFn = jest.fn();
+    const endFn = jest.fn(); 
 
-    // <div><button/></div>
-    const div = document.createElement("div");
-    div.id = divId;
-    const button = document.createElement('button');
-
-    div.appendChild(button)
-
-    document.body.appendChild(div) 
+    // render
+    const wrappedButton = (
+      <div id={divId}>
+        <button>Button</button>
+      </div>
+    );
+    
+    const { container } = render(wrappedButton) 
 
     // listen
     triggerOnTransitionEnd(divId, 'width', endFn)
 
     // trigger event 
-    const buttonNode = getByRole(document.body, 'button');
+    const buttonNode = getByRole(container, 'button');
     const event = createEvent.transitionEnd(buttonNode, {
       propertyName: 'width',
       bubbles: true,

@@ -7,15 +7,21 @@ export function mapNumber(num, fn) {
 }
 
 // ============================== Transitions - call fn on ================================ //
-export function onTransition(id, propertyName, onStart = null, onEnd = null) {
-	if(onStart) triggerOnTransitionStart(id, propertyName, onStart)
-	if(onEnd) triggerOnTransitionEnd(id, propertyName, onEnd)
-}
+// export function onTransition(id: string, propertyName, onStart = null, onEnd = null) {
+// 	if(onStart) triggerOnTransitionStart(id, propertyName, onStart)
+// 	if(onEnd) triggerOnTransitionEnd(id, propertyName, onEnd)
+// }
 
-export function triggerOnTransitionStart(id, propertyName, onStart = null) {
+export function triggerOnTransitionStart(id: string, propertyName: string, onStart: Function) {
 	const element = document.getElementById(id);  
-	const thisStartFn = transitionHandler.bind(null, id, propertyName, onStart, triggerOnTransitionStart);
-	element.addEventListener('transitionstart', thisStartFn, {once: true})
+	if(!element) throw new Error(`triggerOnTransitionStart() element not found for id: '${id}'`)
+	
+	element.addEventListener('transitionstart', (event) => {  
+		const isBubbling = event.eventPhase === 3;
+		const isSameProperty = event.propertyName === propertyName; 
+
+		if(isSameProperty && !isBubbling) onStart()
+	}) 
 }
 
 export function triggerOnTransitionEnd(id: string, propertyName: string, onEnd: Function) { 
@@ -27,7 +33,7 @@ export function triggerOnTransitionEnd(id: string, propertyName: string, onEnd: 
 		const isSameProperty = event.propertyName === propertyName; 
 
 		if(isSameProperty && !isBubbling) onEnd()
-	})
+	}) 
 }
 
 export function triggerOnFirstTransitionEnd(ids: string[], propertyName: string, onEnd: Function) {	
