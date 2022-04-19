@@ -1,15 +1,23 @@
-import React from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import React from 'react'; 
+import { useState, ReactNode } from 'react';
 import OpenCloseButton from '../OpenCloseButton/OpenCloseButton';
 import { resetScrollBars, triggerOnTransitionEnd, triggerOnFirstTransitionEnd, getScrollPositions, moveScrollBars } from '../../utils/utils';
 import './OpenCloseBox.scss';
 
+export type OpenCloseBoxProps = {
+  title: string,
+  children: ReactNode,
+}
+
+type scrollbarPositionType = {
+  scrollLeft: number,
+  scrollTop: number,
+};
+
 export default function OpenCloseBox({
-  title = '',
-  variant = 'code',
+  title = '', 
   children,
-}) {
+}: OpenCloseBoxProps) {
   /**
    * press button on right to open / close box
    * 
@@ -26,16 +34,18 @@ export default function OpenCloseBox({
   const horizontalMaskId = 'horizontal-mask';
 
   // ==== Open / Close
+  const scrollbarMoveTime = 750;
+  const defaultScrollbarPosition: scrollbarPositionType = { scrollLeft: 0, scrollTop: 0 };
   const [isButtonCrossSymbol, setIsButtonCrossSymbol] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(true); 
-  const [scrollbarPositions, setScrollbarPositions] = useState({});
+  const [scrollbarPositions, setScrollbarPositions] = useState<scrollbarPositionType>(defaultScrollbarPosition);
 
   // ==== Classes
-  const [isOpenClass, setIsOpenClass] = useState('openCloseBox__open');
-  const [isOpenContentClass, setIsOpenContentClass] = useState('openCloseBox-contentWrapper__open');
-  const [overflowClass, setOverflowClass] = useState('overflow-auto'); 
-  const [verticalMaskClass, setVerticalMaskClass] = useState('openCloseBox-verticalMask__showScrollbar');
-  const [horizontalMaskClass, setHorizontalMaskClass] = useState('openCloseBox-horizontalMask__showScrollbar');
+  const [isOpenClass, setIsOpenClass] = useState<string>('openCloseBox__open');
+  const [isOpenContentClass, setIsOpenContentClass] = useState<string>('openCloseBox-contentWrapper__open');
+  const [overflowClass, setOverflowClass] = useState<string>('overflow-auto'); 
+  const [verticalMaskClass, setVerticalMaskClass] = useState<string>('openCloseBox-verticalMask__showScrollbar');
+  const [horizontalMaskClass, setHorizontalMaskClass] = useState<string>('openCloseBox-horizontalMask__showScrollbar');
 
   // ============== Master Fns
   const onClickOpenBox = () => {  
@@ -90,20 +100,20 @@ export default function OpenCloseBox({
 
   // ----- Scrollbars
   const closeScrollbars = () => {
+    // save position
     const currentPosition = getScrollPositions(contentWrapperId);
-    setScrollbarPositions(currentPosition)
+    setScrollbarPositions(currentPosition) 
 
-    console.log('current Position', currentPosition)
-
-    return new Promise(resolve => {
-      resetScrollBars(contentWrapperId, 750).then(resolve)
+    // move to default position
+    return new Promise(resolve => { 
+      moveScrollBars(contentWrapperId, defaultScrollbarPosition, scrollbarMoveTime).then(resolve)
     })
   }
 
   const repositionScrollbars = () => {
-    return new Promise(resolve => {
-      console.log('repositionScrollbars')
-      moveScrollBars(contentWrapperId, scrollbarPositions, 750).then(resolve)
+    // move to saved position
+    return new Promise(resolve => { 
+      moveScrollBars(contentWrapperId, scrollbarPositions, scrollbarMoveTime).then(resolve)
     })
   }
 

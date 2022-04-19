@@ -5,7 +5,7 @@ type OpenCloseButtonProps = {
 	isCrossSymbol?: boolean;
 	handleClick: Function; 
 	animateOnClick?: boolean;
-}
+};
 
 export default function OpenCloseButton({
 	isCrossSymbol = false,
