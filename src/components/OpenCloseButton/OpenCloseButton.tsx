@@ -1,21 +1,21 @@
 import React, {useState, useEffect} from 'react';
 import './OpenCloseButton.scss';
 
-interface OpenCloseButtonProps {
+type OpenCloseButtonProps = {
 	isCrossSymbol?: boolean;
 	handleClick: Function; 
-	isOrphan?: boolean;
+	animateOnClick?: boolean;
 }
 
 export default function OpenCloseButton({
 	isCrossSymbol = false,
 	handleClick = () => {},
-	isOrphan = false,
+	animateOnClick = false,
 }: OpenCloseButtonProps) { 
 	/*
 		* onClick
 			* call handleClick
-			* if isOrphan
+			* if animateOnClick
 				* animate between cross and minus sign
 		
 		* on isCrossSymbol change
@@ -29,7 +29,12 @@ export default function OpenCloseButton({
 	const onMouseDown = () => {
 		handleClick()
 
-		if(isOrphan) toggleVerticalLineClass();
+		if(animateOnClick) toggleVerticalLineClass();
+	}
+
+	const onToggleCross = (isCross: boolean) => {
+		if(isCross) showCross()
+		else showMinus()
 	}
 
 	// ==================================== Utils
@@ -54,8 +59,7 @@ export default function OpenCloseButton({
 	
 	// ==================================== Listen / Trigger
 	useEffect(() => {
-		if(isCrossSymbol) showCross()
-		else showMinus()
+		onToggleCross(isCrossSymbol)
 	}, [isCrossSymbol])
 	
 	// ==================================== Output

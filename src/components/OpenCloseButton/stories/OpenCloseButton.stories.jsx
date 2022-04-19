@@ -6,4 +6,4 @@ export default {
   component: OpenCloseButton,
 }
 
-export const Default = () => <OpenCloseButton isOrphan={true}/>
+export const Default = () => <OpenCloseButton animateOnClick={true}/>
