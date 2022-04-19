@@ -62,6 +62,14 @@ export default function OpenCloseBox({
   };
 
   // ============== Util Fns
+  const showOverflow = () => { 
+    return new Promise(resolve => {
+      setOverflowClass('overflow-auto')
+      resolve(null)
+    })
+  }
+
+  // ----- Box
   const openBox = () => {
     return new Promise(resolve => {
       setIsOpenClass('openCloseBox__open') 
@@ -80,13 +88,7 @@ export default function OpenCloseBox({
     })
   }
 
-  const showOverflow = () => { 
-    return new Promise(resolve => {
-      setOverflowClass('overflow-auto')
-      resolve(null)
-    })
-  }
-
+  // ----- Scrollbars
   const closeScrollbars = () => {
     const currentPosition = getScrollPositions(contentWrapperId);
     setScrollbarPositions(currentPosition)
@@ -131,6 +133,7 @@ export default function OpenCloseBox({
     })
   }
 
+  // ----- Content Wrapper
   const openContentWrapper = () => {
     return new Promise(resolve => {
       setIsOpenContentClass('openCloseBox-contentWrapper__open')
@@ -145,6 +148,7 @@ export default function OpenCloseBox({
     })
   }
 
+  // ----- Open Close Button
   const showCrossOnButton = () => {
     return new Promise(resolve => {
       setIsButtonCrossSymbol(true)
