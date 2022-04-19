@@ -7,11 +7,6 @@ export function mapNumber(num, fn) {
 }
 
 // ============================== Transitions - call fn on ================================ //
-// export function onTransition(id: string, propertyName, onStart = null, onEnd = null) {
-// 	if(onStart) triggerOnTransitionStart(id, propertyName, onStart)
-// 	if(onEnd) triggerOnTransitionEnd(id, propertyName, onEnd)
-// }
-
 export function triggerOnTransitionStart(id: string, propertyName: string, onStart: Function) {
 	const element = document.getElementById(id);  
 	if(!element) throw new Error(`triggerOnTransitionStart() element not found for id: '${id}'`)
@@ -24,38 +19,36 @@ export function triggerOnTransitionStart(id: string, propertyName: string, onSta
 	}) 
 }
 
-export function triggerOnTransitionEnd(id: string, propertyName: string, onEnd: Function) { 
+export function triggerOnTransitionEnd(id: string, propertyName: string, onEnd: Function, cancel:boolean = false) { 
 	const element = document.getElementById(id);  
 	if(!element) throw new Error(`triggerOnTransitionEnd() element not found for id: '${id}'`)
-
+ 
 	element.addEventListener('transitionend', (event) => {  
 		const isBubbling = event.eventPhase === 3;
 		const isSameProperty = event.propertyName === propertyName; 
 
-		if(isSameProperty && !isBubbling) onEnd()
-	}) 
+		if(isSameProperty && !isBubbling && !cancel) onEnd() 
+	})
 }
 
 export function triggerOnFirstTransitionEnd(ids: string[], propertyName: string, onEnd: Function) {	
-	ids.forEach(id => {
-		triggerOnTransitionEnd(id, propertyName, onEnd)	
+	let firstTriggered = false;
+
+	function onEndWrapperFn() { 
+		if(!firstTriggered) onEnd()
+		firstTriggered = true; 
+	}
+	
+	ids.forEach(id => { 
+		triggerOnTransitionEnd(id, propertyName, onEndWrapperFn, firstTriggered)	
 	})
 }
-
-// function transitionHandler(id, propertyName, passFn, failFn, e) {
-// 	if(e.propertyName === propertyName && e.srcElement.id === id) {
-// 		passFn && passFn()
-// 	// if fail try again 
-// 	} else {
-// 		failFn(id, propertyName, passFn)
-// 	} 
+  
+// export function transitionendPromise(id, propertyName) {
+// 	return new Promise(resolve => {
+// 		triggerOnTransitionEnd(id, propertyName, resolve)
+// 	})
 // }
-
-export function transitionendPromise(id, propertyName) {
-	return new Promise(resolve => {
-		triggerOnTransitionEnd(id, propertyName, resolve)
-	})
-}
 
 // ================ Scrollbar
 // move scrollbars to 0, call onFinish when complete
