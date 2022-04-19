@@ -16,24 +16,24 @@ export default function OpenCloseBox({
    * animations on open and close
    */
 
-  // skip fade if no overflow
-  // resetScrollbar
-
+  // ==== Ids
   const boxId = 'openCloseBox';
   const bodyId = 'openCloseBox-body';
   const contentWrapperId = 'content-wrapper';
   const verticalMaskId = 'vertical-mask';
   const horizontalMaskId = 'horizontal-mask';
 
+  // ==== Open / Close
   const [isButtonCrossSymbol, setIsButtonCrossSymbol] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(true); 
 
+  // ==== Classes
   const [isOpenClass, setIsOpenClass] = useState('openCloseBox__open');
   const [isOpenContentClass, setIsOpenContentClass] = useState('openCloseBox-contentWrapper__open');
   const [overflowClass, setOverflowClass] = useState('overflow-auto');
-  const [scrollbarClass, setScrollbarClass] = useState('openCloseBox-contentWrapper__showScrollbars');
-  const [verticalScrollbarClass, setVerticalScrollbarClass] = useState('openCloseBox-verticalMask__showScrollbar');
-  const [horizontalScrollbarClass, setHorizontalScrollbarClass] = useState('openCloseBox-horizontalMask__showScrollbar');
+  // const [scrollbarClass, setScrollbarClass] = useState('openCloseBox-contentWrapper__showScrollbars');
+  const [verticalMaskClass, setVerticalMaskClass] = useState('openCloseBox-verticalMask__showScrollbar');
+  const [horizontalMaskClass, setHorizontalMaskClass] = useState('openCloseBox-horizontalMask__showScrollbar');
 
   // ============== Master Fns
   const onClickOpenBox = () => {  
@@ -72,7 +72,7 @@ export default function OpenCloseBox({
       setIsOpenClass('openCloseBox__closed') 
 
       triggerOnTransitionEnd(boxId, 'width', () => { 
-        resolve()
+        resolve(null)
       })
     })
   }
@@ -80,16 +80,21 @@ export default function OpenCloseBox({
   const showOverflow = () => { 
     return new Promise(resolve => {
       setOverflowClass('overflow-auto')
-      resolve()
+      resolve(null)
     })
   }
 
   const hideScrollBars = () => { 
     return new Promise(resolve => { 
-      setVerticalScrollbarClass('openCloseBox-verticalMask__hideScrollbar') 
-      setHorizontalScrollbarClass('openCloseBox-horizontalMask__hideScrollbar')
+      setVerticalMaskClass('openCloseBox-verticalMask__hideScrollbar') 
+      setHorizontalMaskClass('openCloseBox-horizontalMask__hideScrollbar')
 
-      triggerOnFirstTransitionEnd([verticalMaskId, horizontalMaskId], 'opacity', resolve)
+      function onScrollbarFade() {
+        setOverflowClass('overflow-hidden')
+        resolve(null)
+      }
+
+      triggerOnFirstTransitionEnd([verticalMaskId, horizontalMaskId], 'opacity', onScrollbarFade)
     })
   }
 
@@ -112,14 +117,14 @@ export default function OpenCloseBox({
   const showCrossOnButton = () => {
     return new Promise(resolve => {
       setIsButtonCrossSymbol(true)
-      resolve()
+      resolve(null)
     })
   }
 
   const showMinusOnButton = () => {
     return new Promise(resolve => {
       setIsButtonCrossSymbol(false)
-      resolve()
+      resolve(null)
     })
   }
 
@@ -142,10 +147,10 @@ export default function OpenCloseBox({
       </div>
       <div className={`openCloseBox-body ${overflowClass}`} id={bodyId}>
         <div className='openCloseBox-maskWrapper'>
-          <div className={`openCloseBox-verticalMask ${verticalScrollbarClass}`} id={verticalMaskId}/>
-          <div className={`openCloseBox-horizontalMask ${horizontalScrollbarClass}`} id={horizontalMaskId}/>
+          <div className={`openCloseBox-verticalMask ${verticalMaskClass}`} id={verticalMaskId}/>
+          <div className={`openCloseBox-horizontalMask ${horizontalMaskClass}`} id={horizontalMaskId}/>
         </div>
-        <div className={`openCloseBox-contentWrapper ${isOpenContentClass} ${scrollbarClass} ${overflowClass}`} 
+        <div className={`openCloseBox-contentWrapper ${isOpenContentClass} ${overflowClass}`} 
           id={contentWrapperId}>
           {children}
         </div>  
