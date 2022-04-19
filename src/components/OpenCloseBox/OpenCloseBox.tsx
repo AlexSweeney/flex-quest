@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import OpenCloseButton from '../OpenCloseButton/OpenCloseButton';
-import { resetScrollBars, triggerOnTransitionEnd } from '../../utils/utils';
+import { resetScrollBars, triggerOnTransitionEnd, triggerOnFirstTransitionEnd } from '../../utils/utils';
 import './OpenCloseBox.scss';
 
 export default function OpenCloseBox({
@@ -20,9 +20,10 @@ export default function OpenCloseBox({
   // resetScrollbar
 
   const boxId = 'openCloseBox';
-  const bodyId = 'openCloseBoxBody';
-  const contentWrapperId = 'contentWrapper';
-  const verticalMaskId = 'verticalMask';
+  const bodyId = 'openCloseBox-body';
+  const contentWrapperId = 'content-wrapper';
+  const verticalMaskId = 'vertical-mask';
+  const horizontalMaskId = 'horizontal-mask';
 
   const [isButtonCrossSymbol, setIsButtonCrossSymbol] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(true); 
@@ -142,7 +143,7 @@ export default function OpenCloseBox({
       <div className={`openCloseBox-body ${overflowClass}`} id={bodyId}>
         <div className='openCloseBox-maskWrapper'>
           <div className={`openCloseBox-verticalMask ${verticalScrollbarClass}`} id={verticalMaskId}/>
-          <div className={`openCloseBox-horizontalMask ${horizontalScrollbarClass}`}/>
+          <div className={`openCloseBox-horizontalMask ${horizontalScrollbarClass}`} id={horizontalMaskId}/>
         </div>
         <div className={`openCloseBox-contentWrapper ${isOpenContentClass} ${scrollbarClass} ${overflowClass}`} 
           id={contentWrapperId}>
