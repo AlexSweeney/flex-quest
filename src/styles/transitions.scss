@@ -4,3 +4,11 @@ $text-color-fade-transition: color 250ms ease-in-out;
 $element-background-color-over: background-color 500ms;
 $element-background-color-down: background-color 250ms;
 $element-background-color-out: background-color 1000ms;
+
+// ===== OpenCloseBox
+$openCloseBox-width-time: 3000ms;
+$scrollbar-opactiy-time: 1000ms;
+$openCloseBox-contentWrapper-height-time: 2000ms;
+
+// ===== OpenCloseButton
+$openCloseButton-transform-time: $openCloseBox-contentWrapper-height-time;

@@ -59,7 +59,7 @@ $openCloseButton-border-width: 0px;
  	top: getOpenCloseButtonTop();
  	left: getOpenCloseButtonLeft();
  	z-index: 1; 
-	transition: transform 1s;
+	transition: transform $openCloseButton-transform-time;
 }
 
 .openCloseButton-line__vertical { 

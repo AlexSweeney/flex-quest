@@ -159,8 +159,6 @@ export default function OpenCloseBox({
     })
   }
 
-  
-
   // ============== Event Handlers
   const handleButtonClick = () => {
     if(isOpen) onClickCloseBox();

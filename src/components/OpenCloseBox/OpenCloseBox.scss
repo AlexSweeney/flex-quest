@@ -1,10 +1,16 @@
 @import '../../styles/colors.scss';
+@import '../../styles/fonts.scss';
+@import '../../styles/transitions.scss';
+@import '../../styles/mixins.scss';
+
+$openCloseBox-closed-width: 36px;
+$scrollbar-size: 16px;
 
 .openCloseBox {
 	height: 100%;
 	display: flex;
 	flex-direction: column; 
-	transition: 3s width ease-in-out;    
+	transition: $openCloseBox-width-time width ease-in-out;    
 }
 
 .openCloseBox__open {
@@ -12,7 +18,7 @@
 }
 
 .openCloseBox__closed {
-	width: 36px;
+	width: $openCloseBox-closed-width;
 }
 
 .overflow-auto {
@@ -31,13 +37,12 @@
 	position: relative; 
 	display: flex;
 	align-items: center;
-	background: #272727; 
+	background: $openCloseBox-background; 
+	border-bottom: 1px solid $openCloseBox-highlight;
 	overflow: hidden;
 }
 
 .openCloseBox-title {
-	transition: opacity 500ms;
-
 	flex-grow: 1; 
 	min-width: 0;
 	display: flex;
@@ -45,16 +50,16 @@
 	white-space: nowrap; 
 	position: absolute;
 	font-size: 1.2em; 
-	font-family: BaiJamjuree-Medium, Verdana, sans-serif; 
-	color: #E8E4E4;
+	font-family: $heading-font;
+	color: $text-default;
 	width: 100%;
 	cursor: default;
 }
 
 .openCloseBox-buttonContainer {
 	height: 100%;
-	width: 36px;
-	min-width: 36px;
+	width: $openCloseBox-closed-width;
+	min-width: $openCloseBox-closed-width;
 
 	display: flex;
 	justify-content: center;
@@ -64,21 +69,22 @@
 	right: 0;
 	z-index: 3;
 
-	background: #272727; 
+	background: $background-dark; 
 }
 
 /* =================== Box Body =================== */
 .openCloseBox-body { 
 	min-width: 100%;
 	min-height: 100%; 
-	background: $background-light;
+	background: $openCloseBox-background;
+	color: $text-default;
 	position: relative;
 }
 
 /* =================== Box Content Wrapper =================== */
 .openCloseBox-contentWrapper { 
 	min-width: 100%; 
-	transition: height 2s, opacity 1s; 
+	transition: height $openCloseBox-contentWrapper-height-time;
 }
 
 .openCloseBox-contentWrapper__open { 
@@ -88,14 +94,6 @@
 .openCloseBox-contentWrapper__closed { 
 	height: 0; 
 }
-
-// .openCloseBox-contentWrapper__showScrollbars {
-// 	// opacity: 1;
-// }
-
-// .openCloseBox-contentWrapper__hideScrollbars {
-// 	// opacity: 0;
-// }
 
 /* =================== Wrappers =================== */
 /* used to cover scrollbars for fade out -> because can't use transition on scrollbars */
@@ -112,20 +110,20 @@
 }
 
 .openCloseBox-verticalMask { 
-	width: 16px;
-	height: calc(100% - 16px);
+	width: $scrollbar-size;
+	height: calc(100% - $scrollbar-size);
 }
 
 .openCloseBox-horizontalMask {
-	height: 16px;
+	height: $scrollbar-size;
 	width: 100%; 
 }
 
 /* ==== Scrollbar mask*/
 .openCloseBox-horizontalMask, 
 .openCloseBox-verticalMask {
-	background-color: $background-light;
-	transition: opacity 1000ms;
+	background-color: $openCloseBox-background;
+	transition: opacity $scrollbar-opactiy-time;
 }
 
 .openCloseBox-verticalMask__showScrollbar,
@@ -140,19 +138,21 @@
 
 /* =================== Scrollbar =================== */
 .openCloseBox-contentWrapper::-webkit-scrollbar {
-	height: 16px;
-	width: 16px;
-	background: transparent;
+	height: $scrollbar-size;
+	width: $scrollbar-size;
 }
 
-.openCloseBox-contentWrapper::-webkit-scrollbar-corner, 
-.openCloseBox-contentWrapper::-webkit-scrollbar-thumb {
-	background-color: #a7a7a7;
-	transition: background-color 1000ms;
+.openCloseBox-contentWrapper::-webkit-scrollbar-track { 
+	background: $scrollbar-background-color;;
 }
 
-// .openCloseBox-contentWrapper__hideScrollbars::-webkit-scrollbar-corner, 
-// .openCloseBox-contentWrapper__hideScrollbars::-webkit-scrollbar-thumb {
-// 	background-color: transparent; 
-// 	transition: background-color 1000ms;
-// }
+// thumb = moving part
+.openCloseBox-contentWrapper::-webkit-scrollbar-thumb { 
+	background-color: $scrollbar-thumb-color;
+	@include selectable-element();
+}
+
+// corner part
+.openCloseBox-contentWrapper::-webkit-scrollbar-corner {
+	background-color: $scollbar-corner-color;
+}
