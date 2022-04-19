@@ -23,7 +23,7 @@ export default function OpenCloseButton({
 	*/ 
 
 	// ==================================== Constants 
-	const [verticalLineClass, setVerticalLineClass] = useState('');
+	const [verticalLineClass, setVerticalLineClass] = useState<string>('');
 
 	// ==================================== Event Handlers
 	const onMouseDown = () => {
